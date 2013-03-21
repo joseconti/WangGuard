@@ -2686,7 +2686,7 @@ function wangguard_add_admin_menu() {
 		'access_level' => 10,
 		'file' => 'wangguard_conf',
 		'function' => 'wangguard_conf',
-		'position' => 20
+		'position' => 20.4
 	);
 
 	extract( $params, EXTR_SKIP );
@@ -2699,7 +2699,7 @@ function wangguard_add_admin_menu() {
 	if (!empty ( $function ) && !empty ( $hookname ))
 		add_action( $hookname, $function );
 
-	$position = 25;
+	$position = 26;
 	do {
 		$position++;
 	} while ( !empty( $menu[$position] ) );
@@ -2801,6 +2801,7 @@ else
 	add_action( 'network_admin_menu', 'wangguard_add_admin_menu' );
 /********************************************************************/
 /*** ADMIN GROUP MENU ENDS ***/
+
 /********************************************************************/
 
 
