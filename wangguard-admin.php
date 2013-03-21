@@ -560,7 +560,7 @@ function wangguard_register_add_question(){
 		$question = $qrs->Question;
 		$questionID = $qrs->id;
 
-		if ( !function_exists('appthemes_load_template')){
+		if ( ! defined( 'APP_FRAMEWORK_DIR' ) ){
 		$html = '
 			<p>
 				<label>' . $question . '<br />
@@ -580,14 +580,14 @@ function wangguard_register_add_question(){
 			
 	
 			
-			if ('JobRoller' == $AppthemeName['Title']){
+			if ('JobRoller' == $AppthemeName['Title']) {
 			$html = '
 			<p>
 				<label>' . $question . '</label><br />
 				<input type="text" name="wangguardquestansw" id="wangguardquestansw" class="input wpreg-wangguardquestansw text" value="" tabindex="26" />
 				<input type="hidden" name="wangguardquest" value="'.$questionID.'" />
 			</p>
-		';} elseif (('ClassiPress' == $AppthemeName['Title']) | ('Clipper' == $AppthemeName['Title'])) {
+		';} elseif (('ClassiPress' == $AppthemeName['Title']) || ('Clipper' == $AppthemeName['Title'])) {
 			
 			$html = '
 			<p>
@@ -595,15 +595,25 @@ function wangguard_register_add_question(){
 				<input type="text" name="wangguardquestansw" id="wangguardquestansw" class="input wpreg-wangguardquestansw text" value="" tabindex="26" />
 				<input type="hidden" name="wangguardquest" value="'.$questionID.'" />
 			</p>
-		';}  elseif (('Quality Control' == $AppthemeName['Title']) | ('Vantage' == $AppthemeName['Title']) ){
+		
+		';}  elseif (('Vantage' == $AppthemeName['Title']) || ('Quality Control' == $AppthemeName['Title'])) {
 			
 			$html = '
-			<p>
-				<label>' . $question . '<br />
-				<input type="text" name="wangguardquestansw" id="wangguardquestansw" class="input wpreg-wangguardquestansw" value="" tabindex="26" />
-				<input type="hidden" name="wangguardquest" value="'.$questionID.'" />
-			</p>
-			';}
+					<div class="form-field">
+					<label>
+						' . $question . ' <input tabindex="1" type="text" class="text required wpreg-wangguardquestansw" name="wangguardquestansw" id="wangguardquestansw" value="">
+						<input type="hidden" name="wangguardquest" value="'.$questionID.'" />
+					</label>
+				</div>
+		';}  elseif ('Ideas' == $AppthemeName['Title']) {
+			
+			$html = '
+					<p>
+							<label for="login_username">' . $question . '</label>
+							<input tabindex="3" type="text" name="wangguardquestansw" id="wangguardquestansw" value="" class="required">
+							<input type="hidden" name="wangguardquest" value="'.$questionID.'" />
+					</p>
+		';}
 		
 		echo $html;}
 		
