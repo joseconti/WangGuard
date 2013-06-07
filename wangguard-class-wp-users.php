@@ -368,8 +368,8 @@ class WangGuard_Users_Query {
 	function __construct( $query = null ) {
 		if ( !empty( $query ) ) {
 			$this->query_vars = wp_parse_args( $query, array(
-				'orderby' => 'login',
-				'order' => 'ASC',
+				'orderby' => 'user_registered',
+				'order' => 'DESC',
 				'search' => '',
 				'offset' => '', 
 				'number' => '',
