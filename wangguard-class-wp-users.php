@@ -94,12 +94,11 @@ class WangGuard_Users_Table extends WP_List_Table {
 		//Unchecked users
 		$table_name = $wpdb->base_prefix . "wangguarduserstatus";
 		$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID and $table_name.user_status IN ( '', 'not-checked' ))");
-		$uncheked_users = $Count[0];
+		$uncheked_users = $wangguard_g_unchecked_users_count = $Count[0];
 			
 		$class = ($requestType == "uncheked") ? ' class="current"' : '';
 		$total['uncheked'] = "<a href='" . add_query_arg( 'type', "uncheked", $url ) . "'$class>".sprintf( __( 'Unchecked Users <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $uncheked_users ) )."</a>";
 		
-
 		
 		//Legitimate users
 		$table_name = $wpdb->base_prefix . "wangguarduserstatus";
