@@ -61,6 +61,7 @@ Now Free to everyone for a limited time!. Who make more than $200/month, need mo
 [wpvideo RGdn6YSg]
 
 
+
 It is very important to use WangGuard at least for a week, reporting your site's unwanted users as sploggers from the Users panel.
 
 WangGuard will learn at that time to protect your site from sploggers in a much more effective way.
