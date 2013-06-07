@@ -216,11 +216,9 @@ function wangguard_users() {
 					});
 				</script>
 			<?php } ?>
-				
-
 			<?php
 			$wp_list_table->display();
-			?>	
+			?>		
 			
 		</form>
 		<br class="clear" />

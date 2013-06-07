@@ -91,6 +91,14 @@ class WangGuard_Users_Table extends WP_List_Table {
 		$class = empty($requestType) ? ' class="current"' : '';
 		$total['all'] = "<a href='$url'$class>" . sprintf( __( 'All Members <span class="count">(%s)</span>' , $total_users, 'wangguard' ), number_format_i18n( $total_users ) ) . '</a>';
 		
+		//Unchecked users
+		$table_name = $wpdb->base_prefix . "wangguarduserstatus";
+		$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID and $table_name.user_status IN ( '', 'not-checked' ))");
+		$uncheked_users = $Count[0];
+			
+		$class = ($requestType == "uncheked") ? ' class="current"' : '';
+		$total['uncheked'] = "<a href='" . add_query_arg( 'type', "uncheked", $url ) . "'$class>".sprintf( __( 'Unchecked Users <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $uncheked_users ) )."</a>";
+		
 
 		
 		//Legitimate users
@@ -122,6 +130,8 @@ class WangGuard_Users_Table extends WP_List_Table {
 			$class = ($requestType == "spam") ? ' class="current"' : '';
 			$total['spam'] = "<a href='" . add_query_arg( 'type', "spam", $url ) . "'$class>".sprintf( __( 'Spammers <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $spam_users ) )."</a>";
 		}
+		
+		
 		
 		
 		//Sploggers users
@@ -461,6 +471,19 @@ class WangGuard_Users_Query {
 					$this->query_where_u .= " AND ";
 
 				$wgLegitimateSQL = " $tableUserStatus.user_status IN ( 'reported', 'autorep' )";
+
+				$this->query_where_u .= $wgLegitimateSQL;
+				
+				break;
+				
+			case 'uncheked':
+				//Spoggers users filter
+				if (empty($this->query_where_u))
+					$this->query_where_u = " WHERE ";
+				else
+					$this->query_where_u .= " AND ";
+
+				$wgLegitimateSQL = " $tableUserStatus.user_status IN ( '' )";
 
 				$this->query_where_u .= $wgLegitimateSQL;
 				
