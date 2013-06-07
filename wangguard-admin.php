@@ -2004,7 +2004,7 @@ function wangguard_cronjob_runner($cronid) {
 			foreach ($goodUsers as $userid) {
 				$user_check_status = "-";
 				
-				set_time_limit(30);
+				set_time_limit(120);
 				
 				$user_object = new WP_User($userid);
 				

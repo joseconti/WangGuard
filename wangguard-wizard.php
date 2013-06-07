@@ -108,7 +108,7 @@ function wangguard_wizard() {
 								$dummyArr = array();
 								$dummyArr[] = $userid;
 
-								set_time_limit(15);
+								set_time_limit(120);
 								wangguard_report_users($dummyArr , "email" , false);
 
 								$reported++;
@@ -219,7 +219,7 @@ function wangguard_wizard() {
 								$dummyArr[] = $userid;
 								$user_object = new WP_User($userid);
 
-								set_time_limit(15);
+								set_time_limit(120);
 								$user_check_status = wangguard_verify_user($user_object);
 
 								if ($user_check_status == "reported") {
@@ -332,7 +332,7 @@ function wangguard_wizard() {
 
 						foreach ($reportedUsers as $userid) {
 
-							set_time_limit(15);
+							set_time_limit(120);
 							
 							wangguard_delete_user_and_blogs($userid);
 						}
