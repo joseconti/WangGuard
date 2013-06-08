@@ -307,13 +307,14 @@ class WangGuard_Users_Table extends WP_List_Table {
 					$r .= "</td>";
 					break;
 				case 'blogs':
+				add_thickbox();
 					$r .= "<td $attributes>";
 					if (function_exists("get_blogs_of_user")) {
 						$blogs = @get_blogs_of_user( $row_data->ID, true );
 						if (is_array($blogs))
 							foreach ( (array) $blogs as $key => $details ) {
-								$r .= '- <a href="'. $details->siteurl .'" title="'. htmlentities($details->siteurl, 0, 'UTF-8') .'" target="_new">'.$details->blogname.'</a><br/>';
-							}
+								$r .= '- <a href="'. $details->siteurl .'?TB_iframe=true&width=900&height=550" class="thickbox" title="'. htmlentities($details->siteurl, 0, 'UTF-8') .'" target="_new">'.$details->blogname.'</a><br/>';							
+						}
 					}
 					
 					$r .= "</td>";
