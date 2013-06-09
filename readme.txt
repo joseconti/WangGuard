@@ -22,7 +22,7 @@ WangGuard works by incorporating an antivirus philosophy.
 
 WangGuard Always will be free for personal use, this means that whenever you have less than 500 daily registrations or you make less than $200/month, you never have to pay anything for WangGuard.
 
-Over 16.500.000 Splogger/unwanted users blocked in just 2 years!
+Over 16.500.000+ Splogger/unwanted users blocked in just 2 years!
 
 WangGuard already is blocking 99.90% of sploggers and unwanted users.
 
@@ -222,7 +222,7 @@ If you flag manually a user as Splogger, the user will be reported to WangGuard 
 7. **WangGuard server status** - WangGuard server status page.
 8. **WangGuard Domain Block** - WangGuard Domain Block page.
 9. **Advanced user Management** - Advanced User Management
-10. **Visiting wensite from WangGuard Users** - Visiting wensite from WangGuard Users.
+10. **View subsites from WangGuard Users** - View subsites from WangGuard Users.
 11. **Dashboard** - WangGuard Statistics on WordPress Dashboard.
 12. **WangGuard Statistics** - Full WangGuard Statistics.
 13. **Users** - WangGuard Bulk actions and WangGuard status.
