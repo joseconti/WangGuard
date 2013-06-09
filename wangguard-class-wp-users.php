@@ -267,7 +267,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 				add_thickbox();
 					 if ( !is_multisite() ) { $url = esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_users_info' ), 'admin.php' ) ) ); }
 				else { $url = esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_users_info' ), 'admin.php' ) ) );}
-				$final_user_info_url = add_query_arg( 'userID', '1&?TB_iframe=true&width=900&height=550', $url );
+				$final_user_info_url = add_query_arg( 'userID', $row_data->ID .'&?TB_iframe=true&width=900&height=550', $url );
 					$r .= "<td  width='25'><a class='thickbox' title='" . __( 'Info about','wangguard') . "  $row_data->first_name $row_data->last_name' href='" . $final_user_info_url . "'><img class='alignnone size-full wp-image-2055' alt='Info about $row_data->first_name $row_data->last_name' src='" . plugins_url( 'img/info-wgg.png' , __FILE__ ) . "' width='15' height='15' /> " . __('User Info', 'wangguard' ) . "</a>";
 					break;
 				case 'username':
