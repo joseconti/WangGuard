@@ -164,6 +164,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 	function get_columns() {
 		$c = array(
 			'cb'		=> '<input type="checkbox" />',
+			'info'		=> __( 'Info' ),
 			'username'	=> __( 'Username' ),
 			'email'		=> __( 'E-mail' ),
 			'user_registered'=> __( 'Signed up on' , 'wangguard' ),
@@ -261,6 +262,9 @@ class WangGuard_Users_Table extends WP_List_Table {
 				case 'cb':
 					$r .= "<th scope='row' class='check-column'>$checkbox</th>";
 					break;
+				case 'info':
+					$r .= "<td  width='25'><a title='" . __( 'Info about','wangguard') . "  $row_data->first_name $row_data->last_name' href='" . plugins_url( 'img/info-wgg.png' , __FILE__ ) . "'><img class='alignnone size-full wp-image-2055' alt='Info about $row_data->first_name $row_data->last_name' src='http://www.bp-es.com/wp-content/uploads/2013/06/info-wgg.png' width='15' height='15' /> " . __('User Info', 'wangguard' ) . "</a>";
+					break;
 				case 'username':
 					$r .= "<td $attributes>$avatar $report <span style='font-size:11px'>{$role}" . ($actions ? $this->row_actions( $actions ) : "") . "</span></td>";
 					break;
@@ -313,7 +317,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 						$blogs = @get_blogs_of_user( $row_data->ID, true );
 						if (is_array($blogs))
 							foreach ( (array) $blogs as $key => $details ) {
-								$r .= '- <a href="'. $details->siteurl .'?TB_iframe=true&width=900&height=550" class="thickbox" title="'. htmlentities($details->siteurl, 0, 'UTF-8') .'" target="_new">'.$details->blogname.'</a><br/>';							
+								$r .= '- <a href="'. $details->siteurl .'?TB_iframe=true&width=900&height=550" class="thickbox" title="'. htmlentities($details->siteurl, 0, 'UTF-8') .'">'.$details->blogname.'</a><br/>';							
 						}
 					}
 					
@@ -329,20 +333,6 @@ class WangGuard_Users_Table extends WP_List_Table {
 		return $r;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class WangGuard_Users_Query {
 
@@ -483,7 +473,7 @@ class WangGuard_Users_Query {
 				else
 					$this->query_where_u .= " AND ";
 
-				$wgLegitimateSQL = " $tableUserStatus.user_status IN ( '' )";
+				$wgLegitimateSQL = " $tableUserStatus.user_status IN ( '', 'not-checked' )";
 
 				$this->query_where_u .= $wgLegitimateSQL;
 				
