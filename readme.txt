@@ -1,10 +1,10 @@
-=== WangGuard ===
+﻿=== WangGuard ===
 Contributors: j.conti,maxidirienzo,InTouchSystem
 Author URI: http://wangguard.com
 Tags: wangguard, wgg, sploggers, splog, anti-splog, user spam, anti spam users, anti-spam, spam blog, spam blogs, wordpress, buddypress, wpmu, wordpress mu, wordpress multisite, standard WordPress, registration, security, security questions, plugin, sign up, signup, spam, wp-login.php, wp-signup.php, wp-register.php, register, registration, protect, protect registration, block agents, block ip, blog secure, bots, secure blog, secure wordpress, secure wp, website security, wp secure, wp security, block users, block user, block, block emails, block e-mails, block domains, block bots, block bot, bp, captcha, no captcha, recaptcha, unwanted users, block unwanted users, block splog, black hat, blackhat, bbpress, clean, clean database, clean splog, clean users, untrusted, untrusted users, ip, ip information, user admin, user management, advanced user management, ip info, appthemes, user registration spam, users registration spam, user registration spam prevention, users registration spam prevention
 Requires at least: 2.8
 Tested up to: 3.5
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 License: GPLv2
 
 The most advanced protection against sploggers and spam users registration, is fully WordPress,WordPress MU ,BuddyPress and bbPress 2.0 compatible
@@ -22,17 +22,17 @@ WangGuard works by incorporating an antivirus philosophy.
 
 WangGuard Always will be free for personal use, this means that whenever you have less than 500 daily registrations or you make less than $200/month, you never have to pay anything for WangGuard.
 
-Over 3,400,000 Splogger/unwanted users blocked in just 1 year and half!
+Over 16.500.000 Splogger/unwanted users blocked in just 2 years!
 
 WangGuard already is blocking 99.90% of sploggers and unwanted users.
 
 [What are users and Sploggers saying?](http://wordpress.org/extend/plugins/wangguard/other_notes/)
 
-[Did you find a bug?](http://bugs.wangguard.org)
+[Did you find a bug?](https://github.com/joseconti/WangGuard/issues)
 
-[Do you want to translate WangGuard?](http://translate.wangguard.org)
+[Do you want to translate WangGuard?](https://github.com/joseconti/WangGuard)
 
-[Have you an Idea for WangGuard?](http://feedback.wangguard.org)
+[Have you an Idea for WangGuard?](https://github.com/joseconti/WangGuard/issues)
 
 
 = Advice =
@@ -133,6 +133,7 @@ No need to put any kind of filter in the user registration page (eg captcha). Th
 
 = WordPress Multisite (WP3.x) Features =
 
+ * New! Open Sun Sites from WangGuard Admin. You do not need more to visit the sub sites outsite Wordress Admin.
  * gmail.com and googlemail.com duplicated account verifications (activate on WangGuard Configuration)
  * Optional DNS verification of the email domain (right side of the @ in an email address) (activate on WangGuard Configuration)
  * Full Statistics
@@ -168,7 +169,7 @@ No need to put any kind of filter in the user registration page (eg captcha). Th
 = Requirements/Restrictions =
 
 
- * Works with Wordpress 2.8+, WPMU 2.8+, BuddyPress 1.0.3+, bbPress 2.0+ (Wordpress 3.3+ is highly recommended)
+ * Works with Wordpress 2.8+, WPMU 2.8+, BuddyPress 1.0.3+, bbPress 2.0+ (Wordpress 3.5+ is highly recommended)
  * PHP 4.3 or above. (PHP 5+ is highly recommended)
   
  
@@ -221,15 +222,16 @@ If you flag manually a user as Splogger, the user will be reported to WangGuard 
 7. **WangGuard server status** - WangGuard server status page.
 8. **WangGuard Domain Block** - WangGuard Domain Block page.
 9. **Advanced user Management** - Advanced User Management
-10. **Dashboard** - WangGuard Statistics on WordPress Dashboard.
-11. **WangGuard Statistics** - Full WangGuard Statistics.
-12. **Users** - WangGuard Bulk actions and WangGuard status.
-13. **Report user** - WangGuard report user button on BuddyPress activities
-14. **Report blog and author** - WangGuard Report blog and author link on the Admin bar (also featured on the BuddyPress bar)
-15. **Moderation Queue** - WangGuard Moderation Queue
-16. **Wizard** - WangGuard Wizard
-17. **Report user on profile** - WangGuard Report user button on BuddyPress user profile
-18. **Admin bar** - WangGuard admin bar group
+10. **Visiting wensite from WangGuard Users** - Visiting wensite from WangGuard Users.
+11. **Dashboard** - WangGuard Statistics on WordPress Dashboard.
+12. **WangGuard Statistics** - Full WangGuard Statistics.
+13. **Users** - WangGuard Bulk actions and WangGuard status.
+14. **Report user** - WangGuard report user button on BuddyPress activities
+15. **Report blog and author** - WangGuard Report blog and author link on the Admin bar (also featured on the BuddyPress bar)
+16. **Moderation Queue** - WangGuard Moderation Queue
+17. **Wizard** - WangGuard Wizard
+18. **Report user on profile** - WangGuard Report user button on BuddyPress user profile
+19. **Admin bar** - WangGuard admin bar group
 
 == Frequently Asked Questions ==
 
@@ -267,18 +269,13 @@ Yes. The following translations are included in the download zip file:
 
 Of course! It will be very gratefully received.
 
-* Register on [WangGuard Blog](http://wangguard.org/wp-signup.php)
-* Login on [Tranlate WangGuard](http://translate.wangguard.org/login)
-* Browse to [your language](http://translate.wangguard.org/projects/wordpress-plugin)
-* Start to translate WangGuard to your language
+* Register on [Github](http://github.com)
+* [Fork WangGuard](https://github.com/joseconti/WangGuard)
+* Pull your translation
 
 Please read [Translating WordPress](http://codex.wordpress.org/Translating_WordPress "Translating WordPress") first for background information on translating.
 * There are some strings with a space or HTML tags, please make sure to respect them.
 
-
-= My language isn't on Translate WangGuard =
-
-If you need another localization, please feel free to [contact us](http://www.wangguard.com/contact)
 
 
 = Is WangGuard a free service? =
@@ -287,6 +284,12 @@ It is free for personal use. If you earn more than $200/month with your site or 
 
 
 == Changelog ==
+
+= 1.5.5 - 11 Jun 2013 =
+
+- Added ability to open/visit subsites in WangGuard Users Screen (Only WordPress Multisite with or without BP).
+- Added Unckeched users sreen in WangGuard Users.
+- Increased Timeouts in WangGuard Wizard. Some servers had a problem with Timeouts.
 
 = 1.5.4 - 21 Mar 2013 =
 
