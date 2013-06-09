@@ -3,7 +3,7 @@
 Plugin Name: WangGuard
 Plugin URI: http://www.wangguard.com
 Description: <strong>Stop Sploggers</strong>. It is very important to use <a href="http://www.wangguard.com" target="_new">WangGuard</a> at least for a week, reporting your site's unwanted users as sploggers from the Users panel. WangGuard will learn at that time to protect your site from sploggers in a much more effective way. WangGuard protects each web site in a personalized way using information provided by Administrators who report sploggers world-wide, that's why it's very important that you report your sploggers to WangGuard. The longer you use WangGuard, the more effective it will become.
-Version: 1.5.6
+Version: 1.5.6 Alpha
 Author: WangGuard
 Author URI: http://www.wangguard.com
 License: GPL2
@@ -78,6 +78,7 @@ include_once 'wangguard-wizard.php';
 include_once 'wangguard-cronjobs.php';
 include_once 'wangguard-stats.php';
 include_once 'wangguard-users.php';
+include_once 'wangguard-user-info.php';
 /********************************************************************/
 /*** CONFIG ENDS ***/
 /********************************************************************/
@@ -2688,7 +2689,7 @@ function wangguard_add_admin_menu() {
 	if ( !is_super_admin() )
 		return false;
 
-	global $menu, $admin_page_hooks, $_registered_pages , $wpdb , $wangguard_api_key;
+	global $menu, $admin_page_hooks, $_registered_pages , $wpdb , $wangguard_api_key, $users_Info;
 
 	$params = array(
 		'page_title' => __( 'WangGuard', 'wangguard' ),
@@ -2761,6 +2762,10 @@ function wangguard_add_admin_menu() {
 	
 	$statsPage = add_submenu_page( 'wangguard_conf', __( 'Stats', 'wangguard'), __( 'Stats', 'wangguard' ), 'manage_options', 'wangguard_stats', 'wangguard_stats' );
     add_action("admin_print_scripts-$statsPage", 'wangguard_add_StatsJS');
+    
+    $users_Info = add_submenu_page( 'wangguard_conf', __( '', 'wangguard'), __( '', 'wangguard' ), 'manage_options', 'wangguard_users_info', 'wangguard_users_info' );
+    add_action("admin_print_scripts-$users_Info", 'wangguard_add_jQueryJS');
+    
 }
 function wangguard_add_StatsJS() {
 	wangguard_add_jQueryJS();
@@ -2910,5 +2915,19 @@ else
 /********************************************************************/
 /*** DASHBOARD ENDS ***/
 /********************************************************************/
+
+
+function css_for_userinfo($hook) {
+	
+	global $users_Info;
+	
+	if( $hook != $users_Info ) 
+		return;
+  
+    wp_register_style( 'custom_wp_admin_css_for_wangguard_users_info', plugins_url('/wangguardcssforusersinfo.css', __FILE__) ) ;
+    wp_enqueue_style( 'custom_wp_admin_css_for_wangguard_users_info' );
+}
+add_action( 'admin_enqueue_scripts', 'css_for_userinfo' );
+
 
 ?>
