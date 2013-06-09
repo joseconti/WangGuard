@@ -216,12 +216,13 @@ class WangGuard_Users_Table extends WP_List_Table {
 		
 		$actions = false;
 		if (defined('BP_VERSION')) {
+			add_thickbox();
 			$user_editobj_link = esc_url( add_query_arg( 'wp_http_referer', urlencode( stripslashes( $_SERVER['REQUEST_URI'] ) ), "user-edit.php?user_id=" . $row_data->ID ) );
 			$editobj_link = esc_url(  bp_core_get_user_domain($row_data->ID));
 			
 			// Set up the hover actions for this user
 			$actions['edituser'] = "<a href='{$user_editobj_link}' target='_blank'>" . __( 'Edit user', 'wangguard' ) . "</a>";
-			$actions['bpprofile'] = "<a href='{$editobj_link}' target='_blank'>" . __( 'BP Profile', 'wangguard' ) . "</a>";
+			$actions['bpprofile'] = "<a href='{$editobj_link}?TB_iframe=true&width=900&height=550' class='thickbox'>" . __( 'BP Profile', 'wangguard' ) . "</a>";
 			$report = "<strong><a target=\"_blank\" href=\"$editobj_link\">{$row_data->user_login}</a></strong><br />";
 		}
 		else {
