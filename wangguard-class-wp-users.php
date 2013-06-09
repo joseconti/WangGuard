@@ -164,7 +164,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 	function get_columns() {
 		$c = array(
 			'cb'		=> '<input type="checkbox" />',
-			// This will be the next ;-) 'info'		=> __( 'Info' ),
+			'info'		=> __( 'Info' ),
 			'username'	=> __( 'Username' ),
 			'email'		=> __( 'E-mail' ),
 			'user_registered'=> __( 'Signed up on' , 'wangguard' ),
@@ -262,9 +262,9 @@ class WangGuard_Users_Table extends WP_List_Table {
 				case 'cb':
 					$r .= "<th scope='row' class='check-column'>$checkbox</th>";
 					break;
-			// This will be the next ;-) 	case 'info':
-			// This will be the next ;-) 		$r .= "<td  width='25'><a title='" . __( 'Info about','wangguard') . "  $row_data->first_name $row_data->last_name' href='" . plugins_url( 'img/info-wgg.png' , __FILE__ ) . "'><img class='alignnone size-full wp-image-2055' alt='Info about $row_data->first_name $row_data->last_name' src='http://XXXXXXXXXXXXXXXXXX' width='15' height='15' /> " . __('User Info', 'wangguard' ) . "</a>";
-			// This will be the next ;-) 		break;
+				case 'info':
+					$r .= "<td  width='25'><a title='" . __( 'Info about','wangguard') . "  $row_data->first_name $row_data->last_name' href='" . plugins_url( 'img/info-wgg.png' , __FILE__ ) . "'><img class='alignnone size-full wp-image-2055' alt='Info about $row_data->first_name $row_data->last_name' src='http://www.bp-es.com/wp-content/uploads/2013/06/info-wgg.png' width='15' height='15' /> " . __('User Info', 'wangguard' ) . "</a>";
+					break;
 				case 'username':
 					$r .= "<td $attributes>$avatar $report <span style='font-size:11px'>{$role}" . ($actions ? $this->row_actions( $actions ) : "") . "</span></td>";
 					break;

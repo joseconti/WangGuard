@@ -1068,7 +1068,7 @@ add_filter("manage_wangguard_page_wangguard_queue-network_columns", "wangguard_p
 function wangguard_page_wangguard_users_headers($v) {
 	$cols = array(
 			'cb'			=> '<input type="checkbox" />',
-			// This will be the next ;-)'info'			=> __( 'Info' ),
+			'info'			=> __( 'Info' ),
 			'username'		=> __( 'Username' ),
 			'name'			=> __( 'Name' ),
 			'email'			=> __( 'E-mail' ),
