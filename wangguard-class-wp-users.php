@@ -467,7 +467,7 @@ class WangGuard_Users_Query {
 				break;
 				
 			case 'uncheked':
-				//Spoggers users filter
+				//Unchecked users filter
 				if (empty($this->query_where_u))
 					$this->query_where_u = " WHERE ";
 				else
