@@ -2770,16 +2770,16 @@ function wangguard_add_admin_menu() {
 function wangguard_add_StatsJS() {
 	wangguard_add_jQueryJS();
 	wp_enqueue_script("jquery-ui-core");
-	wp_enqueue_script("raphael" , "/" . PLUGINDIR . '/wangguard/js/raphael-min.js' , array('jquery-ui-widget'));
-	wp_enqueue_script("globalize" , "/" . PLUGINDIR . '/wangguard/js/globalize.min.js' , array('jquery-ui-widget' , 'raphael'));
-	wp_enqueue_script("wijmo-wijraphael" , "/" . PLUGINDIR . '/wangguard/js/jquery.wijmo.raphael.min.js' , array('raphael' , 'jquery' , 'jquery-ui-core'));
-	wp_enqueue_script("wijmo-wijchartcore" , "/" . PLUGINDIR . '/wangguard/js/jquery.wijmo.wijchartcore.min.js' , array('raphael' , 'wijmo-wijraphael'));
-	wp_enqueue_script("wijmo.wijbarchart" , "/" . PLUGINDIR . '/wangguard/js/jquery.wijmo.wijbarchart.min.js' , array('wijmo-wijchartcore'));
-	wp_enqueue_script("wangguard-admin" , "/" . PLUGINDIR . '/wangguard/js/wangguard-admin.js');
+	wp_enqueue_script("raphael" , "/" . PLUGINDIR . '/wangguard/js/raphael-min.js' , array('jquery-ui-widget'),'1.5.6');
+	wp_enqueue_script("globalize" , "/" . PLUGINDIR . '/wangguard/js/globalize.min.js' , array('jquery-ui-widget' , 'raphael'),'1.5.6');
+	wp_enqueue_script("wijmo-wijraphael" , "/" . PLUGINDIR . '/wangguard/js/jquery.wijmo.raphael.min.js' , array('raphael' , 'jquery' , 'jquery-ui-core'),'1.5.6');
+	wp_enqueue_script("wijmo-wijchartcore" , "/" . PLUGINDIR . '/wangguard/js/jquery.wijmo.wijchartcore.min.js' , array('raphael' , 'wijmo-wijraphael'),'1.5.6');
+	wp_enqueue_script("wijmo.wijbarchart" , "/" . PLUGINDIR . '/wangguard/js/jquery.wijmo.wijbarchart.min.js' , array('wijmo-wijchartcore'),'1.5.6');
+	wp_enqueue_script("wangguard-admin" , "/" . PLUGINDIR . '/wangguard/js/wangguard-admin.js','1.5.6');
 }
 function wangguard_add_UsersJS() {
 	wangguard_add_jQueryJS();
-	wp_enqueue_script("wangguard-admin" , "/" . PLUGINDIR . '/wangguard/js/wangguard-admin.js');
+	wp_enqueue_script("wangguard-admin" , "/" . PLUGINDIR . '/wangguard/js/wangguard-admin.js','1.5.6');
 }
 function wangguard_add_jQueryJS() {
 	wp_enqueue_script("jquery");
@@ -2835,12 +2835,12 @@ function wangguard_dashboard_stats() {
 	
 	wp_enqueue_script("jquery");
 	wp_enqueue_script("jquery-ui-widget");
-	wp_enqueue_script("raphael" , "/" . PLUGINDIR . '/wangguard/js/raphael-min.js' , array('jquery-ui-widget'));
-	wp_enqueue_script("globalize" , "/" . PLUGINDIR . '/wangguard/js/globalize.min.js' , array('jquery-ui-widget' , 'raphael'));
-	wp_enqueue_script("wijmo-wijraphael" , "/" . PLUGINDIR . '/wangguard/js/jquery.wijmo.raphael.min.js' , array('raphael' , 'jquery'));
-	wp_enqueue_script("wijmo-wijchartcore" , "/" . PLUGINDIR . '/wangguard/js/jquery.wijmo.wijchartcore.min.js' , array('raphael' , 'wijmo-wijraphael'));
-	wp_enqueue_script("wijmo.wijbarchart" , "/" . PLUGINDIR . '/wangguard/js/jquery.wijmo.wijbarchart.min.js' , array('wijmo-wijchartcore'));
-	wp_enqueue_script("wangguard-admin" , "/" . PLUGINDIR . '/wangguard/js/wangguard-admin.js');
+	wp_enqueue_script("raphael" , "/" . PLUGINDIR . '/wangguard/js/raphael-min.js' , array('jquery-ui-widget'),'1.5.6' );
+	wp_enqueue_script("globalize" , "/" . PLUGINDIR . '/wangguard/js/globalize.min.js' , array('jquery-ui-widget' , 'raphael'),'1.5.6' );
+	wp_enqueue_script("wijmo-wijraphael" , "/" . PLUGINDIR . '/wangguard/js/jquery.wijmo.raphael.min.js?' , array('raphael' , 'jquery'),'1.5.6' );
+	wp_enqueue_script("wijmo-wijchartcore" , "/" . PLUGINDIR . '/wangguard/js/jquery.wijmo.wijchartcore.min.js' , array('raphael' , 'wijmo-wijraphael'),'1.5.6' );
+	wp_enqueue_script("wijmo.wijbarchart" , "/" . PLUGINDIR . '/wangguard/js/jquery.wijmo.wijbarchart.min.js' , array('wijmo-wijchartcore'),'1.5.6' );
+	wp_enqueue_script("wangguard-admin" , "/" . PLUGINDIR . '/wangguard/js/wangguard-admin.js','1.5.6' );
 	
 	wp_add_dashboard_widget("wangguard_dashboard_stats", __( 'WangGuard Stats' , 'wangguard' ) . " - " . __( 'Last 7 days' , 'wangguard' ) , "wangguard_dashboard_stats_render");
 	
