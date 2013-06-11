@@ -2924,7 +2924,7 @@ function css_for_userinfo($hook) {
 	if( $hook != $users_Info ) 
 		return;
   
-    wp_register_style( 'custom_wp_admin_css_for_wangguard_users_info', plugins_url('/wangguardcssforusersinfo.css', __FILE__) ) ;
+    wp_register_style( 'custom_wp_admin_css_for_wangguard_users_info', plugins_url('/css/wangguardcssforusersinfo.css?ver=1.5.6', __FILE__) ) ;
     wp_enqueue_style( 'custom_wp_admin_css_for_wangguard_users_info' );
 }
 add_action( 'admin_enqueue_scripts', 'css_for_userinfo' );

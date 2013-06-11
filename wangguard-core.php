@@ -43,7 +43,7 @@ register_activation_hook( 'wangguard/wangguard-admin.php', 'wangguard_activate' 
 function wangguard_admin_init() {
 	global $wangguard_db_version , $wpdb;
 	
-	wp_enqueue_style( 'wangguardCSS', "/" . PLUGINDIR . '/wangguard/wangguard.css' );
+	wp_enqueue_style( 'wangguardCSS', "/" . PLUGINDIR . '/wangguard/css/wangguard.css?ver=1.5.6' );
 
 	$table_name = $wpdb->base_prefix . "wangguardoptions";
 	$optionsTableCreated = ($wpdb->get_var("show tables like '$table_name'") == $table_name);
@@ -969,7 +969,7 @@ function wangguard_plugin_update_message() {
 			$path = site_url() . '/' . $path;
 			
 			echo '<div style="margin-top:5px">';
-			echo '<span style="color: #a00000; font-weight:bold;"><img src="'.$path.'/newver.jpg" style="vertical-align:middle;margin-right:3px"/> '.__('These are the improvements of the new version', 'wangguard').':</span>';
+			echo '<span style="color: #a00000; font-weight:bold;"><img src="'.$path.'/img/newver.jpg" style="vertical-align:middle;margin-right:3px"/> '.__('These are the improvements of the new version', 'wangguard').':</span>';
 			$ul = false;
 
 			foreach ($changelog as $index => $line) {
