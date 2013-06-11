@@ -158,7 +158,9 @@ class WangGuard_Queue_Table extends WP_List_Table {
 	function single_row( $row_data, $style = '') {
 		global $wpdb;
 
-	
+		if (!isset($_REQUEST['order'])) {$_REQUEST['order'] = 'desc';}
+		if (!isset($_REQUEST['orderby'])) {$_REQUEST['orderby'] = 'wgreported_on';}
+
 		$url = admin_url('admin.php?page=wangguard_queue&order='.$_REQUEST['order'].'&orderby='.$_REQUEST['orderby']);
 
 		$row_data->reported_by->filter = 'display';
@@ -180,8 +182,9 @@ class WangGuard_Queue_Table extends WP_List_Table {
 				$editobj_link = esc_url(  bp_core_get_user_domain($row_data->ID));
 
 				// Set up the hover actions for this user
+				add_thickbox();
 				$actions['edituser'] = "<a href='{$user_editobj_link}' target='_blank'>" . __( 'Edit user', 'wangguard' ) . "</a>";
-				$actions['bpprofile'] = "<a href='{$editobj_link}' target='_blank'>" . __( 'BP Profile', 'wangguard' ) . "</a>";
+				$actions['bpprofile'] = "<a href='{$editobj_link}?TB_iframe=true&width=900&height=550' class='thickbox'>" . __( 'BP Profile', 'wangguard' ) . "</a>";
 				$report = "<strong><a target=\"_blank\" href=\"$editobj_link\">{$row_data->user_login}</a></strong><br />";
 			}
 			else {
