@@ -219,9 +219,188 @@ function wangguard_users() {
 			<?php
 			$wp_list_table->display();
 			?>		
-			
 		</form>
 		<br class="clear" />
+
+		<script type="text/javascript">
+
+		jQuery( document ).ready(function() {
+			function wangguard_recheck(userid) {
+				data = {
+					action	: 'wangguard_ajax_recheck',
+					userid	: userid
+				};
+
+				jQuery.post(ajaxurl, data, function(response) {
+					if (response=='0') {
+						alert('<?php echo addslashes(__('The selected user could not be found.', 'wangguard'))?>');
+					}
+					else if (response=='-1') {
+						wangguardBulkOpError = true;
+						alert('<?php echo addslashes(__('Your WangGuard API KEY is invalid.', 'wangguard'))?>');
+					}
+					else if (response=='-2') {
+						wangguardBulkOpError = true;
+						alert('<?php echo addslashes(__('There was a problem connecting to the WangGuard server. Please check your server configuration.', 'wangguard'))?>');
+					}
+					else {
+						jQuery('td span.wangguardstatus-'+userid).fadeOut(500, function() {
+							jQuery(this).html(response);
+							jQuery(this).fadeIn(500);
+						})
+					}
+				});
+			} //End wangguard_recheck
+
+			function wangguard_report(userid , frombulk) {
+					var confirmed = true;
+					<?php if (wangguard_get_option ("wangguard-expertmode")!='1') {?>
+						if (!frombulk) {
+						<?php if (wangguard_get_option ("wangguard-delete-users-on-report")=='1') {?>
+							confirmed = confirm('<?php echo addslashes(__('Do you confirm to flag this user as Splogger? This operation is IRREVERSIBLE and will DELETE the user.', 'wangguard'))?>');
+						<?php }
+						else {?>
+							confirmed = confirm('<?php echo addslashes(__('Do you confirm to flag this user as Splogger?', 'wangguard'))?>');
+						<?php }?>
+						}
+					<?php }?>
+
+					if (confirmed) {
+						data = {
+							action	: 'wangguard_ajax_handler',
+							scope	: 'email',
+							userid	: userid
+						};
+						jQuery.post(ajaxurl, data, function(response) {
+							if (response=='0') {
+								alert('<?php echo addslashes(__('The selected user could not be found.', 'wangguard'))?>');
+							}
+							else if (response=='-1') {
+								wangguardBulkOpError = true;
+								alert('<?php echo addslashes(__('Your WangGuard API KEY is invalid.', 'wangguard'))?>');
+							}
+							else if (response=='-2') {
+								wangguardBulkOpError = true;
+								alert('<?php echo addslashes(__('There was a problem connecting to the WangGuard server. Please check your server configuration.', 'wangguard'))?>');
+							}
+							else {
+								<?php if ($wuangguard_parent == 'edit.php') {?>
+								document.location = document.location;
+								<?php }
+								else {?>
+									<?php if (wangguard_get_option ("wangguard-delete-users-on-report")=='1') {?>
+										jQuery('td span.wangguardstatus-'+response).parent().parent().fadeOut();
+									<?php }
+									else {?>
+										jQuery('td span.wangguardstatus-'+response).removeClass('wangguard-status-checked');
+										jQuery('td span.wangguardstatus-'+response).addClass('wangguard-status-splogguer');
+										jQuery('td span.wangguardstatus-'+response).html('<?php echo __('Reported as Splogger' , 'wangguard')?>');
+										jQuery('a.wangguard-splogger[rel=\''+response+'\']').hide();
+										jQuery('a.wangguard-rollback[rel=\''+response+'\']').show();
+									<?php }?>
+								<?php }?>
+							}
+						});
+					}
+				} //End wangguard_report
+			
+			var wangguard_bulk = '';
+			wangguard_bulk += '<input style="margin-right:15px" type="button" class="button-secondary action wangguardbulkcheckbutton" name="wangguardbulkcheckbutton" value="<?php echo addslashes(__('Bulk check Sploggers' , 'wangguard')) ?>">';
+			wangguard_bulk += '<input type="button" class="button-secondary action wangguardbulkreportbutton" name="wangguardbulkreportbutton" value="<?php echo addslashes(__('Bulk report Sploggers' , 'wangguard')) ?>">';
+			jQuery("div.tablenav div.alignleft:first").append(wangguard_bulk);
+			jQuery("div.tablenav div.alignleft:last").append(wangguard_bulk);
+
+
+
+			if (wangguard_isjQuery17() == true) {
+				jQuery(document).on("click", "input.wangguardbulkcheckbutton", function(){
+					wangguardbulkcheck_handler();
+				});  
+			}
+			else {
+				jQuery('input.wangguardbulkcheckbutton').live('click' , function () {
+					wangguardbulkcheck_handler();
+				});
+			}
+
+
+			function wangguardbulkcheck_handler() {
+				var userscheck;
+				userscheck = jQuery('input[name="users[]"]:checked');
+
+				//Checkboxes name varies thru WP screens (users.php / ms-users.php / wpmu-users.php) and versions
+				if (userscheck.length == 0)
+					userscheck = jQuery('input[name="allusers[]"]:checked');
+
+				//Checkboxes name varies thru WP screens (users.php / ms-users.php / wpmu-users.php) and versions
+				if (userscheck.length == 0)
+					userscheck = jQuery('th.check-column input[type="checkbox"]:checked');
+
+				wangguardBulkOpError = false;
+
+				userscheck.each(function() {
+
+						if (wangguardBulkOpError) {
+							return;
+						}
+
+						wangguard_recheck(jQuery(this).val());
+				});
+
+			}; // End wangguardbulkcheck_handler
+
+
+			if (wangguard_isjQuery17() == true) {
+				jQuery(document).on("click", "input.wangguardbulkreportbutton", function(){
+					wangguardbulkreportbutton_handler();
+				});  
+			}
+			else {
+				jQuery('input.wangguardbulkreportbutton').live('click' , function () {
+					wangguardbulkreportbutton_handler();
+				});
+			}
+
+
+			function wangguardbulkreportbutton_handler() {
+				<?php if (wangguard_get_option ("wangguard-delete-users-on-report")=='1') {?>
+					if (!confirm('<?php _e('Do you confirm to flag the selected users as Sploggers? This operation is IRREVERSIBLE and will DELETE the users.' , 'wangguard')?>'))
+						return;
+				<?php }
+				else {?>
+					if (!confirm('<?php _e('Do you confirm to flag the selected users as Sploggers?' , 'wangguard')?>'))
+						return;
+				<?php }?>
+
+				var userscheck;
+				userscheck = jQuery('input[name="users[]"]:checked');
+
+				//Checkboxes name varies thru WP screens (users.php / ms-users.php / wpmu-users.php) and versions
+				if (userscheck.length == 0)
+					userscheck = jQuery('input[name="allusers[]"]:checked');
+
+				//Checkboxes name varies thru WP screens (users.php / ms-users.php / wpmu-users.php) and versions
+				if (userscheck.length == 0)
+					userscheck = jQuery('th.check-column input[type="checkbox"]:checked');
+
+
+				wangguardBulkOpError = false;
+
+				userscheck.each(function() {
+
+						if (wangguardBulkOpError) {
+							return;
+						}
+
+						wangguard_report(jQuery(this).val() , true);
+				});
+
+				//document.location = document.location;
+			}; // End wangguardbulkreportbutton_handler
+
+		}); //End Document Ready check
+		</script>
+
 	</div>
 	<?php
 }

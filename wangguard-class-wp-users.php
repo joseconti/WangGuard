@@ -115,6 +115,19 @@ class WangGuard_Users_Table extends WP_List_Table {
 		
 		$class = ($requestType == "l") ? ' class="current"' : '';
 		$total['legitimate'] = "<a href='" . add_query_arg( 'type', "l", $url ) . "'$class>".sprintf( __( 'Verified Members <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $legitimate_users ) )."</a>";
+
+		//Unverified users, BP only
+		//New, un-activated BP accounts have a user_status of 2. Also, some membership approval use other, non-zero values to signify that the member hasn't been approved yet.
+		if (defined( 'BP_VERSION' )) {
+			$table_name = $wpdb->base_prefix . "wangguarduserstatus";
+	
+			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 0");
+		
+			$unverified_users = $Count[0];
+		
+			$class = ($requestType == "unv") ? ' class="current"' : '';
+			$total['unverified'] = "<a href='" . add_query_arg( 'type', "unv", $url ) . "'$class>".sprintf( __( 'Pending Members <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $unverified_users ) )."</a>";
+		}
 		
 
 		
@@ -430,6 +443,21 @@ class WangGuard_Users_Query {
 					$wgLegitimateSQL = " $wpdb->users.user_status <> 1 AND " . $wgLegitimateSQL;
 				else 
 					$wgLegitimateSQL = " $wpdb->users.user_status <> 1 AND " . $wgLegitimateSQL;
+
+				$this->query_where_u .= $wgLegitimateSQL;
+				
+				break;
+
+			case 'unv':
+				//Unverified users filter
+				if (empty($this->query_where_u))
+					$this->query_where_u = " WHERE ";
+				else
+					$this->query_where_u .= " AND ";
+
+				//Users that haven't been approved
+				$wgLegitimateSQL = " $wpdb->users.user_status <> 0" ;
+
 
 				$this->query_where_u .= $wgLegitimateSQL;
 				
