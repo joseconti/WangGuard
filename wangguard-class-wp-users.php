@@ -116,9 +116,9 @@ class WangGuard_Users_Table extends WP_List_Table {
 		$class = ($requestType == "l") ? ' class="current"' : '';
 		$total['legitimate'] = "<a href='" . add_query_arg( 'type', "l", $url ) . "'$class>".sprintf( __( 'Verified Members <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $legitimate_users ) )."</a>";
 
-		//Unverified users, BP only
+		//Unverified users, BuddyPress on non-network WordPress installations only
 		//New, un-activated BP accounts have a user_status of 2. Also, some membership approval use other, non-zero values to signify that the member hasn't been approved yet.
-		if (defined( 'BP_VERSION' )) {
+		if ( !wangguard_is_multisite() && defined( 'BP_VERSION' ) ) {
 			$table_name = $wpdb->base_prefix . "wangguarduserstatus";
 	
 			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 0");
