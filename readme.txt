@@ -285,7 +285,7 @@ It is free for personal use. If you earn more than $200/month with your site or 
 
 == Changelog ==
 
-= 1.5.7 - 3 Jul 2013 =
+= 1.5.7 - 9 Jul 2013 =
 
 - Minor tweaks to registration Form
 - 
