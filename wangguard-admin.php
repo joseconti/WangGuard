@@ -605,6 +605,43 @@ function wangguard_register_add_question(){
  * @param type $user_email
  * @param type $errors
  */
+
+if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+    
+	function wangguard_signup_validate($user_name , $email,$errors){
+	if (!wangguard_validate_hfields($_POST['email'])) {
+		$errors->add('user_login',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is a mistake?</a>.', 'wangguard'));
+		return;
+	}
+	
+	$answerOK = wangguard_question_repliedOK();
+
+	//If at least a question exists on the questions table, then check the provided answer
+	if (!$answerOK)
+		$errors->add('wangguard_error',__('<strong>ERROR</strong>: The answer to the security question is invalid.', 'wangguard'));
+	else {
+
+		//check domain against the list of selected blocked domains
+		$blocked = wangguard_is_domain_blocked($_REQUEST['email']);
+		if ($blocked) {
+			$errors->add('wangguard_error',__('<strong>ERROR</strong>: Domain not allowed.', 'wangguard'));
+		}
+		else {
+			$reported = wangguard_is_email_reported_as_sp($_REQUEST['email'] , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() , true);
+
+			if ($reported)
+				$errors->add('wangguard_error',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is a mistake?</a>.', 'wangguard'));
+			else if (wangguard_email_aliases_exists($_REQUEST['user_email']))
+				$errors->add('wangguard_error',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard'));
+			else if (!wangguard_mx_record_is_ok($_REQUEST['user_email']))
+				$errors->add('wangguard_error',   __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
+		}
+	}
+}
+	
+	
+} else {
+
 function wangguard_signup_validate($user_name , $user_email,$errors){
 	if (!wangguard_validate_hfields($_POST['user_email'])) {
 		$errors->add('user_login',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is a mistake?</a>.', 'wangguard'));
@@ -634,6 +671,7 @@ function wangguard_signup_validate($user_name , $user_email,$errors){
 				$errors->add('wangguard_error',   __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
 		}
 	}
+}
 }
 //*********** WP REGULAR ***********
 
