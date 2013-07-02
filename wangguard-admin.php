@@ -262,7 +262,7 @@ function wangguard_add_hfield_1() {
 	$nonceAct = $wangguard_NonceHName;
 	$nonceValue = wp_create_nonce( $nonceAct );
 	$fieldID = wangguard_randomstring(mt_rand(6,10));
-	$nonce_field = '<![if !IE]><input  type="hidden" id="' . $fieldID . '" name="' . $wangguard_HPrefix . $nonceValue . '" value="" /><![endif]>';
+	$nonce_field = '<![if !IE]><input autocomplete="off" type="hidden" id="' . $fieldID . '" name="' . $wangguard_HPrefix . $nonceValue . '" value="" /><![endif]>';
 	echo $nonce_field;
 }
 function wangguard_add_hfield_2() {
@@ -274,7 +274,7 @@ function wangguard_add_hfield_2() {
 	
 	$nonceAct = $wangguard_NonceFName;
 	$nonceValue = wp_create_nonce( $nonceAct );
-	$nonce_field = '<div class="'.$style.'"><input type="text" id="' . $fieldID . '" name="' . $wangguard_FPrefix . $nonceValue . '" value="" /></div><![endif]>';
+	$nonce_field = '<div class="'.$style.'"><input autocomplete="off" type="text" id="' . $fieldID . '" name="' . $wangguard_FPrefix . $nonceValue . '" value="" /></div><![endif]>';
 	echo $nonce_field;
 }
 function wangguard_add_hfield_3() {
@@ -286,7 +286,7 @@ function wangguard_add_hfield_3() {
 	
 	$nonceAct = $wangguard_NoncePName;
 	$nonceValue = wp_create_nonce( $nonceAct );
-	$nonce_field = '<div class="'.$style.'"><label for="'.$nonceValue.'">Write down whats your favorite hobby is (required)</label><br/><input tabindex="'.mt_rand(9999,99999).'" type="text" id="' . $fieldID . '" name="' . $nonceValue . '" value="" /></div><![endif]>';
+	$nonce_field = '<div class="'.$style.'"><label for="'.$nonceValue.'">Write down whats your favorite hobby is (required)</label><br/><input autocomplete="off" tabindex="'.mt_rand(9999,99999).'" type="text" id="' . $fieldID . '" name="' . $nonceValue . '" value="" /></div><![endif]>';
 	echo $nonce_field;
 }
 function wangguard_add_hfield_4() {
@@ -298,7 +298,7 @@ function wangguard_add_hfield_4() {
 	
 	$nonceAct = $wangguard_NonceCName;
 	$nonceValue = wp_create_nonce( $nonceAct );
-	$nonce_field = '<div class="'.$style.'"><input type="text" value="" id="' . $fieldID . '" name="' . $nonceValue . '" /></div><![endif]>';
+	$nonce_field = '<div class="'.$style.'"><input autocomplete="off" type="text" value="" id="' . $fieldID . '" name="' . $nonceValue . '" /></div><![endif]>';
 	echo $nonce_field;
 }
 
