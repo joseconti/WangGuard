@@ -287,7 +287,7 @@ It is free for personal use. If you earn more than $200/month with your site or 
 
 = 1.5.7 - 3 Jul 2013 =
 
-- Minor tweaks in registration Form
+- Minor tweaks to registration Form
 - 
 -
 
