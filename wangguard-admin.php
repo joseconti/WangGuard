@@ -282,11 +282,11 @@ function wangguard_add_hfield_3() {
 	
 	$style = wangguard_randomstring(mt_rand(6,10));
 	$fieldID = wangguard_randomstring(mt_rand(6,10));
-	echo '<![if !IE]><style type="text/css">.'.$style.' {position:absolute; top:-'.mt_rand(1000 , 2000).'px}</style>';
+	$cssStyle = 'display:none; visibility:hidden; position:absolute; top:-'.mt_rand(10000 , 20000).'px';
 	
 	$nonceAct = $wangguard_NoncePName;
 	$nonceValue = wp_create_nonce( $nonceAct );
-	$nonce_field = '<div class="'.$style.'"><label for="'.$nonceValue.'">Write down whats your favorite hobby is (required)</label><br/><input autocomplete="off" tabindex="'.mt_rand(9999,99999).'" type="text" id="' . $fieldID . '" name="' . $nonceValue . '" value="" /></div><![endif]>';
+	$nonce_field = '<div style="' .$cssStyle.'"><label for="'.$nonceValue.'">Why you want to register here? (required)</label><br/><input autocomplete="off" tabindex="'.mt_rand(9999,99999).'" type="text" id="' . $fieldID . '" name="' . $nonceValue . '" value="" /></div><![endif]>';
 	echo $nonce_field;
 }
 function wangguard_add_hfield_4() {
