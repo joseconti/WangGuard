@@ -24,6 +24,7 @@ function wangguard_users_info() {
       echo 'User nickname: ' . $user_info->nickname . "<br />";
       echo 'Blog ID: ' . $blogID . '<br />';
       echo 'User primary Blog : ' . $blog_details->blogname . '<br />';
+      echo get_avatar( $user_info->user_email , 120 );
 
 }
       
