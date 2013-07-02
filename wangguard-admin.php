@@ -95,7 +95,11 @@ add_action('register_form','wangguard_add_hfield_4' , rand(1,10));
 add_action('register_form','wangguard_register_add_question');
 add_action('register_post','wangguard_signup_validate',10,3);
 
+// for WooCommerce
 
+if (in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+	add_action('woocommerce_after_checkout_validation','wangguard_plugin_woocommerce_checkout_signup');
+	}
 $wangguard_add_mu_filter_actions = true;
 if (defined('BP_VERSION')) {
 	if (version_compare(BP_VERSION, '1.1') >= 0) {
@@ -757,8 +761,11 @@ function wangguard_is_email_reported_as_sp($email , $clientIP , $ProxyIP , $call
 			return true;
 		}
 		else {
-			if ($responseArr['out']['cod'] == '20')
-				$wangguard_user_check_status = 'checked';
+			if ($responseArr['out']['cod'] == '20') {
+					
+							$wangguard_user_check_status = 'checked';
+			}
+				
 			elseif ($responseArr['out']['cod'] == '100')
 				$wangguard_user_check_status = 'error:' . __('Your WangGuard API KEY is invalid.', 'wangguard');
 			else
@@ -857,10 +864,35 @@ function wangguard_plugin_bp_complete_signup() {
 	$wpdb->query( $wpdb->prepare("delete from $table_name where signup_username = '%s'" , $_POST['signup_username']));
 
 	//Insert the new signup record
+	
 	$wpdb->query( $wpdb->prepare("insert into $table_name(signup_username , user_status , user_ip , user_proxy_ip) values ('%s' , '%s' , '%s' , '%s')" , $_POST['signup_username'] , $wangguard_user_check_status , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() ) );
 }
 
+/**
+WooCommerce
 
+*/
+if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+
+function wangguard_plugin_woocommerce_checkout_signup() {
+	global $wpdb, $current_user;
+	global $wangguard_user_check_status;
+	global $woocommerce;
+
+if ((isset( $_POST['createaccount'] ) && ($_POST['createaccount'] = 1)) && (isset( $_POST['payment_method'] ) )){
+	$table_name = $wpdb->base_prefix . "wangguardsignupsstatus";
+	
+	//delete just in case a previous record from a user which didn't activate the account is there
+	$wpdb->query( $wpdb->prepare("delete from $table_name where signup_username = '%s'" , $_POST['account_username']));
+
+	//Insert the new signup record
+	$wangguard_user_check_status = 'buyer';
+	$wpdb->query( $wpdb->prepare("insert into $table_name(signup_username , user_status , user_ip , user_proxy_ip) values ('%s' , '%s' , '%s' , '%s')" , $_POST['account_username'] , $wangguard_user_check_status , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() ) );
+	
+	}
+}
+
+}
 /**
  * Account activated on BP hook
  * 
