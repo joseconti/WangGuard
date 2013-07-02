@@ -4,7 +4,7 @@ Author URI: http://wangguard.com
 Tags: wangguard, wgg, sploggers, splog, anti-splog, user spam, anti spam users, anti-spam, spam blog, spam blogs, wordpress, buddypress, wpmu, wordpress mu, wordpress multisite, standard WordPress, registration, security, security questions, plugin, sign up, signup, spam, wp-login.php, wp-signup.php, wp-register.php, register, registration, protect, protect registration, block agents, block ip, blog secure, bots, secure blog, secure wordpress, secure wp, website security, wp secure, wp security, block users, block user, block, block emails, block e-mails, block domains, block bots, block bot, bp, captcha, no captcha, recaptcha, unwanted users, block unwanted users, block splog, black hat, blackhat, bbpress, clean, clean database, clean splog, clean users, untrusted, untrusted users, ip, ip information, user admin, user management, advanced user management, ip info, appthemes, user registration spam, users registration spam, user registration spam prevention, users registration spam prevention
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 1.5.6 Alpha
+Stable tag: 1.5.7
 License: GPLv2
 
 The most advanced protection against sploggers and spam users registration, is fully WordPress,WordPress MU ,BuddyPress and bbPress 2.0 compatible
@@ -285,6 +285,21 @@ It is free for personal use. If you earn more than $200/month with your site or 
 
 == Changelog ==
 
+= 1.5.7 - 3 Jul 2013 =
+
+- Minor tweaks in registration Form
+- 
+-
+
+
+= 1.5.6 - 25 Jun 2013 =
+
+- Added ability to open/visit BuddyPress users profiles in WangGuard Users Screen.
+- Fixed some Notices.
+- Added JS version for future updates.
+- Added CSS version for future updates.
+- Moved JS files and CSS files to their own directory
+
 = 1.5.5 - 11 Jun 2013 =
 
 - Added ability to open/visit subsites in WangGuard Users Screen (Only WordPress Multisite with or without BP).
@@ -294,7 +309,7 @@ It is free for personal use. If you earn more than $200/month with your site or 
 = 1.5.4 - 21 Mar 2013 =
 
 - Fix some compatibility problems with security questions on some new versions of AppThemes
-- Added Comaptibility with Ideas AppThemes
+- Added Compatibility with Ideas AppThemes
 - Fix an overwritten menu problem to WangGuard by Gravity Form
 
 = 1.5.3 - 21 Dec 2012 =
