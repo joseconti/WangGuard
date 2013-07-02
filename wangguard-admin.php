@@ -3,7 +3,7 @@
 Plugin Name: WangGuard
 Plugin URI: http://www.wangguard.com
 Description: <strong>Stop Sploggers</strong>. It is very important to use <a href="http://www.wangguard.com" target="_new">WangGuard</a> at least for a week, reporting your site's unwanted users as sploggers from the Users panel. WangGuard will learn at that time to protect your site from sploggers in a much more effective way. WangGuard protects each web site in a personalized way using information provided by Administrators who report sploggers world-wide, that's why it's very important that you report your sploggers to WangGuard. The longer you use WangGuard, the more effective it will become.
-Version: 1.5.6 Alpha
+Version: 1.5.6
 Author: WangGuard
 Author URI: http://www.wangguard.com
 License: GPL2
@@ -83,22 +83,6 @@ include_once 'wangguard-user-info.php';
 /*** CONFIG ENDS ***/
 /********************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /********************************************************************/
 /*** ADD & VALIDATE SECURITY QUESTIONS ON REGISTER BEGINS ***/
 /********************************************************************/
@@ -137,8 +121,6 @@ if ($wangguard_add_mu_filter_actions) {
 	add_action('signup_extra_fields', 'wangguard_register_add_question_mu' );
 	add_filter('wpmu_validate_user_signup', 'wangguard_wpmu_signup_validate_mu');
 }
-
-
 
 
 /**
@@ -540,9 +522,6 @@ function wangguard_signup_validate_bp11() {
 //*********** BP1.1+ ***********
 
 
-
-
-
 //*********** WP REGULAR ***********
 /**
  * Adds a security question if any exists
@@ -577,9 +556,6 @@ function wangguard_register_add_question(){
 		
 		
 		 $AppthemeName = get_theme_data( get_template_directory() . '/style.css' );
-       	
-			
-	
 			
 			if ('JobRoller' == $AppthemeName['Title']) {
 			$html = '
@@ -811,13 +787,6 @@ function wangguard_question_repliedOK() {
 /*** ADD & VALIDATE SECURITY QUESTIONS ON REGISTER ENDS ***/
 /********************************************************************/
 
-
-
-
-
-
-
-
 /********************************************************************/
 /*** USER REGISTATION & DELETE FILTERS BEGINS ***/
 /********************************************************************/
@@ -1003,11 +972,6 @@ function wangguard_bp_core_action_set_spammer_status($userid , $is_spam) {
 /********************************************************************/
 /*** USER REGISTATION & DELETE FILTERS ENDS ***/
 /********************************************************************/
-
-
-
-
-
 
 
 /********************************************************************/
@@ -1219,11 +1183,6 @@ function wangguard_ajax_front_callback() {
 /*** AJAX FRONT HANDLERS ENDS ***/
 /********************************************************************/
 
-
-
-
-
-
 /********************************************************************/
 /*** AJAX ADMIN HANDLERS BEGINS ***/
 /********************************************************************/
@@ -1330,8 +1289,6 @@ jQuery(document).ready(function($) {
 	}
 
 
-
-
 	function wangguard_rollback(userid) {
 		var confirmed = true;
 		<?php if (wangguard_get_option ("wangguard-expertmode")!='1') {?>
@@ -1371,9 +1328,6 @@ jQuery(document).ready(function($) {
 			});
 		}
 	}
-
-
-
 
 
 	function wangguard_report_blog(blogid) {
@@ -1457,10 +1411,6 @@ jQuery(document).ready(function($) {
 			}
 		});
 	});
-
-
-
-
 
 
 	jQuery("a.wangguard-domain").click(function() {
@@ -1614,9 +1564,6 @@ jQuery(document).ready(function($) {
 			}
 		});
 	});
-
-
-
 
 
 	if (wangguard_isjQuery17() == true) {
@@ -2366,9 +2313,6 @@ function wangguard_ajax_ip_info() {
 /*** AJAX ADMIN HANDLERS ENDS ***/
 /********************************************************************/
 
-
-
-
 /********************************************************************/
 /*** BP FRONTEND REPORT BUTTONS BEGINS ***/
 /********************************************************************/
@@ -2496,7 +2440,6 @@ if (wangguard_get_option ("wangguard-enable-bp-report-btn")==1) {
 /********************************************************************/
 /*** BP FRONTEND REPORT BUTTONS ENDS ***/
 /********************************************************************/
-
 
 
 /********************************************************************/
@@ -2669,10 +2612,6 @@ add_action('admin_bar_menu', 'wangguard_add_wp_admin_bar_menus', 100 );
 /*** ADMIN BAR REPORT BEGIN ***/
 /********************************************************************/
 
-
-
-
-
 /********************************************************************/
 /*** ADMIN GROUP MENU BEGINS ***/
 /********************************************************************/
@@ -2818,8 +2757,6 @@ else
 /*** ADMIN GROUP MENU ENDS ***/
 
 /********************************************************************/
-
-
 
 
 /********************************************************************/
