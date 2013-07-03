@@ -11,6 +11,13 @@ a.wangguard-recheck {
 	font-weight:bold;
 }
 
+.wangguard-status-buyer {
+	color: #00a000;
+	font-weight:bold;
+	
+}
+
+
 .wangguard-status-error {
 	color: #BC0B0B;
 	font-weight:normal;

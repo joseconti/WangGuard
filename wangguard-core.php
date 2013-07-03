@@ -1140,6 +1140,9 @@ function wangguard_user_custom_columns($dummy , $column_name , $userid , $echo =
 		elseif ($status == 'force-checked') {
 			$html = '<span class="wangguard-status-checked wangguardstatus-'.$userid.'">'. __('Checked (forced)', 'wangguard') .'</span>';
 		}
+		elseif ($status == 'buyer') {
+			$html = '<span class="wangguard-status-buyer wangguardstatus-'.$userid.'">'. __('Buyer', 'wangguard') .'</span>';
+		}
 		elseif (substr($status , 0 , 5) == 'error') {
 			$html = '<span class="wangguard-status-error wangguardstatus-'.$userid.'">'. __('Error', 'wangguard') . " - " . substr($status , 6) . '</span>';
 		}
