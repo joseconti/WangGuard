@@ -889,6 +889,21 @@ if ((isset( $_POST['createaccount'] ) && ($_POST['createaccount'] = 1)) && (isse
 	$wangguard_user_check_status = 'buyer';
 	$wpdb->query( $wpdb->prepare("insert into $table_name(signup_username , user_status , user_ip , user_proxy_ip) values ('%s' , '%s' , '%s' , '%s')" , $_POST['account_username'] , $wangguard_user_check_status , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() ) );
 	
+	} elseif (isset( $_POST['payment_method'] ) ) {
+		
+		get_currentuserinfo();
+
+		$table_name = $wpdb->base_prefix . "wangguardsignupsstatus";
+		$WangUser_login = $current_user->user_login;
+		$WangUser_ID = $current_user->ID;
+		$wangguard_user_check_status = 'buyer';
+		
+		//delete just in case a previous record from a user which didn't activate the account is there
+		$wpdb->query( $wpdb->prepare("delete from $table_name where signup_username = '%s'" , $WangUser_login));
+
+		$wpdb->query( $wpdb->prepare("insert into $table_name(signup_username , user_status , user_ip , user_proxy_ip) values ('%s' , '%s' , '%s' , '%s')" , $WangUser_login , $wangguard_user_check_status , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() ) );
+		
+		wangguard_plugin_user_register($WangUser_ID);
 	}
 }
 
