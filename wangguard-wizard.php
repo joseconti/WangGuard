@@ -99,10 +99,10 @@ function wangguard_wizard() {
 							$lastProgressSent = 0;
 							foreach ($spamUsers as $userid) {
 
-								//get the WangGuard user status, if status is force-checked then ignore the user
+								//get the WangGuard user status, if status is force-checked or buyer then ignore the user
 								$table_name = $wpdb->base_prefix . "wangguarduserstatus";
 								$user_status = $wpdb->get_var( $wpdb->prepare("select user_status from $table_name where ID = %d" , $userid));
-								if ($user_status == 'force-checked')
+								if ( $user_status == 'force-checked' || $user_status == 'buyer' )
 									continue;
 
 								$dummyArr = array();
@@ -208,10 +208,10 @@ function wangguard_wizard() {
 							foreach ($goodUsers as $userid) {
 
 
-								//get the WangGuard user status, if status is force-checked then ignore the user
+								//get the WangGuard user status, if status is force-checked or buyer then ignore the user
 								$table_name = $wpdb->base_prefix . "wangguarduserstatus";
 								$user_status = $wpdb->get_var( $wpdb->prepare("select user_status from $table_name where ID = %d" , $userid));
-								if ($user_status == 'force-checked')
+								if ( $user_status == 'force-checked' || $user_status == 'buyer' )
 									continue;
 
 
@@ -376,7 +376,7 @@ function wangguard_wizard() {
 						<li><?php echo __( "For the rest of the users, it will check against WangGuard service if any of them was reported as Splogger." , "wangguard") ?></li>
 						<li><?php echo __( "It will let you know how many Sploggers the wizard found (if any) and, optionally, will let you delete your spam users and Sploggers from your site." , "wangguard") ?></li>
 					</ol>
-					<p><?php echo sprintf( __( "Note: The wizard will NOT verify the users flagged as %s, these are the users for which you've selected the &quot;Not a Splogger&quot; option from the Users admin or flagged as &quot;Not Spam&quot;." , "wangguard") ,   "<span class='wangguard-status-checked'>".__("Checked (forced)" , "wangguard")."</span>"  ) ?></p>
+					<p><?php echo sprintf( __( "Note: The wizard will NOT verify the users flagged as %s, these are the users for which you've selected the &quot;Not a Splogger&quot; option from the Users admin, flagged as &quot;Not Spam&quot; or bought something on your WooCommerce Shop ." , "wangguard") ,   "<span class='wangguard-status-checked'>".__("Checked (forced) or Buyer if you use WooCommerce" , "wangguard")."</span>"  ) ?></p>
 					<?php
 					$valid = wangguard_verify_key($wangguard_api_key);
 					if (($valid == 'failed') || ($valid == 'invalid')) {
