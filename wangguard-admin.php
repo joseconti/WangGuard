@@ -2272,7 +2272,7 @@ function wangguard_ajax_cronjobadd() {
  * @param type $time
  */
 function wangguard_get_next_schedule($recurrence , $time) {
-	$currTime = current_time( 'timestamp' );
+	$currTime = time();
 	
 	$time = explode(":", $time);
 	$hour = (int)@$time[0];
