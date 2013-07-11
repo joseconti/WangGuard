@@ -879,7 +879,7 @@ function wangguard_plugin_woocommerce_checkout_signup() {
 	global $wangguard_user_check_status;
 	global $woocommerce;
 
-if ((isset( $_POST['createaccount'] ) && ($_POST['createaccount'] = 1)) && (isset( $_POST['payment_method'] ) )){
+if ((isset( $_POST['createaccount'] ) && ($_POST['createaccount'] == 1)) && (isset( $_POST['payment_method'] ) )){
 	$table_name = $wpdb->base_prefix . "wangguardsignupsstatus";
 	
 	//delete just in case a previous record from a user which didn't activate the account is there
