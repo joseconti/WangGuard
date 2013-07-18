@@ -286,7 +286,11 @@ add_filter('plugin_action_links', 'wangguard_action_links', 10, 2);
  * Returns the client IP
  */
 function wangguard_getRemoteIP() {
+if(isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+      return $_SERVER['HTTP_CF_CONNECTING_IP'];}
+      else {
 	return $_SERVER['REMOTE_ADDR'];
+	}
 }
 
 /**
