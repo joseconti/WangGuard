@@ -219,6 +219,7 @@ function wangguard_users() {
 			<?php
 			$wp_list_table->display();
 			?>		
+			
 		</form>
 		<br class="clear" />
 
