@@ -2138,7 +2138,6 @@ function wangguard_delete_user_and_blogs($userid) {
 		$blogs = get_blogs_of_user( $userid, true );
 		if (is_array($blogs))
 			foreach ( (array) $blogs as $key => $details ) {
-
 				$isMainBlog = false;
 				if (isset ($current_site)) {
 					$isMainBlog = ($details->userblog_id != $current_site->blog_id); // main blog not a spam !
@@ -2170,12 +2169,25 @@ function wangguard_delete_user_and_blogs($userid) {
 			}
 	}
 
-	if (wangguard_is_multisite () && function_exists("wpmu_delete_user"))
-		wpmu_delete_user($userid);
+	if (wangguard_is_multisite () && function_exists("wpmu_delete_user")) {
+		if (function_exists("bp_core_process_spammer_status")) {
+			$status = 'spam';
+			bp_core_process_spammer_status($userid, $status);
+			wpmu_delete_user($userid);
+			} else {
+				wpmu_delete_user($userid);
+				}
+			}
 	else {
-		if (!function_exists('wp_delete_user'))
+		if (!function_exists('wp_delete_user') && function_exists("bp_core_process_spammer_status")) {
 			@include_once( ABSPATH . 'wp-admin/includes/user.php' );
-		wp_delete_user($userid);
+			$status = 'spam';
+			bp_core_process_spammer_status($userid, $status);
+			wp_delete_user($userid);
+			} else {
+				@include_once( ABSPATH . 'wp-admin/includes/user.php' );
+				wp_delete_user($userid);
+			}
 	}
 }
 

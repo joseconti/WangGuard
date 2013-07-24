@@ -287,7 +287,7 @@ It is free for personal use. If you earn more than $200/month with your site or 
 
 = 1.5.8 - 19 Jul 2013 =
 
-- NEW Full Compatibility with CloudFlare. Now you will get the user's real IP instead of CloudFlare's IP. Thats means WangGuard will work 400% better on your website because WangGuard will know the real user IP with this update. If you use CloudFlare, you need this update.
+- NEW Full Compatibility with CloudFlare. Now you will get the user's real IP instead of CloudFlare's IP. Thats means WangGuard will work 400% better on your website because WangGuard will know the real user's IP with this update. If you use CloudFlare, you need this update.
 
 = 1.5.7.1 - 10 Jul 2013 =
 
