@@ -564,15 +564,23 @@ function wangguard_verify_user($user_object) {
 		if (($responseArr['out']['cod'] == '10') || ($responseArr['out']['cod'] == '11')) {
 			$user_check_status = 'reported';
 			wangguard_stats_update("detected");
+			error_log( 'VU ' . $user_object->user_email. " is reported as a splogger", 3, "/ccroot/wp-content/WG-errors.log");
 		}
 		else {
 			if ($responseArr['out']['cod'] == '20') {
 				$user_check_status = 'checked';
+				error_log( 'VU ' . $user_object->user_email. " checked out OK", 3, "/ccroot/wp-content/WG-errors.log");
+
 			}
 			else {
 				$user_check_status = 'error:'.$responseArr['out']['cod'];
+				error_log( 'VU ' . $user_object->user_email. " | error: " . $responseArr['out']['cod'], 3, "/ccroot/wp-content/WG-errors.log");
+
 			}
 		}
+	} else {
+		//response wasn't properly formed, or none at all
+		error_log( 'VU ' . $user_object->user_email. " | error: No response", 3, "/ccroot/wp-content/WG-errors.log");
 	}
 
 	$table_name = $wpdb->base_prefix . "wangguarduserstatus";
@@ -619,15 +627,22 @@ function wangguard_verify_email($email , $clientIP , $proxyIP = '') {
 		if (($responseArr['out']['cod'] == '10') || ($responseArr['out']['cod'] == '11')) {
 			$user_check_status = 'reported';
 			wangguard_stats_update("detected");
+			error_log( 'VE ' . $user_object->user_email. " is reported as a splogger", 3, "/ccroot/wp-content/WG-errors.log");
 		}
 		else {
 			if ($responseArr['out']['cod'] == '20') {
 				$user_check_status = 'checked';
+				error_log( 'VE ' . $user_object->user_email. " checked out OK", 3, "/ccroot/wp-content/WG-errors.log");
 			}
 			else {
 				$user_check_status = 'error:'.$responseArr['out']['cod'];
+				error_log( 'VE ' . $user_object->user_email. " | error: " . $responseArr['out']['cod'], 3, "/ccroot/wp-content/WG-errors.log");
+
 			}
 		}
+	} else {
+		//response wasn't properly formed, or none at all
+		error_log( 'VE ' . $user_object->user_email. " | error: No response", 3, "/ccroot/wp-content/WG-errors.log");
 	}
 
 	return $user_check_status;
