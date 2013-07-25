@@ -494,7 +494,8 @@ function wangguard_signup_validate_bp11() {
 		return;
 	}
 	
-	
+	$checking_output = PHP_EOL . "WG is kicking in.";
+
 	$answerOK = wangguard_question_repliedOK();
 
 	//If at least a question exists on the questions table, then check the provided answer
@@ -509,6 +510,9 @@ function wangguard_signup_validate_bp11() {
 		}
 		else {
 			$reported = wangguard_is_email_reported_as_sp($_REQUEST['signup_email'] , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP());
+		$checking_output .= PHP_EOL . "Reported? ";
+		$checking_output .= print_r($reported, true);
+
 
 			if ($reported)
 				$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is a mistake?</a>.', 'wangguard'));
@@ -521,6 +525,11 @@ function wangguard_signup_validate_bp11() {
 	
 	if (isset ($bp->signup->errors['signup_email']))
 		$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe($bp->signup->errors['signup_email']);
+
+$fp = fopen('wangguard_checking.txt', 'a');
+fwrite($fp, $checking_output);
+fclose($fp);
+
 }
 //*********** BP1.1+ ***********
 
