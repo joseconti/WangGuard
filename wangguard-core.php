@@ -557,6 +557,8 @@ function wangguard_verify_user($user_object) {
 		$ProxyIP = $wpdb->get_var( $wpdb->prepare("select user_proxy_ip from $table_name where ID = %d" , $user_object->ID) );
 	}
 
+	$error_output = PHP_EOL . time();
+
 	//Rechecks the user agains WangGuard service
 	$response = wangguard_http_post("wg=<in><apikey>$wangguard_api_key</apikey><email>".$user_object->user_email."</email><ip>".$clientIP."</ip><proxyip>".$ProxyIP."</proxyip></in>", 'query-email.php');
 	$responseArr = XML_unserialize($response);
@@ -564,24 +566,28 @@ function wangguard_verify_user($user_object) {
 		if (($responseArr['out']['cod'] == '10') || ($responseArr['out']['cod'] == '11')) {
 			$user_check_status = 'reported';
 			wangguard_stats_update("detected");
-			error_log( 'VU ' . $user_object->user_email. " is reported as a splogger", 3, "/ccroot/wp-content/WG-errors.log");
+			$error_output .= PHP_EOL . 'VU ' . $user_object->user_email. " is reported as a splogger";
 		}
 		else {
 			if ($responseArr['out']['cod'] == '20') {
 				$user_check_status = 'checked';
-				error_log( 'VU ' . $user_object->user_email. " checked out OK", 3, "/ccroot/wp-content/WG-errors.log");
+				$error_output .= PHP_EOL . 'VU ' . $user_object->user_email. " checked out OK";
 
 			}
 			else {
 				$user_check_status = 'error:'.$responseArr['out']['cod'];
-				error_log( 'VU ' . $user_object->user_email. " | error: " . $responseArr['out']['cod'], 3, "/ccroot/wp-content/WG-errors.log");
+				$error_output .= PHP_EOL . 'VU ' . $user_object->user_email. " | error: " . $responseArr['out']['cod'];
 
 			}
 		}
 	} else {
 		//response wasn't properly formed, or none at all
-		error_log( 'VU ' . $user_object->user_email. " | error: No response", 3, "/ccroot/wp-content/WG-errors.log");
+		$error_output .= 'VU ' . $user_object->user_email. " | error: No response";
 	}
+
+$fp = fopen('wangguard_response.txt', 'a');
+fwrite($fp, $error_output);
+fclose($fp);
 
 	$table_name = $wpdb->base_prefix . "wangguarduserstatus";
 	$tmpIP = $wpdb->get_var( $wpdb->prepare("select user_ip from $table_name where ID = %d" , $user_object->ID) );
@@ -619,6 +625,7 @@ function wangguard_verify_email($email , $clientIP , $proxyIP = '') {
 		$clientIP = '';
 		$proxyIP = '';
 	}
+	$error_output = PHP_EOL . time();
 
 	//Rechecks the user agains WangGuard service
 	$response = wangguard_http_post("wg=<in><apikey>$wangguard_api_key</apikey><email>".$email."</email><ip>".$clientIP."</ip><proxyip>".$proxyIP."</proxyip></in>", 'query-email.php');
@@ -627,23 +634,27 @@ function wangguard_verify_email($email , $clientIP , $proxyIP = '') {
 		if (($responseArr['out']['cod'] == '10') || ($responseArr['out']['cod'] == '11')) {
 			$user_check_status = 'reported';
 			wangguard_stats_update("detected");
-			error_log( 'VE ' . $user_object->user_email. " is reported as a splogger", 3, "/ccroot/wp-content/WG-errors.log");
+			$error_output .= PHP_EOL . 'VE ' . $user_object->user_email. " is reported as a splogger";
 		}
 		else {
 			if ($responseArr['out']['cod'] == '20') {
 				$user_check_status = 'checked';
-				error_log( 'VE ' . $user_object->user_email. " checked out OK", 3, "/ccroot/wp-content/WG-errors.log");
+				$error_output .= PHP_EOL . 'VE ' . $user_object->user_email. " checked out OK";
 			}
 			else {
 				$user_check_status = 'error:'.$responseArr['out']['cod'];
-				error_log( 'VE ' . $user_object->user_email. " | error: " . $responseArr['out']['cod'], 3, "/ccroot/wp-content/WG-errors.log");
+				$error_output .= PHP_EOL . 'VE ' . $user_object->user_email. " | error: " . $responseArr['out']['cod'], 3, "/ccroot/wp-content/WG-errors.log");
 
 			}
 		}
 	} else {
 		//response wasn't properly formed, or none at all
-		error_log( 'VE ' . $user_object->user_email. " | error: No response", 3, "/ccroot/wp-content/WG-errors.log");
+		$error_output .= PHP_EOL . 'VE ' . $user_object->user_email. " | error: No response";
 	}
+
+	$fp = fopen('wangguard_response.txt', 'a');
+fwrite($fp, $error_output);
+fclose($fp);
 
 	return $user_check_status;
 }
