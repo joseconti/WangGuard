@@ -3,7 +3,7 @@
 Plugin Name: WangGuard
 Plugin URI: http://www.wangguard.com
 Description: <strong>Stop Sploggers</strong>. It is very important to use <a href="http://www.wangguard.com" target="_new">WangGuard</a> at least for a week, reporting your site's unwanted users as sploggers from the Users panel. WangGuard will learn at that time to protect your site from sploggers in a much more effective way. WangGuard protects each web site in a personalized way using information provided by Administrators who report sploggers world-wide, that's why it's very important that you report your sploggers to WangGuard. The longer you use WangGuard, the more effective it will become.
-Version: 1.5.6
+Version: 1.5.9
 Author: WangGuard
 Author URI: http://www.wangguard.com
 License: GPL2
@@ -25,7 +25,7 @@ License: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define('WANGGUARD_VERSION', '1.5.6');
+define('WANGGUARD_VERSION', '1.5.9');
 define('WANGGUARD_PLUGIN_FILE', 'wangguard/wangguard-admin.php');
 define('WANGGUARD_README_URL', 'http://plugins.trac.wordpress.org/browser/wangguard/trunk/readme.txt?format=txt');
 
@@ -1021,12 +1021,18 @@ function wangguard_plugin_user_delete($userid) {
 function wangguard_make_spam_user($userid) {
 	global $wpdb;
 
-	//flag a user
-	//get the recordset of the user to flag
-	$wpusersRs = $wpdb->get_col( $wpdb->prepare("select ID from $wpdb->users where ID = %d" , $userid ) );
-
-	wangguard_report_users($wpusersRs , "email" , false);
+	if (function_exists("bp_core_process_spammer_status")){
+				$status = 'spam';
+				bp_core_process_spammer_status($userid, $status);
+				wangguard_report_users($wpusersRs , "email" , false);
+				} else {
+						//flag a user
+						//get the recordset of the user to flag
+						$wpusersRs = $wpdb->get_col( $wpdb->prepare("select ID from $wpdb->users where ID = %d" , $userid ) );
+						wangguard_report_users($wpusersRs , "email" , false);
+						}
 }
+
 
 /**
  * User has been reported as safe, rollback on WangGuard

@@ -128,6 +128,8 @@ class WangGuard_Users_Table extends WP_List_Table {
 			
 			$class = ($requestType == "spam") ? ' class="current"' : '';
 			$total['spam'] = "<a href='" . add_query_arg( 'type', "spam", $url ) . "'$class>".sprintf( __( 'Spammers <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $spam_users ) )."</a>";
+			
+
 		}
 		
 		
@@ -171,6 +173,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 			'from_ip'=>		__( 'User IP' , 'wangguard' ),
 			'posts'		=> __( 'Posts' ),
 			'blogs'		=> __( 'Blogs' ),
+			'groups'    => __( 'Groups' ),
 		);
 
 		return $c;
@@ -331,6 +334,32 @@ class WangGuard_Users_Table extends WP_List_Table {
 					
 					$r .= "</td>";
 					break;
+					
+				case 'groups':
+				add_thickbox();
+					$r .= "<td $attributes>";
+					if ( defined( 'BP_VERSION' ) ) {
+					global $bp;
+					$bpgrpupsslug = $bp->groups->root_slug;
+						$groups = BP_Groups_Member::get_is_admin_of( $row_data->ID );
+							foreach ( $groups as $group) {
+								if (is_array($group)){
+									foreach ($group as $detail) {
+										$groupdomain = $bp->root_domain;
+										$bpgrpupsslug = $bp->groups->root_slug;
+										$groupslug = $detail->slug;
+										$groupname = $detail->name;
+										$r .= '- <a href="'. $groupdomain . '/' . $bpgrpupsslug . '/' . $groupslug . '/?TB_iframe=true&width=900&height=550" class="thickbox" title="'. htmlentities($groupdomain . '/' . $bpgrpupsslug . '/' . $groupslug, 0, 'UTF-8') .'">'.$groupname.'</a><br/>';										}
+									} else {
+										continue;
+										}
+									
+								}
+					}
+					
+					$r .= "</td>";
+					break;
+					
 				case 'wgstatus':
 					$r .= "<td $attributes>" . $statushtml . "</td>";
 					break;

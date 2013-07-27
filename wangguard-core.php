@@ -72,7 +72,6 @@ wp_enqueue_style( 'wangguardCSS' );
 
 
 
-
 function wangguard_install($current_version) {
 	global $wpdb;
 	global $wangguard_db_version;
@@ -272,11 +271,6 @@ add_filter('plugin_action_links', 'wangguard_action_links', 10, 2);
 /********************************************************************/
 /*** INIT & INSTALL ENDS ***/
 /********************************************************************/
-
-
-
-
-
 
 
 /********************************************************************/
@@ -717,10 +711,6 @@ if (  (!function_exists('getmxrr')) && (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN
 /********************************************************************/
 
 
-
-
-
-
 /********************************************************************/
 /*** KEY FUNCS BEGINS ***/
 /********************************************************************/
@@ -753,18 +743,6 @@ function wangguard_verify_key( $key, $ip = null ) {
 /********************************************************************/
 /*** KEY FUNCS ENDS ***/
 /********************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /********************************************************************/
@@ -1089,6 +1067,7 @@ function wangguard_page_wangguard_users_headers($v) {
 			'from_ip'=>		__( 'User IP' , 'wangguard' ),
 			'posts'			=> __( 'Posts' ),
 			'blogs'			=> __( 'Sites' ),
+			'groups'        => __( 'Groups' ),
 			'wgstatus'		=> __( 'WangGuard Status' , 'wangguard' )
 		);
 	

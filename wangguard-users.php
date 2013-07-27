@@ -102,6 +102,7 @@ function wangguard_users() {
 							$caps = maybe_unserialize( $authorcaps );
 							$userIsAuthor = ( isset( $caps['administrator'] ) );
 						}
+						
 
 						//Update blog to spam if the user is the author and its not the main blog
 						if ((!$isMainBlog) && $userIsAuthor) {
@@ -116,10 +117,14 @@ function wangguard_users() {
 						
 					}
 				}
-				if (function_exists('update_user_status'))
-					update_user_status( $spuserID, 'spam', '1' );
+				if (function_exists('update_user_status')) update_user_status( $spuserID, 'spam', '1' );
+				if (function_exists("bp_core_process_spammer_status")){
+								$status = 'spam';
+								bp_core_process_spammer_status($spuserID, $status);
+							}
 				
 				$wpdb->update( $wpdb->users, array( 'user_status' => 1 ), array( 'ID' => $spuserID ) );
+				wangguard_make_spam_user($spuserID);
 				
 				$spamUsers++;
 			}
