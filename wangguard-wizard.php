@@ -155,15 +155,7 @@ function wangguard_wizard() {
 
 				<?php
 				break;
-
-
-
-
-
-
-
-
-			case "2":
+				case "2":
 				?>
 				<div id="wangguard-visible-step-status">
 					<h3><?php echo __( "Verifying users against the WangGuard service..." , "wangguard"); ?></h3>
@@ -223,16 +215,22 @@ function wangguard_wizard() {
 								$user_check_status = wangguard_verify_user($user_object);
 
 								if ($user_check_status == "reported") {
-									$reported++;
-									if (function_exists("bp_core_process_spammer_status")){
-										$status = 'spam';
-										bp_core_process_spammer_status($userid, $status);
+										$reported++;
+										if (function_exists("bp_core_process_spammer_status")){
+												$status = 'spam';
+												bp_core_process_spammer_status($userid, $status);
+												 	if (function_exists("update_user_status"))
+															update_user_status($userid, $spamFieldName, 1); //when flagging the user as spam, the wangguard hook is called to report the user
+													else
+														$wpdb->query( $wpdb->prepare("update $wpdb->users set $spamFieldName = 1 where ID = %d" , $userid ) ); 
+										} else {
+											
+										
+										if (function_exists("update_user_status"))
+											update_user_status($userid, $spamFieldName, 1); //when flagging the user as spam, the wangguard hook is called to report the user
+										else
+											$wpdb->query( $wpdb->prepare("update $wpdb->users set $spamFieldName = 1 where ID = %d" , $userid ) );
 										}
-									
-									else if (function_exists("update_user_status") && !function_exists("bp_core_process_spammer_status"))
-										update_user_status($userid, $spamFieldName, 1);	//when flagging the user as spam, the wangguard hook is called to report the user
-									else
-										$wpdb->query( $wpdb->prepare("update $wpdb->users set $spamFieldName = 1 where ID = %d" , $userid ) );
 								}
 
 								$verified++;
@@ -302,16 +300,7 @@ function wangguard_wizard() {
 
 				<?php 
 				break;
-
-
-
-
-
-
-
-
-
-			case "3":
+				case "3":
 
 				if (@$_REQUEST['wangguard_delete_splogguers'] == 1) { 
 					$usersPerStint = 10;	//how many users to check on each iteration
