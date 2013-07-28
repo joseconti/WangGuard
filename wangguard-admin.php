@@ -1313,6 +1313,7 @@ function wangguard_isjQuery17()	 {
 
 
 jQuery(document).ready(function($) {
+
 	jQuery("a.wangguard-splogger").click(function() {
 		var userid = jQuery(this).attr("rel");
 		wangguard_report(userid , false);
@@ -1903,8 +1904,15 @@ function wangguard_ajax_callback() {
 		default:
 			//flag a user
 			//get the recordset of the user to flag
+			if (function_exists("bp_core_process_spammer_status")){
+								$status = 'spam';
+								bp_core_process_spammer_status($userid, $status);
+							}
+			if (function_exists('update_user_status')) update_user_status( $userid, 'spam', '1' );
 			$wpusersRs = $wpdb->get_col( $wpdb->prepare("select ID from $wpdb->users where ID = %d" , $userid ) );
+			wangguard_make_spam_user($userid);
 			echo wangguard_report_users($wpusersRs , $scope);
+			
 			break;
 	}
 
@@ -2050,7 +2058,7 @@ function wangguard_cronjob_runner($cronid) {
 				
 				//get the WangGuard user status, if status is force-checked then ignore the user
 				$user_status = $wpdb->get_var( $wpdb->prepare("select user_status from $userStatusTable where ID = %d" , $userid));
-				if ($user_status == 'force-checked') {
+				if (($user_status == 'force-checked') || ($user_status == 'buyer') ) {
 					$user_check_status = "force-checked";
 				}
 				else {
@@ -2070,6 +2078,10 @@ function wangguard_cronjob_runner($cronid) {
 					switch ($cronjob->Action) {
 						case "f":
 							//Flag detected Sploggers as Sploggers and Spam users --------------------------------------------------------------------------------
+							if (function_exists("bp_core_process_spammer_status")){
+												$status = 'spam';
+												bp_core_process_spammer_status($userid, $status);
+												} 
 							if (function_exists("update_user_status"))
 								update_user_status($userid, $spamFieldName, 1);	//when flagging the user as spam, the wangguard hook is called to report the user
 							else
