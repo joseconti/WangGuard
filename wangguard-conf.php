@@ -72,6 +72,8 @@ function wangguard_conf() {
 			wangguard_update_option('wangguard-verify-dns-mx', @$_POST['wangguard-verify-dns-mx']=='1' ? 1 : 0 );
 
 			wangguard_update_option('wangguard-do-not-check-client-ip', @$_POST['wangguard-do-not-check-client-ip']=='1' ? 1 : 0 );
+			
+			wangguard_update_option('wangguard-do-not-show-adminbar', @$_POST['wangguard-do-not-show-adminbar']=='1' ? 1 : 0 );
 
 			$selectedTab = 2;
 			
@@ -248,6 +250,10 @@ function wangguard_conf() {
 					</p>
 					<?php } ?>
 
+					<p>
+						<input type="checkbox" name="wangguard-do-not-show-adminbar" id="wangguard-do-not-show-adminbar" value="1" <?php echo wangguard_get_option("wangguard-do-not-show-adminbar")=='1' ? 'checked' : ''?> />
+						<label for="wangguard-do-not-show-adminbar"><?php _e("<strong>Disable WangGUard menu from WordPress AdminBar.", 'wangguard') ?></label>
+					</p>
 					<p>
 						<input type="checkbox" name="wangguard-verify-gmail" id="wangguard-verify-gmail" value="1" <?php echo wangguard_get_option("wangguard-verify-gmail")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-verify-gmail"><?php _e("<strong>Check for duplicated gmail.com and googlemail.com emails on sign up.</strong><br/>Checks that duplicated accounts @gmail.com and @googlemail.com accounts doesn't exists, also takes in count that gMail ignores the dots and what's after a + sign on the left side of the @.", 'wangguard') ?></label>
