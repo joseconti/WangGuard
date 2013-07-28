@@ -1071,11 +1071,15 @@ function wangguard_page_wangguard_users_headers($v) {
 			'wgstatus'		=> __( 'WangGuard Status' , 'wangguard' )
 		);
 	
-	if (! wangguard_is_multisite())
-		unset($cols['blogs']);
-	
-	return $cols;
+	if (! wangguard_is_multisite()) && defined( 'BP_VERSION' ) {
+			unset($cols['blogs']); }
+			elseif (! wangguard_is_multisite()) &&  ! defined( 'BP_VERSION'){
+						unset($cols['groups']);
+						unset($cols['blogs']);
+				}
+		return $cols;
 }
+
 add_filter("manage_wangguard_page_wangguard_users_columns", "wangguard_page_wangguard_users_headers" );
 add_filter("manage_wangguard_page_wangguard_users-network_columns", "wangguard_page_wangguard_users_headers" );
 /********************************************************************/

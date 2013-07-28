@@ -1024,6 +1024,7 @@ function wangguard_make_spam_user($userid) {
 	if (function_exists("bp_core_process_spammer_status")){
 				$status = 'spam';
 				bp_core_process_spammer_status($userid, $status);
+				$wpusersRs = $wpdb->get_col( $wpdb->prepare("select ID from $wpdb->users where ID = %d" , $userid ) );
 				wangguard_report_users($wpusersRs , "email" , false);
 				} else {
 						//flag a user
