@@ -27,9 +27,10 @@ function wangguard_init() {
 	if (wangguard_get_option('wangguard_disable-meta-header') == 1)
 		remove_action('wp_head', 'wp_generator');
 	
-	if ((wangguard_get_option ("wangguard-do-not-show-adminbar")==1) && defined( 'BP_VERSION' ) )
+	if ((wangguard_get_option ("wangguard-do-not-show-adminbar")==1) && defined( 'BP_VERSION' ) ) {
 		remove_action('bp_adminbar_menus', 'wangguard_add_bp_admin_bar_menus' , 10 );
 		remove_action('admin_bar_menu', 'wangguard_add_wp_admin_bar_menus', 100 );
+	}
 	
 	if  ((wangguard_get_option ("wangguard-do-not-show-adminbar")==1) && ! defined( 'BP_VERSION' ) )
 		remove_action('admin_bar_menu', 'wangguard_add_wp_admin_bar_menus', 100 );
