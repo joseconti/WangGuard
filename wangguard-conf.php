@@ -252,7 +252,7 @@ function wangguard_conf() {
 
 					<p>
 						<input type="checkbox" name="wangguard-do-not-show-adminbar" id="wangguard-do-not-show-adminbar" value="1" <?php echo wangguard_get_option("wangguard-do-not-show-adminbar")=='1' ? 'checked' : ''?> />
-						<label for="wangguard-do-not-show-adminbar"><?php _e("<strong>Disable WangGuard menu from WordPress & BuddyPress AdminBar.", 'wangguard') ?></label>
+						<label for="wangguard-do-not-show-adminbar"><?php _e("<strong>Disable</strong> WangGuard menu from WordPress & BuddyPress AdminBar.", 'wangguard') ?></label>
 					</p>
 					<p>
 						<input type="checkbox" name="wangguard-verify-gmail" id="wangguard-verify-gmail" value="1" <?php echo wangguard_get_option("wangguard-verify-gmail")=='1' ? 'checked' : ''?> />
