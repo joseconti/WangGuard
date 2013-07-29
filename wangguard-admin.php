@@ -1904,11 +1904,20 @@ function wangguard_ajax_callback() {
 		default:
 			//flag a user
 			//get the recordset of the user to flag
+			if (wangguard_is_multisite()) {
+					$spamFieldName = "spam";
+			}
+			else {
+					$spamFieldName = "user_status";
+			}
 			if (function_exists("bp_core_process_spammer_status")){
-								$status = 'spam';
-								bp_core_process_spammer_status($userid, $status);
-							}
-			if (function_exists('update_user_status')) update_user_status( $userid, 'spam', '1' );
+												$status = 'spam';
+												bp_core_process_spammer_status($userid, $status);
+												} 
+			if (function_exists("update_user_status")) { update_user_status($userid, $spamFieldName, 1);	//when flagging the user as spam, the wangguard hook is called to report the user
+			} else {
+								$wpdb->query( $wpdb->prepare("update $wpdb->users set $spamFieldName = 1 where ID = %d" , $userid ) );
+					}
 			$wpusersRs = $wpdb->get_col( $wpdb->prepare("select ID from $wpdb->users where ID = %d" , $userid ) );
 			wangguard_make_spam_user($userid);
 			echo wangguard_report_users($wpusersRs , $scope);
