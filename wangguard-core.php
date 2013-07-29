@@ -1067,15 +1067,15 @@ add_filter("manage_wangguard_page_wangguard_queue-network_columns", "wangguard_p
 function wangguard_page_wangguard_users_headers($v) {
 	$cols = array(
 			'cb'			=> '<input type="checkbox" />',
-			'info'			=> __( 'Info' ),
-			'username'		=> __( 'Username' ),
-			'name'			=> __( 'Name' ),
-			'email'			=> __( 'E-mail' ),
+			'info'			=> __( 'Info' , 'wangguard' ),
+			'username'		=> __( 'Username' , 'wangguard' ),
+			'name'			=> __( 'Name' , 'wangguard' ),
+			'email'			=> __( 'E-mail' , 'wangguard' ),
 			'user_registered'=> __( 'Signed up on' , 'wangguard' ),
 			'from_ip'=>		__( 'User IP' , 'wangguard' ),
-			'posts'			=> __( 'Posts' ),
-			'blogs'			=> __( 'Sites' ),
-			'groups'        => __( 'Groups' ),
+			'posts'			=> __( 'Posts' , 'wangguard' ),
+			'blogs'			=> __( 'Sites' , 'wangguard' ),
+			'groups'        => __( 'Admin Group' , 'wangguard' ),
 			'wgstatus'		=> __( 'WangGuard Status' , 'wangguard' )
 		);
 	
