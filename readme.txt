@@ -293,6 +293,7 @@ It is free for personal use. If you earn more than $200/month with your site or 
 - Added ability to disable WangGuard Menu in WordPress & BuddyPress AdminBar. (Check WangGuard Settings).
 - Added Groups created by users in WangGurd users screen (only BuddyPress). This will help to identify the Splog users.
 - Added more compatibility with BuddyPress (WangGuard now use more hooks for clean all user activity).
+- Added compatibility WangGuard Cron <-> WooCommerce.
 
 = 1.5.8 - 19 Jul 2013 =
 
