@@ -173,7 +173,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 			'from_ip'=>		__( 'User IP' , 'wangguard' ),
 			'posts'		=> __( 'Posts' ),
 			'blogs'		=> __( 'Blogs' ),
-			'groups'    => __( 'Groups' ),
+			'groups'    => __( 'Admin Group' ),
 		);
 
 		return $c;
@@ -346,10 +346,10 @@ class WangGuard_Users_Table extends WP_List_Table {
 								if (is_array($group)){
 									foreach ($group as $detail) {
 										$groupdomain = $bp->root_domain;
-										$bpgrpupsslug = $bp->groups->root_slug;
+										$bpgroupsslug = $bp->groups->root_slug;
 										$groupslug = $detail->slug;
 										$groupname = $detail->name;
-										$r .= '- <a href="'. $groupdomain . '/' . $bpgrpupsslug . '/' . $groupslug . '/?TB_iframe=true&width=900&height=550" class="thickbox" title="'. htmlentities($groupdomain . '/' . $bpgrpupsslug . '/' . $groupslug, 0, 'UTF-8') .'">'.$groupname.'</a><br/>';										}
+										$r .= '- <a href="'. $groupdomain . '/' . $bpgroupsslug . '/' . $groupslug . '/?TB_iframe=true&width=900&height=550" class="thickbox" title="'. htmlentities($groupdomain . '/' . $bpgrpupsslug . '/' . $groupslug, 0, 'UTF-8') .'">'.$groupname.'</a><br/>';										}
 									} else {
 										continue;
 										}
@@ -428,8 +428,7 @@ class WangGuard_Users_Query {
 		$qv = &$this->query_vars;
 		
 		$tableUserStatus = $wpdb->base_prefix . "wangguarduserstatus";
-		
-		
+				
 		$this->query_fields_u = "$wpdb->users.ID , $wpdb->users.user_login , $tableUserStatus.user_status, $tableUserStatus.user_ip as status_user_ip, $tableUserStatus.user_proxy_ip as status_user_proxy_ip";
 		$this->query_from_u = "FROM $wpdb->users LEFT JOIN $tableUserStatus ON $wpdb->users.ID = $tableUserStatus.ID";
 		
@@ -575,7 +574,6 @@ class WangGuard_Users_Query {
 		foreach ( $this->results as $userrow ) {
 			$userid = $userrow->ID;
 			$r[ $userid ] = new WP_User( $userid );
-
 			if ($_SERVER['SERVER_ADDR'] == $userrow->status_user_ip) {
 				//server is behind an nginx/other proxy, grab the proxy address
 				$r[ $userid ]->user_ip = !empty($userrow->status_user_proxy_ip) ? $userrow->status_user_proxy_ip : $userrow->status_user_ip;
