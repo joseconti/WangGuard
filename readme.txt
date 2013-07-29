@@ -4,7 +4,7 @@ Author URI: http://wangguard.com
 Tags: wangguard, wgg, sploggers, splog, anti-splog, user spam, anti spam users, anti-spam, spam blog, spam blogs, wordpress, buddypress, wpmu, wordpress mu, wordpress multisite, standard WordPress, registration, security, security questions, plugin, sign up, signup, spam, wp-login.php, wp-signup.php, wp-register.php, register, registration, protect, protect registration, block agents, block ip, blog secure, bots, secure blog, secure wordpress, secure wp, website security, wp secure, wp security, block users, block user, block, block emails, block e-mails, block domains, block bots, block bot, bp, captcha, no captcha, recaptcha, unwanted users, block unwanted users, block splog, black hat, blackhat, bbpress, clean, clean database, clean splog, clean users, untrusted, untrusted users, ip, ip information, user admin, user management, advanced user management, ip info, appthemes, user registration spam, users registration spam, user registration spam prevention, users registration spam prevention, woocommerce
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 1.5.9 Alpha
+Stable tag: 1.5.8
 License: GPLv2
 
 The most advanced protection against sploggers and spam users registration, is fully WordPress,WordPress MU ,BuddyPress and bbPress 2.0 compatible
@@ -22,7 +22,7 @@ WangGuard works by incorporating an antivirus philosophy.
 
 WangGuard Always will be free for personal use, this means that whenever you have less than 500 daily registrations or you make less than $200/month, you never have to pay anything for WangGuard.
 
-Over 16.500.000+ Splogger/unwanted users blocked in just 2 years!
+Over 22.500.000+ Splogger/unwanted users blocked in just 2 years!
 
 WangGuard already is blocking 99.90% of sploggers and unwanted users.
 
@@ -109,7 +109,9 @@ No need to put any kind of filter in the user registration page (eg captcha). Th
  * Protect BuddyPress registration page against Web Service from Sploggers, spam-user or unwanted users
  * Protect bbPress 2.0 registration page against Web Service from Sploggers, spam-user or unwanted users
  * Anti-splog Web Service.
+ * Disable WangGuard menu in WordPress & BuddyPress AdminBar
  * [AppThemes](http://www.appthemes.com/) compatible
+ * WooCommerce integration
  
 
 = WordPress Simple Features =
@@ -156,6 +158,7 @@ No need to put any kind of filter in the user registration page (eg captcha). Th
  * Add report user on every Activity
  * Add report user on every profile
  * Wizard for detect and eliminate Sploggers
+ * Groups in WangGuard Users Screen
  
  = bbPress 2.0 Plugin =
  
@@ -285,13 +288,19 @@ It is free for personal use. If you earn more than $200/month with your site or 
 
 == Changelog ==
 
+= 1.5.9 - 30 Jul 2013 =
+
+- Added ability to disable WangGuard Menu in WordPress & BuddyPress AdminBar. (Check WangGuard Settings).
+- Added Groups created by users in WangGurd users screen (only BuddyPress). This will help to identify the Splog users.
+- Added more compatibility with BuddyPress (WangGuard now use more hooks for clean all user activity).
+
 = 1.5.8 - 19 Jul 2013 =
 
 - NEW Full Compatibility with CloudFlare. Now you will get the user's real IP instead of CloudFlare's IP. Thats means WangGuard will work 400% better on your website because WangGuard will know the real user's IP with this update. If you use CloudFlare, you need this update.
 
 = 1.5.7.1 - 10 Jul 2013 =
 
-- Fix a possible bug with WooCommerce
+- Fix a possible bug with WooCommerce.
 
 = 1.5.7 - 9 Jul 2013 =
 
