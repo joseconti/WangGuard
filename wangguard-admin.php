@@ -610,7 +610,7 @@ function wangguard_register_add_question(){
  * @param type $errors
  */
 
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+if ( ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) && (get_option('woocommerce_enable_myaccount_registration')=='yes') )  {
     
 	function wangguard_signup_validate($user_name , $email,$errors){
 	if (!wangguard_validate_hfields($_POST['email'])) {
@@ -635,9 +635,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 			if ($reported)
 				$errors->add('wangguard_error',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is a mistake?</a>.', 'wangguard'));
-			else if (wangguard_email_aliases_exists($_REQUEST['user_email']))
+			elseif (wangguard_email_aliases_exists($_REQUEST['email']))
 				$errors->add('wangguard_error',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard'));
-			else if (!wangguard_mx_record_is_ok($_REQUEST['user_email']))
+			elseif (!wangguard_mx_record_is_ok($_REQUEST['email']))
 				$errors->add('wangguard_error',   __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
 		}
 	}
@@ -2826,9 +2826,12 @@ function wangguard_add_admin_menu() {
 	
 	$statsPage = add_submenu_page( 'wangguard_conf', __( 'Stats', 'wangguard'), __( 'Stats', 'wangguard' ), 'manage_options', 'wangguard_stats', 'wangguard_stats' );
     add_action("admin_print_scripts-$statsPage", 'wangguard_add_StatsJS');
+	
+	$users_Info = add_submenu_page( 'wangguard_conf', __( '', 'wangguard'), __( '', 'wangguard' ), 'manage_options', 'wangguard_users_info', 'wangguard_users_info' );
+	add_action("admin_print_scripts-$users_Info", 'wangguard_add_jQueryJS');
+     
+
     
-    $users_Info = add_submenu_page( 'wangguard_conf', __( '', 'wangguard'), __( '', 'wangguard' ), 'manage_options', 'wangguard_users_info', 'wangguard_users_info' );
-    add_action("admin_print_scripts-$users_Info", 'wangguard_add_jQueryJS');
     
 }
 function wangguard_add_StatsJS() {
@@ -2978,7 +2981,6 @@ else
 /*** DASHBOARD ENDS ***/
 /********************************************************************/
 
-
 function css_for_userinfo($hook) {
 	
 	global $users_Info;
@@ -2990,6 +2992,4 @@ function css_for_userinfo($hook) {
     wp_enqueue_style( 'custom_wp_admin_css_for_wangguard_users_info','1.5.6' );
 }
 add_action( 'admin_enqueue_scripts', 'css_for_userinfo' );
-
-
 ?>

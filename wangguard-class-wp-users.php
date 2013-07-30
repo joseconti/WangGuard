@@ -338,7 +338,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 				case 'groups':
 				add_thickbox();
 					$r .= "<td $attributes>";
-					if ( defined( 'BP_VERSION' ) ) {
+					if ( ( defined( 'BP_VERSION' ) ) && ( class_exists('BP_Groups_member') ) ) {
 					global $bp;
 					$bpgrpupsslug = $bp->groups->root_slug;
 						$groups = BP_Groups_Member::get_is_admin_of( $row_data->ID );

@@ -4,7 +4,7 @@ Author URI: http://wangguard.com
 Tags: wangguard, wgg, sploggers, splog, anti-splog, user spam, anti spam users, anti-spam, spam blog, spam blogs, wordpress, buddypress, wpmu, wordpress mu, wordpress multisite, standard WordPress, registration, security, security questions, plugin, sign up, signup, spam, wp-login.php, wp-signup.php, wp-register.php, register, registration, protect, protect registration, block agents, block ip, blog secure, bots, secure blog, secure wordpress, secure wp, website security, wp secure, wp security, block users, block user, block, block emails, block e-mails, block domains, block bots, block bot, bp, captcha, no captcha, recaptcha, unwanted users, block unwanted users, block splog, black hat, blackhat, bbpress, clean, clean database, clean splog, clean users, untrusted, untrusted users, ip, ip information, user admin, user management, advanced user management, ip info, appthemes, user registration spam, users registration spam, user registration spam prevention, users registration spam prevention, woocommerce
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 1.5.8
+Stable tag: 1.5.10
 License: GPLv2
 
 The most advanced protection against sploggers and spam users registration, is fully WordPress,WordPress MU ,BuddyPress and bbPress 2.0 compatible
@@ -288,10 +288,16 @@ It is free for personal use. If you earn more than $200/month with your site or 
 
 == Changelog ==
 
+= 1.5.9.1 - 30 Jul 2013 =
+
+- This update is critical for WooCommerce Users.
+- Fix a bug in WooCommerce My Account page signup.
+- Add support for other signup plugins combined with WooCommerce. 'My Account' signup has to be disabled from WooCommerce Settings.
+
 = 1.5.9 - 30 Jul 2013 =
 
 - Added ability to disable WangGuard Menu in WordPress & BuddyPress AdminBar. (Check WangGuard Settings).
-- Added Groups created by users in WangGuard users screen (only BuddyPress). This will help to identify the Splog users.
+- Added Groups created by users in WangGuard users screen (only BuddyPress). This will help to identify Splog users.
 - Added more compatibility with BuddyPress (WangGuard now use more hooks for clean all user activity).
 - Added compatibility WangGuard Cron <-> WooCommerce.
 
