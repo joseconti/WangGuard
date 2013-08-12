@@ -1079,10 +1079,10 @@ function wangguard_page_wangguard_users_headers($v) {
 			'wgstatus'		=> __( 'WangGuard Status' , 'wangguard' )
 		);
 	
-	if (! wangguard_is_multisite() && defined( 'BP_VERSION')) {
+	if ( ! wangguard_is_multisite() ) {
 		unset($cols['blogs']);
 		}
-	if (! defined( 'BP_VERSION')){
+	if ( ! class_exists('BP_Groups_member') ){
 						unset($cols['groups']);
 						}
 	return $cols;
