@@ -506,13 +506,23 @@ function wangguard_conf() {
 			
 		</div>
 
-
+<?php $wpversion = get_bloginfo('version');
+if ($wpversion >= '3.6') { ?>
+		<script type="text/javascript">
+		  jQuery(document).ready(function() {
+			  jQuery('#wangguard-conf-tabs').tabs();
+			  jQuery('#wangguard-conf-tabs').tabs("option", "active" , <?php echo $selectedTab?>);
+		  });
+		</script>
+		<?php } else { ?>
 		<script type="text/javascript">
 		  jQuery(document).ready(function() {
 			  jQuery('#wangguard-conf-tabs').tabs();
 			  jQuery('#wangguard-conf-tabs').tabs("select" , <?php echo $selectedTab?>);
 		  });
 		</script>
+		
+		<?php } ?>
 
 	</div>
 </div>
