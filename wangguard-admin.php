@@ -2940,6 +2940,7 @@ function wangguard_dashboard_stats() {
  */
 function wangguard_dashboard_stats_render() {
 	global $wangguard_api_key , $wangguard_is_network_admin,$wangguard_api_host,$wangguard_rest_path;
+	
 
 	if ( !current_user_can('level_10') )
 		return;
@@ -2973,10 +2974,15 @@ function wangguard_dashboard_stats_render() {
 		echo '<div style="text-align:center"><a href="'.$urlFunc( "admin.php?page=wangguard_stats" ).'">'.__( 'Click here to access the WangGuard stats' , 'wangguard' ).'</a></div>';
 }
 
+$wpversion = get_bloginfo('version');
+if ($wpversion >= '3.6') {
+	return;
+} else {
 if ( $wangguard_is_network_admin )
 	add_action( 'wp_network_dashboard_setup', 'wangguard_dashboard_stats' );
 else
 	add_action( 'wp_dashboard_setup', 'wangguard_dashboard_stats' );
+	}
 /********************************************************************/
 /*** DASHBOARD ENDS ***/
 /********************************************************************/
