@@ -20,7 +20,7 @@ function wangguard_init() {
 		load_plugin_textdomain('wangguard', false, $plugin_dir . "/languages/" );
 	}
 
-	if ((wangguard_get_option ("wangguard-enable-bp-report-btn")==1) || (wangguard_get_option ("wangguard-enable-bp-report-blog")==1))
+	if ( ( ( (wangguard_get_option ("wangguard-enable-bp-report-btn")==1) ) && ( defined('BP_VERSION') ) ) || (wangguard_get_option ("wangguard-enable-bp-report-blog")==1) )
 		wp_enqueue_script("jquery");
 
 

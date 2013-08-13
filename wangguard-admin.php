@@ -1069,18 +1069,22 @@ function wangguard_bp_core_action_set_spammer_status($userid , $is_spam) {
 /********************************************************************/
 /*** AJAX FRONT HANDLERS BEGINS ***/
 /********************************************************************/
+
+if ( ( (wangguard_get_option ("wangguard-enable-bp-report-btn")==1) && ( defined('BP_VERSION') ) )  || ( wangguard_get_option ("wangguard-enable-bp-report-blog")==1) ) {
 add_action('wp_head', 'wangguard_ajax_front_setup');
 add_action('wp_ajax_wangguard_ajax_front_handler', 'wangguard_ajax_front_callback');
+}
 
 /**
  * Front end ajax functions
  * 
  * @global type $wuangguard_parent
  */
+ 
 function wangguard_ajax_front_setup() {
 	global $wuangguard_parent;
 	
-	if (!is_user_logged_in()) return;?>
+	if ( !is_user_logged_in() )return; ?>
 <script type="text/javascript" >
 	
 	
@@ -2529,7 +2533,7 @@ function wangguard_bp_report_button($id = '', $type = '') {
 		
 	endif;
 }
-if (wangguard_get_option ("wangguard-enable-bp-report-btn")==1) {
+if ( wangguard_get_option ("wangguard-enable-bp-report-btn")==1) {
 	add_filter( 'bp_activity_entry_meta', 'wangguard_bp_report_button' );
 	add_action( 'bp_before_blog_single_post', 'wangguard_bp_report_button' );
 	add_filter( 'comment_reply_link', 'wangguard_bp_comment_reply_link' , 10 , 4);
