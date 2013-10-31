@@ -93,7 +93,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 		
 		//Unchecked users
 		$table_name = $wpdb->base_prefix . "wangguarduserstatus";
-		$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID and $table_name.user_status IN ( '', 'not-checked' ))");
+		$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where  (not EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID) OR EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID and $table_name.user_status IN ( '', 'not-checked' )))");
 		$uncheked_users = $wangguard_g_unchecked_users_count = $Count[0];
 			
 		$class = ($requestType == "uncheked") ? ' class="current"' : '';
@@ -102,7 +102,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 		
 		//Legitimate users
 		$table_name = $wpdb->base_prefix . "wangguarduserstatus";
-		$wgLegitimateSQL = " AND EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID and $table_name.user_status IN ( 'checked', 'force-checked' ))";
+		$wgLegitimateSQL = " AND EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID and $table_name.user_status IN ( 'checked', 'force-checked', 'buyer' ))";
 		
 		if (wangguard_is_multisite())
 			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1 AND $wpdb->users.spam = 0" . $wgLegitimateSQL);
@@ -509,7 +509,7 @@ class WangGuard_Users_Query {
 				else
 					$this->query_where_u .= " AND ";
 
-				$wgLegitimateSQL = " $tableUserStatus.user_status IN ( '', 'not-checked' )";
+				$wgLegitimateSQL = "(not EXISTS (select user_status from $tableUserStatus where $tableUserStatus.ID = {$wpdb->users}.ID) OR EXISTS (select user_status from $tableUserStatus where $tableUserStatus.ID = {$wpdb->users}.ID and $tableUserStatus.user_status IN ( '', 'not-checked' )))";
 
 				$this->query_where_u .= $wgLegitimateSQL;
 				

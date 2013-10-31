@@ -216,7 +216,7 @@ function wangguard_wizard() {
 
 								if ($user_check_status == "reported") {
 										$reported++;
-										if (function_exists("bp_core_process_spammer_status")){
+										if (function_exists('bp_core_process_spammer_status')){
 												$status = 'spam';
 												bp_core_process_spammer_status($userid, $status);
 												 	if (function_exists("update_user_status"))

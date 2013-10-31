@@ -13,7 +13,9 @@ function wangguard_users_info() {
 		$user_info = get_userdata($userID);
 		
 	$blogID = $user_info->primary_blog;
+	if ( function_exists( is_multisite() ) ) {
 	$blog_details = get_blog_details( array( 'blog_id' => $blogID ) );
+	}
 
       echo 'Username: ' . $user_info->user_login . '<br />';
       echo 'User ID: ' . $user_info->ID . '<br />';
@@ -22,8 +24,10 @@ function wangguard_users_info() {
       echo 'User email: ' . $user_info->user_email . '<br />';
       echo 'User registered: ' . $user_info->user_registered . '<br />';
       echo 'User nickname: ' . $user_info->nickname . "<br />";
+      if ( function_exists ( is_multisite() ) ){
       echo 'Blog ID: ' . $blogID . '<br />';
       echo 'User primary Blog : ' . $blog_details->blogname . '<br />';
+      }
       echo get_avatar( $user_info->user_email , 120 );
 
 }

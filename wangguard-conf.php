@@ -74,6 +74,8 @@ function wangguard_conf() {
 			wangguard_update_option('wangguard-do-not-check-client-ip', @$_POST['wangguard-do-not-check-client-ip']=='1' ? 1 : 0 );
 			
 			wangguard_update_option('wangguard-do-not-show-adminbar', @$_POST['wangguard-do-not-show-adminbar']=='1' ? 1 : 0 );
+			
+			wangguard_update_option('wangguard-add-honeypot', @$_POST['wangguard-add-honeypot']=='1' ? 1 : 0 );
 
 			$selectedTab = 2;
 			
@@ -264,6 +266,10 @@ function wangguard_conf() {
 						<label for="wangguard_disable-meta-header"><?php _e("<strong>Remove the generator META tag.</strong><br/>By checking this option, WangGuard will remove the generator META tag from the generated pages of your site, this will prevent automated bots to easilly identify a WordPress site by looking at this META tag.", 'wangguard') ?></label>
 					</p>
 
+					<p>
+						<input type="checkbox" name="wangguard-add-honeypot" id="wangguard-add-honeypot" value="1" <?php echo wangguard_get_option("wangguard-add-honeypot")=='1' ? 'checked' : ''?> />
+						<label for="wangguard-add-honeypot"><?php _e("<strong>Enable</sytong> honeypot fields (signup trap fields). Some themes has problem with  honeypot fields. If you have some problems with those fields, disable this option", 'wangguard') ?></label>
+					</p>
 					<?php 
 					//verifies if the getmxrr() function is availabe
 					$wangguard_mx_ok = function_exists('getmxrr');?>
