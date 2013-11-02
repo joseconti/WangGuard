@@ -1831,8 +1831,11 @@ function wangguard_cronjob_runner($cronid) {
 //bottom link
 $urlFunc = "admin_url";
 
+
 if ($wangguard_is_network_admin && function_exists("network_admin_url"))$urlFunc = "network_admin_url";
 $site_url = $urlFunc( "admin.php?page=wangguard_users" );
+$current_site = new stdClass();
+$current_site = get_current_site();
 $message .= "\n\n" . __("Next run ","wangguard") . $humanizedNextRun;
 $message .= "\n\n" . __("Click here to manage users: ","wangguard") . "\n" . $site_url;
 $message .= "\n\nWangGuard - www.wangguard.com";
@@ -1843,7 +1846,10 @@ if ( $admin_email == '' )$admin_email = 'support@' . $_SERVER['SERVER_NAME'];
 $from_name = get_site_option( 'site_name' ) == '' ? 'WordPress' : esc_html( get_site_option( 'site_name' ) );
 $message_headers = "From: \"{$from_name}\" <{$admin_email}>\n" . "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"\n";
 
-if ( empty( $current_site->site_name ) )$current_site->site_name = 'WordPress';
+if ( empty( $current_site->site_name ) ) {
+	$current_site = new stdClass();
+	$current_site->site_name = 'WordPress';
+}
 $subject = sprintf('WangGuard Cron Job # '.$cronid . ' - '.__('Verified: %d - Sploggers: %d'), $checkedUsers, $detectedSploggers);
 @wp_mail($admin_email, $subject, $message, $message_headers);
 }

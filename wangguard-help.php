@@ -134,12 +134,76 @@ function wangguard_help() {
 					<p><?php _e( 'There are some reason:', 'wangguard' ); ?></p>
 					<ul>
 					<li><?php _e( 'He was reported by a user, he need to contact with us and we will remove the email ', 'wangguard' ); ?></li>
-					<li><?php _e( 'He tried to register many times, ex: he forgot to file some fields and the IP was blocked after some tries. He need to contact with us', 'wangguard'); ?>
+					<li><?php _e( 'He tried to register many times, ex: he forgot to fill some fields and the IP was blocked after some tries. He need to contact with us', 'wangguard'); ?>
 					</li>
 					<li><?php _e( 'He is using a proxy or VPN. We block all proxys and VPNs.', 'wangguard'); ?>
 					<li><?php _e( 'He is using TOR network. We block the TOR network.', 'wangguard'); ?>
 					</li>
 					</ul>
+					<h4><?php _e( 'WangGuard is not saving the API Key, settings or security questions', 'wangguard' ); ?></h4>
+					<p><?php _e( 'That\'s because there was something wrong at WangGuard activation and WangGuard database tables weren\'t created.', 'wangguard' ); ?></p>
+					<p><?php _e( 'Please, copy the next code and use phpMyadmin or similar software for create WangGuard tables.', 'wangguard' ); ?></p>
+					<p>
+					<?php
+
+							$sitetableprefix= $wpdb->base_prefix;
+							$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+
+
+echo '<textarea class="code" readonly="readonly" cols="80" rows="16">
+CREATE TABLE '.$sitetableprefix.'wangguardquestions (
+	id mediumint(9) NOT NULL AUTO_INCREMENT,
+	Question VARCHAR(255) NOT NULL,
+	Answer VARCHAR(50) NOT NULL,
+	RepliedOK INT(11) DEFAULT 0 NOT NULL,
+	RepliedWRONG INT(11) DEFAULT 0 NOT NULL,
+	UNIQUE KEY id (id)
+) '.$charset_collate.';
+		
+CREATE TABLE '.$sitetableprefix.'wangguarduserstatus (
+	ID BIGINT(20) NOT NULL,
+	user_status VARCHAR(20) NOT NULL,
+	user_ip VARCHAR(15) NOT NULL,
+	user_proxy_ip VARCHAR(15) NOT NULL,
+	UNIQUE KEY ID (ID)
+) '.$charset_collate.';
+
+CREATE TABLE '.$sitetableprefix.'wangguardreportqueue (
+	ID BIGINT(20) NULL,
+	blog_id BIGINT(20) NULL,
+	reported_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	reported_by_ID BIGINT(20) NOT NULL,
+	KEY reported_by_ID (reported_by_ID),
+	KEY ID (ID),
+	KEY blog_id (blog_id),
+	UNIQUE KEY ID_blog (ID , blog_id)
+) '.$charset_collate.';
+
+CREATE TABLE '.$sitetableprefix.'wangguardsignupsstatus (
+	signup_username VARCHAR(60) NOT NULL,
+	user_status VARCHAR(20) NOT NULL,
+	user_ip VARCHAR(15) NOT NULL,
+	user_proxy_ip VARCHAR(15) NOT NULL,
+	UNIQUE KEY signup_username (signup_username)
+) '.$charset_collate.';
+
+CREATE TABLE '.$sitetableprefix.'wangguardoptions (
+	option_name varchar(64) NOT NULL,
+	option_value longtext NOT NULL,
+	UNIQUE KEY option_name (option_name)
+) COLLATE utf8_general_ci;
+
+CREATE TABLE '.$sitetableprefix.'wangguardcronjobs (
+	id mediumint(9) NOT NULL AUTO_INCREMENT,
+	RunOn VARCHAR(20) NOT NULL,
+	RunAt VARCHAR(5) NOT NULL,
+	Action VARCHAR(1) NOT NULL,
+	UsersTF VARCHAR(1) NOT NULL,
+	LastRun TIMESTAMP NULL,
+	UNIQUE KEY id (id)
+) '.$charset_collate.';
+</textarea>' ?>
+
 				</div>
 			</div>
 
@@ -178,7 +242,7 @@ function wangguard_help_us() {
 									} ?>
 	
 		<div class="wrap about-wrap">
-			<h1><?php printf( __( 'WangGuard Help Us', 'wangguard' ), $wangguard_version ); ?></h1>
+			<h1><?php printf( __( 'Help Us', 'wangguard' ), $wangguard_version ); ?></h1>
 			<div class="about-text"><?php printf( __( 'Help us! WangGuard %s is ready but we want to release the next version!', 'wangguard'  ), $wangguard_version ); ?></div>
 			<div class="wangguard-badge"><?php printf( __( 'Version %s' ), $wangguard_version ); ?></div>
 
@@ -202,7 +266,7 @@ function wangguard_help_us() {
 				<div class="feature-section col two-col">
 					<div>
 						<h4><?php _e( 'Donate', 'wangguard' ); ?></h4>
-						<p><?php _e( 'You can donate to the project. WangGuard needs servers and that server are not free. In a future, we will activate the Premium accounts for who make money with their website, but now is free and will be free for every one for a long time. If you donate some bucks, you will help us to continue developing and maintaining WangGuard. ', 'wangguard' ); ?></p>
+						<p><?php _e( 'You can donate to the project. WangGuard needs servers and that server aren\'t free. In a future, we will activate the Premium accounts for who make money with their website, but now is free and will be free for every one for a long time. If you donate some bucks, you will help us to continue developing and maintaining WangGuard. If you make a donation, contact and sent us your WangGuard user email, Paypal transaction ID, and the amount. We will add it as credit for you once we start with Premium accounts.', 'wangguard' ); ?></p>
 					</div>
 					<div class="last-feature">
 						<h4><?php _e( 'PayPal Donation', 'wangguard' ); ?></h4>
@@ -228,8 +292,8 @@ function wangguard_help_us() {
 					<div>
 						<img class="image-66" src="<?php echo $wangguard_plugin_url . 'wangguard/img/wangguard-review-web.png'; ?>" width="100%" />
 						<h4><?php _e( 'Write a review on your website', 'wangguard' ); ?></h4>
-						<p><?php _e( 'You can write a review about WangGuard. That will help a lot to us. If you write a review, many people will know WangGuard, the more known and used is WangGuard, the more effective. The review will help to you and WangGuard.', 'wangguard' ); ?></p>
-						<p><?php printf( __( 'You can see a nice review made by %s', 'wangguard' ), $wangguardreviewexample ); ?></p>
+						<p><?php _e( 'You can write a review about WangGuard. That will help a lot to us. If you write a review, many people will know WangGuard, the more known and used is WangGuard, the more effective. The review will help to you and to WangGuard.', 'wangguard' ); ?></p>
+						<p><?php printf( __( 'You can see a nice review write by %s', 'wangguard' ), $wangguardreviewexample ); ?></p>
 					</div>
 				</div>
 				<div class="feature-section images-stagger-left">
