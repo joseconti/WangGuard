@@ -292,8 +292,8 @@ function wangguard_help_us() {
 					<div>
 						<img class="image-66" src="<?php echo $wangguard_plugin_url . 'wangguard/img/wangguard-review-web.png'; ?>" width="100%" />
 						<h4><?php _e( 'Write a review on your website', 'wangguard' ); ?></h4>
-						<p><?php _e( 'You can write a review about WangGuard. That will help a lot to us. If you write a review, many people will know WangGuard, the more known and used is WangGuard, the more effective. The review will help to you and to WangGuard.', 'wangguard' ); ?></p>
-						<p><?php printf( __( 'You can see a nice review write by %s', 'wangguard' ), $wangguardreviewexample ); ?></p>
+						<p><?php _e( 'You can write a review about WangGuard. That will help a lot to us. If you write a review, many people will know WangGuard, the more known and used is WangGuard, the more effective. The review will help to you and WangGuard.', 'wangguard' ); ?></p>
+						<p><?php printf( __( 'You can see a nice review made by %s', 'wangguard' ), $wangguardreviewexample ); ?></p>
 					</div>
 				</div>
 				<div class="feature-section images-stagger-left">

@@ -1795,19 +1795,28 @@ function wangguard_cronjob_runner($cronid) {
 					//what to do with this user
 					switch ($cronjob->Action) {
 						case "f":
-							//Flag detected Sploggers as Sploggers and Spam users --------------------------------------------------------------------------------
-							
-							if (function_exists('bp_core_process_spammer_status')){
-								$status = 'spam';
-								bp_core_process_spammer_status($userid, $status);
+
+							//Flag detected Sploggers as Sploggers and Spam users
+							if (function_exists('bp_core_mark_user_spam_admin')){
+								bp_core_mark_user_spam_admin($userid);
+									if (function_exists('update_user_status')){
+										update_user_status( $userid, 'spam', '1' );
+									} else {
+									$wpdb->query( $wpdb->prepare("update $wpdb->users set $spamFieldName = 1 where ID = %d" , $userid ) );
+								}
+							} else {
+									if (function_exists('update_user_status')){
+										update_user_status( $userid, 'spam', '1' );
+									} else {
+									$wpdb->query( $wpdb->prepare("update $wpdb->users set $spamFieldName = 1 where ID = %d" , $userid ) );
+									}
 							}
+							
+							break;
 
 							
-							if (function_exists("update_user_status"))update_user_status($userid, $spamFieldName, 1);
-							//when flagging the user as spam, the wangguard hook is called to report the user else $wpdb->query( $wpdb->prepare("update $wpdb->users set $spamFieldName = 1 where ID = %d" , $userid ) );
-							break;
 						case "d":
-							//Delete detected Sploggers ----------------------------------------------------------------------------------------------------------
+							//Delete detected Sploggers----------------------------------------------------------------------------------------------------------
 							wangguard_delete_user_and_blogs($userid);
 							break;
 				}
@@ -1895,23 +1904,21 @@ function wangguard_delete_user_and_blogs($userid) {
 
 }
 
-
-if (wangguard_is_multisite () && function_exists('wpmu_delete_user')) {
-	
-	if (function_exists('bp_core_process_spammer_status')) {
-		$status = 'spam';
-		bp_core_process_spammer_status($userid, $status);
+if (  wangguard_is_multisite() ) {
+	if (function_exists('bp_core_mark_user_spam_admin')){
+		@include_once( ABSPATH . 'wp-admin/includes/ms.php' );
+		bp_core_mark_user_spam_admin($userid);
 		wpmu_delete_user($userid);
 	} else {
+		@include_once( ABSPATH . 'wp-admin/includes/ms.php' );
 		wpmu_delete_user($userid);
 	}
 
-} else {
+}  else {
 	
-	if ( ( function_exists( 'wp_delete_user' ) ) && ( function_exists( 'bp_core_process_spammer_status' ) ) ) {
+	if ( function_exists( 'wp_delete_user' ) && function_exists('bp_core_mark_user_spam_admin') ) {
 		@include_once( ABSPATH . 'wp-admin/includes/user.php' );
-		$status = 'spam';
-		bp_core_process_spammer_status($userid, $status);
+		bp_core_mark_user_spam_admin($userid);
 		wp_delete_user($userid);
 	} else {
 		@include_once( ABSPATH . 'wp-admin/includes/user.php' );
