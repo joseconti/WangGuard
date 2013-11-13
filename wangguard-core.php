@@ -122,9 +122,9 @@ function wangguard_contact_styles_css($hook){
 add_action( 'admin_enqueue_scripts', 'wangguard_about_styles_css' );
 function wangguard_about_styles_css($hook){
 
-		global $WGAboutPage, $WGPluginPage, $WGHelpPage, $WGHelpUsPage, $WGCreditsPage;
+		global $WGAboutPage, $WGPluginPage, $WGHelpPage, $WGHelpUsPage, $WGCreditsPage, $users_Info;
 
-		if( ( $WGAboutPage == $hook ) || ( $WGPluginPage == $hook ) || ( $WGHelpPage == $hook ) || ( $WGHelpUsPage == $hook ) || ( $WGCreditsPage == $hook ) ) {
+		if( ( $WGAboutPage == $hook ) || ( $WGPluginPage == $hook ) || ( $WGHelpPage == $hook ) || ( $WGHelpUsPage == $hook ) || ( $WGCreditsPage == $hook ) || (  $users_Info == $hook ) ) {
 			 wp_register_style( 'custom_wp_admin_css_for_about_screen', plugins_url('/css/wangguardabout.css', __FILE__),array(),'1.5.6'  );
 				wp_enqueue_style( 'custom_wp_admin_css_for_about_screen');
 } else { return; }
@@ -473,44 +473,39 @@ function wangguard_getRemoteProxyIP() {
 function wangguard_is_multisite() {
 
 	if (function_exists('is_multisite')) {
-
 		return is_multisite();
-
 	}
-
 	else {
-
 		global $wpmu;
-
 		if ($wpmu == 1)
-
 			return true;
-
 		else
-
 			return false;
-
 	}
-
 }
-
-
 
 if ( !function_exists('wp_nonce_field') ) {
-
 	function wangguard_nonce_field($action = -1) { return; }
-
 	$wangguard_nonce = -1;
-
 } else {
-
 	function wangguard_nonce_field($action = -1) { return wp_nonce_field($action); }
-
 	$wangguard_nonce = 'wangguard-update-key';
-
 }
 
-
+//check for bp_core_mark_user_spam_admin
+function wangguard_check_for_bp_core_mark_user_spam_admin() {
+				
+				//if (defined('BP_VERSION')) {
+					// Check if BuddyPress at less 1.9
+						//if ( version_compare(BP_VERSION, '1.9', '<') ) {
+							// if not, check if bp_core_mark_user_spam_admin id hooked
+								//if ( ! has_action( 'make_spam_user', 'bp_core_mark_user_spam_admin' )) {
+									// if not hooked, we hook bp_core_mark_user_spam_admin. This come from the bug related here http://buddypress.trac.wordpress.org/ticket/5229
+									add_action( 'make_spam_user', 'bp_core_mark_user_spam_admin' );
+								//	}
+						//	}
+				//}
+}
 
 //Extracts the domain part from an email address
 

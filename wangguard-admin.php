@@ -55,7 +55,14 @@ License: GPL2
 	//include_once 'buddypress/bp-loader.php';
 	/********************************************************************/	
 	/*** CONFIG ENDS ***/	
-	/********************************************************************/	
+	/********************************************************************/
+	
+	// We are working here arround BuddyPress. Will be live in future version.
+	
+//	function wangguard_buddypress_init() {
+ //   require( dirname( __FILE__ ) . '/wangguard-buddypress.php' );
+//}
+// add_action( 'bp_include', 'wangguard_buddypress_init' );
 	
 	/********************************************************************/	
 	/*** ADD & VALIDATE SECURITY QUESTIONS ON REGISTER BEGINS ***/	
@@ -197,7 +204,7 @@ $wangguard_NoncePName = 'wangguard-hidden-position-check';
 $wangguard_NonceCName = 'wangguard-hidden-check-check';
 $wangguard_HPrefix = 'signup_';
 $wangguard_FPrefix = 'newsignup_';
-$prefix = $wpdb->prefix;
+//$prefix = $wpdb->prefix;
 
 /**
  * Get a random string
@@ -1794,22 +1801,12 @@ function wangguard_cronjob_runner($cronid) {
 					$sploggersUsers[] = $user_object->display_name . " (" . $user_object->user_email . ")";
 					//what to do with this user
 					switch ($cronjob->Action) {
-						case "f":
-
-							//Flag detected Sploggers as Sploggers and Spam users
-							if (function_exists('bp_core_mark_user_spam_admin')){
-								bp_core_mark_user_spam_admin($userid);
-									if (function_exists('update_user_status')){
-										update_user_status( $userid, 'spam', '1' );
+						case "f":							
+							// Now we mark a user as spam, there is a problem related to BuddyPress permissions, so the splogger activity will not removed. http://buddypress.trac.wordpress.org/ticket/5233
+							if (function_exists('update_user_status')){
+									update_user_status( $userid, 'spam', '1' );
 									} else {
-									$wpdb->query( $wpdb->prepare("update $wpdb->users set $spamFieldName = 1 where ID = %d" , $userid ) );
-								}
-							} else {
-									if (function_exists('update_user_status')){
-										update_user_status( $userid, 'spam', '1' );
-									} else {
-									$wpdb->query( $wpdb->prepare("update $wpdb->users set $spamFieldName = 1 where ID = %d" , $userid ) );
-									}
+							$wpdb->query( $wpdb->prepare("update $wpdb->users set $spamFieldName = 1 where ID = %d" , $userid ) );
 							}
 							
 							break;
@@ -1840,11 +1837,9 @@ function wangguard_cronjob_runner($cronid) {
 //bottom link
 $urlFunc = "admin_url";
 
-
 if ($wangguard_is_network_admin && function_exists("network_admin_url"))$urlFunc = "network_admin_url";
 $site_url = $urlFunc( "admin.php?page=wangguard_users" );
-$current_site = new stdClass();
-$current_site = get_current_site();
+
 $message .= "\n\n" . __("Next run ","wangguard") . $humanizedNextRun;
 $message .= "\n\n" . __("Click here to manage users: ","wangguard") . "\n" . $site_url;
 $message .= "\n\nWangGuard - www.wangguard.com";
@@ -1855,8 +1850,13 @@ if ( $admin_email == '' )$admin_email = 'support@' . $_SERVER['SERVER_NAME'];
 $from_name = get_site_option( 'site_name' ) == '' ? 'WordPress' : esc_html( get_site_option( 'site_name' ) );
 $message_headers = "From: \"{$from_name}\" <{$admin_email}>\n" . "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"\n";
 
-if ( empty( $current_site->site_name ) ) {
+if (is_multisite()){
+$current_site = new stdClass();
+$current_site = get_current_site();
+} else {
 	$current_site = new stdClass();
+}
+if ( empty( $current_site->site_name ) ) {
 	$current_site->site_name = 'WordPress';
 }
 $subject = sprintf('WangGuard Cron Job # '.$cronid . ' - '.__('Verified: %d - Sploggers: %d'), $checkedUsers, $detectedSploggers);

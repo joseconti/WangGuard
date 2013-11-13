@@ -1,2 +1,5 @@
 #adminmenuwrap, #adminmenuback, #wpadminbar {display:none!important; width: 0px;}
 #wpcontent, #wpfooter {margin-left: 12px;}
+.wangguard-avatar {padding-top: 40px; margin: 0 -5px;}
+.about-wrap .wangguard-avatar {position: absolute; top: 0; right: 0;}
+body.rtl .about-wrap .wangguard-avatar {right: auto; left: 0;}
