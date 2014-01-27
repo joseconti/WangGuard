@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 *Looking for banner
 */
 
-function wangguard_look_for_plugin_banner($bannerurl)
+function wangguard_look_for_plugin_banner_addon($bannerurl)
 {
    $handle = @fopen($bannerurl, "r");
 
@@ -25,7 +25,7 @@ function wangguard_look_for_plugin_banner($bannerurl)
 
 
  
- function wangguard_compatible_plugins() {
+ function wangguard_addons() {
 	global $wpdb,$wangguard_nonce, $wangguard_api_key,$wangguard_api_host , $wangguard_rest_path;
 	
 	$wangguard_plugin_url = plugin_dir_url('wangguard-admin.php');
@@ -40,17 +40,17 @@ function wangguard_look_for_plugin_banner($bannerurl)
 			<div class="wangguard-badge"><?php printf( __( 'Version %s' ), $wangguard_version ); ?></div>
 
 			<h2 class="nav-tab-wrapper">
-				<a class="nav-tab nav-tab-active" href="<?php if ( !is_multisite() ) { echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_compatible_plugins' ), 'admin.php' ) ) ); }
-				else { echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_compatible_plugins' ), 'admin.php' ) ) );} ?>">
-					<?php _e( 'Third party plugins', 'wangguard' ); ?>
+				<a class="nav-tab nav-tab-active" href="<?php if ( !is_multisite() ) { echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_addons' ), 'admin.php' ) ) ); }
+				else { echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_addons' ), 'admin.php' ) ) );} ?>">
+					<?php _e( 'WangGuard Add-ons', 'wangguard' ); ?>
 				</a>
 			</h2>
 
 			<div class="changelog">
-				<h3><?php _e( 'Third party plugins', 'wangguard' ); ?></h3>
+				<h3><?php _e( 'WangGuard Add-ons', 'wangguard' ); ?></h3>
 					<?php
 $args = array(
-	'search' => 'wangguard',
+	'tag' => 'wangguardaddon',
 	'fields' => array(
 		'downloaded' => true,
 		'downloadlink' => true,
@@ -77,7 +77,7 @@ if ( !is_wp_error($response) ) {
 		echo "An error has occurred";
 	}
 	else {
-		// Display a list of the plug-ins and the number of downloads
+		// Display a list of the WangGuard add-ons
 		//print_r ($plugins);
 		if ( $plugins ) {
 		add_thickbox();
@@ -85,16 +85,17 @@ if ( !is_wp_error($response) ) {
 		// print_r($returned_object->plugins);
 			
 			foreach ( $plugins as $plugin ) {
-			 if ( ( $plugin->name == 'CM Invitation Codes' ) || ( $plugin->name == 'WangGuard' ) ) {
 			 
-			 // I'm sorry CM Invitation Codes Developer, but you are making Spam tags. 
+			 // I'm sorry CM Invitation Codes Developer, but you are making Spam tags.
+			 if ( ( $plugin->name == 'CM Invitation Codes' ) || ( $plugin->name == 'WangGuard' ) ) {
+			  
 			 
 			 continue; } else {
 			echo '<div class="changelog">';
 			//echo '<h3>'.esc_html($plugin->name). '</h4>';
 					echo '<div class="feature-section images-stagger-right">';
 					$bannerurl = "http://s-plugins.wordpress.org/" . esc_html($plugin->slug) . "/assets/banner-772x250.png"; 
-						if ( wangguard_look_for_plugin_banner ( $bannerurl ) ) {
+						if ( wangguard_look_for_plugin_banner_addon ( $bannerurl ) ) {
 						echo '<img class="image-66" src="http://s-plugins.wordpress.org/' . esc_html($plugin->slug) . '/assets/banner-772x250.png" alt="">';}
 								echo '<div class="feature-section images-stagger-right">';
 									echo '<h4>'.esc_html($plugin->name). '</h4>';

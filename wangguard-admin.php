@@ -52,6 +52,7 @@ License: GPL2
 	include_once 'wangguard-help.php';
 	include_once 'wangguard-about.php';
 	include_once 'wangguard-compatible-plugins.php';
+	include_once 'wangguard-addons.php';
 	//include_once 'buddypress/bp-loader.php';
 	/********************************************************************/	
 	/*** CONFIG ENDS ***/	
@@ -2474,7 +2475,8 @@ function wangguard_add_admin_menu() {
 	$statsPage = add_submenu_page( 'wangguard_conf', __( 'Stats', 'wangguard'), __( 'Stats', 'wangguard' ), 'manage_options', 'wangguard_stats', 'wangguard_stats' );
 	add_action("admin_print_scripts-$statsPage", 'wangguard_add_StatsJS');
 	$WGHelpPage = add_submenu_page( 'wangguard_conf', __( 'Help', 'wangguard'), __( 'Help', 'wangguard' ), 'manage_options', 'wangguard_help', 'wangguard_help' );
-	$WGPluginPage = add_submenu_page( 'wangguard_conf', __( 'Plugins', 'wangguard'), __( 'Plugins', 'wangguard' ), 'manage_options', 'wangguard_compatible_plugins', 'wangguard_compatible_plugins' );
+	$WGPluginPage = add_submenu_page( 'wangguard_conf', __( 'Third party plugins', 'wangguard'), __( 'Third party plugins', 'wangguard' ), 'manage_options', 'wangguard_compatible_plugins', 'wangguard_compatible_plugins' );
+	$WGAddonPage = add_submenu_page( 'wangguard_conf', __( 'Add-Ons', 'wangguard'), __( 'Add-Ons', 'wangguard' ), 'manage_options', 'wangguard_addons', 'wangguard_addons' );
 	$WGAboutPage = add_submenu_page( 'wangguard_conf', __( 'About', 'wangguard'), __( 'About', 'wangguard' ), 'manage_options', 'wangguard_about', 'wangguard_about' );
 	$users_Info = add_submenu_page( '', __( 'Users Info', 'wangguard'), __( 'Users Info', 'wangguard' ), 'manage_options', 'wangguard_users_info', 'wangguard_users_info' );
 	add_action("admin_print_scripts-$users_Info", 'wangguard_add_jQueryJS');
