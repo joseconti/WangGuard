@@ -2424,7 +2424,7 @@ add_action('admin_bar_menu', 'wangguard_add_wp_admin_bar_menus', 100 );
 function wangguard_add_admin_menu() {
 	
 	if ( !is_super_admin() )return false;
-	global $menu, $admin_page_hooks, $_registered_pages , $wpdb , $wangguard_api_key, $users_Info, $WGDevelopmentPage, $WGContactPage, $WGAboutPage, $WGPluginPage, $WGHelpPage, $WGHelpUsPage, $WGCreditsPage;
+	global $menu, $admin_page_hooks, $_registered_pages , $wpdb , $wangguard_api_key, $users_Info, $WGDevelopmentPage, $WGContactPage, $WGAboutPage, $WGPluginPage, $WGHelpPage, $WGHelpUsPage, $WGCreditsPage, $WGAddonPage;
 	$params = array('page_title' => __( 'WangGuard', 'wangguard' ),'menu_title' => __( 'WangGuard', 'wangguard' ),'access_level' => 10,'file' => 'wangguard_conf','function' => 'wangguard_conf','position' => 20.4);
 	extract( $params, EXTR_SKIP );
 	$file = plugin_basename( $file );

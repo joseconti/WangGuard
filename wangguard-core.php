@@ -122,9 +122,9 @@ function wangguard_contact_styles_css($hook){
 add_action( 'admin_enqueue_scripts', 'wangguard_about_styles_css' );
 function wangguard_about_styles_css($hook){
 
-		global $WGAboutPage, $WGPluginPage, $WGHelpPage, $WGHelpUsPage, $WGCreditsPage, $users_Info;
+		global $WGAboutPage, $WGPluginPage, $WGHelpPage, $WGHelpUsPage, $WGCreditsPage, $users_Info, $WGAddonPage;
 
-		if( ( $WGAboutPage == $hook ) || ( $WGPluginPage == $hook ) || ( $WGHelpPage == $hook ) || ( $WGHelpUsPage == $hook ) || ( $WGCreditsPage == $hook ) || (  $users_Info == $hook ) ) {
+		if( ( $WGAboutPage == $hook ) || ( $WGPluginPage == $hook ) || ( $WGHelpPage == $hook ) || ( $WGHelpUsPage == $hook ) || ( $WGCreditsPage == $hook ) || (  $users_Info == $hook ) || ( $WGAddonPage == $hook ) ) {
 			 wp_register_style( 'custom_wp_admin_css_for_about_screen', plugins_url('/css/wangguardabout.css', __FILE__),array(),'1.5.6'  );
 				wp_enqueue_style( 'custom_wp_admin_css_for_about_screen');
 } else { return; }
