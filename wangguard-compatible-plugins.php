@@ -35,8 +35,8 @@ function wangguard_look_for_plugin_banner($bannerurl)
 
 	if ( defined('WANGGUARD_VERSION') )  { $wangguard_version = WANGGUARD_VERSION; } ?>
 		<div class="wrap about-wrap">
-			<h1><?php printf( __( 'Extending WangGuard %s' ), $wangguard_version ); ?></h1>
-			<div class="about-text"><?php printf( __( 'Plugins and extensions for WangGuard or compatibles with WangGuard', 'wangguard'  ), $wangguard_version ); ?></div>
+			<h1><?php _e( 'Plugins compatibles with WangGuard' ); ?></h1>
+			<div class="about-text"><?php _e( 'Third party plugins compatibles with WangGuard', 'wangguard'  ); ?></div>
 			<div class="wangguard-badge"><?php printf( __( 'Version %s' ), $wangguard_version ); ?></div>
 
 			<h2 class="nav-tab-wrapper">
@@ -82,10 +82,10 @@ if ( !is_wp_error($response) ) {
 		if ( $plugins ) {
 		add_thickbox();
 		
-		// print_r($returned_object->plugins);
+		//print_r($returned_object->plugins);
 			
 			foreach ( $plugins as $plugin ) {
-			 if ( ( $plugin->name == 'CM Invitation Codes' ) || ( $plugin->name == 'WangGuard' ) ) {
+			 if ( ( $plugin->name == 'CM Invitation Codes' ) || ( $plugin->name == 'WangGuard' ) || ( $plugin->author_profile == 'http://profiles.wordpress.org/jconti' ) ) {
 			 
 			 // I'm sorry CM Invitation Codes Developer, but you are making Spam tags. 
 			 
