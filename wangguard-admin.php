@@ -2474,10 +2474,10 @@ function wangguard_add_admin_menu() {
 	add_action("admin_print_scripts-$cronHook", 'wangguard_add_jQueryJS');
 	$statsPage = add_submenu_page( 'wangguard_conf', __( 'Stats', 'wangguard'), __( 'Stats', 'wangguard' ), 'manage_options', 'wangguard_stats', 'wangguard_stats' );
 	add_action("admin_print_scripts-$statsPage", 'wangguard_add_StatsJS');
-	$WGHelpPage = add_submenu_page( 'wangguard_conf', __( 'Help', 'wangguard'), __( 'Help', 'wangguard' ), 'manage_options', 'wangguard_help', 'wangguard_help' );
-	$WGPluginPage = add_submenu_page( 'wangguard_conf', __( 'Third party plugins', 'wangguard'), __( 'Third party plugins', 'wangguard' ), 'manage_options', 'wangguard_compatible_plugins', 'wangguard_compatible_plugins' );
 	$WGAddonPage = add_submenu_page( 'wangguard_conf', __( 'Add-Ons', 'wangguard'), __( 'Add-Ons', 'wangguard' ), 'manage_options', 'wangguard_addons', 'wangguard_addons' );
+	$WGPluginPage = add_submenu_page( 'wangguard_conf', __( 'Third party plugins', 'wangguard'), __( 'Third party plugins', 'wangguard' ), 'manage_options', 'wangguard_compatible_plugins', 'wangguard_compatible_plugins' );
 	$WGAboutPage = add_submenu_page( 'wangguard_conf', __( 'About', 'wangguard'), __( 'About', 'wangguard' ), 'manage_options', 'wangguard_about', 'wangguard_about' );
+	$WGHelpPage = add_submenu_page( 'wangguard_conf', __( 'Help', 'wangguard'), __( 'Help', 'wangguard' ), 'manage_options', 'wangguard_help', 'wangguard_help' );
 	$users_Info = add_submenu_page( '', __( 'Users Info', 'wangguard'), __( 'Users Info', 'wangguard' ), 'manage_options', 'wangguard_users_info', 'wangguard_users_info' );
 	add_action("admin_print_scripts-$users_Info", 'wangguard_add_jQueryJS');
 	$WGDevelopmentPage = add_submenu_page( '', __( 'Development', 'wangguard'), __( 'Development', 'wangguard' ), 'manage_options', 'wangguard_development', 'wangguard_development' );
