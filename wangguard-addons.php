@@ -36,7 +36,7 @@ function wangguard_look_for_plugin_banner_addon($bannerurl)
 	if ( defined('WANGGUARD_VERSION') )  { $wangguard_version = WANGGUARD_VERSION; } ?>
 		<div class="wrap about-wrap">
 			<h1><?php printf( __( 'Extending WangGuard %s' ), $wangguard_version ); ?></h1>
-			<div class="about-text"><?php printf( __( 'Plugins and extensions for WangGuard or compatibles with WangGuard', 'wangguard'  ), $wangguard_version ); ?></div>
+			<div class="about-text"><?php  _e( 'WangGuard Add-ons developed by us for extend functionalities', 'wangguard'  ); ?></div>
 			<div class="wangguard-badge"><?php printf( __( 'Version %s' ), $wangguard_version ); ?></div>
 
 			<h2 class="nav-tab-wrapper">
