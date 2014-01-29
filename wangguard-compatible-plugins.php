@@ -26,7 +26,9 @@ function wangguard_look_for_plugin_banner($bannerurl)
 
  
  function wangguard_compatible_plugins() {
-	global $wpdb,$wangguard_nonce, $wangguard_api_key,$wangguard_api_host , $wangguard_rest_path;
+	global $wpdb,$wangguard_nonce, $wangguard_api_key, $wangguard_rest_path;
+	
+	if ( defined('WANGGUARD_API_HOST') ) {$wangguard_api_host = WANGGUARD_API_HOST;}
 	
 	$wangguard_plugin_url = plugin_dir_url('wangguard-admin.php');
 

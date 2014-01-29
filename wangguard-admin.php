@@ -26,6 +26,10 @@ License: GPL2
 	define('WANGGUARD_VERSION', '1.5.11 beta');
 	define('WANGGUARD_PLUGIN_FILE', 'wangguard/wangguard-admin.php');
 	define('WANGGUARD_README_URL', 'http://plugins.trac.wordpress.org/browser/wangguard/trunk/readme.txt?format=txt');
+	define('WANGGUARD_API_HOST', 'rest.wangguard.com');
+	define('WANGGUARD_REST_PATH', '/');
+	define('WANGGUARD_API_PORT', '80');
+	
 	//error_reporting(E_ALL);
 	//ini_set("display_errors", 1);
 	//Which file are we are getting called from?
@@ -2590,11 +2594,12 @@ function wangguard_dashboard_stats() {
  * 
  * @global type $wangguard_api_key
  * @global type $wangguard_is_network_admin
- * @global type $wangguard_api_host
- * @global type $wangguard_rest_path
  */
 function wangguard_dashboard_stats_render() {
-	global $wangguard_api_key , $wangguard_is_network_admin,$wangguard_api_host,$wangguard_rest_path;
+	global $wangguard_api_key , $wangguard_is_network_admin;
+	
+	if ( defined('WANGGUARD_API_HOST') ) {$wangguard_api_host = WANGGUARD_API_HOST;}
+	if ( defined('WANGGUARD_REST_PATH') ) {$wangguard_rest_path = WANGGUARD_REST_PATH;}
 	
 	if ( !current_user_can('level_10') )return;
 	$lang = substr(WPLANG, 0,2);

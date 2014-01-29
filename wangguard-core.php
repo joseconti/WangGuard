@@ -10,12 +10,14 @@ $wangguard_db_version = 1.6;
 
 function wangguard_init() {
 
-	global $wangguard_api_key , $wangguard_api_port , $wangguard_api_host , $wangguard_rest_path;
+	// global $wangguard_api_key , $wangguard_api_port , $wangguard_api_host , $wangguard_rest_path;
+	global $wangguard_api_key;
+
 
 	$wangguard_api_key = wangguard_get_option('wangguard_api_key');
-	$wangguard_api_host = 'rest.wangguard.com';
-	$wangguard_rest_path = '/';
-	$wangguard_api_port = 80;
+	//$wangguard_api_host = 'rest.wangguard.com';
+	//$wangguard_rest_path = '/';
+	//$wangguard_api_port = 80;
 
 	if (function_exists('load_plugin_textdomain')) {
 		$plugin_dir = basename(dirname(__FILE__));
@@ -792,7 +794,8 @@ function wangguard_verify_key( $key, $ip = null ) {
 // Returns an associative array of server IP addresses, where the key is the IP address, and value is true (available) or false (unable to connect).
 
 function wangguard_check_server_connectivity() {
-	global $wangguard_api_host;
+	
+	if ( defined('WANGGUARD_API_HOST') ) {$wangguard_api_host = WANGGUARD_API_HOST;}
 
 	// Some web hosts may disable one or both functions
 	if ( !function_exists('fsockopen') || !function_exists('gethostbynamel') )
@@ -872,7 +875,10 @@ function wangguard_get_host($host) {
 // Returns the server's response body
 function wangguard_http_post($request, $op , $ip=null) {
 	global $wp_version;
-	global $wangguard_api_port , $wangguard_api_host , $wangguard_rest_path;
+	
+	if ( defined('WANGGUARD_API_HOST') ) {$wangguard_api_host = WANGGUARD_API_HOST;}
+	if ( defined('WANGGUARD_REST_PATH') ) {$wangguard_rest_path = WANGGUARD_REST_PATH;}
+	if ( defined('WANGGUARD_API_PORT') ) {$wangguard_api_port = WANGGUARD_API_PORT;}
 
 	$wangguard_version = constant('WANGGUARD_VERSION');
 	$http_request  = "POST {$wangguard_rest_path}{$op} HTTP/1.0\r\n";

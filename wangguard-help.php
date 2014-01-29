@@ -1,12 +1,13 @@
 <?php //WangGuard Plugin, Help page
 
 function wangguard_help() {
-	global $wpdb,$wangguard_nonce, $wangguard_api_key,$wangguard_api_host , $wangguard_rest_path;
+	global $wpdb,$wangguard_nonce, $wangguard_api_key;
 
 	if ( !current_user_can('level_10') )
 		die(__('Cheatin&#8217; uh?', 'wangguard'));
 
 	if ( defined('WANGGUARD_VERSION') )  { $wangguard_version = WANGGUARD_VERSION; }
+	if ( defined('WANGGUARD_REST_PATH') ) {$wangguard_rest_path = WANGGUARD_REST_PATH;}
 	
 	//Creating some links
 	
@@ -224,7 +225,7 @@ CREATE TABLE '.$sitetableprefix.'wangguardcronjobs (
 		<?php
 	}
 function wangguard_help_us() {
-	global $wpdb,$wangguard_nonce, $wangguard_api_key,$wangguard_api_host , $wangguard_rest_path;
+	global $wpdb,$wangguard_nonce, $wangguard_api_key;
 
 	if ( !current_user_can('level_10') )
 		die(__('Cheatin&#8217; uh?', 'wangguard'));
@@ -498,7 +499,7 @@ function wangguard_contact_form($atts) {
 
 	function wangguard_contact() {
 	
-	global $wpdb,$wangguard_nonce, $wangguard_api_key,$wangguard_api_host , $wangguard_rest_path;
+	global $wpdb,$wangguard_nonce, $wangguard_api_key;
 
 	if ( !current_user_can('level_10') )
 		die(__('Cheatin&#8217; uh?', 'wangguard'));

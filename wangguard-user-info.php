@@ -7,7 +7,7 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 function wangguard_users_info() {
-	global $wpdb,$wangguard_nonce, $wangguard_api_key,$wangguard_api_host , $wangguard_rest_path, $blog_id;
+	global $wpdb,$wangguard_nonce, $wangguard_api_key, $blog_id;
 	
 
 	if ( !current_user_can('level_10') )
