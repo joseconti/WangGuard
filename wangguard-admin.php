@@ -748,6 +748,36 @@ function wangguard_question_repliedOK() {
 /*** ADD & VALIDATE SECURITY QUESTIONS ON REGISTER ENDS ***/
 /********************************************************************/
 
+
+/********************************************************************/
+/*** ADD MESSAGE IN THE REGSITRATION FORM BEGINS**/
+/********************************************************************/
+
+
+function wangguard_signup_message($message)
+	{
+		if (strpos($message, 'register') !== FALSE) {
+			if  ( wangguard_get_option("wangguard-notice-signup-text")!=='') {
+				$wggmessage = wangguard_get_option("wangguard-notice-signup-text");
+			} else {
+			$wggmessage = "This website is protected by <a href='http://www.wangguard.com/'>WangGuard</a>, don’t try to
+signup with a Proxy, VPN or TOR Network or you will be blocked.";
+				}
+			return '<p class="message register">' . $wggmessage . '</p>';
+		}
+		else {
+			return $message;
+		}
+	}
+ 
+if ( wangguard_get_option("wangguard-notice-signup")=='1') {
+	add_action('login_message', 'wangguard_signup_message');
+	}
+	
+/********************************************************************/
+/*** ADD MESSAGE IN THE REGSITRATION FORM ENDS **/
+/********************************************************************/
+	
 /********************************************************************/
 /*** USER REGISTATION & DELETE FILTERS BEGINS ***/
 /********************************************************************/
