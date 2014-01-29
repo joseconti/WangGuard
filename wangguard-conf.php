@@ -76,6 +76,11 @@ function wangguard_conf() {
 			wangguard_update_option('wangguard-do-not-show-adminbar', @$_POST['wangguard-do-not-show-adminbar']=='1' ? 1 : 0 );
 			
 			wangguard_update_option('wangguard-add-honeypot', @$_POST['wangguard-add-honeypot']=='1' ? 1 : 0 );
+			
+			wangguard_update_option('wangguard-notice-signup', @$_POST['wangguard-notice-signup']=='1' ? 1 : 0 );
+			
+			wangguard_update_option('wangguard-notice-signup-text', @$_POST['wangguard-notice-signup-text']);
+			
 
 			$selectedTab = 2;
 			
@@ -292,8 +297,20 @@ function wangguard_conf() {
 						<input type="checkbox" name="wangguardexpertmode" id="wangguardexpertmode" value="1" <?php echo wangguard_get_option("wangguard-expertmode")=='1' ? 'checked' : ''?> />
 						<label for="wangguardexpertmode"><?php _e("<strong>Ninja mode.</strong><br/>By checking this option no confirmation message will be asked for report operations on the Users manager. Just remember that users gets deleted when reported and the option 'Delete users when reporting them to WangGuard' is selected.", 'wangguard') ?></label>
 					</p>
+					
+					<p>
+						<input type="checkbox" name="wangguard-notice-signup" id="wangguard-notice-signup" value="1" <?php echo wangguard_get_option("wangguard-notice-signup")=='1' ? 'checked' : ''?> />
+						<label for="wangguardexpertmode"><?php _e("<strong>Signup Notice.</strong><br/>By checking this option WangGuard will show a notice in the signup page. Below You can customize this notice", 'wangguard') ?></label>
+					</p>
+					
+					<strong><?php _e('Customize notice in the signup page', 'wangguard'); ?></strong><br />
+					
+					<p><textarea id="wangguard-notice-signup-text" name="wangguard-notice-signup-text" rows="6" cols="150"><?php echo wangguard_get_option('wangguard-notice-signup-text'); ?></textarea>
+					</p>
 
-					<p class="submit"><input class="button-primary" type="submit" name="optssave" value="<?php _e('Save options &raquo;', 'wangguard'); ?>" /></p>
+					<p class="submit"><input class="button-primary" type="submit" name="optssave" value="<?php _e('Save options &raquo;', 'wangguard'); ?>" />
+					
+					</p>
 
 				</form>
 			</div>
