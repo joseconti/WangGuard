@@ -19,13 +19,13 @@ function wangguard_conf() {
 		if ( empty($key) ) {
 			$key_status = 'empty';
 			$ms[] = 'new_key_empty';
-			wangguard_update_option('wangguard_api_key' , "");
+			update_site_option('wangguard_api_key' , "");
 		} else {
 			$key_status = wangguard_verify_key( $key );
 		}
 
 		if ( $key_status == 'valid' ) {
-			wangguard_update_option('wangguard_api_key', $key);
+			update_site_option('wangguard_api_key', $key);
 			$ms[] = 'new_key_valid';
 		} else if ( $key_status == 'invalid' ) {
 			$ms[] = 'new_key_invalid';
@@ -43,7 +43,7 @@ function wangguard_conf() {
 			}
 		}
 		
-		wangguard_update_option('blocked-list-domains' , $selectedDomains) ;
+		update_site_option('blocked-list-domains' , $selectedDomains) ;
 
 		
 		$selectedTab = 3;
@@ -55,31 +55,29 @@ function wangguard_conf() {
 
 	} elseif ( isset($_POST['optssave']) ) {
 
-			wangguard_update_option('wangguard-expertmode', @$_POST['wangguardexpertmode']=='1' ? 1 : 0 );
+			update_site_option('wangguard-expertmode', @$_POST['wangguardexpertmode']=='1' ? 1 : 0 );
 
-			wangguard_update_option('wangguard-report-posts', @$_POST['wangguardreportposts']=='1' ? 1 : 0 );
+			update_site_option('wangguard-report-posts', @$_POST['wangguardreportposts']=='1' ? 1 : 0 );
 
-			wangguard_update_option('wangguard-delete-users-on-report', @$_POST['wangguard-delete-users-on-report']=='1' ? 1 : -1 );
+			update_site_option('wangguard-delete-users-on-report', @$_POST['wangguard-delete-users-on-report']=='1' ? 1 : -1 );
 			
-			wangguard_update_option('wangguard-enable-bp-report-btn', @$_POST['wangguardenablebpreportbtn']=='1' ? 1 : -1 );
+			update_site_option('wangguard-enable-bp-report-btn', @$_POST['wangguardenablebpreportbtn']=='1' ? 1 : -1 );
 			
-			wangguard_update_option('wangguard-enable-bp-report-blog', @$_POST['wangguardenablebpreportblog']=='1' ? 1 : -1 );
+			update_site_option('wangguard-enable-bp-report-blog', @$_POST['wangguardenablebpreportblog']=='1' ? 1 : -1 );
 
-			wangguard_update_option('wangguard-verify-gmail', @$_POST['wangguard-verify-gmail']=='1' ? 1 : 0 );
+			update_site_option('wangguard-verify-gmail', @$_POST['wangguard-verify-gmail']=='1' ? 1 : 0 );
 			
-			wangguard_update_option('wangguard_disable-meta-header', @$_POST['wangguard_disable-meta-header']=='1' ? 1 : 0 );
+			update_site_option('wangguard_disable-meta-header', @$_POST['wangguard_disable-meta-header']=='1' ? 1 : 0 );
 			
-			wangguard_update_option('wangguard-verify-dns-mx', @$_POST['wangguard-verify-dns-mx']=='1' ? 1 : 0 );
+			update_site_option('wangguard-verify-dns-mx', @$_POST['wangguard-verify-dns-mx']=='1' ? 1 : 0 );
 
-			wangguard_update_option('wangguard-do-not-check-client-ip', @$_POST['wangguard-do-not-check-client-ip']=='1' ? 1 : 0 );
+			update_site_option('wangguard-do-not-check-client-ip', @$_POST['wangguard-do-not-check-client-ip']=='1' ? 1 : 0 );
 			
-			wangguard_update_option('wangguard-do-not-show-adminbar', @$_POST['wangguard-do-not-show-adminbar']=='1' ? 1 : 0 );
+			update_site_option('wangguard-do-not-show-adminbar', @$_POST['wangguard-do-not-show-adminbar']=='1' ? 1 : 0 );
 			
-			wangguard_update_option('wangguard-add-honeypot', @$_POST['wangguard-add-honeypot']=='1' ? 1 : 0 );
+			update_site_option('wangguard-add-honeypot', @$_POST['wangguard-add-honeypot']=='1' ? 1 : 0 );
 			
-			wangguard_update_option('wangguard-notice-signup', @$_POST['wangguard-notice-signup']=='1' ? 1 : 0 );
-			
-			wangguard_update_option('wangguard-notice-signup-text', @$_POST['wangguard-notice-signup-text']);
+			do_action('wangguard_save_setting_option');
 			
 
 			$selectedTab = 2;
@@ -89,7 +87,7 @@ function wangguard_conf() {
 	}
 
 	if ( $key_status != 'valid' ) {
-		$key = wangguard_get_option('wangguard_api_key');
+		$key = get_site_option('wangguard_api_key');
 		if ( empty( $key ) ) {
 			if ( $key_status != 'failed' ) {
 				if ( wangguard_verify_key( '1234567890ab' ) == 'failed' )
@@ -160,7 +158,7 @@ function wangguard_conf() {
 					<?php foreach ( $ms as $m ) : ?>
 						<p class="<?php echo $messages[$m]['class']; ?>"><?php echo $messages[$m]['text']; ?></p>
 					<?php endforeach; ?>
-					<p><input id="key" name="key" type="text" size="35" maxlength="32" value="<?php echo wangguard_get_option('wangguard_api_key'); ?>" style="font-family: 'Courier New', Courier, mono; font-size: 1.5em;" /> (<?php _e('<a href="http://wangguard.com/faq" target="_new">What is this?</a>', 'wangguard'); ?>)</p>
+					<p><input id="key" name="key" type="text" size="35" maxlength="32" value="<?php echo get_site_option('wangguard_api_key'); ?>" style="font-family: 'Courier New', Courier, mono; font-size: 1.5em;" /> (<?php _e('<a href="http://wangguard.com/faq" target="_new">What is this?</a>', 'wangguard'); ?>)</p>
 
 					<?php if ( $key_status == 'invalid' ) { ?>
 						<h3><?php _e('Why might my key be invalid?', 'wangguard'); ?></h3>
@@ -236,50 +234,50 @@ function wangguard_conf() {
 				<form action="" method="post" id="wangguard-settings" style="margin:0px auto 0 auto; ">
 					<h3><?php _e("WangGuard settings", 'wangguard') ?></h3>
 					<p>
-						<input type="checkbox" name="wangguardreportposts" id="wangguardreportposts" value="1" <?php echo wangguard_get_option("wangguard-report-posts")=='1' ? 'checked' : ''?> />
+						<input type="checkbox" name="wangguardreportposts" id="wangguardreportposts" value="1" <?php echo get_site_option("wangguard-report-posts")=='1' ? 'checked' : ''?> />
 						<label for="wangguardreportposts"><?php _e( sprintf("<strong>Allow reporting users from Posts admin screen.</strong><br/>By checking this option a new link to report a post's author will be added for each post on the <a href=\"%s\">Posts admin screen</a>." , $wangguard_edit_prefix . "edit.php"), 'wangguard') ?></label>
 					</p>
 					<p>
-						<input type="checkbox" name="wangguard-delete-users-on-report" id="wangguard-delete-users-on-report" value="1" <?php echo wangguard_get_option("wangguard-delete-users-on-report")=='1' ? 'checked' : ''?> />
+						<input type="checkbox" name="wangguard-delete-users-on-report" id="wangguard-delete-users-on-report" value="1" <?php echo get_site_option("wangguard-delete-users-on-report")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-delete-users-on-report"><?php _e("<strong>Delete users when reporting them to WangGuard.</strong><br/>By checking this option, the users you report as Sploggers will be deleted from your site.", 'wangguard') ?></label>
 					</p>
 					
 					<?php if (defined('BP_VERSION')) { ?>
 					<p>
-						<input type="checkbox" name="wangguardenablebpreportbtn" id="wangguardenablebpreportbtn" value="1" <?php echo wangguard_get_option("wangguard-enable-bp-report-btn")=='1' ? 'checked' : ''?> />
+						<input type="checkbox" name="wangguardenablebpreportbtn" id="wangguardenablebpreportbtn" value="1" <?php echo get_site_option("wangguard-enable-bp-report-btn")=='1' ? 'checked' : ''?> />
 						<label for="wangguardenablebpreportbtn"><?php _e("<strong>Show the 'report user' button on BuddyPress.</strong><br/>BuddyPress only. By checking this option a link called 'report user' will be shown on each user's activity and profile page.", 'wangguard') ?></label>
 					</p>
 					<?php } ?>
 					<?php if (defined('BP_VERSION') || wangguard_is_multisite()) { ?>
 					<p>
-						<input type="checkbox" name="wangguardenablebpreportblog" id="wangguardenablebpreportblog" value="1" <?php echo wangguard_get_option("wangguard-enable-bp-report-blog")=='1' ? 'checked' : ''?> />
+						<input type="checkbox" name="wangguardenablebpreportblog" id="wangguardenablebpreportblog" value="1" <?php echo get_site_option("wangguard-enable-bp-report-blog")=='1' ? 'checked' : ''?> />
 						<label for="wangguardenablebpreportblog"><?php _e("<strong>Show the 'Report blog and author' menu item in the Admin Bar.</strong><br/>By checking this option a new menu item on the Admin Bar called 'Report blog and author' will be shown on each blog.", 'wangguard') ?></label>
 					</p>
 					<?php } ?>
 
 					<p>
-						<input type="checkbox" name="wangguard-do-not-show-adminbar" id="wangguard-do-not-show-adminbar" value="1" <?php echo wangguard_get_option("wangguard-do-not-show-adminbar")=='1' ? 'checked' : ''?> />
+						<input type="checkbox" name="wangguard-do-not-show-adminbar" id="wangguard-do-not-show-adminbar" value="1" <?php echo get_site_option("wangguard-do-not-show-adminbar")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-do-not-show-adminbar"><?php _e("<strong>Disable</strong> WangGuard menu from WordPress & BuddyPress AdminBar.", 'wangguard') ?></label>
 					</p>
 					<p>
-						<input type="checkbox" name="wangguard-verify-gmail" id="wangguard-verify-gmail" value="1" <?php echo wangguard_get_option("wangguard-verify-gmail")=='1' ? 'checked' : ''?> />
+						<input type="checkbox" name="wangguard-verify-gmail" id="wangguard-verify-gmail" value="1" <?php echo get_site_option("wangguard-verify-gmail")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-verify-gmail"><?php _e("<strong>Check for duplicated gmail.com and googlemail.com emails on sign up.</strong><br/>Checks that duplicated accounts @gmail.com and @googlemail.com accounts doesn't exists, also takes in count that gMail ignores the dots and what's after a + sign on the left side of the @.", 'wangguard') ?></label>
 					</p>
 
 					<p>
-						<input type="checkbox" name="wangguard_disable-meta-header" id="wangguard_disable-meta-header" value="1" <?php echo wangguard_get_option("wangguard_disable-meta-header")=='1' ? 'checked' : ''?> />
+						<input type="checkbox" name="wangguard_disable-meta-header" id="wangguard_disable-meta-header" value="1" <?php echo get_site_option("wangguard_disable-meta-header")=='1' ? 'checked' : ''?> />
 						<label for="wangguard_disable-meta-header"><?php _e("<strong>Remove the generator META tag.</strong><br/>By checking this option, WangGuard will remove the generator META tag from the generated pages of your site, this will prevent automated bots to easilly identify a WordPress site by looking at this META tag.", 'wangguard') ?></label>
 					</p>
 
 					<p>
-						<input type="checkbox" name="wangguard-add-honeypot" id="wangguard-add-honeypot" value="1" <?php echo wangguard_get_option("wangguard-add-honeypot")=='1' ? 'checked' : ''?> />
+						<input type="checkbox" name="wangguard-add-honeypot" id="wangguard-add-honeypot" value="1" <?php echo get_site_option("wangguard-add-honeypot")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-add-honeypot"><?php _e("<strong>Enable</sytong> honeypot fields (signup trap fields). Some themes has problem with  honeypot fields. If you have some problems with those fields, disable this option", 'wangguard') ?></label>
 					</p>
 					<?php 
 					//verifies if the getmxrr() function is availabe
 					$wangguard_mx_ok = function_exists('getmxrr');?>
 					<p>
-						<input <?php echo (!$wangguard_mx_ok ? "disabled = 'disabled'" : "") ?> type="checkbox" name="wangguard-verify-dns-mx" id="wangguard-verify-dns-mx" value="1" <?php echo $wangguard_mx_ok && wangguard_get_option("wangguard-verify-dns-mx")=='1' ? 'checked' : ''?> />
+						<input <?php echo (!$wangguard_mx_ok ? "disabled = 'disabled'" : "") ?> type="checkbox" name="wangguard-verify-dns-mx" id="wangguard-verify-dns-mx" value="1" <?php echo $wangguard_mx_ok && get_site_option("wangguard-verify-dns-mx")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-verify-dns-mx"><?php _e("<strong>Check email domains agains the DNS server.</strong><br/>Verifies that an associated Mail eXchange (MX) record exists for the email domain, if the verification fails, the sign up process is stopped. Recommeded for non multi user or BuddyPress WordPress installations. Users may notice a small delay of around 1 or 2 seconds on the sign up process due to the DNS verification.", 'wangguard') ?></label>
 						<?php if (!$wangguard_mx_ok) {
 							echo "<div>";
@@ -289,28 +287,21 @@ function wangguard_conf() {
 					</p>
 
 					<p>
-						<input type="checkbox" name="wangguard-do-not-check-client-ip" id="wangguard-do-not-check-client-ip" value="1" <?php echo wangguard_get_option("wangguard-do-not-check-client-ip")=='1' ? 'checked' : ''?> />
+						<input type="checkbox" name="wangguard-do-not-check-client-ip" id="wangguard-do-not-check-client-ip" value="1" <?php echo get_site_option("wangguard-do-not-check-client-ip")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-do-not-check-client-ip"><?php _e("<strong>Do NOT verify client IP address.</strong><br/>By checking this option, when checking a user, the IP address of the user will not be sent along with the e-mail address to the WangGuard service. Selecting this option reduces WangGuard effectiveness, but if your new accounts come mostly from the same IP, in the case of colleges, universities or other large institutions, this would prevent WangGuard from flagging the IP address as suspicious.", 'wangguard') ?></label>
 					</p>
 
 					<p>
-						<input type="checkbox" name="wangguardexpertmode" id="wangguardexpertmode" value="1" <?php echo wangguard_get_option("wangguard-expertmode")=='1' ? 'checked' : ''?> />
+						<input type="checkbox" name="wangguardexpertmode" id="wangguardexpertmode" value="1" <?php echo get_site_option("wangguard-expertmode")=='1' ? 'checked' : ''?> />
 						<label for="wangguardexpertmode"><?php _e("<strong>Ninja mode.</strong><br/>By checking this option no confirmation message will be asked for report operations on the Users manager. Just remember that users gets deleted when reported and the option 'Delete users when reporting them to WangGuard' is selected.", 'wangguard') ?></label>
 					</p>
 					
-					<p>
-						<input type="checkbox" name="wangguard-notice-signup" id="wangguard-notice-signup" value="1" <?php echo wangguard_get_option("wangguard-notice-signup")=='1' ? 'checked' : ''?> />
-						<label for="wangguardexpertmode"><?php _e("<strong>Signup Notice.</strong><br/>By checking this option WangGuard will show a notice in the signup page. Below You can customize this notice", 'wangguard') ?></label>
-					</p>
-					
-					<strong><?php _e('Customize notice in the signup page', 'wangguard'); ?></strong><br />
-					
-					<p><textarea id="wangguard-notice-signup-text" name="wangguard-notice-signup-text" rows="6" cols="150"><?php echo wangguard_get_option('wangguard-notice-signup-text'); ?></textarea>
-					</p>
+					<?php do_action('wangguard_setting'); ?>
 
 					<p class="submit"><input class="button-primary" type="submit" name="optssave" value="<?php _e('Save options &raquo;', 'wangguard'); ?>" />
 					
 					</p>
+					
 
 				</form>
 			</div>
@@ -342,7 +333,7 @@ function wangguard_conf() {
 				}
 				else {
 					
-					$selectedDomains = maybe_unserialize( wangguard_get_option('blocked-list-domains') );
+					$selectedDomains = maybe_unserialize( get_site_option('blocked-list-domains') );
 					if (!is_array($selectedDomains)) $selectedDomains = array();
 					?>
 					<form action="" method="post" id="wangguard-blockeddomainsform">
@@ -520,7 +511,7 @@ function wangguard_conf() {
 						<?php
 					}
 					?>
-					<p><?php if ( wangguard_get_option('wangguard_connectivity_time') ) echo sprintf( __('Last checked %s ago.', 'wangguard'), human_time_diff( wangguard_get_option('wangguard_connectivity_time') ) ); ?></p>
+					<p><?php if ( get_site_option('wangguard_connectivity_time') ) echo sprintf( __('Last checked %s ago.', 'wangguard'), human_time_diff( get_site_option('wangguard_connectivity_time') ) ); ?></p>
 					<p class="submit"><input type="submit" name="check" class="button-primary" value="<?php _e('Check network status &raquo;', 'wangguard'); ?>" /></p>
 				</form>
 			</div>

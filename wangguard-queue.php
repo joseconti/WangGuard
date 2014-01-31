@@ -89,14 +89,14 @@ function wangguard_queue() {
 			$reportedUsers = (count($users)==0) ? 0 : count($resArr);
 				
 			if ($reportedBlogs) {
-				if (wangguard_get_option ("wangguard-delete-users-on-report")=='1')
+				if (get_site_option ("wangguard-delete-users-on-report")=='1')
 					$messages[] = '<div id="message" class="updated fade"><p><strong>'. sprintf(__("%d blog(s) and %d author(s) was reported as Splogger(s) and deleted" , "wangguard") , $reportedBlogs , $reportedAuthors) .'</strong></p></div>';
 				else
 					$messages[] = '<div id="message" class="updated fade"><p><strong>'. sprintf(__("%d blog(s) and %d author(s) was reported as Splogger(s)" , "wangguard") , $reportedBlogs , $reportedAuthors) .'</strong></p></div>';
 			}
 			
 			if ($reportedUsers) {
-				if (wangguard_get_option ("wangguard-delete-users-on-report")=='1')
+				if (get_site_option ("wangguard-delete-users-on-report")=='1')
 					$messages[] = '<div id="message" class="updated fade"><p><strong>'. sprintf(__("%d user(s) were reported as Splogger(s) and deleted" , "wangguard") , $reportedUsers) .'</strong></p></div>';
 				else
 					$messages[] = '<div id="message" class="updated fade"><p><strong>'. sprintf(__("%d user(s) were reported as Splogger(s)" , "wangguard") , $reportedUsers) .'</strong></p></div>';

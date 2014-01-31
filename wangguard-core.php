@@ -14,7 +14,7 @@ function wangguard_init() {
 	global $wangguard_api_key;
 
 
-	$wangguard_api_key = wangguard_get_option('wangguard_api_key');
+	$wangguard_api_key = get_site_option('wangguard_api_key');
 	//$wangguard_api_host = 'rest.wangguard.com';
 	//$wangguard_rest_path = '/';
 	//$wangguard_api_port = 80;
@@ -24,18 +24,18 @@ function wangguard_init() {
 		load_plugin_textdomain('wangguard', false, $plugin_dir . "/languages/" );
 	}
 
-	if ( ( ( (wangguard_get_option ("wangguard-enable-bp-report-btn")==1) ) && ( defined('BP_VERSION') ) ) || (wangguard_get_option ("wangguard-enable-bp-report-blog")==1) )
+	if ( ( ( (get_site_option ("wangguard-enable-bp-report-btn")==1) ) && ( defined('BP_VERSION') ) ) || (get_site_option ("wangguard-enable-bp-report-blog")==1) )
 		wp_enqueue_script("jquery");
 
-	if (wangguard_get_option('wangguard_disable-meta-header') == 1)
+	if (get_site_option('wangguard_disable-meta-header') == 1)
 		remove_action('wp_head', 'wp_generator');
 
-	if ((wangguard_get_option ("wangguard-do-not-show-adminbar")==1) && defined( 'BP_VERSION' ) ) {
+	if ((get_site_option ("wangguard-do-not-show-adminbar")==1) && defined( 'BP_VERSION' ) ) {
 		remove_action('bp_adminbar_menus', 'wangguard_add_bp_admin_bar_menus' , 10 );
 		remove_action('admin_bar_menu', 'wangguard_add_wp_admin_bar_menus', 100 );
 	}
 
-	if  ((wangguard_get_option ("wangguard-do-not-show-adminbar")==1) && ! defined( 'BP_VERSION' ) ) {
+	if  ((get_site_option ("wangguard-do-not-show-adminbar")==1) && ! defined( 'BP_VERSION' ) ) {
 		remove_action('admin_bar_menu', 'wangguard_add_wp_admin_bar_menus', 100 );
 		wangguard_admin_warnings();
 		}
@@ -56,6 +56,27 @@ function wangguard_activate() {
 	wangguard_admin_init();
 	add_option('wangguard_redirect_on_activation', 'true');
 	update_option('wangguard_redirect_on_activation', 'true');
+	
+	if (!get_site_option('wangguard-option-version') ) {
+	
+		add_site_option('wangguard_db_version', '');
+		add_site_option('wangguard_stats');
+		add_site_option('wangguard-expertmode', '');
+		add_site_option('wangguard-report-posts', '');
+		add_site_option('wangguard-delete-users-on-report', '');
+		add_site_option('wangguard-enable-bp-report-btn', '');
+		add_site_option('wangguard-enable-bp-report-blog', '');
+		add_site_option('wangguard-verify-gmail', '');
+		add_site_option('wangguard_disable-meta-header', '');
+		add_site_option('wangguard-verify-dns-mx', '');
+		add_site_option('wangguard-do-not-check-client-ip', '');
+		add_site_option('wangguard-do-not-show-adminbar', '');
+		add_site_option('wangguard-add-honeypot', '');
+		add_site_option('blocked-list-domains', '');
+		add_site_option('wangguard_api_key', '');
+		add_site_option('wangguard-option-version', '');
+
+	}
 }
 register_activation_hook( 'wangguard/wangguard-admin.php', 'wangguard_activate' );
 
@@ -68,7 +89,7 @@ function wangguard_admin_init() {
 
 	$table_name = $wpdb->base_prefix . "wangguardoptions";
 	$optionsTableCreated = ($wpdb->get_var("show tables like '$table_name'") == $table_name);
-	$version = $optionsTableCreated ? wangguard_get_option("wangguard_db_version") : false;
+	$version = $optionsTableCreated ? get_site_option("wangguard_db_version") : false;
 
 	if (false === $version)
 		$version = get_option("wangguard_db_version");	
@@ -231,21 +252,42 @@ function wangguard_install($current_version) {
 
 		wangguard_update_option("wangguard_stats", get_option("wangguard_stats") );
 		wangguard_update_option("wangguard-enable-bp-report-btn", get_option("wangguard-enable-bp-report-btn") );
-		wangguard_update_option("wangguard_api_key", get_option("wangguard_api_key") );
+		//wangguard_update_option("wangguard_api_key", get_option("wangguard_api_key") );
 		wangguard_update_option("wangguard-report-posts", get_option("wangguard-report-posts") );
 		wangguard_update_option("wangguard-expertmode", get_option("wangguard-expertmode") );
 		wangguard_update_option("wangguard-enable-bp-report-btn", get_option("wangguard-enable-bp-report-btn") );
 		wangguard_update_option("wangguard-enable-bp-report-blog", get_option("wangguard-enable-bp-report-blog") );
 
-		delete_option("wangguard_db_version");
-		delete_option("wangguard_stats");
-		delete_option("wangguard_connectivity_time");
-		delete_option("wangguard_available_servers");
-		delete_option("wangguard_api_key");
-		delete_option("wangguard-report-posts");
-		delete_option("wangguard-expertmode");
-		delete_option("wangguard-enable-bp-report-btn");
-		delete_option("wangguard-enable-bp-report-blog");
+		//delete_option("wangguard_db_version");
+		//delete_option("wangguard_stats");
+		//delete_option("wangguard_connectivity_time");
+		//delete_option("wangguard_available_servers");
+		//delete_option("wangguard_api_key");
+		//delete_option("wangguard-report-posts");
+		//delete_option("wangguard-expertmode");
+		//delete_option("wangguard-enable-bp-report-btn");
+		//delete_option("wangguard-enable-bp-report-blog");
+
+	}
+	
+	if ( get_site_option('wangguard-option-version') == '') {
+		
+		update_site_option("wangguard_db_version", $wangguard_db_version);
+		update_site_option("wangguard-expertmode", wangguard_get_option("wangguard-report-posts"));
+		update_site_option("wangguard_stats", wangguard_get_option("wangguard_stats") );
+		update_site_option("wangguard-report-posts", wangguard_get_option("wangguard-report-posts"));
+		update_site_option("wangguard-delete-users-on-report", wangguard_get_option("wangguard-delete-users-on-report"));
+		update_site_option("wangguard-enable-bp-report-btn", wangguard_get_option("wangguard-enable-bp-report-blog"));
+		update_site_option("wangguard-enable-bp-report-blog", wangguard_get_option("wangguard-enable-bp-report-blog"));
+		update_site_option("wangguard-verify-gmail", wangguard_get_option("wangguard-verify-gmail"));
+		update_site_option("wangguard_disable-meta-header", wangguard_get_option("wangguard_disable-meta-header"));
+		update_site_option("wangguard-verify-dns-mx", wangguard_get_option("wangguard-verify-dns-mx"));
+		update_site_option("wangguard-do-not-check-client-ip", wangguard_get_option("wangguard-do-not-check-client-ip"));
+		update_site_option("wangguard-do-not-show-adminbar", wangguard_get_option("wangguard-do-not-show-adminbar"));
+		update_site_option("wangguard-add-honeypot", wangguard_get_option("wangguard-add-honeypot"));
+		update_site_option("blocked-list-domains", wangguard_get_option("blocked-list-domains"));
+		update_site_option("wangguard_api_key", wangguard_get_option("wangguard_api_key"));
+		update_site_option("wangguard-option-version", "1.6");
 
 	}
 
@@ -282,43 +324,43 @@ function wangguard_install($current_version) {
 	
 	//stats array
 
-	$stats = wangguard_get_option("wangguard_stats");
+	$stats = get_site_option("wangguard_stats");
 
 	if (!is_array($stats)) {
 		$stats = array("check"=>0 , "detected"=>0);
-		wangguard_update_option("wangguard_stats", $stats);
+		update_site_option("wangguard_stats", $stats);
 	}
 
 
 	//Enable BP report button by default
 
-	$tmp = wangguard_get_option("wangguard-enable-bp-report-btn");
+	$tmp = get_site_option("wangguard-enable-bp-report-btn");
 	if (empty ($tmp))
-	 wangguard_update_option ("wangguard-enable-bp-report-btn", 1);
+	 update_site_option ("wangguard-enable-bp-report-btn", 1);
 
 	//Don't delete users when reporting by default
-	$tmp = wangguard_get_option("wangguard-delete-users-on-report");
+	$tmp = get_site_option("wangguard-delete-users-on-report");
 	if (empty ($tmp))
-	 wangguard_update_option ("wangguard-delete-users-on-report", -1);
+	 update_site_option ("wangguard-delete-users-on-report", -1);
 
 	//Verify gmail
 
-	$tmp = wangguard_get_option("wangguard-verify-gmail");
+	$tmp = get_site_option("wangguard-verify-gmail");
 	if ($tmp === false)
-	 wangguard_update_option ("wangguard-verify-gmail", 1);
+	 update_site_option ("wangguard-verify-gmail", 1);
 
 	//Do not check client IP addr
 
-	$tmp = wangguard_get_option("wangguard-do-not-check-client-ip");
+	$tmp = get_site_option("wangguard-do-not-check-client-ip");
 	if ($tmp === false)
-	 wangguard_update_option ("wangguard-do-not-check-client-ip", 0);
+	 update_site_option ("wangguard-do-not-check-client-ip", 0);
 
 	//db version
-	wangguard_update_option("wangguard_db_version", $wangguard_db_version);
+	update_site_option("wangguard_db_version", $wangguard_db_version);
 	
-	$tmp = wangguard_get_option("wangguard-add-honeypot");
+	$tmp = get_site_option("wangguard-add-honeypot");
 		if ($tmp === false)
-	 wangguard_update_option ("wangguard-add-honeypot", 1);
+	 update_site_option ("wangguard-add-honeypot", 1);
 	}
 
 register_activation_hook(__FILE__,'wangguard_install');
@@ -433,12 +475,12 @@ function wangguard_extract_domain($email) {
 //update the stats
 
 function wangguard_stats_update($action) {
-	$stats = wangguard_get_option("wangguard_stats");
+	$stats = get_site_option("wangguard_stats");
 	if (!is_array($stats)) {
 		$stats = array("check"=>0 , "detected"=>0);
 	}
 	$stats[$action] = $stats[$action] + 1;
-	wangguard_update_option("wangguard_stats", $stats);
+	update_site_option("wangguard_stats", $stats);
 }
 
 /**
@@ -484,7 +526,7 @@ function wangguard_report_users($wpusersRs , $scope="email" , $deleteUser = true
 	if (!$wpusersRs) {
 		return "0";
 	}
-	$deleteUser = wangguard_get_option ("wangguard-delete-users-on-report")=='1';
+	$deleteUser = get_site_option ("wangguard-delete-users-on-report")=='1';
 	$usersFlagged = array();
 	foreach ($wpusersRs as $spuserID) {
 		$user_object = new WP_User($spuserID);
@@ -603,7 +645,7 @@ function wangguard_verify_user($user_object) {
 
 	//Get the user's client IP from which he signed up
 	$table_name = $wpdb->base_prefix . "wangguarduserstatus";
-	if ( wangguard_get_option("wangguard-do-not-check-client-ip")=='1') {
+	if ( get_site_option("wangguard-do-not-check-client-ip")=='1') {
 		$clientIP = '';
 		$ProxyIP = '';
 	}
@@ -656,7 +698,7 @@ function wangguard_verify_email($email , $clientIP , $proxyIP = '') {
 	global $wangguard_api_key;
 	$user_check_status = "not-checked";
 	wangguard_stats_update("check");
-	if ( wangguard_get_option("wangguard-do-not-check-client-ip")=='1') {
+	if ( get_site_option("wangguard-do-not-check-client-ip")=='1') {
 		$clientIP = '';
 		$proxyIP = '';
 	}
@@ -694,6 +736,7 @@ function wangguard_get_option($option) {
 	else
 		return false;
 }
+
 
 //update option from the main blog's options table
 
@@ -762,7 +805,7 @@ function wangguard_get_key() {
 	global $wangguard_api_key;
 	if ( !empty($wangguard_api_key) )
 		return $wangguard_api_key;
-	return wangguard_get_option('wangguard_api_key');
+	return get_site_option('wangguard_api_key');
 }
 
 //Checks the API KEY against wangguard service
@@ -821,16 +864,16 @@ function wangguard_check_server_connectivity() {
 // Returns the same associative array as wangguard_check_server_connectivity()
 
 function wangguard_get_server_connectivity( $cache_timeout = 86400 ) {
-	$servers = wangguard_get_option('wangguard_available_servers');
+	$servers = get_site_option('wangguard_available_servers');
 	if (empty ($servers)) 
 		$servers = false;
-	if ( (time() - wangguard_get_option('wangguard_connectivity_time') < $cache_timeout) && $servers !== false )
+	if ( (time() - get_site_option('wangguard_connectivity_time') < $cache_timeout) && $servers !== false )
 		return $servers;
 
 	// There's a race condition here but the effect is harmless.
 	$servers = wangguard_check_server_connectivity();
-	wangguard_update_option('wangguard_available_servers', $servers);
-	wangguard_update_option('wangguard_connectivity_time', time());
+	update_site_option('wangguard_available_servers', $servers);
+	update_site_option('wangguard_connectivity_time', time());
 	return $servers;
 }
 
@@ -934,7 +977,7 @@ function wangguard_admin_warnings() {
 		}
 		add_action('admin_notices', 'wangguard_warning');
 		return;
-	} elseif ( wangguard_get_option('wangguard_connectivity_time') && empty($_POST) && is_admin() && !wangguard_server_connectivity_ok() ) {
+	} elseif ( get_site_option('wangguard_connectivity_time') && empty($_POST) && is_admin() && !wangguard_server_connectivity_ok() ) {
 		function wangguard_warning() {
 			global $wangguard_is_network_admin;
 
@@ -1008,7 +1051,7 @@ function wangguard_rightnow() {
 		if (!current_user_can('level_10'))
 			return;
 	}
-	$stats = wangguard_get_option("wangguard_stats");
+	$stats = get_site_option("wangguard_stats");
 	if (!is_array($stats)) {
 		$stats = array("check"=>0 , "detected"=>0);
 	}
@@ -1127,7 +1170,7 @@ function wangguard_user_custom_columns($dummy , $column_name , $userid , $echo =
 		$user_object = new WP_User($userid);
 		$Domain = explode("@",$user_object->user_email);
 		$Domain = $Domain[1];
-		$deleteUser = wangguard_get_option ("wangguard-delete-users-on-report")=='1';
+		$deleteUser = get_site_option ("wangguard-delete-users-on-report")=='1';
 		$html .= "<br/><div class=\"row-actions\">";
 		if ( !wangguard_is_admin($user_object) ) {
 			$rollbackStyle = (($status == 'reported') || ($status == 'autorep')) ? "" : "style='display:none'";
@@ -1166,11 +1209,11 @@ else
 /********************************************************************/
 /*** POSTS SCREEN ACTION & COLS BEGINS ***/
 /********************************************************************/
-if (wangguard_get_option ("wangguard-report-posts")==1)
+if (get_site_option ("wangguard-report-posts")==1)
 	add_filter('post_row_actions','wangguard_post_row_actions',10,2);
 function wangguard_post_row_actions($actions , $post) {
 	$user_object = new WP_User($post->post_author);
-	$deleteUser = wangguard_get_option ("wangguard-delete-users-on-report")=='1';
+	$deleteUser = get_site_option ("wangguard-delete-users-on-report")=='1';
 
 	if ( ((current_user_can( 'delete_users' ) && $deleteUser) || !$deleteUser) && !wangguard_is_admin($user_object) )
 		$actions[] = '<a href="javascript:void(0)" rel="'.$post->post_author.'" class="wangguard-splogger">'.esc_html(__('Splogger', 'wangguard')).'</a>';

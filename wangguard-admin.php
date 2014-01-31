@@ -4,7 +4,7 @@
 Plugin Name: WangGuard
 Plugin URI: http://www.wangguard.com
 Description: <strong>Stop Sploggers</strong>. It is very important to use <a href="http://www.wangguard.com" target="_new">WangGuard</a> at least for a week, reporting your site's unwanted users as sploggers from the Users panel. WangGuard will learn at that time to protect your site from sploggers in a much more effective way. WangGuard protects each web site in a personalized way using information provided by Administrators who report sploggers world-wide, that's why it's very important that you report your sploggers to WangGuard. The longer you use WangGuard, the more effective it will become.
-Version: 1.5.11 beta
+Version: 1.6
 Author: WangGuard
 Author URI: http://www.wangguard.com
 License: GPL2
@@ -23,7 +23,7 @@ License: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-	define('WANGGUARD_VERSION', '1.5.11 beta');
+	define('WANGGUARD_VERSION', '1.6');
 	define('WANGGUARD_PLUGIN_FILE', 'wangguard/wangguard-admin.php');
 	define('WANGGUARD_README_URL', 'http://plugins.trac.wordpress.org/browser/wangguard/trunk/readme.txt?format=txt');
 	define('WANGGUARD_API_HOST', 'rest.wangguard.com');
@@ -39,7 +39,7 @@ License: GPL2
 	if ($wangguard_is_network_admin)$wangguard_is_network_admin = is_multisite();
 	include_once 'wangguard-xml.php';
 	include_once 'wangguard-core.php';
-	$wangguard_api_key = wangguard_get_option('wangguard_api_key');
+	$wangguard_api_key = get_site_option('wangguard_api_key');
 	$wangguard_cronjob_run_options = array("daily"=> __('Once a day', 'wangguard'),"wangguard_3days"=> __('Every 3 days', 'wangguard'),"wangguard_5days"=> __('Every 5 days', 'wangguard'),"wangguard_weekly"=> __('Weekly', 'wangguard'),"wangguard_2weeks"=> __('Two Weeks', 'wangguard'));
 	$wangguard_cronjob_actions_options = array("f"=>__('Flag detected Sploggers as Sploggers and Spam users', 'wangguard') ,"d"=>__('Delete detected Sploggers', 'wangguard'));
 	$wangguard_cronjob_lookup_options = array("7"=>__('Week', 'wangguard') ,"5"=>__('5 days', 'wangguard'),"3"=>__('3 days', 'wangguard'),"1"=>__('1 day', 'wangguard'));
@@ -74,7 +74,7 @@ License: GPL2
 	/********************************************************************/	
 	
 	// for wp regular
-	if ( wangguard_get_option("wangguard-add-honeypot")=='1') {
+	if ( get_site_option("wangguard-add-honeypot")=='1') {
 				add_action('register_form','wangguard_add_hfield_1' , rand(1,10));
 				add_action('register_form','wangguard_add_hfield_2' , rand(1,10));
 				add_action('register_form','wangguard_add_hfield_3' , rand(1,10));
@@ -98,7 +98,7 @@ License: GPL2
 			$wangguard_add_mu_filter_actions = false;
 			$wangguard_bp_hook = "bp_after_account_details_fields";
 			// for buddypress 1.1 only
-			if ( wangguard_get_option("wangguard-add-honeypot")=='1') {
+			if ( get_site_option("wangguard-add-honeypot")=='1') {
 					add_action($wangguard_bp_hook,'wangguard_add_hfield_1' , rand(1,10));
 					add_action($wangguard_bp_hook,'wangguard_add_hfield_2' , rand(1,10));
 					add_action($wangguard_bp_hook,'wangguard_add_hfield_3' , rand(1,10));
@@ -113,7 +113,7 @@ License: GPL2
 	
 	if ($wangguard_add_mu_filter_actions) {
 		// for wpmu and (buddypress versions before 1.1)
-		if ( wangguard_get_option("wangguard-add-honeypot")=='1') {
+		if ( get_site_option("wangguard-add-honeypot")=='1') {
 				add_action('signup_extra_fields','wangguard_add_hfield_1' , rand(1,10));
 				add_action('signup_extra_fields','wangguard_add_hfield_2' , rand(1,10));
 				add_action('signup_extra_fields','wangguard_add_hfield_3' , rand(1,10));
@@ -134,7 +134,7 @@ License: GPL2
 		//option is activated and getmxrr() function exists?
 		$wangguard_mx_ok = function_exists('getmxrr');
 		
-		if ( !$wangguard_mx_ok || wangguard_get_option("wangguard-verify-dns-mx")!='1')return true;
+		if ( !$wangguard_mx_ok || get_site_option("wangguard-verify-dns-mx")!='1')return true;
 		$email = explode("@" , $email);
 		
 		if( count($email) != 2 )return true;
@@ -176,7 +176,7 @@ License: GPL2
 		global $wpdb;
 		//option is activated?
 		
-		if ( wangguard_get_option("wangguard-verify-gmail")!='1')  return false;
+		if ( get_site_option("wangguard-verify-gmail")!='1')  return false;
 		//cleans the email
 		$guser = wangguard_get_clean_gmail_username($email);
 		
@@ -627,7 +627,7 @@ function wangguard_is_domain_blocked($email) {
 	
 	if (count($parts) != 2)return true;
 	$domain = strtolower($parts[1]);
-	$selectedDomains = maybe_unserialize( wangguard_get_option('blocked-list-domains') );
+	$selectedDomains = maybe_unserialize( get_site_option('blocked-list-domains') );
 	
 	if (!is_array($selectedDomains)) $selectedDomains = array();
 	//matches exact domain?
@@ -672,7 +672,7 @@ function wangguard_is_email_reported_as_sp($email , $clientIP , $ProxyIP , $call
 	if (empty ($wangguard_api_key))return false;
 	$wangguard_user_check_status = "not-checked";
 	
-	if ( wangguard_get_option("wangguard-do-not-check-client-ip")=='1') {
+	if ( get_site_option("wangguard-do-not-check-client-ip")=='1') {
 		$clientIP = '';
 		$ProxyIP = '';
 	}
@@ -748,36 +748,6 @@ function wangguard_question_repliedOK() {
 /*** ADD & VALIDATE SECURITY QUESTIONS ON REGISTER ENDS ***/
 /********************************************************************/
 
-
-/********************************************************************/
-/*** ADD MESSAGE IN THE REGSITRATION FORM BEGINS**/
-/********************************************************************/
-
-
-function wangguard_signup_message($message)
-	{
-		if (strpos($message, 'register') !== FALSE) {
-			if  ( wangguard_get_option("wangguard-notice-signup-text")!=='') {
-				$wggmessage = wangguard_get_option("wangguard-notice-signup-text");
-			} else {
-			$wggmessage = "This website is protected by <a href='http://www.wangguard.com/'>WangGuard</a>, don’t try to
-signup with a Proxy, VPN or TOR Network or you will be blocked.";
-				}
-			return '<p class="message register">' . $wggmessage . '</p>';
-		}
-		else {
-			return $message;
-		}
-	}
- 
-if ( wangguard_get_option("wangguard-notice-signup")=='1') {
-	add_action('login_message', 'wangguard_signup_message');
-	}
-	
-/********************************************************************/
-/*** ADD MESSAGE IN THE REGSITRATION FORM ENDS **/
-/********************************************************************/
-	
 /********************************************************************/
 /*** USER REGISTATION & DELETE FILTERS BEGINS ***/
 /********************************************************************/
@@ -982,7 +952,7 @@ function wangguard_bp_core_action_set_spammer_status($userid , $is_spam) {
 /*** AJAX FRONT HANDLERS BEGINS ***/
 /********************************************************************/
 
-if ( ( (wangguard_get_option ("wangguard-enable-bp-report-btn")==1) && ( defined('BP_VERSION') ) )  || ( wangguard_get_option ("wangguard-enable-bp-report-blog")==1) ) {
+if ( ( (get_site_option ("wangguard-enable-bp-report-btn")==1) && ( defined('BP_VERSION') ) )  || ( get_site_option ("wangguard-enable-bp-report-blog")==1) ) {
 	add_action('wp_head', 'wangguard_ajax_front_setup');
 	add_action('wp_ajax_wangguard_ajax_front_handler', 'wangguard_ajax_front_callback');
 }
@@ -1219,9 +1189,9 @@ jQuery(document).ready(function($) {
 	});
 	function wangguard_report(userid , frombulk) {
 		var confirmed = true;
-		<?php  if (wangguard_get_option ("wangguard-expertmode")!='1') { ?>
+		<?php  if (get_site_option ("wangguard-expertmode")!='1') { ?>
 			if (!frombulk) {
-			<?php  if (wangguard_get_option ("wangguard-delete-users-on-report")=='1') { ?>
+			<?php  if (get_site_option ("wangguard-delete-users-on-report")=='1') { ?>
 				confirmed = confirm('<?php  echo addslashes(__('Do you confirm to flag this user as Splogger? This operation is IRREVERSIBLE and will DELETE the user.', 'wangguard')) ?>');
 			<?php  } else { ?>
 				confirmed = confirm('<?php  echo addslashes(__('Do you confirm to flag this user as Splogger?', 'wangguard')) ?>');
@@ -1250,7 +1220,7 @@ jQuery(document).ready(function($) {
 					<?php  if ($wuangguard_parent == 'edit.php') { ?>
 					document.location = document.location;
 					<?php  } else { ?>
-						<?php  if (wangguard_get_option ("wangguard-delete-users-on-report")=='1') { ?>
+						<?php  if (get_site_option ("wangguard-delete-users-on-report")=='1') { ?>
 							jQuery('td span.wangguardstatus-'+response).parent().parent().fadeOut();
 						<?php  } else { ?>
 							jQuery('td span.wangguardstatus-'+response).removeClass('wangguard-status-checked');
@@ -1266,7 +1236,7 @@ jQuery(document).ready(function($) {
 	}
 	function wangguard_rollback(userid) {
 		var confirmed = true;
-		<?php  if (wangguard_get_option ("wangguard-expertmode")!='1') { ?>
+		<?php  if (get_site_option ("wangguard-expertmode")!='1') { ?>
 			confirmed = confirm('<?php  echo addslashes(__('Do you confirm to flag this user as safe?', 'wangguard')) ?>');
 		<?php  } ?>
 		if (confirmed) {
@@ -1303,8 +1273,8 @@ jQuery(document).ready(function($) {
 	}
 	function wangguard_report_blog(blogid) {
 		var confirmed = true;
-		<?php  if (wangguard_get_option ("wangguard-expertmode")!='1') { ?>
-			<?php  if (wangguard_get_option ("wangguard-delete-users-on-report")=='1') { ?>
+		<?php  if (get_site_option ("wangguard-expertmode")!='1') { ?>
+			<?php  if (get_site_option ("wangguard-delete-users-on-report")=='1') { ?>
 				confirmed = confirm('<?php  echo addslashes(__('Do you confirm to flag this blog\'s author(s) as Splogger(s)? This operation is IRREVERSIBLE and will DELETE the user(s).', 'wangguard')) ?>');
 			<?php  } else { ?>
 				confirmed = confirm('<?php  echo addslashes(__('Do you confirm to flag this blog\'s author(s) as Splogger(s)?', 'wangguard')) ?>');
@@ -1371,8 +1341,8 @@ jQuery(document).ready(function($) {
 	});
 	jQuery("a.wangguard-domain").click(function() {
 		var confirmed = true;
-		<?php  if (wangguard_get_option ("wangguard-expertmode")!='1') { ?>
-			<?php  if (wangguard_get_option ("wangguard-delete-users-on-report")=='1') { ?>
+		<?php  if (get_site_option ("wangguard-expertmode")!='1') { ?>
+			<?php  if (get_site_option ("wangguard-delete-users-on-report")=='1') { ?>
 				confirmed = confirm('<?php  echo addslashes(__('Do you confirm to flag this user domain as Splogger? This operation is IRREVERSIBLE and will DELETE the users that shares this domain.', 'wangguard')) ?>');
 			<?php  } else { ?>
 				confirmed = confirm('<?php  echo addslashes(__('Do you confirm to flag this user domain as Splogger?', 'wangguard')) ?>');
@@ -1451,7 +1421,7 @@ jQuery(document).ready(function($) {
 		});
 	}
 	function wangguardDeleteQuestion(sender) {
-		<?php  if (wangguard_get_option ("wangguard-expertmode")=='1') { ?>
+		<?php  if (get_site_option ("wangguard-expertmode")=='1') { ?>
 			var confirmed = true;
 		<?php  } else { ?>
 			var confirmed = confirm('<?php  echo addslashes(__('Do you confirm to delete this question?.', 'wangguard')) ?>');
@@ -1509,7 +1479,7 @@ jQuery(document).ready(function($) {
 		});
 	}
 	function wangguardDeleteCronJob(sender) {
-		<?php  if (wangguard_get_option ("wangguard-expertmode")=='1') { ?>
+		<?php  if (get_site_option ("wangguard-expertmode")=='1') { ?>
 			var confirmed = true;
 		<?php  } else { ?>
 			var confirmed = confirm('<?php  echo addslashes(__('Do you confirm to delete this cron job?.', 'wangguard')) ?>');
@@ -1600,7 +1570,7 @@ jQuery(document).ready(function($) {
 			});
 		}
 		function wangguardbulkreportbutton_handler() {
-			<?php  if (wangguard_get_option ("wangguard-delete-users-on-report")=='1') { ?>
+			<?php  if (get_site_option ("wangguard-delete-users-on-report")=='1') { ?>
 				if (!confirm('<?php  _e('Do you confirm to flag the selected users as Sploggers? This operation is IRREVERSIBLE and will DELETE the users.' , 'wangguard') ?>'))
 					return;
 			<?php  } else { ?>
@@ -2251,7 +2221,7 @@ function wangguard_bp_report_button($id = '', $type = '') {
 }
 
 
-if ( wangguard_get_option ("wangguard-enable-bp-report-btn")==1) {
+if ( get_site_option ("wangguard-enable-bp-report-btn")==1) {
 	add_filter( 'bp_activity_entry_meta', 'wangguard_bp_report_button' );
 	add_action( 'bp_before_blog_single_post', 'wangguard_bp_report_button' );
 	add_filter( 'comment_reply_link', 'wangguard_bp_comment_reply_link' , 10 , 4);
@@ -2283,7 +2253,7 @@ function wangguard_bp_report_button_header() {
 }
 
 
-if (wangguard_get_option ("wangguard-enable-bp-report-btn")==1) {
+if (get_site_option ("wangguard-enable-bp-report-btn")==1) {
 	add_action( 'bp_member_header_actions',    'wangguard_bp_report_button_header' , 20 );
 }
 
@@ -2314,7 +2284,7 @@ function wangguard_add_bp_admin_bar_menus() {
 	global $wp_version;
 	$cur_wp_version = preg_replace('/-.*$/', '', $wp_version);
 	$WP_List_TableClassSupported = version_compare($cur_wp_version , '3.1.0' , ">=");
-	$queueEnabled = ((wangguard_get_option("wangguard-enable-bp-report-blog") == 1) || (wangguard_get_option ("wangguard-enable-bp-report-btn")==1))  &&   $WP_List_TableClassSupported;
+	$queueEnabled = ((get_site_option("wangguard-enable-bp-report-blog") == 1) || (get_site_option ("wangguard-enable-bp-report-btn")==1))  &&   $WP_List_TableClassSupported;
 	// This is a blog, render a menu with links to all authors
 	
 	if ($showAdmin) {
@@ -2324,7 +2294,7 @@ function wangguard_add_bp_admin_bar_menus() {
 		echo '</a>';
 		echo '<ul class="wangguard-report-menu-list">';
 		
-		if ( $current_blog && (wangguard_get_option("wangguard-enable-bp-report-blog") == 1) ) {
+		if ( $current_blog && (get_site_option("wangguard-enable-bp-report-blog") == 1) ) {
 			
 			if (BP_ROOT_BLOG != $current_blog->blog_id) {
 				echo '<li>';
@@ -2373,7 +2343,7 @@ function wangguard_add_bp_admin_bar_menus() {
 		echo '</li>';
 	} else {
 		
-		if ( $current_blog && (wangguard_get_option("wangguard-enable-bp-report-blog") == 1) ) {
+		if ( $current_blog && (get_site_option("wangguard-enable-bp-report-blog") == 1) ) {
 			
 			if (BP_ROOT_BLOG != $current_blog->blog_id) {
 				echo '<li id="wangguard-report-menu-noop" class="no-arrow">';
@@ -2410,11 +2380,11 @@ function wangguard_add_wp_admin_bar_menus() {
 	if (defined("BP_ROOT_BLOG")) {
 		$isMainBlog = ( 1 == $current_blog->blog_id || BP_ROOT_BLOG == $current_blog->blog_id );
 	} else $isMainBlog = (@$current_blog->blog_id == 1);
-	$showReport = !$isMainBlog && (wangguard_get_option ("wangguard-enable-bp-report-blog")==1);
+	$showReport = !$isMainBlog && (get_site_option ("wangguard-enable-bp-report-blog")==1);
 	global $wp_version;
 	$cur_wp_version = preg_replace('/-.*$/', '', $wp_version);
 	$WP_List_TableClassSupported = version_compare($cur_wp_version , '3.1.0' , ">=");
-	$queueEnabled = ((wangguard_get_option("wangguard-enable-bp-report-blog") == 1) || (wangguard_get_option ("wangguard-enable-bp-report-btn")==1))  &&   $WP_List_TableClassSupported;
+	$queueEnabled = ((get_site_option("wangguard-enable-bp-report-blog") == 1) || (get_site_option ("wangguard-enable-bp-report-btn")==1))  &&   $WP_List_TableClassSupported;
 	
 	if (function_exists("is_super_admin"))$showAdmin = is_super_admin(); else $showAdmin = current_user_can('level_10');
 	
@@ -2489,7 +2459,7 @@ function wangguard_add_admin_menu() {
 	}
 
 	@include_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-	$queueEnabled = ((wangguard_get_option("wangguard-enable-bp-report-blog") == 1) || (wangguard_get_option ("wangguard-enable-bp-report-btn")==1))  &&   class_exists('WP_List_Table');
+	$queueEnabled = ((get_site_option("wangguard-enable-bp-report-blog") == 1) || (get_site_option ("wangguard-enable-bp-report-btn")==1))  &&   class_exists('WP_List_Table');
 	$confHook = add_submenu_page( 'wangguard_conf', __( 'Configuration', 'wangguard'), __( 'Configuration', 'wangguard' ), 'manage_options', 'wangguard_conf', 'wangguard_conf' );
 	add_action("admin_print_scripts-$confHook", 'wangguard_add_jQueryJS');
 	$usersHook = add_submenu_page( 'wangguard_conf', __( 'Users', 'wangguard'), __( 'Users', 'wangguard' ), 'manage_options', 'wangguard_users', 'wangguard_users' );
