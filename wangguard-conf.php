@@ -295,6 +295,8 @@ function wangguard_conf() {
 						<input type="checkbox" name="wangguardexpertmode" id="wangguardexpertmode" value="1" <?php echo get_site_option("wangguard-expertmode")=='1' ? 'checked' : ''?> />
 						<label for="wangguardexpertmode"><?php _e("<strong>Ninja mode.</strong><br/>By checking this option no confirmation message will be asked for report operations on the Users manager. Just remember that users gets deleted when reported and the option 'Delete users when reporting them to WangGuard' is selected.", 'wangguard') ?></label>
 					</p>
+					<p>&nbsp;</p>
+					<h3><?php _e("Add-ons Settings", 'wangguard') ?></h3>
 					
 					<?php do_action('wangguard_setting'); ?>
 
