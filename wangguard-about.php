@@ -364,7 +364,7 @@
 
 		?>
 		<div class="wrap about-wrap">
-			<h1><?php  printf( __( 'WangGuard Development', 'wangguard' ), $wangguard_version ); ?></h1>
+			<h1><?php  _e( 'WangGuard Development', 'wangguard'); ?></h1>
 			<div class="about-text"><?php  _e( 'Follow WangGuard Development', 'wangguard' ); ?></div>
 			<div class="wangguard-badge"><?php  printf( __( 'Version %s' ), $wangguard_version ); ?></div>
 			<h2 class="nav-tab-wrapper">
