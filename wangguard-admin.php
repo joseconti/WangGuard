@@ -367,7 +367,7 @@ function wangguard_wpmu_signup_validate_mu($param) {
 	$errors = $param['errors'];
 	
 	if (!wangguard_validate_hfields($user_email)) {
-		$errors->add('user_name',  __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error? Perhaps you tried to register many times</a>.', 'wangguard'));
+		$errors->add('user_name',  __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
 		return $param;
 	}
 
@@ -451,7 +451,7 @@ function wangguard_signup_validate_bp11() {
 	$wangguard_bp_validated = true;
 	
 	if (!wangguard_validate_hfields($_POST['signup_email'])) {
-		$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error? Perhaps you tried to register many times</a>.', 'wangguard'));
+		$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
 		return;
 	}
 
@@ -467,7 +467,7 @@ function wangguard_signup_validate_bp11() {
 		} else {
 			$reported = wangguard_is_email_reported_as_sp($_REQUEST['signup_email'] , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP());
 			
-			if ($reported)$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error? Perhaps you tried to register many times</a>.', 'wangguard')); else
+			if ($reported)$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard')); else
 			if (wangguard_email_aliases_exists($_REQUEST['signup_email']))$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard')); else
 			if (!wangguard_mx_record_is_ok($_REQUEST['signup_email']))$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe( __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
 		}
@@ -562,7 +562,7 @@ if  ( ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins'
 	function wangguard_signup_validate($user_name, $email, $errors){
 		
 		if (!wangguard_validate_hfields($_POST['email'])) {
-			$errors->add('user_login',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error? Perhaps you tried to register many times</a>.', 'wangguard'));
+			$errors->add('user_login',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
 			return;
 		}
 
@@ -578,7 +578,7 @@ if  ( ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins'
 			} else {
 				$reported = wangguard_is_email_reported_as_sp($_REQUEST['email'] , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() , true);
 				
-				if ($reported)$errors->add('wangguard_error',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error? Perhaps you tried to register many times</a>.', 'wangguard'));
+				if ($reported)$errors->add('wangguard_error',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
 				elseif (wangguard_email_aliases_exists($_REQUEST['email']))$errors->add('wangguard_error',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard'));
 				elseif (!wangguard_mx_record_is_ok($_REQUEST['email']))$errors->add('wangguard_error',   __("<strong>ERROR</strong>: The server couldn't find an MX record associated with your email domain.", 'wangguard'));
 			}
@@ -591,7 +591,7 @@ if  ( ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins'
 	function wangguard_signup_validate($user_name, $user_email, $errors){
 		
 		if (!wangguard_validate_hfields($user_email)) {
-			$errors->add('user_login',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error? Perhaps you tried to register many times</a>.', 'wangguard'));
+			$errors->add('user_login',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
 			return;
 		}
 
@@ -606,7 +606,7 @@ if  ( ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins'
 				$errors->add('wangguard_error',__('<strong>ERROR</strong>: Domain not allowed.', 'wangguard'));
 			} else {
 				$reported = wangguard_is_email_reported_as_sp($user_email, wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() , true);
-				if ($reported)$errors->add('wangguard_error',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error? Perhaps you tried to register many times</a>.', 'wangguard')); else
+				if ($reported)$errors->add('wangguard_error',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard')); else
 				if (wangguard_email_aliases_exists($user_email))$errors->add('wangguard_error',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard')); else
 				if (!wangguard_mx_record_is_ok($user_email))$errors->add('wangguard_error',   __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
 			}
