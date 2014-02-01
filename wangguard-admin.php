@@ -358,6 +358,8 @@ function wangguard_wpmu_signup_validate_mu($param) {
 	if ( strpos($_SERVER['PHP_SELF'], 'wp-admin') !== false ) {
 		return $param;
 	}
+	
+	if (!$user_email){$user_email = $param['user_email'];}else{$user_email=$user_email;}
 
 	//BP1.1+ calls the new BP filter first (wangguard_signup_validate_bp11) and then the legacy MU filters (this one), if the BP new 1.1+ filter has been already called, silently return
 	
@@ -381,7 +383,7 @@ function wangguard_wpmu_signup_validate_mu($param) {
 		} else {
 			$reported = wangguard_is_email_reported_as_sp($user_email , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP());
 			
-			if ($reported) $errors->add('user_email',   __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error? Perhaps you tried to register many times</a>.', 'wangguard')); else
+			if ($reported) $errors->add('user_email',   __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard')); else
 			if (wangguard_email_aliases_exists($user_email))$errors->add('user_email',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard')); else
 			if (!wangguard_mx_record_is_ok($user_email))$errors->add('user_email',   __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
 		}
