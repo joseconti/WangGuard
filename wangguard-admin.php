@@ -4,7 +4,7 @@
 Plugin Name: WangGuard
 Plugin URI: http://www.wangguard.com
 Description: <strong>Stop Sploggers</strong>. It is very important to use <a href="http://www.wangguard.com" target="_new">WangGuard</a> at least for a week, reporting your site's unwanted users as sploggers from the Users panel. WangGuard will learn at that time to protect your site from sploggers in a much more effective way. WangGuard protects each web site in a personalized way using information provided by Administrators who report sploggers world-wide, that's why it's very important that you report your sploggers to WangGuard. The longer you use WangGuard, the more effective it will become.
-Version: 1.6
+Version: 1.6-RC1
 Author: WangGuard
 Author URI: http://www.wangguard.com
 License: GPL2
@@ -23,7 +23,7 @@ License: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-	define('WANGGUARD_VERSION', '1.6');
+	define('WANGGUARD_VERSION', '1.6-RC1');
 	define('WANGGUARD_PLUGIN_FILE', 'wangguard/wangguard-admin.php');
 	define('WANGGUARD_README_URL', 'http://plugins.trac.wordpress.org/browser/wangguard/trunk/readme.txt?format=txt');
 	define('WANGGUARD_API_HOST', 'rest.wangguard.com');
@@ -57,7 +57,6 @@ License: GPL2
 	include_once 'wangguard-about.php';
 	include_once 'wangguard-compatible-plugins.php';
 	include_once 'wangguard-addons.php';
-	//include_once 'buddypress/bp-loader.php';
 	/********************************************************************/	
 	/*** CONFIG ENDS ***/	
 	/********************************************************************/
@@ -120,7 +119,7 @@ License: GPL2
 				add_action('signup_extra_fields','wangguard_add_hfield_4' , rand(1,10));
 			}
 		add_action('signup_extra_fields', 'wangguard_register_add_question_mu' );
-		add_filter('wpmu_validate_user_signup', 'wangguard_wpmu_signup_validate_mu');
+		add_filter('wpmu_validate_user_signup', 'wangguard_wpmu_signup_validate_mu', 90);
 	}
 
 	/**
@@ -352,45 +351,44 @@ function wangguard_register_add_question_mu($errors) {
  * @param type $param
  * @return array
  */
-function wangguard_wpmu_signup_validate_mu($param) {
+function wangguard_wpmu_signup_validate_mu($result) {
 	global $wangguard_bp_validated;
 	
 	if ( strpos($_SERVER['PHP_SELF'], 'wp-admin') !== false ) {
-		return $param;
+		return $result;
 	}
-	
-	if (!$user_email){$user_email = $param['user_email'];}else{$user_email=$user_email;}
+		if(!$user_email){$user_email = $_POST['user_email'];}else{$user_email=$user_email;}
+		$user_email = $_POST['user_email'];
 
 	//BP1.1+ calls the new BP filter first (wangguard_signup_validate_bp11) and then the legacy MU filters (this one), if the BP new 1.1+ filter has been already called, silently return
 	
-	if ($wangguard_bp_validated)return $param;
-	$errors = $param['errors'];
+	if ($wangguard_bp_validated)return $result;
 	
 	if (!wangguard_validate_hfields($user_email)) {
-		$errors->add('user_name',  __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
-		return $param;
+		$result['errors']->add('user_name',  __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
+		return $result;
 	}
 
 	$answerOK = wangguard_question_repliedOK();
 	//If at least a question exists on the questions table, then check the provided answer
 	
-	if (!$answerOK)    $errors->add('wangguardquestansw',  __('<strong>ERROR</strong>: The answer to the security question is invalid.', 'wangguard')); else {
+	if (!$answerOK)    $result['errors']->add('wangguardquestansw',  __('<strong>ERROR</strong>: The answer to the security question is invalid.', 'wangguard')); else {
 		//check domain against the list of selected blocked domains
 		$blocked = wangguard_is_domain_blocked($user_email);
 		
 		if ($blocked) {
-			$errors->add('user_email',   __('<strong>ERROR</strong>: Domain not allowed.', 'wangguard'));
+			$result['errors']->add('user_email',   __('<strong>ERROR</strong>: Domain not allowed.', 'wangguard'));
 		} else {
 			$reported = wangguard_is_email_reported_as_sp($user_email , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP());
 			
-			if ($reported) $errors->add('user_email',   __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard')); else
-			if (wangguard_email_aliases_exists($user_email))$errors->add('user_email',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard')); else
-			if (!wangguard_mx_record_is_ok($user_email))$errors->add('user_email',   __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
+			if ($reported) $result['errors']->add('user_email',   __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard')); else
+			if (wangguard_email_aliases_exists($user_email))$result['errors']->add('user_email',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard')); else
+			if (!wangguard_mx_record_is_ok($user_email))$result['errors']->add('user_email',   __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
 		}
-
+		
 	}
-
-	return $param;
+	
+	return $result;
 }
 
 //*********** WPMU ***********
@@ -612,7 +610,6 @@ if  ( ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins'
 			}
 
 		}
-
 	}
 
 }
@@ -2640,5 +2637,15 @@ if ($wpversion >= '3.6') {
 
 /********************************************************************/
 /*** DASHBOARD ENDS ***/
+/********************************************************************/
+
+/********************************************************************/
+/****** ALLOW PLUGINS-ADD-ONS TO DO THINGS BEGINS *******************/
+/********************************************************************/
+
+do_action( 'wangguard_include');
+
+/********************************************************************/
+/****** ALLOW PLUGINS-ADD-ONS TO DO THINGS ENDS**********************/
 /********************************************************************/
 ?>

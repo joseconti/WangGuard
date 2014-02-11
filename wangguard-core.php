@@ -40,8 +40,8 @@ function wangguard_init() {
 		wangguard_admin_warnings();
 		}
 	
-	if (get_option('wangguard_redirect_on_activation') == 'true') {
-        update_option('wangguard_redirect_on_activation', 'false');
+	if (get_site_option('wangguard_redirect_on_activation') == 'true') {
+        update_site_option('wangguard_redirect_on_activation', 'false');
         if ( !is_multisite() ) { $wangguardredirect = esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_about' ), 'admin.php' ) ) ); }
 				else { $wangguardredirect =  esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_about' ), 'admin.php' ) ) );}
 		wp_redirect( $wangguardredirect ); exit;
@@ -87,12 +87,10 @@ function wangguard_admin_init() {
 
 	global $wangguard_db_version , $wpdb;
 
-	$table_name = $wpdb->base_prefix . "wangguardoptions";
-	$optionsTableCreated = ($wpdb->get_var("show tables like '$table_name'") == $table_name);
-	$version = $optionsTableCreated ? get_site_option("wangguard_db_version") : false;
+	$version = get_site_option("wangguard_db_version");
 
 	if (false === $version)
-		$version = get_option("wangguard_db_version");	
+		$version = get_site_option("wangguard_db_version");	
 	if (false === $version)
 		$version = 0;
 	//Upgrade DB
