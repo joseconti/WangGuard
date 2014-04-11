@@ -239,7 +239,7 @@ function wangguard_add_hfield_2() {
 	global $wangguard_NonceFName , $wangguard_FPrefix;
 	$style = wangguard_randomstring(mt_rand(6,10));
 	$fieldID = wangguard_randomstring(mt_rand(6,10));
-	echo '<![if !IE]><style type="text/css">.'.$style.' {visibility:hidden; display:none;}</style>';
+	echo '<![if !IE]><style type="text/css">.'.$style.' {visibility:hidden!important; display:none!important;}</style>';
 	$nonceAct = $wangguard_NonceFName;
 	$nonceValue = wp_create_nonce( $nonceAct );
 	$nonce_field = '<div class="'.$style.'"><input autocomplete="off" type="text" id="' . $fieldID . '" name="' . $wangguard_FPrefix . $nonceValue . '" value="" /></div><![endif]>';
@@ -251,7 +251,7 @@ function wangguard_add_hfield_3() {
 	global $wangguard_NoncePName;
 	$style = wangguard_randomstring(mt_rand(6,10));
 	$fieldID = wangguard_randomstring(mt_rand(6,10));
-	$cssStyle = 'visibility:hidden; display:none; position:absolute; top:-'.mt_rand(10000 , 20000).'px;';
+	$cssStyle = 'visibility:hidden!important; display:none!important; position:absolute; top:-'.mt_rand(10000 , 20000).'px;';
 	$question = wangguard_randomstring(mt_rand(6,10));
 	$nonceAct = $wangguard_NoncePName;
 	$nonceValue = wp_create_nonce( $nonceAct );
@@ -264,7 +264,7 @@ function wangguard_add_hfield_4() {
 	global $wangguard_NonceCName;
 	$style = wangguard_randomstring(mt_rand(6,10));
 	$fieldID = wangguard_randomstring(mt_rand(6,10));
-	echo '<![if !IE]><style type="text/css">.'.$style.' {visibility:hidden; display:none;}</style>';
+	echo '<![if !IE]><style type="text/css">.'.$style.' {visibility:hidden!important; display:none!important;}</style>';
 	$nonceAct = $wangguard_NonceCName;
 	$nonceValue = wp_create_nonce( $nonceAct );
 	$nonce_field = '<div class="'.$style.'"><input autocomplete="off" type="text" value="" id="' . $fieldID . '" name="' . $nonceValue . '" /></div><![endif]>';
