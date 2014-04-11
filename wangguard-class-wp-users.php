@@ -154,6 +154,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 			$actions['spam'] = _x( 'Mark as Spam', 'user' );
 			$actions['notspam'] = _x( 'Not Spam', 'user' );
 		}
+		$actions['whitelist'] = __( 'Whitelist', 'wangguard' );
 		$actions['delete'] = __( 'Delete Users', 'wangguard' );
 		
 		return $actions;

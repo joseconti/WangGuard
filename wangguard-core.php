@@ -579,6 +579,42 @@ function wangguard_report_users($wpusersRs , $scope="email" , $deleteUser = true
 		return "0";
 }
 
+
+
+function wangguard_whitelist_report($wpusersRs) {
+	global $wangguard_api_key;
+	global $wpdb;
+
+	$valid = wangguard_verify_key($wangguard_api_key);
+	if ($valid == 'failed') {
+		echo "-2";
+		die();
+	}
+	else if ($valid == 'invalid') {
+		echo "-1";
+		die();
+	}
+	if (!$wpusersRs) {
+		return "0";
+	}
+	$usersWhitelist = array();
+	foreach ($wpusersRs as $spuserID) {
+		$user_object = new WP_User($spuserID);
+		if ( !wangguard_is_admin($user_object) ) {
+			global $wpdb;
+
+			//Update the new status
+			$table_name = $wpdb->base_prefix . "wangguarduserstatus";
+			$wpdb->query( $wpdb->prepare("update $table_name set user_status = 'whitelisted' where ID = '%d'" , $spuserID ) );
+			$usersWhitelist[] = $spuserID;
+		}
+	}
+	if (count($usersWhitelist))
+		return implode (",", $usersWhitelist);
+	else
+		return "0";
+}
+
 function wangguard_rollback_report($wpusersRs) {
 	global $wangguard_api_key;
 	global $wpdb;
@@ -1158,6 +1194,9 @@ function wangguard_user_custom_columns($dummy , $column_name , $userid , $echo =
 		}
 		elseif ($status == 'buyer') {
 			$html = '<span class="wangguard-status-buyer wangguardstatus-'.$userid.'">'. __('Buyer', 'wangguard') .'</span>';
+		}
+		elseif ($status == 'whitelisted') {
+			$html = '<span class="wangguard-status-whitelisted wangguardstatus-'.$userid.'">'. __('Whitelisted', 'wangguard') .'</span>';
 		}
 		elseif (substr($status , 0 , 5) == 'error') {
 			$html = '<span class="wangguard-status-error wangguardstatus-'.$userid.'">'. __('Error', 'wangguard') . " - " . substr($status , 6) . '</span>';

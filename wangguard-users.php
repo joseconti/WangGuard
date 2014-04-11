@@ -160,6 +160,20 @@ function wangguard_users() {
 				$messages[] = '<div id="message" class="updated fade"><p><strong>'. sprintf(__("%d user(s) were marked as Safe" , "wangguard") , $spamUsers) .'</strong></p></div>';
 			}
 		break;
+		
+		case 'whitelist':
+			if (!wp_verify_nonce($_REQUEST['_wpnonce'], "bulk-users" )) die("bad nonce");
+			//report selected users
+			$whitelisteddUsers = 0;
+			$users = (array)$_REQUEST['users'];
+			$res = wangguard_whitelist_report($users);
+			$resArr = explode(",", $res);
+			$reportedUsers = (count($users)==0) ? 0 : count($resArr);
+				
+			if ($whitelisteddUsers) {
+					$messages[] = '<div id="message" class="updated fade"><p><strong>'. sprintf(__("%d user(s) were Whitelisted" , "wangguard") , $whitelisteddUsers) .'</strong></p></div>';
+			}
+			break;
 	
 	}
 		
