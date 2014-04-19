@@ -216,22 +216,14 @@ function wangguard_wizard() {
 
 								if ($user_check_status == "reported") {
 										$reported++;
-										if (function_exists('bp_core_process_spammer_status')){
-												$status = 'spam';
-												bp_core_process_spammer_status($userid, $status);
-												 	if (function_exists("update_user_status"))
-															update_user_status($userid, $spamFieldName, 1); //when flagging the user as spam, the wangguard hook is called to report the user
-													else
-														$wpdb->query( $wpdb->prepare("update $wpdb->users set $spamFieldName = 1 where ID = %d" , $userid ) ); 
-										} else {
-											
 										
+										do_action('wangguard_pre_mark_user_spam_wizard');
+											
 										if (function_exists("update_user_status"))
 											update_user_status($userid, $spamFieldName, 1); //when flagging the user as spam, the wangguard hook is called to report the user
 										else
 											$wpdb->query( $wpdb->prepare("update $wpdb->users set $spamFieldName = 1 where ID = %d" , $userid ) );
 										}
-								}
 
 								$verified++;
 							}

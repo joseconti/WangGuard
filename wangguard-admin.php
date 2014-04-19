@@ -63,10 +63,10 @@ License: GPL2
 	
 	// We are working here arround BuddyPress. Will be live in future version.
 	
-//	function wangguard_buddypress_init() {
- //   require( dirname( __FILE__ ) . '/wangguard-buddypress.php' );
-//}
-// add_action( 'bp_include', 'wangguard_buddypress_init' );
+	function wangguard_buddypress_init() {
+   require( dirname( __FILE__ ) . '/wangguard-buddypress.php' );
+}
+ add_action( 'bp_include', 'wangguard_buddypress_init' );
 	
 	/********************************************************************/	
 	/*** ADD & VALIDATE SECURITY QUESTIONS ON REGISTER BEGINS ***/	
@@ -906,17 +906,13 @@ function wangguard_plugin_user_delete($userid) {
 function wangguard_make_spam_user($userid) {
 	global $wpdb;
 	
-	if (function_exists('bp_core_process_spammer_status')){
-		$status = 'spam';
-		bp_core_process_spammer_status($userid, $status);
-		$wpusersRs = $wpdb->get_col( $wpdb->prepare("select ID from $wpdb->users where ID = %d" , $userid ) );
-		wangguard_report_users($wpusersRs , "email" , false);
-	} else {
+		do_action('wanggurd_pre_make_spam_user');
 		//flag a user
 		//get the recordset of the user to flag
 		$wpusersRs = $wpdb->get_col( $wpdb->prepare("select ID from $wpdb->users where ID = %d" , $userid ) );
 		wangguard_report_users($wpusersRs , "email" , false);
-	}
+		
+		do_action('wanggurd_make_spam_user');
 
 }
 
@@ -1663,13 +1659,6 @@ function wangguard_ajax_callback() {
 		} else {
 			$spamFieldName = "user_status";
 		}
-
-		
-		if (function_exists('bp_core_process_spammer_status')){
-			$status = 'spam';
-			bp_core_process_spammer_status($userid, $status);
-		}
-
 		
 		if (function_exists("update_user_status")) {
 			update_user_status($userid, $spamFieldName, 1);
@@ -2435,11 +2424,11 @@ function wangguard_add_admin_menu() {
 	$hookname = get_plugin_page_hookname( $file, '' );
 	
 	if (!empty ( $function ) && !empty ( $hookname ))add_action( $hookname, $function );
-	$position = 26;
+	$position = '1523426.4532';
 	do {
 		$position++;
 	}
-
+	//add_menu_page('WangGuard','WangGuard','manage_options','wangguard_conf','wangguard_conf',,)
 	while ( !empty( $menu[$position] ) );
 	
 	if ( empty( $icon_url ) )$icon_url = '';
