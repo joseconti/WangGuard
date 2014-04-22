@@ -10,13 +10,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 function wangguard_look_for_plugin_banner_addon($bannerurl)
 {
    $handle = @fopen($bannerurl, "r");
-
    if ($handle == false)
           return false;
-
    fclose($handle);
-   
-   return true;
+      return true;
 }
 
 /**
@@ -98,7 +95,12 @@ if ( !is_wp_error($response) ) {
 					echo '<div class="feature-section images-stagger-right">';
 					$bannerurl = "http://s-plugins.wordpress.org/" . esc_html($plugin->slug) . "/assets/banner-772x250.png"; 
 						if ( wangguard_look_for_plugin_banner_addon ( $bannerurl ) ) {
-						echo '<img class="image-66" src="http://s-plugins.wordpress.org/' . esc_html($plugin->slug) . '/assets/banner-772x250.png" alt="">';}
+						echo '<img class="image-66" src="http://s-plugins.wordpress.org/' . esc_html($plugin->slug) . '/assets/banner-772x250.png" alt="">';
+						}
+						else {
+							echo '<img class="image-66" src="' . plugin_dir_url('wangguard-admin.php') . 'wangguard/img/no-banner.png" alt="">';
+							
+						}
 								echo '<div class="feature-section images-stagger-right">';
 									echo '<h4>'.esc_html($plugin->name). '</h4>';
 									echo '<p>'.esc_html($plugin->short_description).'</p>';
