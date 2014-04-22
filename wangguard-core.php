@@ -54,8 +54,8 @@ add_action('init', 'wangguard_init');
 function wangguard_activate() {
 
 	wangguard_admin_init();
-	add_option('wangguard_redirect_on_activation', 'true');
-	update_option('wangguard_redirect_on_activation', 'true');
+	add_site_option('wangguard_redirect_on_activation', 'true');
+	update_site_option('wangguard_redirect_on_activation', 'true');
 	
 	if (!get_site_option('wangguard-option-version') ) {
 	
