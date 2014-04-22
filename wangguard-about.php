@@ -1,5 +1,20 @@
 <?php 
-	//empezamos
+/*  
+	Some code taked from WooCommerce
+
+	Copyright 2010  WangGuard (email : admin@wangguard.com)
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License, version 2, as
+    published by the Free Software Foundation.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
 	
 	function wangguard_about() {
 		global $wpdb,$wangguard_nonce, $wangguard_api_key;
@@ -61,8 +76,8 @@
 						<p><?php  _e( 'We\'re working hard to be the best anti-splog system in the world. With your help, we will be. ', 'wangguard' ); ?></p>
 					</div>
 					<div class="last-feature">
-					<h4><?php  _e( 'The Future', 'wangguard' ); ?></h4>
-					<p><?php  _e( 'The future of WangGuard is a secret, but we can assure you that if WangGuard is now essential, it will be even more.', 'wangguard' ); ?></p>
+					<h4><?php  _e( 'WangGuard 1.6 RC1, Why?', 'wangguard' ); ?></h4>
+					<p><?php  _e( 'In recent months, we have been working very hard on this new version, but we have found that previous versions didn\'t work with WordPress 3.9 and BuddyPress 2.0, so we have to release this RC1 version. This version is working perfectly, although there is some unfinished pages.', 'wangguard' ); ?></p>
 					</div>
 				</div>
 			</div>
@@ -83,22 +98,6 @@
 					<p><?php  _e( 'In <strong>Help tab</strong>, you will find help about WangGuard, first steps, etc.', 'wangguard' ); ?></p>
 					<p><?php  _e( 'In <strong>Help Us tab</strong>, you will find how you can help WangGuard.', 'wangguard' ); ?></p>
 					<p><?php  _e( 'In <strong>Contact</strong> tab, you will find contact form, yes, from your own administration!.', 'wangguard' ); ?></p>
-				</div>
-			</div>
-			<div class="changelog">
-				<h3><?php  _e( 'New users order', 'wangguard' ); ?></h3>
-				<div class="feature-section images-stagger-right">
-					<img class="image-66" src="<?php  echo $wangguard_plugin_url . 'wangguard/img/wangguard-users-date.png'; ?>" width=100% />
-					<h4><?php  _e( 'New users order by default', 'wangguard' ); ?></h4>
-					<p><?php  _e( 'Now the users are ordered by date, so when you visit ', 'wangguad' ); ?><a href="<?php 
-		
-		if ( !is_multisite() ) {
-			echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_users' ), 'admin.php' ) ) );
-		} else {
-			echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_users' ), 'admin.php' ) ) );
-		}
-
-		?>"><?php  _e('WangGuard Users section', 'wangguard'); ?></a><?php  _e(' you will see the latest users registered.', 'wangguard' ); ?></p>
 				</div>
 			</div>
 			<div class="return-to-dashboard">
