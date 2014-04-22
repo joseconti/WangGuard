@@ -141,6 +141,8 @@ function wangguard_help() {
 					<li><?php _e( 'He is using TOR network. We block the TOR network.', 'wangguard'); ?>
 					</li>
 					</ul>
+					<h4><?php _e( 'Which is the difference between Third Party Plugins and Add-ons', 'wangguard' ); ?></h4>
+					<p><?php _e( 'Basically, Third Party Plugins are plugins that Works with WangGuard and if it is present adds some functionalities. WangGuard Add-ons, are plugins that needs WangGuard plugin and it adds functionalities.', 'wangguard' ); ?></p>
 					<h4><?php _e( 'WangGuard is not saving the API Key, settings or security questions', 'wangguard' ); ?></h4>
 					<p><?php _e( 'That\'s because there was something wrong at WangGuard activation and WangGuard database tables weren\'t created.', 'wangguard' ); ?></p>
 					<p><?php _e( 'Please, copy the next code and use phpMyadmin or similar software for create WangGuard tables.', 'wangguard' ); ?></p>
@@ -187,12 +189,6 @@ CREATE TABLE '.$sitetableprefix.'wangguardsignupsstatus (
 	user_proxy_ip VARCHAR(15) NOT NULL,
 	UNIQUE KEY signup_username (signup_username)
 ) '.$charset_collate.';
-
-CREATE TABLE '.$sitetableprefix.'wangguardoptions (
-	option_name varchar(64) NOT NULL,
-	option_value longtext NOT NULL,
-	UNIQUE KEY option_name (option_name)
-) COLLATE utf8_general_ci;
 
 CREATE TABLE '.$sitetableprefix.'wangguardcronjobs (
 	id mediumint(9) NOT NULL AUTO_INCREMENT,
