@@ -3,8 +3,8 @@ Contributors: j.conti,maxidirienzo,InTouchSystem
 Author URI: http://wangguard.com
 Tags: wangguard, wgg, sploggers, splog, anti-splog, user spam, anti spam users, anti-spam, spam blog, spam blogs, wordpress, buddypress, wpmu, wordpress mu, wordpress multisite, standard WordPress, registration, security, security questions, plugin, sign up, signup, spam, wp-login.php, wp-signup.php, wp-register.php, register, registration, protect, protect registration, block agents, block ip, blog secure, bots, secure blog, secure wordpress, secure wp, website security, wp secure, wp security, block users, block user, block, block emails, block e-mails, block domains, block bots, block bot, bp, captcha, no captcha, recaptcha, unwanted users, block unwanted users, block splog, black hat, blackhat, bbpress, clean, clean database, clean splog, clean users, untrusted, untrusted users, ip, ip information, user admin, user management, advanced user management, ip info, appthemes, user registration spam, users registration spam, user registration spam prevention, users registration spam prevention, woocommerce
 Requires at least: 3.0
-Tested up to: 3.8
-Stable tag: 1.5.10
+Tested up to: 3.9
+Stable tag: 1.6-RC1
 License: GPLv2
 
 The most advanced protection against sploggers and spam users registration, is fully WordPress,WordPress MU ,BuddyPress and bbPress 2.0 compatible
@@ -264,8 +264,11 @@ Yes, absolutely. Only the WangGuard plugin and its associated web service will h
 
 Yes. The following translations are included in the download zip file:
 
-* Spanish (en_ES) - Translated by [WangGuard](http://wangguard.com/)
-* Italian (it_IT) - Translate by Arturo Thanks!
+* Spanish (es_ES) - Translated by [WangGuard](http://wangguard.com/)
+* Italian (it_IT) - Translate by Arturo
+* German (de_DE) - Translated by Marco Jakobs
+* Servian (sr_RS) - Tanslated by Borisa Djuraskovic
+* Russian (ru_RU) - Tranlated by maxmadknight
 
 
 = Can I provide a translation? =
@@ -287,6 +290,31 @@ It is free for personal use. If you earn more than $200/month with your site or 
 
 
 == Changelog ==
+
+= 1.6 RC1 - 23 April 2014 =
+
+- Added compatibility with WordPress 3.9.
+- Added compatibility with BuddyPress 2.0.
+- Added the ability of whitelist users
+- Added some !important for fix some problems with some CSS at signup page.
+- Added Contact page with us from WordPress admin.
+- Added Add-ons page.
+- Added Third party plugins page.
+- Added ability of deactivate HoneyPot fieds.
+- Added about WangGuard
+- Added Credits page
+- Added Development page (you can now follow WangGuard development)
+- Added Help Us page
+- Added Help page with First Steps and FAQ
+- Added Welcome screen.
+- Added User Info in WangGuard Users (Beta version).
+- Added Unchecked Users
+- Added German Localization by Marco Jakobs
+- Added Servian Localization by Borisa Djuraskovic
+- Added Russian Localization by maxmadknight
+- Fixed a historical WangGuard CRON problem when BuddyPress is activated.
+- Fixed compatibility with many custom signup page for Themes and plugins.
+
 
 = 1.5.10 - 12 Aug 2013 =
 
