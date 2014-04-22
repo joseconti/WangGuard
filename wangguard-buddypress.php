@@ -50,6 +50,7 @@ function wangguard_spam_user( $userid ){
 		wangguard_bp_core_process_spammer_status($userid, $status);
 }
 add_action('wangguard_pre_mark_user_spam_wizard','wangguard_spam_user');
+add_action('wangguard_pre_make_spam_user','wangguard_spam_user');
 
 function wangguard_bp_activity_spam_all_user_data( $user_id = 0 ) {
 	global $bp, $wpdb;
