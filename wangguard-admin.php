@@ -906,13 +906,13 @@ function wangguard_plugin_user_delete($userid) {
 function wangguard_make_spam_user($userid) {
 	global $wpdb;
 	
-		do_action('wanggurd_pre_make_spam_user');
+		do_action('wangguard_pre_make_spam_user');
 		//flag a user
 		//get the recordset of the user to flag
 		$wpusersRs = $wpdb->get_col( $wpdb->prepare("select ID from $wpdb->users where ID = %d" , $userid ) );
 		wangguard_report_users($wpusersRs , "email" , false);
 		
-		do_action('wanggurd_make_spam_user');
+		do_action('wangguard_make_spam_user');
 
 }
 
