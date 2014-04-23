@@ -304,7 +304,7 @@
 		?>"><?php  _e( 'Help Us' ); ?></a>
 				.
 			</p>
-			<h4 class="wp-people-group"><?php  _e( 'Project Leader', 'wangguard' ); ?></h4>
+			<h4 class="wp-people-group"><?php  _e( 'Project Leader and Core Developer', 'wangguard' ); ?></h4>
 			<ul class="wp-people-group">
 				<li class="wp-person">
 					<a title="View joseconti" href="https://github.com/joseconti">
@@ -312,16 +312,6 @@
 					</a>
 					<a class="web" href="https://github.com/joseconti">Jose Conti</a>
 					<span class="title"><?php  _e( 'Founder and the greater splog hater in the world', 'wangguard'); ?></span>
-				</li>
-			</ul>
-			<h4 class="wp-people-group"><?php  _e( 'Core Developers', 'wangguard' ); ?></h4>
-			<ul class="wp-people-group">
-				<li class="wp-person">
-					<a title="View Maxi" href="https://github.com/joseconti">
-					<img class="gravatar" height="64" width="64" alt="joseconti" src="https://secure.gravatar.com/avatar/58739a905a719e6f1591333917b3118b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png">
-					</a>
-					<a class="web" href="https://github.com/joseconti">Maxi</a>
-					<span class="title"><?php  _e( 'Core Developer', 'wangguard'); ?></span>
 				</li>
 			</ul>
 			<h4 class="wp-people-group"><?php  _e( 'Contributing Developers', 'wangguard' ); ?></h4>
