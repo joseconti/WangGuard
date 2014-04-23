@@ -2365,8 +2365,10 @@ function wangguard_add_wp_admin_bar_menus() {
 	if ($wangguard_is_network_admin && function_exists("network_admin_url"))$urlFunc = "network_admin_url";
 	$isMainBlog = false;
 	
+	$wggcurrentblog = get_current_blog_id();
+	
 	if (defined("BP_ROOT_BLOG")) {
-		$isMainBlog = ( 1 == $current_blog->blog_id || BP_ROOT_BLOG == $current_blog->blog_id );
+		$isMainBlog = ( 1 == $wggcurrentblog || BP_ROOT_BLOG == $wggcurrentblog );
 	} else $isMainBlog = (@$current_blog->blog_id == 1);
 	$showReport = !$isMainBlog && (get_site_option ("wangguard-enable-bp-report-blog")==1);
 	global $wp_version;
