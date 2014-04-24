@@ -3,304 +3,288 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.4.x\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 12:26+0100\n"
-"PO-Revision-Date: 2013-11-13 12:31+0100\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wangguard\n"
+"POT-Creation-Date: 2014-04-23 23:21:49+00:00\n"
+"PO-Revision-Date: 2014-04-24 01:27+0100\n"
 "Last-Translator: José Conti <j.conti@joseconti.com>\n"
 "Language-Team: \n"
+"Language: sr_RS\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Poedit-KeywordsList: _;__;_e;_n\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../wangguard-about.php:8 ../wangguard-compatible-plugins.php:34
-#: ../wangguard-conf.php:8 ../wangguard-cronjobs.php:25
-#: ../wangguard-help.php:7 ../wangguard-help.php:230 ../wangguard-help.php:504
-#: ../wangguard-queue.php:9 ../wangguard-stats.php:7
-#: ../wangguard-user-info.php:14 ../wangguard-users.php:9
-#: ../wangguard-wizard.php:24
+#: wangguard-about.php:26 wangguard-addons.php:33
+#: wangguard-compatible-plugins.php:33 wangguard-conf.php:8
+#: wangguard-cronjobs.php:25 wangguard-help.php:7 wangguard-help.php:227
+#: wangguard-help.php:501 wangguard-queue.php:9 wangguard-stats.php:10
+#: wangguard-user-info.php:14 wangguard-users.php:9 wangguard-wizard.php:24
 msgid "Cheatin&#8217; uh?"
 msgstr "Cheatin&#8217; uh?"
 
-#: ../wangguard-about.php:16
-#, fuzzy, php-format
+#: wangguard-about.php:34
+#, fuzzy
 msgid "Welcome to WangGuard %s"
 msgstr "Dobrodošli u WangGuard Wizard"
 
-#: ../wangguard-about.php:17
-#, php-format
+#: wangguard-about.php:35
 msgid ""
 "Thank you for updating to the latest version! WangGuard %s is ready to learn "
 "to use, communicate better with us, coloborate with us and more"
 msgstr ""
 
-#: ../wangguard-about.php:18 ../wangguard-about.php:256
-#: ../wangguard-about.php:366 ../wangguard-compatible-plugins.php:40
-#: ../wangguard-help.php:25 ../wangguard-help.php:247
-#: ../wangguard-help.php:514
-#, php-format
+#: wangguard-about.php:36 wangguard-about.php:258 wangguard-about.php:358
+#: wangguard-addons.php:39 wangguard-compatible-plugins.php:39
+#: wangguard-help.php:26 wangguard-help.php:244 wangguard-help.php:511
 msgid "Version %s"
 msgstr ""
 
-#: ../wangguard-about.php:29 ../wangguard-about.php:267
-#: ../wangguard-about.php:377
+#: wangguard-about.php:47 wangguard-about.php:269 wangguard-about.php:369
 #, fuzzy
 msgid "What&#8217;s New"
 msgstr "Cheatin&#8217; uh?"
 
-#: ../wangguard-about.php:39 ../wangguard-about.php:277
-#: ../wangguard-about.php:387 ../wangguard-admin.php:2484
-#: ../wangguard-help.php:239 ../wangguard-help.php:241
+#: wangguard-about.php:57 wangguard-about.php:279 wangguard-about.php:379
+#: wangguard-admin.php:2478 wangguard-help.php:236 wangguard-help.php:238
 msgid "Credits"
 msgstr ""
 
-#: ../wangguard-about.php:49 ../wangguard-about.php:287
-#: ../wangguard-about.php:397 ../wangguard-admin.php:2481
+#: wangguard-about.php:67 wangguard-about.php:289 wangguard-about.php:389
+#: wangguard-admin.php:2475
 msgid "Development"
 msgstr ""
 
-#: ../wangguard-about.php:53
+#: wangguard-about.php:71
 msgid "Welcome to WangGuard, Welcome to the revolution"
 msgstr ""
 
-#: ../wangguard-about.php:57
+#: wangguard-about.php:75
 msgid "Working Hard"
 msgstr ""
 
-#: ../wangguard-about.php:58
+#: wangguard-about.php:76
 msgid ""
 "We're working hard to be the best anti-splog system in the world. With your "
 "help, we will be. "
 msgstr ""
 
-#: ../wangguard-about.php:61
-msgid "The Future"
-msgstr ""
+#: wangguard-about.php:79
+#, fuzzy
+msgid "WangGuard 1.6 RC1, Why?"
+msgstr "WangGuard API Key"
 
-#: ../wangguard-about.php:62
+#: wangguard-about.php:80
 msgid ""
-"The future of WangGuard is a secret, but we can assure you that if WangGuard "
-"is now essential, it will be even more."
+"In recent months, we have been working very hard on this new version, but we "
+"have found that previous versions didn't work with WordPress 3.9 and "
+"BuddyPress 2.0, so we have to release this RC1 version. This version is "
+"working perfectly, although there is some unfinished pages."
 msgstr ""
 
-#: ../wangguard-about.php:67
+#: wangguard-about.php:85
 msgid "New Help page"
 msgstr ""
 
-#: ../wangguard-about.php:70
+#: wangguard-about.php:88
 msgid "Introducing Help Section"
 msgstr ""
 
-#: ../wangguard-about.php:71
+#: wangguard-about.php:89
 msgid "Now you can get help from WangGuard or Help to WangGuard. Just go to "
 msgstr ""
 
-#: ../wangguard-about.php:79 ../wangguard-admin.php:2476
-#: ../wangguard-help.php:30 ../wangguard-help.php:253
-#: ../wangguard-help.php:520
+#: wangguard-about.php:97 wangguard-admin.php:2472 wangguard-help.php:31
+#: wangguard-help.php:250 wangguard-help.php:517
 msgid "Help"
 msgstr ""
 
-#: ../wangguard-about.php:79
+#: wangguard-about.php:97
 msgid " section and use the tab that best fits your needs."
 msgstr ""
 
-#: ../wangguard-about.php:80
+#: wangguard-about.php:98
 msgid ""
 "In <strong>Help tab</strong>, you will find help about WangGuard, first "
 "steps, etc."
 msgstr ""
 
-#: ../wangguard-about.php:81
+#: wangguard-about.php:99
 msgid ""
 "In <strong>Help Us tab</strong>, you will find how you can help WangGuard."
 msgstr ""
 
-#: ../wangguard-about.php:82
+#: wangguard-about.php:100
 msgid ""
 "In <strong>Contact</strong> tab, you will find contact form, yes, from your "
 "own administration!."
 msgstr ""
 
-#: ../wangguard-about.php:86
-msgid "New users order"
-msgstr ""
-
-#: ../wangguard-about.php:89
-msgid "New users order by default"
-msgstr ""
-
-#: ../wangguard-about.php:90
-msgid "Now the users are ordered by date, so when you visit "
-msgstr ""
-
-#: ../wangguard-about.php:98
-#, fuzzy
-msgid "WangGuard Users section"
-msgstr "WangGuard korisnici"
-
-#: ../wangguard-about.php:98
-msgid " you will see the latest users registered."
-msgstr ""
-
-#: ../wangguard-about.php:110 ../wangguard-about.php:349
-#: ../wangguard-about.php:439 ../wangguard-compatible-plugins.php:120
-#: ../wangguard-help.php:219 ../wangguard-help.php:328
-#: ../wangguard-help.php:545
+#: wangguard-about.php:112 wangguard-about.php:341 wangguard-about.php:431
+#: wangguard-addons.php:125 wangguard-compatible-plugins.php:124
+#: wangguard-help.php:216 wangguard-help.php:325 wangguard-help.php:542
 #, fuzzy
 msgid "Go to WangGuard Settings"
 msgstr "WangGuard postavke"
 
-#: ../wangguard-about.php:133 ../wangguard-about.php:168
-#, php-format
+#: wangguard-about.php:135 wangguard-about.php:170
 msgid "View %s"
 msgstr ""
 
-#: ../wangguard-about.php:254
-#, fuzzy, php-format
+#: wangguard-about.php:256
+#, fuzzy
 msgid "WangGuard %s Credits"
 msgstr "WangGuard korisnici"
 
-#: ../wangguard-about.php:255
+#: wangguard-about.php:257
 msgid "These are the people that actually makes WangGuard possible"
 msgstr ""
 
-#: ../wangguard-about.php:290 ../wangguard-about.php:400
+#: wangguard-about.php:292 wangguard-about.php:392
 msgid "WangGuard is created by a worldwide splog haters."
 msgstr ""
 
-#: ../wangguard-about.php:302 ../wangguard-about.php:337
-#: ../wangguard-about.php:412 ../wangguard-about.php:427
-#: ../wangguard-admin.php:2483 ../wangguard-help.php:34
-#: ../wangguard-help.php:245 ../wangguard-help.php:256
-#: ../wangguard-help.php:524
+#: wangguard-about.php:304 wangguard-about.php:329 wangguard-about.php:404
+#: wangguard-about.php:419 wangguard-admin.php:2477 wangguard-help.php:35
+#: wangguard-help.php:242 wangguard-help.php:253 wangguard-help.php:521
 msgid "Help Us"
 msgstr ""
 
-#: ../wangguard-about.php:305
-msgid "Project Leader"
+#: wangguard-about.php:307
+msgid "Project Leader and Core Developer"
 msgstr ""
 
-#: ../wangguard-about.php:312
+#: wangguard-about.php:314
 msgid "Founder and the greater splog hater in the world"
 msgstr ""
 
-#: ../wangguard-about.php:315
-msgid "Core Developers"
-msgstr ""
-
-#: ../wangguard-about.php:322
-msgid "Core Developer"
-msgstr ""
-
-#: ../wangguard-about.php:325
+#: wangguard-about.php:317
 msgid "Contributing Developers"
 msgstr ""
 
-#: ../wangguard-about.php:328 ../wangguard-about.php:418
+#: wangguard-about.php:320 wangguard-about.php:410
 msgid "Want to be here? more info in "
 msgstr ""
 
-#: ../wangguard-about.php:364
+#: wangguard-about.php:356
 #, fuzzy
 msgid "WangGuard Development"
 msgstr "WangGuard server"
 
-#: ../wangguard-about.php:365
+#: wangguard-about.php:357
 msgid "Follow WangGuard Development"
 msgstr ""
 
-#: ../wangguard-about.php:402
+#: wangguard-about.php:394
 msgid ""
 "Want to contribute to <strong>WangGuard</strong>? You can do it in many "
 "ways.\n"
 "You can see all ways in "
 msgstr ""
 
-#: ../wangguard-about.php:415
+#: wangguard-about.php:407
 #, fuzzy
 msgid "WangGuard Commits"
 msgstr "WangGuard statistike"
 
-#: ../wangguard-admin.php:39
+#: wangguard-addons.php:37
+#, fuzzy
+msgid "Extending WangGuard %s"
+msgstr "Postojeći  WangGuard cron jobs"
+
+#: wangguard-addons.php:38
+msgid "WangGuard Add-ons developed by us for extend functionalities"
+msgstr ""
+
+#: wangguard-addons.php:44 wangguard-addons.php:49
+#, fuzzy
+msgid "WangGuard Add-ons"
+msgstr "WangGuard Cron Jobs"
+
+#: wangguard-addons.php:108 wangguard-compatible-plugins.php:107
+msgid "More information about %s"
+msgstr ""
+
+#: wangguard-addons.php:108 wangguard-compatible-plugins.php:107
+msgid "Details"
+msgstr ""
+
+#: wangguard-admin.php:43
 msgid "Once a day"
 msgstr "Jednom dnevno"
 
-#: ../wangguard-admin.php:39 ../wangguard-admin.php:1935
+#: wangguard-admin.php:43 wangguard-admin.php:1928
 msgid "Every 3 days"
 msgstr "Svaka 3 dana"
 
-#: ../wangguard-admin.php:39 ../wangguard-admin.php:1936
+#: wangguard-admin.php:43 wangguard-admin.php:1929
 msgid "Every 5 days"
 msgstr "Svakih 5 dana"
 
-#: ../wangguard-admin.php:39 ../wangguard-admin.php:1937
+#: wangguard-admin.php:43 wangguard-admin.php:1930
 msgid "Weekly"
 msgstr "Nedeljno"
 
-#: ../wangguard-admin.php:39 ../wangguard-admin.php:1938
+#: wangguard-admin.php:43 wangguard-admin.php:1931
 msgid "Two Weeks"
 msgstr "Dve nedelje"
 
-#: ../wangguard-admin.php:40
+#: wangguard-admin.php:44
 msgid "Flag detected Sploggers as Sploggers and Spam users"
 msgstr "Zastava je detektovala Sploggers kao Sploggers i Spam korisnike"
 
-#: ../wangguard-admin.php:40
+#: wangguard-admin.php:44
 msgid "Delete detected Sploggers"
 msgstr "Obrisati detektovane Sploggers"
 
-#: ../wangguard-admin.php:41
+#: wangguard-admin.php:45
 msgid "Week"
 msgstr "Nedelja"
 
-#: ../wangguard-admin.php:41
+#: wangguard-admin.php:45
 msgid "5 days"
 msgstr "5 dana"
 
-#: ../wangguard-admin.php:41
+#: wangguard-admin.php:45
 msgid "3 days"
 msgstr "3 dana"
 
-#: ../wangguard-admin.php:41
+#: wangguard-admin.php:45
 msgid "1 day"
 msgstr "1 dan"
 
-#: ../wangguard-admin.php:363 ../wangguard-admin.php:379
-#: ../wangguard-admin.php:447 ../wangguard-admin.php:463
-#: ../wangguard-admin.php:557 ../wangguard-admin.php:573
-#: ../wangguard-admin.php:586
+#: wangguard-admin.php:368 wangguard-admin.php:384 wangguard-admin.php:452
+#: wangguard-admin.php:468 wangguard-admin.php:563 wangguard-admin.php:579
+#: wangguard-admin.php:592 wangguard-admin.php:607
 #, fuzzy
 msgid ""
 "<strong>ERROR</strong>: Banned by WangGuard <a href=\"http://www.wangguard."
-"com/faq\" target=\"_new\">Is it an error? Perhaps you tried to register many "
-"times</a>."
+"com/faq\" target=\"_new\">Is it an error?</a> Perhaps you tried to register "
+"many times."
 msgstr ""
 "<strong>GREŠKA</strong>: Zabranjeno od strane WangGuard<a href=\"http://www."
 "wangguard.com/faq\" target=\"_new\"> je greška?</a>."
 
-#: ../wangguard-admin.php:370 ../wangguard-admin.php:454
-#: ../wangguard-admin.php:564 ../wangguard-admin.php:593
+#: wangguard-admin.php:375 wangguard-admin.php:459 wangguard-admin.php:570
+#: wangguard-admin.php:599
 msgid "<strong>ERROR</strong>: The answer to the security question is invalid."
 msgstr "<strong>GREŠKA</strong>: Odgovor na bezbednosno pitanje nije ispravan."
 
-#: ../wangguard-admin.php:375 ../wangguard-admin.php:459
-#: ../wangguard-admin.php:569 ../wangguard-admin.php:598
+#: wangguard-admin.php:380 wangguard-admin.php:464 wangguard-admin.php:575
+#: wangguard-admin.php:604
 msgid "<strong>ERROR</strong>: Domain not allowed."
 msgstr "<strong>GREŠKA</strong>: Damain nije dozvoljen."
 
-#: ../wangguard-admin.php:380 ../wangguard-admin.php:464
-#: ../wangguard-admin.php:574 ../wangguard-admin.php:603
+#: wangguard-admin.php:385 wangguard-admin.php:469 wangguard-admin.php:580
+#: wangguard-admin.php:608
 msgid "<strong>ERROR</strong>: Duplicate alias email found by WangGuard."
 msgstr ""
 "<strong>GREŠKA</strong>: Dupliran alias emai i pronadjen od strane WangGuard."
 
-#: ../wangguard-admin.php:381 ../wangguard-admin.php:465
-#: ../wangguard-admin.php:604
+#: wangguard-admin.php:386 wangguard-admin.php:470 wangguard-admin.php:609
 msgid ""
 "<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with "
 "your email domain."
@@ -308,7 +292,7 @@ msgstr ""
 "<strong>GREŠKA</strong>: WangGuard nije mogao da nadje MX evidencije "
 "povezane sa vašim email domainom."
 
-#: ../wangguard-admin.php:575
+#: wangguard-admin.php:581
 #, fuzzy
 msgid ""
 "<strong>ERROR</strong>: The server couldn't find an MX record associated "
@@ -317,38 +301,29 @@ msgstr ""
 "<strong>GREŠKA</strong>: WangGuard nije mogao da nadje MX evidencije "
 "povezane sa vašim email domainom."
 
-#: ../wangguard-admin.php:602
-msgid ""
-"<strong>ERROR</strong>: Banned by WangGuard <a href=\"http://www.wangguard."
-"com/faq\" target=\"_new\">Is a mistake?</a>."
-msgstr ""
-"<strong>GREŠKA</strong>: Zabranjeno od strane WangGuard<a href=\"http://www."
-"wangguard.com/faq\" target=\"_new\"> je greška?</a>."
-
-#: ../wangguard-admin.php:690 ../wangguard-admin.php:1208
-#: ../wangguard-admin.php:1249 ../wangguard-admin.php:1290
-#: ../wangguard-admin.php:1357 ../wangguard-admin.php:1394
-#: ../wangguard-admin.php:1771 ../wangguard-wizard.php:378
+#: wangguard-admin.php:694 wangguard-admin.php:1208 wangguard-admin.php:1249
+#: wangguard-admin.php:1290 wangguard-admin.php:1357 wangguard-admin.php:1394
+#: wangguard-admin.php:1764 wangguard-wizard.php:370
 msgid "Your WangGuard API KEY is invalid."
 msgstr "Vaš WangGuard API KEY nijen ispravan"
 
-#: ../wangguard-admin.php:987
+#: wangguard-admin.php:987
 msgid "Do you confirm to report the user?"
 msgstr "Da li potvrdjujete prijavu korisnika?"
 
-#: ../wangguard-admin.php:1006
+#: wangguard-admin.php:1006
 msgid "The user was reported."
 msgstr "Korisnik je prijavljen."
 
-#: ../wangguard-admin.php:1023
+#: wangguard-admin.php:1023
 msgid "Do you confirm to report the blog and authors?"
 msgstr "Da li potvrdjujete da prijavljujete blog i autore?"
 
-#: ../wangguard-admin.php:1042
+#: wangguard-admin.php:1042
 msgid "The blog was reported."
 msgstr "Blog  je prijavljen"
 
-#: ../wangguard-admin.php:1190
+#: wangguard-admin.php:1190
 msgid ""
 "Do you confirm to flag this user as Splogger? This operation is IRREVERSIBLE "
 "and will DELETE the user."
@@ -356,18 +331,17 @@ msgstr ""
 "Da li potvrdjujete da označite korisnika kao Splogger? Ova operacija ne može "
 "da se povrati i obrisaće korisnika"
 
-#: ../wangguard-admin.php:1192
+#: wangguard-admin.php:1192
 msgid "Do you confirm to flag this user as Splogger?"
 msgstr "Da li potvrdjujete da ste označili ovog korisnika kao Splogger?"
 
-#: ../wangguard-admin.php:1204 ../wangguard-admin.php:1245
-#: ../wangguard-admin.php:1354 ../wangguard-admin.php:1390
+#: wangguard-admin.php:1204 wangguard-admin.php:1245 wangguard-admin.php:1354
+#: wangguard-admin.php:1390
 msgid "The selected user couldn't be found on the users table."
 msgstr "Izabrani korisnik nije pronadjen na tabeli korisnika."
 
-#: ../wangguard-admin.php:1212 ../wangguard-admin.php:1253
-#: ../wangguard-admin.php:1294 ../wangguard-admin.php:1360
-#: ../wangguard-admin.php:1398 ../wangguard-conf.php:115
+#: wangguard-admin.php:1212 wangguard-admin.php:1253 wangguard-admin.php:1294
+#: wangguard-admin.php:1360 wangguard-admin.php:1398 wangguard-conf.php:118
 msgid ""
 "There was a problem connecting to the WangGuard server. Please check your "
 "server configuration."
@@ -375,21 +349,19 @@ msgstr ""
 "Nastao je problem tokom konektovanja sa WangGuard serverom. Molimo vas da "
 "proverite konfiguraciju vašeg servera."
 
-#: ../wangguard-admin.php:1223 ../wangguard-admin.php:2092
-#: ../wangguard-core.php:2076
+#: wangguard-admin.php:1223 wangguard-admin.php:2085 wangguard-core.php:1184
 msgid "Reported as Splogger"
 msgstr "Prijavljeno kao Splogger"
 
-#: ../wangguard-admin.php:1235
+#: wangguard-admin.php:1235
 msgid "Do you confirm to flag this user as safe?"
 msgstr "Da li potvrdjujete da ste obeležili ovog korisnika kao bezbednog?"
 
-#: ../wangguard-admin.php:1261 ../wangguard-core.php:2094
-#: ../wangguard-cronjobs.php:36
+#: wangguard-admin.php:1261 wangguard-core.php:1193 wangguard-cronjobs.php:36
 msgid "Checked (forced)"
 msgstr "Čekirano (primoreno)"
 
-#: ../wangguard-admin.php:1273
+#: wangguard-admin.php:1273
 msgid ""
 "Do you confirm to flag this blog's author(s) as Splogger(s)? This operation "
 "is IRREVERSIBLE and will DELETE the user(s)."
@@ -397,23 +369,23 @@ msgstr ""
 "Da li potvrdjujete da označavate autorov blog kao Splogger? Ova operacija ne "
 "može da se povrati i obrisaće korisnike."
 
-#: ../wangguard-admin.php:1275
+#: wangguard-admin.php:1275
 msgid "Do you confirm to flag this blog's author(s) as Splogger(s)?"
 msgstr "Da li potvrdjujete da označavate autorov blog kao Splogger?"
 
-#: ../wangguard-admin.php:1286
+#: wangguard-admin.php:1286
 msgid "The selected blog couldn't be found."
 msgstr "Selektovani blog nije pronadjen."
 
-#: ../wangguard-admin.php:1306
+#: wangguard-admin.php:1306
 msgid "Do you confirm to remove the blog from the Moderation Queue?"
 msgstr "Da li potvrdjujete uklanjanje bloga iz Moderation Queue?"
 
-#: ../wangguard-admin.php:1322
+#: wangguard-admin.php:1322
 msgid "Do you confirm to remove the user from the Moderation Queue?"
 msgstr "Da li potvrdjujete uklanjanje korisnika  iz Moderation Queue?"
 
-#: ../wangguard-admin.php:1341
+#: wangguard-admin.php:1341
 msgid ""
 "Do you confirm to flag this user domain as Splogger? This operation is "
 "IRREVERSIBLE and will DELETE the users that shares this domain."
@@ -421,45 +393,43 @@ msgstr ""
 "Da li potvrdjujete da označavate ovaj domain korisnika kao Splogger? Ova "
 "operacija ne može da se povrati i obrisaće domain."
 
-#: ../wangguard-admin.php:1343
+#: wangguard-admin.php:1343
 msgid "Do you confirm to flag this user domain as Splogger?"
 msgstr "Da li potvrdjujete da označavate domain korisnika kao Splogger?  ."
 
-#: ../wangguard-admin.php:1376
+#: wangguard-admin.php:1376
 msgid "There was a problem connecting to your WordPress server."
 msgstr "Nastao je problem prilikom konektovanja vašeg  WordPress servera."
 
-#: ../wangguard-admin.php:1422
+#: wangguard-admin.php:1422
 msgid "Do you confirm to delete this question?."
 msgstr "Da li potvrdjujete brisanje ovog pitanja?"
 
-#: ../wangguard-admin.php:1454 ../wangguard-conf.php:196
-#: ../wangguard-conf.php:206
+#: wangguard-admin.php:1454 wangguard-conf.php:199 wangguard-conf.php:209
 msgid "Question"
 msgstr "Pitanje"
 
-#: ../wangguard-admin.php:1455 ../wangguard-conf.php:197
-#: ../wangguard-conf.php:208
+#: wangguard-admin.php:1455 wangguard-conf.php:200 wangguard-conf.php:211
 msgid "Answer"
 msgstr "Odgovor"
 
-#: ../wangguard-admin.php:1456 ../wangguard-conf.php:199
+#: wangguard-admin.php:1456 wangguard-conf.php:202
 msgid "delete question"
 msgstr "obrisati pitanje"
 
-#: ../wangguard-admin.php:1480
+#: wangguard-admin.php:1480
 msgid "Do you confirm to delete this cron job?."
 msgstr "Da li potvrdjujete brisanje cron posla?"
 
-#: ../wangguard-admin.php:1526
+#: wangguard-admin.php:1526
 msgid "Bulk check Sploggers"
 msgstr "Bulk Sploggers"
 
-#: ../wangguard-admin.php:1527
+#: wangguard-admin.php:1527
 msgid "Bulk report Sploggers"
 msgstr "Bulk report Sploggers"
 
-#: ../wangguard-admin.php:1569
+#: wangguard-admin.php:1569
 msgid ""
 "Do you confirm to flag the selected users as Sploggers? This operation is "
 "IRREVERSIBLE and will DELETE the users."
@@ -467,368 +437,363 @@ msgstr ""
 "Da li potvrdjujete da označavate selektovane korisnike kao Splogger-e? Ova "
 "operacija ne može da se povrati i obrisaće korisnika."
 
-#: ../wangguard-admin.php:1572
+#: wangguard-admin.php:1572
 msgid "Do you confirm to flag the selected users as Sploggers?"
 msgstr ""
 "Da li potvrdjujete da označavate selektovane korisnike kao Splogger-e? "
 
-#: ../wangguard-admin.php:1774 ../wangguard-admin.php:1988
-#: ../wangguard-cronjobs.php:57 ../wangguard-cronjobs.php:84
+#: wangguard-admin.php:1767 wangguard-admin.php:1981 wangguard-cronjobs.php:57
+#: wangguard-cronjobs.php:84
 msgid "Action"
 msgstr "Akcija"
 
-#: ../wangguard-admin.php:1780
-#, php-format
+#: wangguard-admin.php:1773
 msgid "Verifying %d new users since"
 msgstr "Verifikacija  %d novih korisnika od"
 
-#: ../wangguard-admin.php:1828
+#: wangguard-admin.php:1821
 msgid "--- Verified Users ---"
 msgstr "--- Verifikovani korisnici ---"
 
-#: ../wangguard-admin.php:1830
+#: wangguard-admin.php:1823
 msgid "--- Detected Sploggers ---"
 msgstr "--- Detekrovani Sploggersi ---"
 
-#: ../wangguard-admin.php:1832
+#: wangguard-admin.php:1825
 msgid "No new users to verify since "
 msgstr "Nema novih korisnika za verifikicaiju od"
 
-#: ../wangguard-admin.php:1843
+#: wangguard-admin.php:1836
 #, fuzzy
 msgid "Next run "
 msgstr "Sledeće pokretanje"
 
-#: ../wangguard-admin.php:1844
+#: wangguard-admin.php:1837
 msgid "Click here to manage users: "
 msgstr "Kliknite ovde da buste upravljali korisnicima:"
 
-#: ../wangguard-admin.php:1862
-#, php-format
+#: wangguard-admin.php:1855
 msgid "Verified: %d - Sploggers: %d"
 msgstr "Verifikovano: %d - Sploggers: %d"
 
-#: ../wangguard-admin.php:1986 ../wangguard-cronjobs.php:55
+#: wangguard-admin.php:1979 wangguard-cronjobs.php:55
 msgid "Cron Job Code"
 msgstr "Cron Job Code"
 
-#: ../wangguard-admin.php:1987 ../wangguard-cronjobs.php:56
-#: ../wangguard-cronjobs.php:71
+#: wangguard-admin.php:1980 wangguard-cronjobs.php:56
+#: wangguard-cronjobs.php:71
 msgid "Run"
 msgstr "Pokretanje"
 
-#: ../wangguard-admin.php:1989 ../wangguard-cronjobs.php:58
-#: ../wangguard-cronjobs.php:92
+#: wangguard-admin.php:1982 wangguard-cronjobs.php:58
+#: wangguard-cronjobs.php:92
 msgid "Check users registered in the last"
 msgstr "Proveri korisnike registrovane u prošlih"
 
-#: ../wangguard-admin.php:1990 ../wangguard-cronjobs.php:59
+#: wangguard-admin.php:1983 wangguard-cronjobs.php:59
 msgid "Last run"
 msgstr "Poslednje pokretanje"
 
-#: ../wangguard-admin.php:1991 ../wangguard-cronjobs.php:60
+#: wangguard-admin.php:1984 wangguard-cronjobs.php:60
 msgid "Next run"
 msgstr "Sledeće pokretanje"
 
-#: ../wangguard-admin.php:1992 ../wangguard-cronjobs.php:61
+#: wangguard-admin.php:1985 wangguard-cronjobs.php:61
 msgid "delete cron job"
 msgstr "obrisati cron job"
 
-#: ../wangguard-admin.php:2085 ../wangguard-core.php:2064
+#: wangguard-admin.php:2078 wangguard-core.php:1178
 msgid "No status"
 msgstr "Nema statusa"
 
-#: ../wangguard-admin.php:2096 ../wangguard-core.php:2088
+#: wangguard-admin.php:2089 wangguard-core.php:1190
 msgid "Checked"
 msgstr "Provereno"
 
-#: ../wangguard-admin.php:2100 ../wangguard-core.php:2106
+#: wangguard-admin.php:2093 wangguard-core.php:1202
 msgid "Error"
 msgstr "Greška"
 
-#: ../wangguard-admin.php:2101 ../wangguard-core.php:2070
+#: wangguard-admin.php:2094 wangguard-core.php:1181
 msgid "Not checked"
 msgstr "Nije provereno"
 
-#: ../wangguard-admin.php:2151 ../wangguard-admin.php:2193
-#: ../wangguard-admin.php:2211 ../wangguard-admin.php:2246
-#: ../wangguard-admin.php:2247
+#: wangguard-admin.php:2144 wangguard-admin.php:2186 wangguard-admin.php:2204
+#: wangguard-admin.php:2239 wangguard-admin.php:2240
 msgid "Report user"
 msgstr "Prijavi korisnika"
 
-#: ../wangguard-admin.php:2288 ../wangguard-admin.php:2387
-#: ../wangguard-admin.php:2427
+#: wangguard-admin.php:2281 wangguard-admin.php:2380 wangguard-admin.php:2420
 msgid "WangGuard"
 msgstr "WangGuard"
 
-#: ../wangguard-admin.php:2297 ../wangguard-admin.php:2346
-#: ../wangguard-admin.php:2389 ../wangguard-admin.php:2400
+#: wangguard-admin.php:2290 wangguard-admin.php:2339 wangguard-admin.php:2382
+#: wangguard-admin.php:2393
 msgid "Report blog and author"
 msgstr "Prijavi blog i autora"
 
-#: ../wangguard-admin.php:2305 ../wangguard-admin.php:2390
-#: ../wangguard-admin.php:2460
+#: wangguard-admin.php:2298 wangguard-admin.php:2383 wangguard-admin.php:2453
 msgid "Users"
 msgstr "Korisnici"
 
-#: ../wangguard-admin.php:2312 ../wangguard-admin.php:2392
-#: ../wangguard-admin.php:2465
+#: wangguard-admin.php:2305 wangguard-admin.php:2385 wangguard-admin.php:2458
 msgid "Moderation Queue"
 msgstr "Moderation Queue"
 
-#: ../wangguard-admin.php:2319 ../wangguard-admin.php:2393
-#: ../wangguard-admin.php:2470
+#: wangguard-admin.php:2312 wangguard-admin.php:2386 wangguard-admin.php:2463
 msgid "Wizard"
 msgstr "Wizard"
 
-#: ../wangguard-admin.php:2324 ../wangguard-admin.php:2394
-#: ../wangguard-admin.php:2472
+#: wangguard-admin.php:2317 wangguard-admin.php:2387 wangguard-admin.php:2465
 msgid "Cron Jobs"
 msgstr "Cron Jobs"
 
-#: ../wangguard-admin.php:2329 ../wangguard-admin.php:2395
-#: ../wangguard-admin.php:2474
+#: wangguard-admin.php:2322 wangguard-admin.php:2388 wangguard-admin.php:2467
 msgid "Stats"
 msgstr "Statistika"
 
-#: ../wangguard-admin.php:2334 ../wangguard-admin.php:2396
-#: ../wangguard-admin.php:2458 ../wangguard-help.php:88
+#: wangguard-admin.php:2327 wangguard-admin.php:2389 wangguard-admin.php:2451
+#: wangguard-help.php:89
 msgid "Configuration"
 msgstr "konfiguracija"
 
-#: ../wangguard-admin.php:2477
-msgid "Plugins"
+#: wangguard-admin.php:2469
+msgid "Add-Ons"
 msgstr ""
 
-#: ../wangguard-admin.php:2478
+#: wangguard-admin.php:2470 wangguard-compatible-plugins.php:44
+#: wangguard-compatible-plugins.php:49
+msgid "Third party plugins"
+msgstr ""
+
+#: wangguard-admin.php:2471
 msgid "About"
 msgstr ""
 
-#: ../wangguard-admin.php:2479
+#: wangguard-admin.php:2473
 #, fuzzy
 msgid "Users Info"
 msgstr "IP korisnika"
 
-#: ../wangguard-admin.php:2482 ../wangguard-help.php:38
-#: ../wangguard-help.php:260 ../wangguard-help.php:528
+#: wangguard-admin.php:2476 wangguard-help.php:39 wangguard-help.php:257
+#: wangguard-help.php:525
 msgid "Contact"
 msgstr ""
 
-#: ../wangguard-admin.php:2568 ../wangguard-stats.php:14
-#: ../wangguard-stats.php:16
+#: wangguard-admin.php:2519
+#, fuzzy
+msgctxt "users per page (screen options)"
+msgid "Users"
+msgstr "Korisnici"
+
+#: wangguard-admin.php:2562 wangguard-stats.php:17 wangguard-stats.php:19
 msgid "WangGuard Stats"
 msgstr "WangGuard statistike"
 
-#: ../wangguard-admin.php:2568
+#: wangguard-admin.php:2562
 msgid "Last 7 days"
 msgstr "Poslednjih 7 dana"
 
-#: ../wangguard-admin.php:2620
+#: wangguard-admin.php:2615
 msgid "Click here to access the WangGuard stats"
 msgstr "Kliknite ovde da biste pristupili WangGuard staistikama"
 
-#: ../wangguard-class-wp-queue.php:41
+#: wangguard-class-wp-queue.php:41
 msgid "No reported users or blogs were found."
 msgstr "Nijedan prijavljeni korisnik ili blog nije pronadjen."
 
-#: ../wangguard-class-wp-queue.php:59
-#, php-format
+#: wangguard-class-wp-queue.php:59
 msgid "All Reports <span class=\"count\">(%s)</span>"
 msgstr "Svi izveštaji<span class=\"count\">(%s)</span>"
 
-#: ../wangguard-class-wp-queue.php:62
-#, php-format
+#: wangguard-class-wp-queue.php:62
 msgid "Reported users <span class=\"count\">(%s)</span>"
 msgstr "Prijavljeni korisnici<span class=\"count\">(%s)</span>"
 
-#: ../wangguard-class-wp-queue.php:65
-#, php-format
+#: wangguard-class-wp-queue.php:65
 msgid "Reported blogs <span class=\"count\">(%s)</span>"
 msgstr "Prijavljeni blogovi <span class=\"count\">(%s)</span>"
 
-#: ../wangguard-class-wp-queue.php:72 ../wangguard-class-wp-queue.php:138
-#: ../wangguard-class-wp-queue.php:183
+#: wangguard-class-wp-queue.php:72 wangguard-class-wp-queue.php:138
+#: wangguard-class-wp-queue.php:183
 msgid "Remove from Queue"
 msgstr "Ukloniti iz Queue"
 
-#: ../wangguard-class-wp-queue.php:73 ../wangguard-class-wp-users.php:152
+#: wangguard-class-wp-queue.php:73 wangguard-class-wp-users.php:152
 msgid "Report as Splogger"
 msgstr "Prijaviti kao Splogger"
 
-#: ../wangguard-class-wp-queue.php:91 ../wangguard-class-wp-users.php:170
-#: ../wangguard-core.php:1912 ../wangguard-core.php:1966
+#: wangguard-class-wp-queue.php:91 wangguard-class-wp-users.php:171
+#: wangguard-core.php:1108 wangguard-core.php:1132
 msgid "Username"
 msgstr "Korisničko ime"
 
-#: ../wangguard-class-wp-queue.php:91 ../wangguard-core.php:1914
+#: wangguard-class-wp-queue.php:91 wangguard-core.php:1109
 msgid "Type"
 msgstr "Tip"
 
-#: ../wangguard-class-wp-queue.php:91 ../wangguard-class-wp-users.php:171
-#: ../wangguard-core.php:1916 ../wangguard-core.php:1970
-#: ../wangguard-help.php:408
+#: wangguard-class-wp-queue.php:91 wangguard-class-wp-users.php:172
+#: wangguard-core.php:1110 wangguard-core.php:1134 wangguard-help.php:405
 msgid "E-mail"
 msgstr "E-mail"
 
-#: ../wangguard-class-wp-queue.php:91 ../wangguard-core.php:1918
+#: wangguard-class-wp-queue.php:91 wangguard-core.php:1111
 msgid "Reported by"
 msgstr "Prijavljeno od strane"
 
-#: ../wangguard-class-wp-queue.php:91 ../wangguard-core.php:1920
+#: wangguard-class-wp-queue.php:91 wangguard-core.php:1112
 msgid "Reported on"
 msgstr "Prijavljeno na"
 
-#: ../wangguard-class-wp-queue.php:145 ../wangguard-class-wp-users.php:227
+#: wangguard-class-wp-queue.php:145 wangguard-class-wp-users.php:228
 msgid "Edit user"
 msgstr "Edituj korisnika"
 
-#: ../wangguard-class-wp-queue.php:146 ../wangguard-class-wp-users.php:228
+#: wangguard-class-wp-queue.php:146 wangguard-class-wp-users.php:229
 msgid "BP Profile"
 msgstr "BP Profile"
 
-#: ../wangguard-class-wp-queue.php:178
+#: wangguard-class-wp-queue.php:178
 msgid "Authors: "
 msgstr "Autori:"
 
-#: ../wangguard-class-wp-queue.php:189
+#: wangguard-class-wp-queue.php:189
 msgid "Report authors as Sploggers"
 msgstr "Prijavi autore kao Sploggers"
 
-#: ../wangguard-class-wp-queue.php:190
+#: wangguard-class-wp-queue.php:190
 msgid "Open blog"
 msgstr "Otvori blog"
 
-#: ../wangguard-class-wp-queue.php:215 ../wangguard-class-wp-users.php:286
-#, php-format
+#: wangguard-class-wp-queue.php:215 wangguard-class-wp-users.php:287
 msgid "E-mail: %s"
 msgstr "E-mail: %s"
 
-#: ../wangguard-class-wp-queue.php:355
+#: wangguard-class-wp-queue.php:355
 msgid "User"
 msgstr "Korisnik"
 
-#: ../wangguard-class-wp-queue.php:368
+#: wangguard-class-wp-queue.php:368
 msgid "Blog"
 msgstr "Blog"
 
-#: ../wangguard-class-wp-users.php:73
+#: wangguard-class-wp-users.php:73
 msgid "No users were found."
 msgstr "Nijedan korisnik nije pronadjen."
 
-#: ../wangguard-class-wp-users.php:92
-#, php-format
+#: wangguard-class-wp-users.php:92
 msgid "All Members <span class=\"count\">(%s)</span>"
 msgstr "Svi članovi<span class=\"count\">(%s)</span>"
 
-#: ../wangguard-class-wp-users.php:100
-#, fuzzy, php-format
+#: wangguard-class-wp-users.php:100
+#, fuzzy
 msgid "Unchecked Users <span class=\"count\">(%s)</span>"
 msgstr "Utenti segnalati <span class=\"count\">(%s)</span>"
 
-#: ../wangguard-class-wp-users.php:117
-#, php-format
+#: wangguard-class-wp-users.php:117
 msgid "Verified Members <span class=\"count\">(%s)</span>"
 msgstr "Neprovereni članovi<span class=\"count\">(%s)</span>"
 
-#: ../wangguard-class-wp-users.php:130
-#, php-format
+#: wangguard-class-wp-users.php:130
 msgid "Spammers <span class=\"count\">(%s)</span>"
 msgstr "Verifikovani članovi<span class=\"count\">(%s)</span>"
 
-#: ../wangguard-class-wp-users.php:144
-#, php-format
+#: wangguard-class-wp-users.php:144
 msgid "Sploggers <span class=\"count\">(%s)</span>"
 msgstr "Sploggers <span class=\"count\">(%s)</span>"
 
-#: ../wangguard-class-wp-users.php:157
+#: wangguard-class-wp-users.php:154
+msgctxt "user"
+msgid "Mark as Spam"
+msgstr ""
+
+#: wangguard-class-wp-users.php:155
+msgctxt "user"
+msgid "Not Spam"
+msgstr ""
+
+#: wangguard-class-wp-users.php:157
+msgid "Whitelist"
+msgstr ""
+
+#: wangguard-class-wp-users.php:158
 msgid "Delete Users"
 msgstr "Obrisani korisnici"
 
-#: ../wangguard-class-wp-users.php:169 ../wangguard-core.php:1964
+#: wangguard-class-wp-users.php:170 wangguard-core.php:1131
 msgid "Info"
 msgstr ""
 
-#: ../wangguard-class-wp-users.php:172 ../wangguard-core.php:1972
+#: wangguard-class-wp-users.php:173 wangguard-core.php:1135
 msgid "Signed up on"
 msgstr "Upisani na"
 
-#: ../wangguard-class-wp-users.php:173 ../wangguard-core.php:1974
+#: wangguard-class-wp-users.php:174 wangguard-core.php:1136
 msgid "User IP"
 msgstr "IP korisnika"
 
-#: ../wangguard-class-wp-users.php:174 ../wangguard-core.php:1976
+#: wangguard-class-wp-users.php:175 wangguard-core.php:1137
 msgid "Posts"
 msgstr "Postovi"
 
-#: ../wangguard-class-wp-users.php:175
+#: wangguard-class-wp-users.php:176
 msgid "Blogs"
 msgstr "Blogovi"
 
-#: ../wangguard-class-wp-users.php:176 ../wangguard-core.php:1980
+#: wangguard-class-wp-users.php:177 wangguard-core.php:1139
 msgid "Admin Group"
 msgstr "Admin grupa"
 
-#: ../wangguard-class-wp-users.php:277
+#: wangguard-class-wp-users.php:278
 msgid "Info about"
 msgstr ""
 
-#: ../wangguard-class-wp-users.php:277
+#: wangguard-class-wp-users.php:278
 #, fuzzy
 msgid "User Info"
 msgstr "IP korisnika"
 
-#: ../wangguard-class-wp-users.php:298
+#: wangguard-class-wp-users.php:299
 msgid "proxy"
 msgstr "proxy"
 
-#: ../wangguard-class-wp-users.php:306
+#: wangguard-class-wp-users.php:307
 msgid "reported proxy"
 msgstr "prijavljen proxy"
 
-#: ../wangguard-compatible-plugins.php:38
-#, fuzzy, php-format
-msgid "Extending WangGuard %s"
-msgstr "Postojeći  WangGuard cron jobs"
-
-#: ../wangguard-compatible-plugins.php:39
-msgid "Plugins and extensions for WangGuard or compatibles with WangGuard"
+#: wangguard-class-wp-users.php:317
+msgid "View posts by this author"
 msgstr ""
 
-#: ../wangguard-compatible-plugins.php:45
-#: ../wangguard-compatible-plugins.php:50
-msgid "Plugins and Extensions"
+#: wangguard-compatible-plugins.php:37
+msgid "Plugins compatibles with WangGuard"
 msgstr ""
 
-#: ../wangguard-compatible-plugins.php:103
-#, php-format
-msgid "More information about %s"
+#: wangguard-compatible-plugins.php:38
+msgid "Third party plugins compatibles with WangGuard"
 msgstr ""
 
-#: ../wangguard-compatible-plugins.php:103
-msgid "Details"
-msgstr ""
-
-#: ../wangguard-conf.php:37
+#: wangguard-conf.php:37
 msgid "Blocked domains has been saved."
 msgstr "Blokirani domaini su sačuvani."
 
-#: ../wangguard-conf.php:82
+#: wangguard-conf.php:85
 msgid "WangGuard settings has been saved."
 msgstr "WangGuard  postavke su sačuvane."
 
-#: ../wangguard-conf.php:111
+#: wangguard-conf.php:114
 msgid "Your key has been cleared."
 msgstr "Ključ je očišćen."
 
-#: ../wangguard-conf.php:112
+#: wangguard-conf.php:115
 msgid "Your key has been verified!"
 msgstr "Ključ je verifikovan!"
 
-#: ../wangguard-conf.php:113
+#: wangguard-conf.php:116
 msgid "The key you entered is invalid. Please double-check it."
 msgstr "Ključ koji ste uneli je validan! Molim vas proverite jos jednom.  "
 
-#: ../wangguard-conf.php:114
+#: wangguard-conf.php:117
 msgid ""
 "The key you entered could not be verified because a connection to wangguard."
 "com could not be established. Please check your server configuration."
@@ -836,8 +801,7 @@ msgstr ""
 "Ključ koji ste uneli ne može da se verifikuje jer ne može da se ustanovi "
 "konekcija sa wangguard.com . Proverite konfiguraciju vašeg servera. "
 
-#: ../wangguard-conf.php:116
-#, php-format
+#: wangguard-conf.php:119
 msgid ""
 "Please enter an API key. (<a href=\"%s\" style=\"color:#fff\">Get your key "
 "here.</a>)"
@@ -845,11 +809,11 @@ msgstr ""
 "Molim vas unesite API ključ. (<a href=\"%s\" style=\"color:#fff\">nabavite "
 "ga ovde</a>)"
 
-#: ../wangguard-conf.php:117
+#: wangguard-conf.php:120
 msgid "This key is valid."
 msgstr "Ovaj ključ je validan."
 
-#: ../wangguard-conf.php:118
+#: wangguard-conf.php:121
 msgid ""
 "The key below was previously validated but a connection to wangguard.com can "
 "not be established at this time. Please check your server configuration."
@@ -857,41 +821,35 @@ msgstr ""
 "Ključ ispod je prethodno odobren ali konekcija sa wangguard.com nije "
 "ustanovljena trenutno. Proveritr konfiguraciju vašeg servera."
 
-#: ../wangguard-conf.php:127
+#: wangguard-conf.php:130
 msgid "Options saved."
 msgstr "Opcije sačuvane"
 
-#: ../wangguard-conf.php:133
+#: wangguard-conf.php:136
 msgid "WangGuard Configuration"
 msgstr "WangGuard konfiguracija"
 
-#: ../wangguard-conf.php:139 ../wangguard-conf.php:150
-#: ../wangguard-conf.php:154
+#: wangguard-conf.php:142 wangguard-conf.php:153 wangguard-conf.php:157
 msgid "WangGuard API Key"
 msgstr "WangGuard API Key"
 
-#: ../wangguard-conf.php:140 ../wangguard-conf.php:177
-#: ../wangguard-conf.php:179
+#: wangguard-conf.php:143 wangguard-conf.php:180 wangguard-conf.php:182
 msgid "Security questions"
 msgstr "Bezbednosna pitanja"
 
-#: ../wangguard-conf.php:141 ../wangguard-conf.php:223
-#: ../wangguard-conf.php:232
+#: wangguard-conf.php:144 wangguard-conf.php:226 wangguard-conf.php:235
 msgid "WangGuard settings"
 msgstr "WangGuard postavke"
 
-#: ../wangguard-conf.php:142 ../wangguard-conf.php:311
-#: ../wangguard-conf.php:313
+#: wangguard-conf.php:145 wangguard-conf.php:321 wangguard-conf.php:323
 msgid "Blocked domains"
 msgstr "Blokirano domaini"
 
-#: ../wangguard-conf.php:143 ../wangguard-conf.php:443
-#: ../wangguard-conf.php:447
+#: wangguard-conf.php:146 wangguard-conf.php:453 wangguard-conf.php:457
 msgid "Server Connectivity"
 msgstr "Konekcija servera"
 
-#: ../wangguard-conf.php:152
-#, php-format
+#: wangguard-conf.php:155
 msgid ""
 "For many people, <a href=\"%1$s\">WangGuard</a> will greatly reduce or even "
 "completely eliminate the Sploggers you get on your site. If one does happen "
@@ -903,15 +861,15 @@ msgstr ""
 "označite ga kao Splogger na Ekranu korisnika. Ako nemate API ključ još uvek,"
 "<a href=\"%2$s\" target=\"_new\"> nabavite ga ovde</a>."
 
-#: ../wangguard-conf.php:158
+#: wangguard-conf.php:161
 msgid "<a href=\"http://wangguard.com/faq\" target=\"_new\">What is this?</a>"
 msgstr "<a href=\"http://wangguard.com/faq\" target=\"_new\">Šta je ovo?</a>"
 
-#: ../wangguard-conf.php:161
+#: wangguard-conf.php:164
 msgid "Why might my key be invalid?"
 msgstr "Zašto je možda moj kljulč neispravan?"
 
-#: ../wangguard-conf.php:162
+#: wangguard-conf.php:165
 msgid ""
 "This can mean one of two things, either you copied the key wrong or that the "
 "plugin is unable to reach the WangGuard servers, which is most often caused "
@@ -921,11 +879,11 @@ msgstr ""
 "može da pristupi WangGuard serverima što je češći slučaj i zazavano je "
 "problemom sa vašim web hostom oko firewaala ili slično."
 
-#: ../wangguard-conf.php:168
+#: wangguard-conf.php:171
 msgid "Update options &raquo;"
 msgstr "Update options &raquo;"
 
-#: ../wangguard-conf.php:180
+#: wangguard-conf.php:183
 msgid ""
 "Security questions are randomly asked on the registration form to prevent "
 "automated signups."
@@ -933,14 +891,14 @@ msgstr ""
 "Bezbednosna pitanja su nasumično pitana na formi registracije da bi se "
 "sprečio automatski signup."
 
-#: ../wangguard-conf.php:181
+#: wangguard-conf.php:184
 msgid ""
 "Security questions are optional, it's up to you whether to use them or not."
 msgstr ""
 "Bezbednosna pitanja su opcionalna, od vas zavisi da li ćete da ih koristite "
 "ili ne."
 
-#: ../wangguard-conf.php:182
+#: wangguard-conf.php:185
 msgid ""
 "Create you own security questions from the form below, or delete the "
 "questions you don't want anymore."
@@ -948,34 +906,34 @@ msgstr ""
 "Napravite vaše sopstveno sigurnosno pitanje iz forme ispod ili obrišite "
 "pitanja koja više ne želite."
 
-#: ../wangguard-conf.php:188
+#: wangguard-conf.php:191
 msgid "Existing security questions"
 msgstr "Postojeća bezbednosna pitanja"
 
-#: ../wangguard-conf.php:192
+#: wangguard-conf.php:195
 msgid "No security questions created yet"
 msgstr "Nijedno bezbednosno pitanje još uvek nije stvoreno"
 
-#: ../wangguard-conf.php:198
+#: wangguard-conf.php:201
 msgid "Replied OK / Wrong"
 msgstr "Odgovoreno OK/Pogrešno"
 
-#: ../wangguard-conf.php:205
+#: wangguard-conf.php:208
 msgid "Add a new security question"
 msgstr "Dodati novo sigurnosno pitanje"
 
-#: ../wangguard-conf.php:210
+#: wangguard-conf.php:213
 msgid ""
 "Fill in both the question and the answer fields to create a new security "
 "question"
 msgstr ""
 "Popunite oba pitanja i odgovore da biste stvorili novo bezbednosbo pitanje"
 
-#: ../wangguard-conf.php:212
+#: wangguard-conf.php:215
 msgid "Create question &raquo;"
 msgstr "Stvorite pitanje &raquo;"
 
-#: ../wangguard-conf.php:239
+#: wangguard-conf.php:242
 msgid ""
 "<strong>Delete users when reporting them to WangGuard.</strong><br/>By "
 "checking this option, the users you report as Sploggers will be deleted from "
@@ -985,7 +943,7 @@ msgstr ""
 ">Čekiranjem ove opcije, korisnike koje ste prijavili će biti obrisani sa "
 "vašeg sajta."
 
-#: ../wangguard-conf.php:245
+#: wangguard-conf.php:248
 msgid ""
 "<strong>Show the 'report user' button on BuddyPress.</strong><br/>BuddyPress "
 "only. By checking this option a link called 'report user' will be shown on "
@@ -995,7 +953,7 @@ msgstr ""
 "BuddyPress. Čekiranjem ove opcije link koji se zove 'prijavi korisnikar' će "
 "biti prikazan na svakoj stranici i aktivnosti korisnika."
 
-#: ../wangguard-conf.php:251
+#: wangguard-conf.php:254
 msgid ""
 "<strong>Show the 'Report blog and author' menu item in the Admin Bar.</"
 "strong><br/>By checking this option a new menu item on the Admin Bar called "
@@ -1005,13 +963,13 @@ msgstr ""
 ">Čekiranjem ove opcije niovui meni na  Admin Bar-u pod imenom 'Prijavi blog "
 "i autora' će biti prikazan za svaki blog."
 
-#: ../wangguard-conf.php:257
+#: wangguard-conf.php:260
 msgid ""
 "<strong>Disable</strong> WangGuard menu from WordPress & BuddyPress AdminBar."
 msgstr ""
 "<strong>Onemogući</strong> WangGuard menu sa WordPress & BuddyPress AdminBar."
 
-#: ../wangguard-conf.php:261
+#: wangguard-conf.php:264
 msgid ""
 "<strong>Check for duplicated gmail.com and googlemail.com emails on sign up."
 "</strong><br/>Checks that duplicated accounts @gmail.com and @googlemail.com "
@@ -1023,7 +981,7 @@ msgstr ""
 "ne postoje, takodje uzima k znanju da gMail ignoriše tačke i ono što je "
 "posle + znaka na levoj strani od @."
 
-#: ../wangguard-conf.php:266
+#: wangguard-conf.php:269
 msgid ""
 "<strong>Remove the generator META tag.</strong><br/>By checking this option, "
 "WangGuard will remove the generator META tag from the generated pages of "
@@ -1035,14 +993,14 @@ msgstr ""
 "sajta, i to će sprečiti automatski bots za lako identifikovanje WordPress "
 "sajta traženjem ovog META taga."
 
-#: ../wangguard-conf.php:271
+#: wangguard-conf.php:274
 msgid ""
 "<strong>Enable</sytong> honeypot fields (signup trap fields). Some themes "
 "has problem with  honeypot fields. If you have some problems with those "
 "fields, disable this option"
 msgstr ""
 
-#: ../wangguard-conf.php:278
+#: wangguard-conf.php:281
 msgid ""
 "<strong>Check email domains agains the DNS server.</strong><br/>Verifies "
 "that an associated Mail eXchange (MX) record exists for the email domain, if "
@@ -1058,7 +1016,7 @@ msgstr ""
 "zakašnjenje od oko 1 ili 2 sekunde u procesu upisivanja zbog DNS "
 "verifikacije. "
 
-#: ../wangguard-conf.php:281
+#: wangguard-conf.php:284
 msgid ""
 "<strong>Warning:</strong> PHP function <strong>getmxrr()</strong> is not "
 "available on your server. Contact your server admin to enable it in order to "
@@ -1068,7 +1026,7 @@ msgstr ""
 "dostupna na vašem serveru. Kontaktirajte admina vašeg servera da vam to "
 "omogući da biste je aktivirali."
 
-#: ../wangguard-conf.php:288
+#: wangguard-conf.php:291
 msgid ""
 "<strong>Do NOT verify client IP address.</strong><br/>By checking this "
 "option, when checking a user, the IP address of the user will not be sent "
@@ -1079,14 +1037,14 @@ msgid ""
 "suspicious."
 msgstr ""
 "<strong>Nemojte da verifikujete client IP adresu.</strong><br/>Obeležavanjem "
-"ove opcije , kada se proverava korisnik ,IP adresa korisnika neće biti "
+"ove opcije , kada se proverava korisnik ,IP adresa korisnika neće biti "
 "poslata zajedno sa e-mail adresom na WangGuard servis . Biranjem ove opcije "
 "WangGuard smanjuje efikasnost , ali ako vaši novi računi dolaze uglavnom iz "
 "iste IP adrese , u slučaju koledža, univerziteta i drugih velikih "
 "institucija , to bi sprečilo WangGuard od obeležavanja IP adrese kao "
 "sumnjive ."
 
-#: ../wangguard-conf.php:293
+#: wangguard-conf.php:296
 msgid ""
 "<strong>Ninja mode.</strong><br/>By checking this option no confirmation "
 "message will be asked for report operations on the Users manager. Just "
@@ -1094,19 +1052,24 @@ msgid ""
 "when reporting them to WangGuard' is selected."
 msgstr ""
 "<strong>Ninja mode.</strong><br/>Obeležavanjem ove opcije poruka za potvrdu "
-"neće se tražiti na upravljanju korisnika . Samo zapamtite da je korisnik  "
+"neće se tražiti na upravljanju korisnika . Samo zapamtite da je korisnik  "
 "izbrisan kada je prijavljen i opcija \" Obrišite korisnike kada ih "
 "prijavljujete na WangGuard \" je izabrana ."
 
-#: ../wangguard-conf.php:296
+#: wangguard-conf.php:299
+#, fuzzy
+msgid "Add-ons Settings"
+msgstr "Postavke"
+
+#: wangguard-conf.php:303
 msgid "Save options &raquo;"
 msgstr "Sačuvaj opcije &raquo;"
 
-#: ../wangguard-conf.php:314
+#: wangguard-conf.php:324
 msgid "Here are different domain lists maintained by WangGuard."
 msgstr "Ovde su razne domain liste održavane od strane WangGuard."
 
-#: ../wangguard-conf.php:315
+#: wangguard-conf.php:325
 msgid ""
 "You should never block all domains contained in these listings or no one can "
 "register on your site."
@@ -1114,7 +1077,7 @@ msgstr ""
 "Nemojte nikada da blokirate sve domainse koji su sadržani u listingu ili "
 "niko neće moći da se registruje na vaš sajt."
 
-#: ../wangguard-conf.php:316
+#: wangguard-conf.php:326
 msgid ""
 "If a domain is in this list, it is because one or more of its users have "
 "used for undesirable activities, but that does not mean they are entirely "
@@ -1124,11 +1087,11 @@ msgstr ""
 "korišćeno za nepoželjne aktivnosti, ali to ne znači  da su u potpunosti "
 "sploggeri."
 
-#: ../wangguard-conf.php:317
+#: wangguard-conf.php:327
 msgid "These lists are updated automatically each time you enter this screen."
 msgstr "Ove liste su updatovane automatski svaki put kada unesete ovo."
 
-#: ../wangguard-conf.php:324
+#: wangguard-conf.php:334
 msgid ""
 "There was an error while pulling the domains list from WangGuard, please try "
 "again later. If the problem persists please contact WangGuard to report it."
@@ -1136,24 +1099,23 @@ msgstr ""
 "Nastala je greška prilikom izvlačenja liste domainsa iz WangGuard, pokušajte "
 "ponovo kasnije. Ako se problem nastavi kontaktirajte WangGuard za prijavu."
 
-#: ../wangguard-conf.php:344
-#, php-format
+#: wangguard-conf.php:354
 msgid "out of %d domains selected"
 msgstr "nema %d selektovanih domainsa"
 
-#: ../wangguard-conf.php:354
+#: wangguard-conf.php:364
 msgid "select / unselect all domains"
 msgstr "selektuj/deselektuj sve domainse"
 
-#: ../wangguard-conf.php:394
+#: wangguard-conf.php:404
 msgid "Save blocked domains &raquo;"
 msgstr "Sačuvaj blokirane domainse i &raquo;"
 
-#: ../wangguard-conf.php:451
+#: wangguard-conf.php:461
 msgid "Network functions are disabled."
 msgstr "Funkcije mreže su onemogućene."
 
-#: ../wangguard-conf.php:452
+#: wangguard-conf.php:462
 msgid ""
 "Your web host or server administrator has disabled PHP's <code>fsockopen</"
 "code> or <code>gethostbynamel</code> functions.  <strong>WangGuard cannot "
@@ -1164,11 +1126,11 @@ msgstr ""
 "code> ili funkcije. <strong>WangGuard ne može da radi dobro dok se ovo ne "
 "popravi.</strong>Kontaktirajte vašeg web hosa ili firewall administratora. "
 
-#: ../wangguard-conf.php:461
+#: wangguard-conf.php:471
 msgid "Unable to reach some WangGuard servers."
 msgstr "Ne može se pristupiti nekim WangGuard serverima."
 
-#: ../wangguard-conf.php:462
+#: wangguard-conf.php:472
 msgid ""
 "A network problem or firewall is blocking some connections from your web "
 "server to WangGuard.com.  WangGuard is working but this may cause problems "
@@ -1177,11 +1139,11 @@ msgstr ""
 "Problem sa mrežom ili firewall blokiraju neke konekcije sa vaše servera na "
 "WangGuard.com. WangGuard radi ali ovo može da napravi probleme vremenom."
 
-#: ../wangguard-conf.php:466
+#: wangguard-conf.php:476
 msgid "Unable to reach any WangGuard servers."
 msgstr "Ne može se pristupiti WangGuard serverima."
 
-#: ../wangguard-conf.php:467
+#: wangguard-conf.php:477
 msgid ""
 "A network problem or firewall is blocking all connections from your web "
 "server to WangGuard.com.  <strong>WangGuard cannot work correctly until this "
@@ -1191,19 +1153,19 @@ msgstr ""
 "WangGuard.com. <strong>WangGuard ne možemnda radi kako treba dok se to ne "
 "poravi.</strong>"
 
-#: ../wangguard-conf.php:471
+#: wangguard-conf.php:481
 msgid "All WangGuard servers are available."
 msgstr "Svi WangGuard serveri su dostupni."
 
-#: ../wangguard-conf.php:472
+#: wangguard-conf.php:482
 msgid "WangGuard is working correctly.  All servers are accessible."
 msgstr "WangGuard radi kako treba. Svi serveri su prihvatljivi."
 
-#: ../wangguard-conf.php:477
+#: wangguard-conf.php:487
 msgid "Unable to find WangGuard servers."
 msgstr "Ne mogu da se nadju WangGuard serveri."
 
-#: ../wangguard-conf.php:478
+#: wangguard-conf.php:488
 msgid ""
 "A DNS problem or firewall is preventing all access from your web server to "
 "wangguard.com.  <strong>WangGuard cannot work correctly until this is fixed."
@@ -1213,51 +1175,48 @@ msgstr ""
 "wangguard.com. <strong>WangGuard ne može da radi pravilno dok se to ne "
 "popravi.</strong>"
 
-#: ../wangguard-conf.php:487
+#: wangguard-conf.php:497
 msgid "WangGuard server"
 msgstr "WangGuard server"
 
-#: ../wangguard-conf.php:488
+#: wangguard-conf.php:498
 msgid "Network Status"
 msgstr "Status mreže"
 
-#: ../wangguard-conf.php:497
+#: wangguard-conf.php:507
 msgid "No problems"
 msgstr "Nema problema"
 
-#: ../wangguard-conf.php:497
+#: wangguard-conf.php:507
 msgid "Obstructed"
 msgstr "Zaklonjeno"
 
-#: ../wangguard-conf.php:506
-#, php-format
+#: wangguard-conf.php:516
 msgid "Last checked %s ago."
 msgstr "Poslednji put provereno %s pre "
 
-#: ../wangguard-conf.php:507
+#: wangguard-conf.php:517
 msgid "Check network status &raquo;"
 msgstr "Proverite status mreže &raquo;"
 
-#: ../wangguard-core.php:373
+#: wangguard-core.php:375
 msgid "Settings"
 msgstr "Postavke"
 
-#: ../wangguard-core.php:1650
+#: wangguard-core.php:1010
 msgid "WangGuard is almost ready."
 msgstr "WangGuard je skoro gotov."
 
-#: ../wangguard-core.php:1650
-#, php-format
+#: wangguard-core.php:1010
 msgid ""
 "You must <a href=\"%1$s\">enter your WangGuard API key</a> for it to work."
 msgstr "Morate <a href=\"%1$s\">uneti WangGuard API ključ</a> da bi radilo."
 
-#: ../wangguard-core.php:1684
+#: wangguard-core.php:1023
 msgid "WangGuard has detected a problem."
 msgstr "WangGuard je primetio problem."
 
-#: ../wangguard-core.php:1684
-#, php-format
+#: wangguard-core.php:1023
 msgid ""
 "A server or network problem is preventing WangGuard from working correctly.  "
 "<a href=\"%1$s\">Click here for more information</a> about how to fix the "
@@ -1267,57 +1226,59 @@ msgstr ""
 "\"%1$s\"> Kliknite ovde za više informacija</a>  o tome kako da sredite "
 "problem."
 
-#: ../wangguard-core.php:1766
+#: wangguard-core.php:1051
 msgid "These are the improvements of the new version"
 msgstr "Ovo su poboljšanja nove verzije"
 
-#: ../wangguard-core.php:1862
-#, php-format
+#: wangguard-core.php:1092
 msgid "WangGuard has checked %d users, and detected %d Sploggers."
 msgstr "WangGuard je proverio %d korisnike, i detektovao %d Sploggers."
 
-#: ../wangguard-core.php:1922 ../wangguard-core.php:1982
-#: ../wangguard-core.php:2032
+#: wangguard-core.php:1113 wangguard-core.php:1140 wangguard-core.php:1163
 msgid "WangGuard Status"
 msgstr "WangGuard Status"
 
-#: ../wangguard-core.php:1968 ../wangguard-help.php:407
+#: wangguard-core.php:1133 wangguard-help.php:404
 msgid "Name"
 msgstr "Ime"
 
-#: ../wangguard-core.php:1978
+#: wangguard-core.php:1138
 msgid "Sites"
 msgstr "Sajtovi"
 
-#: ../wangguard-core.php:2082
+#: wangguard-core.php:1187
 msgid "Automatically reported as Splogger"
 msgstr "Automatski prijavljuje kao Splogger"
 
-#: ../wangguard-core.php:2100
+#: wangguard-core.php:1196
 msgid "Buyer"
 msgstr "Kupac"
 
-#: ../wangguard-core.php:2144
+#: wangguard-core.php:1199
+msgid "Whitelisted"
+msgstr ""
+
+#: wangguard-core.php:1215
 msgid "Not a Splogger"
 msgstr "Nije Splogger"
 
-#: ../wangguard-core.php:2150 ../wangguard-core.php:2244
+#: wangguard-core.php:1217 wangguard-core.php:1256
 msgid "Splogger"
 msgstr "Splogger"
 
-#: ../wangguard-core.php:2160
+#: wangguard-core.php:1220
 msgid "Recheck"
 msgstr "Ponovo proveri"
 
-#: ../wangguard-core.php:2162
+#: wangguard-core.php:1221
 msgid "Open Web"
 msgstr "Otvori web"
 
-#: ../wangguard-cronjobs.php:30 ../wangguard-cronjobs.php:32
+#: wangguard-cronjobs.php:30 wangguard-cronjobs.php:32
 msgid "WangGuard Cron Jobs"
 msgstr "WangGuard Cron Jobs"
 
-#: ../wangguard-cronjobs.php:35
+#: wangguard-cronjobs.php:35
 msgid ""
 "Create one or more WangGuard cron jobs. WangGuard to periodically check your "
 "registered users for Sploggers and flag or delete them."
@@ -1326,8 +1287,7 @@ msgstr ""
 "proverava vaš vaše registrovane korisnike za Sploggers i da ih obeležava ili "
 "briše."
 
-#: ../wangguard-cronjobs.php:36
-#, php-format
+#: wangguard-cronjobs.php:36
 msgid ""
 "Note: WangGuard cron jobs will NOT verify the users flagged as %s, these are "
 "the users for which you've selected the &quot;Not a Splogger&quot; option "
@@ -1337,194 +1297,187 @@ msgstr ""
 "ovo su korisnici koje ste vi izabrali &quot;Not a Splogger&quot; opcija iz "
 "admin korisnika ili obeleženi kao  &quot;Not Spam&quot;."
 
-#: ../wangguard-cronjobs.php:42
+#: wangguard-cronjobs.php:42
 msgid "Existing WangGuard cron jobs"
 msgstr "Postojeći  WangGuard cron jobs"
 
-#: ../wangguard-cronjobs.php:45
+#: wangguard-cronjobs.php:45
 msgid "No cron jobs created yet"
 msgstr "Nijedan cron jobs nije stvoren"
 
-#: ../wangguard-cronjobs.php:68
+#: wangguard-cronjobs.php:68
 msgid "Add a new cron job"
 msgstr "Dodaj novi cron job"
 
-#: ../wangguard-cronjobs.php:103
+#: wangguard-cronjobs.php:103
 msgid "The cron job cannot be created"
 msgstr "Cron job ne može da se stvori"
 
-#: ../wangguard-cronjobs.php:105
+#: wangguard-cronjobs.php:105
 msgid "Create con job &raquo;"
 msgstr "Stvoriti cron job &raquo;"
 
-#: ../wangguard-help.php:15 ../wangguard-help.php:18
+#: wangguard-help.php:16 wangguard-help.php:19
 #, fuzzy
 msgid "WangGuard Settings"
 msgstr "WangGuard postavke"
 
-#: ../wangguard-help.php:16 ../wangguard-help.php:19
-#: ../wangguard-users.php:177 ../wangguard-users.php:179
+#: wangguard-help.php:17 wangguard-help.php:20 wangguard-users.php:187
+#: wangguard-users.php:189
 msgid "WangGuard Users"
 msgstr "WangGuard korisnici"
 
-#: ../wangguard-help.php:23
+#: wangguard-help.php:24
 #, fuzzy
 msgid "WangGuard Help"
 msgstr "WangGuard"
 
-#: ../wangguard-help.php:24
-#, php-format
+#: wangguard-help.php:25
 msgid ""
 "Help about WangGuard %s. You can use the contact form if you don't find an "
 "answer to your question"
 msgstr ""
 
-#: ../wangguard-help.php:43
+#: wangguard-help.php:44
 #, fuzzy
 msgid "WangGuard Server IP Check"
 msgstr "WangGuard server"
 
-#: ../wangguard-help.php:46
+#: wangguard-help.php:47
 msgid "This is a very important test, Server IP Check"
 msgstr ""
 
-#: ../wangguard-help.php:52
-#, php-format
+#: wangguard-help.php:53
 msgid ""
 "<strong style=\"color:#FF0000;\">WARNING:</strong> Your server is reporting "
 "it's own IP as user IP. Please go to %s and check <strong>'Do NOT verify "
 "client IP address'</strong>"
 msgstr ""
 
-#: ../wangguard-help.php:54
+#: wangguard-help.php:55
 msgid ""
 "<strong style=\"color:#00CC00;\">OK</strong> Looks like your server reports "
 "the correct User IP"
 msgstr ""
 
-#: ../wangguard-help.php:62
+#: wangguard-help.php:63
 msgid "First steps"
 msgstr ""
 
-#: ../wangguard-help.php:65
+#: wangguard-help.php:66
 #, fuzzy
 msgid "Activate WangGuard"
 msgstr "WangGuard"
 
-#: ../wangguard-help.php:66
+#: wangguard-help.php:67
 msgid ""
 "Get an API Key for your website. You need to register once. With your "
 "account, you can get a new API key for every website you own. You only needs "
 "to login at WangGuard.com"
 msgstr ""
 
-#: ../wangguard-help.php:67
+#: wangguard-help.php:68
 #, fuzzy
 msgid "Test WangGuard"
 msgstr "WangGuard"
 
-#: ../wangguard-help.php:68
+#: wangguard-help.php:69
 msgid ""
 "Many people activate WangGuard and don't test the registration form. Is very "
 "important to test the registration form once WangGuard is active."
 msgstr ""
 
-#: ../wangguard-help.php:69
+#: wangguard-help.php:70
 msgid "For test the it follow this steps:"
 msgstr ""
 
-#: ../wangguard-help.php:71
+#: wangguard-help.php:72
 msgid "1.- Activate WangGuard"
 msgstr ""
 
-#: ../wangguard-help.php:72
-#, php-format
+#: wangguard-help.php:73
 msgid ""
 "2.- Go to Configuration -> %s -> and enable '<strong>Do NOT verify client IP "
 "address</strong>'."
 msgstr ""
 
-#: ../wangguard-help.php:73
+#: wangguard-help.php:74
 msgid ""
 "3.- Now, lets go to register on your own website. Are you blocked? Look at "
 "the FAQ below \"First Steps\"."
 msgstr ""
 
-#: ../wangguard-help.php:74
+#: wangguard-help.php:75
 msgid ""
 "4.- If you are not blocked, try to register with this email "
 "<code>splog@wangguard.com</code>. You have to be blocked."
 msgstr ""
 
-#: ../wangguard-help.php:76
+#: wangguard-help.php:77
 msgid ""
 "Ok, if you are not blocked in the step 3 or blocked in the step 4, we go on "
 "track :-)."
 msgstr ""
 
-#: ../wangguard-help.php:77
+#: wangguard-help.php:78
 msgid ""
 "The next steps are very important, we have to check if you website is "
 "reporting your real IP or the server IP:"
 msgstr ""
 
-#: ../wangguard-help.php:79
-#, php-format
+#: wangguard-help.php:80
 msgid "5- Go to %s"
 msgstr ""
 
-#: ../wangguard-help.php:80
+#: wangguard-help.php:81
 msgid "6- Look for the new user that you created in the step 3"
 msgstr ""
 
-#: ../wangguard-help.php:81
+#: wangguard-help.php:82
 msgid "7- Look the user IP."
 msgstr ""
 
-#: ../wangguard-help.php:82
-#, php-format
+#: wangguard-help.php:83
 msgid "8- Visit a website like %s for know your real IP"
 msgstr ""
 
-#: ../wangguard-help.php:84
+#: wangguard-help.php:85
 msgid "Are they not the same IP? Look at the FAQ below \"First Steps\"."
 msgstr ""
 
-#: ../wangguard-help.php:85
+#: wangguard-help.php:86
 msgid ""
 "Are they the same IP? You may be putting a beer in the fridge (if you can "
 "drink alcohol, if not, put a soda or a beer without acohol), becasue we need "
 "few more steps for has WangGuard ready"
 msgstr ""
 
-#: ../wangguard-help.php:87
-#, php-format
+#: wangguard-help.php:88
 msgid ""
 "Ok, if you arrived here is because WangGuard is 100% compatible with your "
 "installation, so lets go to configure it!"
 msgstr ""
 
-#: ../wangguard-help.php:89
-#, php-format
+#: wangguard-help.php:90
 msgid "Now we will start with the %s tab."
 msgstr ""
 
-#: ../wangguard-help.php:90
+#: wangguard-help.php:91
 msgid "Not to much to say, because I think all settings are too clear."
 msgstr ""
 
-#: ../wangguard-help.php:91
+#: wangguard-help.php:92
 msgid "I just want to mention three that may go unnoticed."
 msgstr ""
 
-#: ../wangguard-help.php:93
+#: wangguard-help.php:94
 msgid ""
 "<strong>Allow reporting users from Posts admin screen.</strong> If you allow "
 "to your users to write at your blog, you will love this tool. Activating "
 "this tool, you will be able to report users from Post Screen"
 msgstr ""
 
-#: ../wangguard-help.php:94
+#: wangguard-help.php:95
 msgid ""
 "<strong>Check email domains agains the DNS server.</strong> Many people "
 "think this is not necessary, because they use BuddyPress or WordPress "
@@ -1534,7 +1487,7 @@ msgid ""
 "emails to fake emails? This tool will help you to avoid this problem."
 msgstr ""
 
-#: ../wangguard-help.php:95
+#: wangguard-help.php:96
 msgid ""
 "<strong>Do NOT verify client IP address.</strong> Maybe it is the most "
 "important configuration in WangGuard and many people don't know it. This "
@@ -1547,15 +1500,15 @@ msgid ""
 "the same IP."
 msgstr ""
 
-#: ../wangguard-help.php:97
+#: wangguard-help.php:98
 msgid "Go to the next tab, <strong>Blocked domains</strong>"
 msgstr ""
 
-#: ../wangguard-help.php:98
+#: wangguard-help.php:99
 msgid "Yo will see different domains:"
 msgstr ""
 
-#: ../wangguard-help.php:100
+#: wangguard-help.php:101
 msgid ""
 "<strong>Common Domains</strong> Never block all domains. Between these "
 "domains there are domains like gmail, yahoo, msn, hotmail, etc. In general, "
@@ -1564,8 +1517,7 @@ msgid ""
 "your site."
 msgstr ""
 
-#: ../wangguard-help.php:101
-#, php-format
+#: wangguard-help.php:102
 msgid ""
 "<strong>Free domains</strong> these are free domains, from our experience, "
 "practically all are domains belonging to unwanted users. You can block "
@@ -1573,20 +1525,20 @@ msgid ""
 "represent only a 0.5% of them."
 msgstr ""
 
-#: ../wangguard-help.php:102
+#: wangguard-help.php:103
 msgid ""
 "<strong>Disposable E-mail</strong> Our advice is that you block all of them. "
 "These emails are temporary emails, which means that once they sign up after "
 "1 hour the email is no longer valid."
 msgstr ""
 
-#: ../wangguard-help.php:103
+#: wangguard-help.php:104
 msgid ""
 "<strong>Top-level domains</strong> This list is interesting for those who "
 "have many unwanted users from specific TLD countries."
 msgstr ""
 
-#: ../wangguard-help.php:104
+#: wangguard-help.php:105
 msgid ""
 "<strong>mail.com Domains</strong> mail.com has the largest free domains "
 "email service. For this reason we have dedicated a specific list. There is "
@@ -1594,14 +1546,14 @@ msgid ""
 "receive many unwanted users, block it."
 msgstr ""
 
-#: ../wangguard-help.php:105
+#: wangguard-help.php:106
 msgid ""
 "<strong>Dynamic Domains</strong> These domains are often used by the "
 "sploggers or unwanted users to create mail servers in their home and/or "
 "office. Almost certainly you can block all of them."
 msgstr ""
 
-#: ../wangguard-help.php:106
+#: wangguard-help.php:107
 msgid ""
 "<strong>Hospitals & Clinics</strong> These are domains of hospitals and "
 "clinics. In these domains have been detected unwanted users. Emails from "
@@ -1609,7 +1561,7 @@ msgid ""
 "selecting any domain from this list."
 msgstr ""
 
-#: ../wangguard-help.php:107
+#: wangguard-help.php:108
 msgid ""
 "<strong>Colleges & Universities</strong> These are domains of Colleges & "
 "Universities. In these domains have been detected unwanted users. Emails "
@@ -1617,47 +1569,47 @@ msgid ""
 "of selecting any domain from this list."
 msgstr ""
 
-#: ../wangguard-help.php:109
+#: wangguard-help.php:110
 msgid ""
 "Now that you already know all the different domine listings, mark the "
 "domains you wish to block."
 msgstr ""
 
-#: ../wangguard-help.php:110
+#: wangguard-help.php:111
 msgid ""
 "To finish WangGuard setup, you can create some security Questions, but it is "
 "not necesary. We recomment you use security Questions if you have many fake "
 "signups (less 10%) with WangGuard activated."
 msgstr ""
 
-#: ../wangguard-help.php:111
+#: wangguard-help.php:112
 #, fuzzy
 msgid "<strong>Never</strong> use this questions"
 msgstr "<strong>GREŠKA</strong>: Odgovor na bezbednosno pitanje nije ispravan."
 
-#: ../wangguard-help.php:113
+#: wangguard-help.php:114
 msgid "Never use math questions, many bots know math."
 msgstr ""
 
-#: ../wangguard-help.php:114
+#: wangguard-help.php:115
 msgid ""
 "Never use obvious questions, eg. The actual President of USA is... Many bots "
 "use a very big data base with asnwers for this questions"
 msgstr ""
 
-#: ../wangguard-help.php:120
+#: wangguard-help.php:121
 msgid "FAQ"
 msgstr ""
 
-#: ../wangguard-help.php:123
+#: wangguard-help.php:124
 msgid "I'm blocked testing WangGuard Step #3"
 msgstr ""
 
-#: ../wangguard-help.php:124
+#: wangguard-help.php:125
 msgid "Basically, there are two options:"
 msgstr ""
 
-#: ../wangguard-help.php:126
+#: wangguard-help.php:127
 msgid ""
 "The error is \"Domain not Allowed\", that's because you are using a plugin "
 "or a theme with signup form not compatible with WangGuard. If yes, you will "
@@ -1665,17 +1617,17 @@ msgid ""
 "own signup form in a future release)"
 msgstr ""
 
-#: ../wangguard-help.php:127
+#: wangguard-help.php:128
 msgid ""
 "You use another plugin for filter signups. Some plugins break WangGuard. "
 "There are some Capchas that break WangGuard. Try to deactivate that plugins"
 msgstr ""
 
-#: ../wangguard-help.php:131
+#: wangguard-help.php:132
 msgid "The IP are not the same step #8"
 msgstr ""
 
-#: ../wangguard-help.php:132
+#: wangguard-help.php:133
 msgid ""
 "You are using a reverse proxy or load balancer. You need to speak with your "
 "server admin and tell him that add X-Forwarded-For to the Header. It will "
@@ -1683,64 +1635,74 @@ msgid ""
 "IP because all users will be blocked."
 msgstr ""
 
-#: ../wangguard-help.php:133
+#: wangguard-help.php:134
 msgid "Some users are blocked by WangGuard"
 msgstr ""
 
-#: ../wangguard-help.php:134
+#: wangguard-help.php:135
 msgid "There are some reason:"
 msgstr ""
 
-#: ../wangguard-help.php:136
+#: wangguard-help.php:137
 msgid ""
 "He was reported by a user, he need to contact with us and we will remove the "
 "email "
 msgstr ""
 
-#: ../wangguard-help.php:137
+#: wangguard-help.php:138
 msgid ""
 "He tried to register many times, ex: he forgot to fill some fields and the "
 "IP was blocked after some tries. He need to contact with us"
 msgstr ""
 
-#: ../wangguard-help.php:139
+#: wangguard-help.php:140
 msgid "He is using a proxy or VPN. We block all proxys and VPNs."
 msgstr ""
 
-#: ../wangguard-help.php:140
+#: wangguard-help.php:141
 msgid "He is using TOR network. We block the TOR network."
 msgstr ""
 
-#: ../wangguard-help.php:143
+#: wangguard-help.php:144
+msgid "Which is the difference between Third Party Plugins and Add-ons"
+msgstr ""
+
+#: wangguard-help.php:145
+msgid ""
+"Basically, Third Party Plugins are plugins that Works with WangGuard and if "
+"it is present adds some functionalities. WangGuard Add-ons, are plugins that "
+"needs WangGuard plugin and it adds functionalities."
+msgstr ""
+
+#: wangguard-help.php:146
 msgid "WangGuard is not saving the API Key, settings or security questions"
 msgstr ""
 
-#: ../wangguard-help.php:144
+#: wangguard-help.php:147
 msgid ""
 "That's because there was something wrong at WangGuard activation and "
 "WangGuard database tables weren't created."
 msgstr ""
 
-#: ../wangguard-help.php:145
+#: wangguard-help.php:148
 msgid ""
 "Please, copy the next code and use phpMyadmin or similar software for create "
 "WangGuard tables."
 msgstr ""
 
-#: ../wangguard-help.php:246
-#, php-format
+#: wangguard-help.php:243
 msgid "Help us! WangGuard %s is ready but we want to release the next version!"
 msgstr ""
 
-#: ../wangguard-help.php:265
+#: wangguard-help.php:262
 msgid "How to help Us?"
 msgstr ""
 
-#: ../wangguard-help.php:268
+#: wangguard-help.php:265
 msgid "Donate"
 msgstr ""
 
-#: ../wangguard-help.php:269
+#: wangguard-help.php:266
 msgid ""
 "You can donate to the project. WangGuard needs servers and that server "
 "aren't free. In a future, we will activate the Premium accounts for who make "
@@ -1751,141 +1713,132 @@ msgid ""
 "will add it as credit for you once we start with Premium accounts."
 msgstr ""
 
-#: ../wangguard-help.php:272
+#: wangguard-help.php:269
 msgid "PayPal Donation"
 msgstr ""
 
-#: ../wangguard-help.php:286
+#: wangguard-help.php:283
 msgid "Write a review on WordPress.org"
 msgstr ""
 
-#: ../wangguard-help.php:287
-#, php-format
+#: wangguard-help.php:284
 msgid ""
 "You can write a review in %s. If you write a review, many people will know "
 "WangGuard functionality and they will use it."
 msgstr ""
 
-#: ../wangguard-help.php:288
+#: wangguard-help.php:285
 msgid ""
 "If you have an account on wordpress.org, you only will need a few minutes "
 "and We'll appreciate it."
 msgstr ""
 
-#: ../wangguard-help.php:294
+#: wangguard-help.php:291
 msgid "Write a review on your website"
 msgstr ""
 
-#: ../wangguard-help.php:295
+#: wangguard-help.php:292
 msgid ""
 "You can write a review about WangGuard. That will help a lot to us. If you "
 "write a review, many people will know WangGuard, the more known and used is "
 "WangGuard, the more effective. The review will help to you and WangGuard."
 msgstr ""
 
-#: ../wangguard-help.php:296
-#, php-format
+#: wangguard-help.php:293
 msgid "You can see a nice review made by %s"
 msgstr ""
 
-#: ../wangguard-help.php:302
+#: wangguard-help.php:299
 #, fuzzy
 msgid "Translate WangGuard"
 msgstr "WangGuard"
 
-#: ../wangguard-help.php:303
-#, php-format
+#: wangguard-help.php:300
 msgid ""
 "WangGuard is used in over 200 countries around the world, but is only "
 "translated into %s."
 msgstr ""
 
-#: ../wangguard-help.php:304
-#, php-format
+#: wangguard-help.php:301
 msgid ""
 "You can fork WangGuard in %s and pull your translation, or you can email us "
 "your po/mo files and we will add to WangGuard."
 msgstr ""
 
-#: ../wangguard-help.php:305
-#, php-format
+#: wangguard-help.php:302
 msgid ""
 "If you translate WangGuard to your language, once we launch the Premium "
 "accounts, we will upgrade your account to Premium account and you will be in "
 "%s screen (if you use Github)."
 msgstr ""
 
-#: ../wangguard-help.php:311
+#: wangguard-help.php:308
 msgid "Contribute developing"
 msgstr ""
 
-#: ../wangguard-help.php:312
+#: wangguard-help.php:309
 msgid "If you are a developer, you can contribute to WangGuard development."
 msgstr ""
 
-#: ../wangguard-help.php:313
-#, php-format
+#: wangguard-help.php:310
 msgid ""
 "You can fork WangGuard in %s and pull your code. If your code follow the "
 "WordPress standard coding, and it's a very interesting feature or you fix a "
 "bug, we will add it to the core."
 msgstr ""
 
-#: ../wangguard-help.php:314
-#, php-format
+#: wangguard-help.php:311
 msgid ""
 "But that's not all. If you are a rocked developer, once we launch the "
 "Premium accounts, we will upgrade your account to Premium account and you "
 "will be in %s screen."
 msgstr ""
 
-#: ../wangguard-help.php:401
+#: wangguard-help.php:398
 msgid "This is a copy for you: "
 msgstr ""
 
-#: ../wangguard-help.php:409
+#: wangguard-help.php:406
 msgid "Subject"
 msgstr ""
 
-#: ../wangguard-help.php:410
+#: wangguard-help.php:407
 msgid "Message"
 msgstr ""
 
-#: ../wangguard-help.php:411
+#: wangguard-help.php:408
 msgid "Submit"
 msgstr ""
 
-#: ../wangguard-help.php:412
+#: wangguard-help.php:409
 msgid "Please fill in all the required fields."
 msgstr ""
 
-#: ../wangguard-help.php:413
+#: wangguard-help.php:410
 msgid "Please enter a valid e-mail address."
 msgstr ""
 
-#: ../wangguard-help.php:414
+#: wangguard-help.php:411
 msgid ""
 "Thanks for your e-mail! We'll get back to you in the next 24h. If we don't "
 "contacted with you in the next 24h, maybe the email didn't arrive, please in "
 "that case use our website contact form."
 msgstr ""
 
-#: ../wangguard-help.php:508
+#: wangguard-help.php:505
 msgid "here"
 msgstr ""
 
-#: ../wangguard-help.php:512
+#: wangguard-help.php:509
 #, fuzzy
 msgid "WangGuard Contact"
 msgstr "WangGuard statistike"
 
-#: ../wangguard-help.php:513
-#, php-format
+#: wangguard-help.php:510
 msgid "Questions or Support about WangGuard %s"
 msgstr ""
 
-#: ../wangguard-help.php:532
-#, php-format
+#: wangguard-help.php:529
 msgid ""
 "Contact with us. With this contact form you will send your Name, email, "
 "Subject, Message, Web URL, Site URL, IP Server, PHP Version, MySQL version "
@@ -1893,136 +1846,125 @@ msgid ""
 "us all that information, use our website contact form %s"
 msgstr ""
 
-#: ../wangguard-queue.php:44
-#, php-format
+#: wangguard-queue.php:44
 msgid "%d blog(s) were removed from the WangGuard Moderation Queue"
 msgstr "%d blogovi su uklonjeni iz WangGuard Moderation Queue"
 
-#: ../wangguard-queue.php:47
-#, php-format
+#: wangguard-queue.php:47
 msgid "%d user(s) were removed from the WangGuard Moderation Queue"
 msgstr "%d korisnici su uklonjeni iz WangGuard Moderation Queue"
 
-#: ../wangguard-queue.php:93
-#, php-format
+#: wangguard-queue.php:93
 msgid "%d blog(s) and %d author(s) was reported as Splogger(s) and deleted"
 msgstr "%d blogovi i %d autori su prijavljeni kao Sploggersi i obrisani"
 
-#: ../wangguard-queue.php:95
-#, php-format
+#: wangguard-queue.php:95
 msgid "%d blog(s) and %d author(s) was reported as Splogger(s)"
 msgstr "%d blogovi i %d autori su prijavljeni kao Sploggersi "
 
-#: ../wangguard-queue.php:100 ../wangguard-users.php:62
-#, php-format
+#: wangguard-queue.php:100 wangguard-users.php:62
 msgid "%d user(s) were reported as Splogger(s) and deleted"
 msgstr "%d korisnici su prijavljeni kao Sploggersi i obrisani   "
 
-#: ../wangguard-queue.php:102 ../wangguard-users.php:64
-#, php-format
+#: wangguard-queue.php:102 wangguard-users.php:64
 msgid "%d user(s) were reported as Splogger(s)"
 msgstr "%d  korisnici su prijavljeni kao Sploggersi"
 
-#: ../wangguard-queue.php:116 ../wangguard-queue.php:118
+#: wangguard-queue.php:116 wangguard-queue.php:118
 msgid "WangGuard Moderation Queue"
 msgstr "WangGuard Moderation Queue"
 
-#: ../wangguard-stats.php:48
+#: wangguard-stats.php:51
 msgid "Last 30 days"
 msgstr "Poslednjih 30 dana"
 
-#: ../wangguard-stats.php:51
+#: wangguard-stats.php:54
 msgid "Last 6 months"
 msgstr "Poslednjih 60 dana"
 
-#: ../wangguard-user-info.php:27
-#, php-format
+#: wangguard-user-info.php:27
 msgid "Info about %s"
 msgstr ""
 
-#: ../wangguard-user-info.php:28
+#: wangguard-user-info.php:28
 msgid "This is a Beta page. We are working hard."
 msgstr ""
 
-#: ../wangguard-user-info.php:32
+#: wangguard-user-info.php:32
 msgid "General"
 msgstr ""
 
-#: ../wangguard-user-info.php:36
+#: wangguard-user-info.php:36
 msgid "This is a Beta Screen"
 msgstr ""
 
-#: ../wangguard-user-info.php:39
-#, fuzzy, php-format
+#: wangguard-user-info.php:39
+#, fuzzy
 msgid "Username: %s<br />"
 msgstr "Korisničko ime"
 
-#: ../wangguard-user-info.php:40
-#, php-format
+#: wangguard-user-info.php:40
 msgid "User ID: %s <br />"
 msgstr ""
 
-#: ../wangguard-user-info.php:41
-#, php-format
+#: wangguard-user-info.php:41
 msgid "User IP: %s <br />"
 msgstr ""
 
-#: ../wangguard-user-info.php:42
-#, php-format
+#: wangguard-user-info.php:42
 msgid "User nicename: %s <br />"
 msgstr ""
 
-#: ../wangguard-user-info.php:46
-#, php-format
+#: wangguard-user-info.php:46
 msgid "User email: %s <br />"
 msgstr ""
 
-#: ../wangguard-user-info.php:47
-#, php-format
+#: wangguard-user-info.php:47
 msgid "User registered: %s <br />"
 msgstr ""
 
-#: ../wangguard-user-info.php:48
-#, php-format
+#: wangguard-user-info.php:48
 msgid "User nickname: %s <br />"
 msgstr ""
 
-#: ../wangguard-users.php:46
-#, php-format
+#: wangguard-users.php:46
 msgid "%d user(s) were deleted"
 msgstr "%d korisnici su obrisani"
 
-#: ../wangguard-users.php:133
-#, php-format
+#: wangguard-users.php:129
 msgid "%d user(s) were marked as Spam"
 msgstr "%d korisnici su označeni kao Spam"
 
-#: ../wangguard-users.php:160
-#, php-format
+#: wangguard-users.php:156
 msgid "%d user(s) were marked as Safe"
 msgstr "%d korisnici u označeni kao Bezbedni"
 
-#: ../wangguard-users.php:185
+#: wangguard-users.php:170
+#, fuzzy
+msgid "%d user(s) were Whitelisted"
+msgstr "%d korisnici su obrisani"
+
+#: wangguard-users.php:195
 msgid "Search Users"
 msgstr "Pretraga korisnika"
 
-#: ../wangguard-users.php:208
+#: wangguard-users.php:218
 msgid "Delete All Sploggers"
 msgstr "Brisanje svih Sploggersa"
 
-#: ../wangguard-users.php:218
+#: wangguard-users.php:228
 msgid "Do you confirm to delete ALL Sploggers?"
 msgstr "Da li potvdjujete brisanje SVIH Sploggersa?"
 
-#: ../wangguard-wizard.php:38 ../wangguard-wizard.php:40
+#: wangguard-wizard.php:38 wangguard-wizard.php:40
 msgid "WangGuard Wizard"
 msgstr "WangGuard Wizard"
 
-#: ../wangguard-wizard.php:65 ../wangguard-wizard.php:393
+#: wangguard-wizard.php:65 wangguard-wizard.php:385
 msgid "Reporting spam users to WangGuard..."
 msgstr "Prijavljivanje spam korisnika na WangGuard..."
 
-#: ../wangguard-wizard.php:86
+#: wangguard-wizard.php:86
 msgid ""
 "No spam users were found on your site. Click the button below to check your "
 "users."
@@ -2030,46 +1972,42 @@ msgstr ""
 "Nijedan spam korisnik nije pronadjen na vašem sajtu. Klik na dugme ispod da "
 "biste proverili vaše korisnike."
 
-#: ../wangguard-wizard.php:88 ../wangguard-wizard.php:134
+#: wangguard-wizard.php:88 wangguard-wizard.php:134
 msgid "Continue"
 msgstr "Nastavi"
 
-#: ../wangguard-wizard.php:92
-#, php-format
+#: wangguard-wizard.php:92
 msgid "The WangGuard wizard is reporting %d of %d spam users as Sploggers."
 msgstr "WangGuard wizard prijavljuje %d od %d spam korisnike kao Sploggerse."
 
-#: ../wangguard-wizard.php:132
+#: wangguard-wizard.php:132
 msgid ""
 "The WangGuard wizard has finished reporting spam users. Click the button "
 "below to check the rest of your users."
 msgstr ""
 "WangGuard wizard je završio prijavljivanje spam korisnika. Klik na dugme"
 
-#: ../wangguard-wizard.php:141 ../wangguard-wizard.php:161
+#: wangguard-wizard.php:141 wangguard-wizard.php:161
 msgid "Verifying users against the WangGuard service..."
 msgstr "Verifikovanje korisnika protiv WangGuard usliga..."
 
-#: ../wangguard-wizard.php:149
-#, php-format
+#: wangguard-wizard.php:149
 msgid ""
 "The WangGuard wizard is verifying %d users against the WangGuard service."
 msgstr "WangGuard wizard verifikuje  %d korisnika protiv WangGuard  usluge."
 
-#: ../wangguard-wizard.php:188
+#: wangguard-wizard.php:188
 msgid "No users were found on your site."
 msgstr "Nijedan korisnik nije pronadjen na sajtu."
 
-#: ../wangguard-wizard.php:192
-#, php-format
+#: wangguard-wizard.php:192
 msgid ""
 "The WangGuard wizard is verifying %d of %d users against the WangGuard "
 "service."
 msgstr ""
 " WangGuard wizard verifikuje  %d od %d korisnika protiv WangGuard  usluge."
 
-#: ../wangguard-wizard.php:259
-#, php-format
+#: wangguard-wizard.php:251
 msgid ""
 "The WangGuard wizard has finished verifying your users and found <strong>%d</"
 "strong> Sploggers."
@@ -2077,8 +2015,7 @@ msgstr ""
 "WangGuard wizard je završui verifikovanje vaših korisnika i našao je<strong>"
 "%d</strong> Sploggers."
 
-#: ../wangguard-wizard.php:266
-#, php-format
+#: wangguard-wizard.php:258
 msgid ""
 "There are <strong>%d</strong> users identified as Sploggers, you can delete "
 "them or manage them by clicking the buttons below."
@@ -2086,54 +2023,52 @@ msgstr ""
 "Ovo su<strong>%d</strong> korisnici identifikovali kao Sploggers, možete da "
 "obrišete ili upravljate njima klikom na dugme ispod."
 
-#: ../wangguard-wizard.php:273
+#: wangguard-wizard.php:265
 msgid "Delete all Sploggers"
 msgstr "Brisanje svih Splogguersa"
 
-#: ../wangguard-wizard.php:274
+#: wangguard-wizard.php:266
 msgid "Manage Sploggers"
 msgstr "Upravljanje Splogguersima"
 
-#: ../wangguard-wizard.php:276
+#: wangguard-wizard.php:268
 msgid "Finish"
 msgstr "Gotovo"
 
-#: ../wangguard-wizard.php:283
+#: wangguard-wizard.php:275
 msgid "Do you confirm to delete all Sploggers?"
 msgstr "Da li potvrdjujete brisanje svih Splogguersa ?"
 
-#: ../wangguard-wizard.php:321
+#: wangguard-wizard.php:313
 msgid "Deleting Splogguers from your site..."
 msgstr "Brisanje Splogguers sa vašeg sajta"
 
-#: ../wangguard-wizard.php:322
-#, php-format
+#: wangguard-wizard.php:314
 msgid "The WangGuard wizard is deleting %d of %d Splogguers from your site."
 msgstr "WangGuard Wizard  briše %d od %d Splogguers sa vašeg sajta"
 
-#: ../wangguard-wizard.php:345 ../wangguard-wizard.php:353
+#: wangguard-wizard.php:337 wangguard-wizard.php:345
 msgid "The WangGuard Wizard has finished"
 msgstr "WangGuard Wizard  je gotov"
 
-#: ../wangguard-wizard.php:346
-#, php-format
+#: wangguard-wizard.php:338
 msgid "%d sploggers users has been deleted from your site."
 msgstr "%d sploggers korisnici su obrisani sa vašeg sajta."
 
-#: ../wangguard-wizard.php:347 ../wangguard-wizard.php:354
+#: wangguard-wizard.php:339 wangguard-wizard.php:346
 msgid "Click here to manage your Users"
 msgstr "Kliknite ovde da biste upravljali korisnicima"
 
-#: ../wangguard-wizard.php:366
+#: wangguard-wizard.php:358
 msgid "Welcome to the WangGuard Wizard"
 msgstr "Dobrodošli u WangGuard Wizard"
 
-#: ../wangguard-wizard.php:367
+#: wangguard-wizard.php:359
 msgid ""
 "This wizard will perform the following actions on your WordPress installation"
 msgstr "Wizard će izvesti sledeće akcije na WordPress instalaciji"
 
-#: ../wangguard-wizard.php:369
+#: wangguard-wizard.php:361
 msgid ""
 "It will report to WangGuard all users you have flagged as 'spam' on your "
 "site."
@@ -2141,7 +2076,7 @@ msgstr ""
 "Prijaviće WangGuardu sve korisnike koje ste obeležili kao spam na vašem "
 "sajtu."
 
-#: ../wangguard-wizard.php:370
+#: wangguard-wizard.php:362
 msgid ""
 "For the rest of the users, it will check against WangGuard service if any of "
 "them was reported as Splogger."
@@ -2149,7 +2084,7 @@ msgstr ""
 "Za ostale korisnike proveriće protiv WangGuard usluge ako je ijedan "
 "prijavljen kao Splogger."
 
-#: ../wangguard-wizard.php:371
+#: wangguard-wizard.php:363
 msgid ""
 "It will let you know how many Sploggers the wizard found (if any) and, "
 "optionally, will let you delete your spam users and Sploggers from your site."
@@ -2158,8 +2093,8 @@ msgstr ""
 "opcionalno, će vam dozvoliti da izbrišete vaše spam korisnike i Sploggerse "
 "sa sajta."
 
-#: ../wangguard-wizard.php:373
-#, fuzzy, php-format
+#: wangguard-wizard.php:365
+#, fuzzy
 msgid ""
 "Note: The wizard will NOT verify the users flagged as %s, these are the "
 "users for which you've selected the &quot;Not a Splogger&quot; option from "
@@ -2171,22 +2106,33 @@ msgstr ""
 "Splogger&quot; dall'amministrazione degli Utenti o segnalato come &quot;Non "
 "è Spam&quot;."
 
-#: ../wangguard-wizard.php:373
-msgid "Checked (forced) or Buyer if you use WooCommerce"
+#: wangguard-wizard.php:365
+#, fuzzy
+msgid "Checked (forced), Whitelisted or Buyer if you use WooCommerce"
 msgstr "Čekirano(primorano) ili kupac ako koristite WooCommerce"
 
-#: ../wangguard-wizard.php:383
+#: wangguard-wizard.php:375
 msgid "Click the button below when you're ready to clean your site!."
 msgstr "Klik na dugme ispod kada ste spremni da očistite vaš sajt!"
 
-#: ../wangguard-wizard.php:385
+#: wangguard-wizard.php:377
 msgid "Start cleaning my site!"
 msgstr "Počnite sa čišćenjem mog sajta!"
 
-#: ../wangguard-wizard.php:401
-#, php-format
+#: wangguard-wizard.php:393
 msgid "The WangGuard wizard is reporting %d spam users as Sploggers."
 msgstr "WangGuard wizard prijavljuje %d spam korisnike kao Sploggers."
+
+#, fuzzy
+#~ msgid "WangGuard Users section"
+#~ msgstr "WangGuard korisnici"
+
+#~ msgid ""
+#~ "<strong>ERROR</strong>: Banned by WangGuard <a href=\"http://www."
+#~ "wangguard.com/faq\" target=\"_new\">Is a mistake?</a>."
+#~ msgstr ""
+#~ "<strong>GREŠKA</strong>: Zabranjeno od strane WangGuard<a href=\"http://"
+#~ "www.wangguard.com/faq\" target=\"_new\"> je greška?</a>."
 
 #~ msgid ""
 #~ "Please tell WangGuard wizard what to do with the garbage and click the "
