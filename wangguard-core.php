@@ -39,7 +39,7 @@ function wangguard_init() {
 		remove_action('admin_bar_menu', 'wangguard_add_wp_admin_bar_menus', 100 );
 		wangguard_admin_warnings();
 		}
-	
+		
 	if (get_site_option('wangguard_redirect_on_activation') == 'true') {
         update_site_option('wangguard_redirect_on_activation', 'false');
         if ( !is_multisite() ) { $wangguardredirect = esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_about' ), 'admin.php' ) ) ); }

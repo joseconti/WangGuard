@@ -329,17 +329,6 @@ function wangguard_help_us() {
 
 		<?php
 	}
-/****************************************************************************************************************/
-/****************************************************************************************************************/
-	/**
-	 * Output the credits screen
-	 *
-	 * Hardcoding this in here is pretty janky. It's fine for 2.2, but we'll
-	 * want to leverage api.wordpress.org eventually.
-	 *
-	 * @since bbPress (r4159)
-	 */
-	// function to get the IP address of the user
 
 
 // function to get the IP address of the user

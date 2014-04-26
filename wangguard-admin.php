@@ -2364,7 +2364,6 @@ function wangguard_add_wp_admin_bar_menus() {
 	
 	if ($wangguard_is_network_admin && function_exists("network_admin_url"))$urlFunc = "network_admin_url";
 	$isMainBlog = false;
-	
 	$wggcurrentblog = get_current_blog_id();
 	
 	if (defined("BP_ROOT_BLOG")) {
