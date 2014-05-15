@@ -4,7 +4,7 @@ Author URI: http://wangguard.com
 Tags: wangguard, wgg, sploggers, splog, anti-splog, user spam, anti spam users, anti-spam, spam blog, spam blogs, wordpress, buddypress, wpmu, wordpress mu, wordpress multisite, standard WordPress, registration, security, security questions, plugin, sign up, signup, spam, wp-login.php, wp-signup.php, wp-register.php, register, registration, protect, protect registration, block agents, block ip, blog secure, bots, secure blog, secure wordpress, secure wp, website security, wp secure, wp security, block users, block user, block, block emails, block e-mails, block domains, block bots, block bot, bp, captcha, no captcha, recaptcha, unwanted users, block unwanted users, block splog, black hat, blackhat, bbpress, clean, clean database, clean splog, clean users, untrusted, untrusted users, ip, ip information, user admin, user management, advanced user management, ip info, appthemes, user registration spam, users registration spam, user registration spam prevention, users registration spam prevention, woocommerce
 Requires at least: 3.0
 Tested up to: 3.9
-Stable tag: 1.6-RC1
+Stable tag: 1.6-RC2
 License: GPLv2
 
 The most advanced protection against sploggers and spam users registration, is fully WordPress,WordPress MU ,BuddyPress and bbPress 2.0 compatible
@@ -14,6 +14,15 @@ The most advanced protection against sploggers and spam users registration, is f
 
 = Welcome to WangGuard, Welcome to the revolution =
 
+= WangGuard Add-ons =
+
+ * [WangGuard - MailPoet Connector](http://wordpress.org/plugins/wangguard-wysija-newsletter-connector/)
+ * [WangGuard Blacklisted Words](http://wordpress.org/plugins/wangguard-blacklisted-words-add-on/)
+ * [WangGuard Limited Registration Domain](http://wordpress.org/plugins/wangguard-limited-registration-domain-add-on/)
+ * [WangGuard Registration Notice](http://wordpress.org/plugins/wangguard-registration-notice-add-on/)
+
+And more to come!
+
 [Please, read the WangGuard's philosophy](http://wangguard.org/2011/12/26/welcome-to-wangguard-welcome-to-the-revolution/)
 
 WangGuard works by incorporating an antivirus philosophy.
@@ -22,7 +31,25 @@ WangGuard works by incorporating an antivirus philosophy.
 
 WangGuard Always will be free for personal use, this means that whenever you have less than 500 daily registrations or you make less than $200/month, you never have to pay anything for WangGuard.
 
-Over 43.500.000+ Splogger/unwanted users blocked in just 2 years and half.
+Over 57.000.000+ Splogger/unwanted users blocked
+
+But now, WangGuard is free for every one for limited time.
+
+One time we believe that we've added all the necessary tools, we will begin to charge for WangGuard to users that have more than 500 queries a day, making more than $200/month or are companies.
+
+= These are preliminary prices = 
+
+* From 0 to 500 queries day FREE (only personal use. Companies and webmasters making more than $200/month, see next level).
+
+* From 501 to 5.000 queries day, 4€/month. (this will be the basic level for Companies and webmasters making more than $200/month).
+
+* From 5.001 to 15.000 queries day, 8€/month.
+
+* From 15.001 to 30.000 queries day, 15€/month.
+
+* From 30.001 to 60.000 queries day, 50€/month
+
+* +60.000 queries day, contact with us.
 
 WangGuard already is blocking 99.90% of sploggers and unwanted users.
 
@@ -172,7 +199,7 @@ No need to put any kind of filter in the user registration page (eg captcha). Th
 = Requirements/Restrictions =
 
 
- * Works with Wordpress 2.8+, WPMU 2.8+, BuddyPress 1.0.3+, bbPress 2.0+ (Wordpress 3.5+ is highly recommended)
+ * Works with Wordpress 3.8+, WPMU 3.8+, BuddyPress 1.0.3+, bbPress 2.0+ (Wordpress 3.9+ is highly recommended)
  * PHP 4.3 or above. (PHP 5+ is highly recommended)
   
  
@@ -290,6 +317,14 @@ It is free for personal use. If you earn more than $200/month with your site or 
 
 
 == Changelog ==
+
+= 1.6 RC2 - 14 May 2014 =
+
+- Fixed an issue that breaks the signup forms (Domain not Allowed) in some installations.
+- Fixed an issue with security questions that are not showed in some installation.
+- Fixed a bug related to non Multisite websites.
+- Fixed some translation problems
+- Added CSS style for Whitelisted Users
 
 = 1.6 RC1 - 23 April 2014 =
 

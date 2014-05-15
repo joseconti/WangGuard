@@ -1,4 +1,13 @@
 <?php
+		$wangguard_bp_hook = "bp_after_account_details_fields";
+
+		// for buddypress 1.1 only
+		add_action($wangguard_bp_hook,'wangguard_add_hfield_1' , rand(1,10));
+		add_action($wangguard_bp_hook,'wangguard_add_hfield_2' , rand(1,10));
+		add_action($wangguard_bp_hook,'wangguard_add_hfield_3' , rand(1,10));
+		add_action($wangguard_bp_hook,'wangguard_add_hfield_4' , rand(1,10));
+		add_action('bp_before_registration_submit_buttons', 'wangguard_register_add_question_bp11');
+
 function wangguard_bp_core_process_spammer_status( $user_id, $status, $do_wp_cleanup = true ) {
 	global $wpdb, $bp;
 
@@ -112,5 +121,43 @@ function wangguard_spam_all_data( $user_id ) {
 		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->groups->table_name_members} WHERE user_id = %d", $user_id ) );
 		BP_Groups_Member::delete_all_for_user( $user_id );
 }
+/**
+ * Validates security question
+ * 
+ * @global type $bp
+ * @global boolean $wangguard_bp_validated
+ */
+function wangguard_signup_validate_bp11() {
+	global $bp;
+	global $wangguard_bp_validated;
+	$wangguard_bp_validated = true;
+	$signup_email = $_POST['signup_email'];
+	
+	if (!wangguard_validate_hfields($signup_email)) {
+		$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
+		return;
+	}
+	$answerOK = wangguard_question_repliedOK();
+	//If at least a question exists on the questions table, then check the provided answer
+	if (!$answerOK)$bp->signup->errors['wangguardquestansw'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: The answer to the security question is invalid.', 'wangguard')); else {
+		//check domain against the list of selected blocked domains
+		$blocked = wangguard_is_domain_blocked($signup_email);
+		
+		if ($blocked) {
+			$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe( __("<strong>ERROR</strong>: Domain not allowed.", 'wangguard'));
+		} else {
+			$reported = wangguard_is_email_reported_as_sp($signup_email , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP());
+			
+			if ($reported)$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard')); else
+			if (wangguard_email_aliases_exists($signup_email))$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard')); else
+			if (!wangguard_mx_record_is_ok($signup_email))$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe( __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
+		}
+
+	}
+
+	
+	if (isset ($bp->signup->errors['signup_email']))$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe($bp->signup->errors['signup_email']);
+}
 add_action( 'wangguard_bp_make_spam_user', 'wangguard_spam_all_data' );
+add_action('bp_signup_validate', 'wangguard_signup_validate_bp11' );
 ?>

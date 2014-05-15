@@ -230,20 +230,6 @@ function wangguard_install($current_version) {
 		dbDelta($sql);
 	}
 
-	$table_name = $wpdb->base_prefix . "wangguardoptions";
-	if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
-
-		$sql = "CREATE TABLE " . $table_name . " (
-			option_name varchar(64) NOT NULL,
-			option_value longtext NOT NULL,			
-			UNIQUE KEY option_name (option_name)
-		) $charset_collate;";
-
-		dbDelta($sql);
-	}
-
-
-
 	if ($current_version < 1.2) {
 
 		//move old options to the new wangguard options table and delete them
@@ -268,7 +254,7 @@ function wangguard_install($current_version) {
 
 	}
 	
-	if ( get_site_option('wangguard-option-version') == '') {
+	if ( ( get_site_option('wangguard-option-version') == '' ) || ( get_site_option('wangguard-option-version') < '1.6' ) ) {
 		
 		update_site_option("wangguard_db_version", $wangguard_db_version);
 		update_site_option("wangguard-expertmode", wangguard_get_option("wangguard-report-posts"));
@@ -441,21 +427,6 @@ if ( !function_exists('wp_nonce_field') ) {
 } else {
 	function wangguard_nonce_field($action = -1) { return wp_nonce_field($action); }
 	$wangguard_nonce = 'wangguard-update-key';
-}
-
-//check for bp_core_mark_user_spam_admin
-function wangguard_check_for_bp_core_mark_user_spam_admin() {
-				
-				//if (defined('BP_VERSION')) {
-					// Check if BuddyPress at less 1.9
-						//if ( version_compare(BP_VERSION, '1.9', '<') ) {
-							// if not, check if bp_core_mark_user_spam_admin id hooked
-								//if ( ! has_action( 'make_spam_user', 'bp_core_mark_user_spam_admin' )) {
-									// if not hooked, we hook bp_core_mark_user_spam_admin. This come from the bug related here http://buddypress.trac.wordpress.org/ticket/5229
-									add_action( 'make_spam_user', 'bp_core_mark_user_spam_admin' );
-								//	}
-						//	}
-				//}
 }
 
 //Extracts the domain part from an email address

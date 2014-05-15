@@ -132,7 +132,7 @@
 			
 			if ( $contributor->login != 'joseconti')  {
 				$contributor_list .= '<li class="wp-person">';
-				$contributor_list .= sprintf( '<a href="%s" title="%s">',esc_url( 'https://github.com/' . $contributor->login ),esc_html( sprintf( __( 'View %s', 'woocommerce' ), $contributor->login ) ));
+				$contributor_list .= sprintf( '<a href="%s" title="%s">',esc_url( 'https://github.com/' . $contributor->login ),esc_html( sprintf( __( 'View %s', 'wangguard' ), $contributor->login ) ));
 				$contributor_list .= sprintf( '<img src="%s" width="64" height="64" class="gravatar" alt="%s" />', esc_url( $contributor->avatar_url ), esc_html( $contributor->login ) );
 				$contributor_list .= '</a>';
 				$contributor_list .= sprintf( '<a class="web" href="%s">%s</a>', esc_url( 'https://github.com/' . $contributor->login ), esc_html( $contributor->login ) );
@@ -167,7 +167,7 @@
 			$commit_list .= '<div>';
 			$commit_list .= '<ul class="wp-people-group">';
 			$commit_list .= '<li class="wp-person">';
-			$commit_list .= sprintf( '<a href="%s" title="%s">',esc_url( $commit->author->html_url ),esc_html( sprintf( __( 'View %s', 'woocommerce' ), $commit->commit->author->name ) ));
+			$commit_list .= sprintf( '<a href="%s" title="%s">',esc_url( $commit->author->html_url ),esc_html( sprintf( __( 'View %s', 'wangguard' ), $commit->commit->author->name ) ));
 			$commit_list .= sprintf( '<img src="%s" width="64" height="64" class="gravatar" alt="%s" />', esc_url( $commit->author->avatar_url ), esc_html( $commit->author->login ) );
 			$commit_list .= '</a>';
 			$commit_list .= sprintf( '<a class="web" href="%s">%s</a>', esc_url( 'https://github.com/' . $commit->commit->author->name ), esc_html( $commit->commit->author->name ) );

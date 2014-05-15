@@ -4,7 +4,7 @@
 Plugin Name: WangGuard
 Plugin URI: http://www.wangguard.com
 Description: <strong>Stop Sploggers</strong>. It is very important to use <a href="http://www.wangguard.com" target="_new">WangGuard</a> at least for a week, reporting your site's unwanted users as sploggers from the Users panel. WangGuard will learn at that time to protect your site from sploggers in a much more effective way. WangGuard protects each web site in a personalized way using information provided by Administrators who report sploggers world-wide, that's why it's very important that you report your sploggers to WangGuard. The longer you use WangGuard, the more effective it will become.
-Version: 1.6-RC1
+Version: 1.6-RC2
 Author: WangGuard
 Author URI: http://www.wangguard.com
 License: GPL2
@@ -23,7 +23,7 @@ License: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-	define('WANGGUARD_VERSION', '1.6-RC1');
+	define('WANGGUARD_VERSION', '1.6-RC2');
 	define('WANGGUARD_PLUGIN_FILE', 'wangguard/wangguard-admin.php');
 	define('WANGGUARD_README_URL', 'http://plugins.trac.wordpress.org/browser/wangguard/trunk/readme.txt?format=txt');
 	define('WANGGUARD_API_HOST', 'rest.wangguard.com');
@@ -61,13 +61,6 @@ License: GPL2
 	/*** CONFIG ENDS ***/	
 	/********************************************************************/
 	
-	// We are working here arround BuddyPress. Will be live in future version.
-	
-	function wangguard_buddypress_init() {
-   require( dirname( __FILE__ ) . '/wangguard-buddypress.php' );
-}
- add_action( 'bp_include', 'wangguard_buddypress_init' );
-	
 	/********************************************************************/	
 	/*** ADD & VALIDATE SECURITY QUESTIONS ON REGISTER BEGINS ***/	
 	/********************************************************************/	
@@ -84,32 +77,14 @@ License: GPL2
 	add_action('register_post','wangguard_signup_validate',10,3);
 	
 	// for WooCommerce
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	
-	if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )  {
+	if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 		add_action('woocommerce_after_checkout_validation','wangguard_plugin_woocommerce_checkout_signup');
-	}
-
-	$wangguard_add_mu_filter_actions = true;
-	
-	if (defined('BP_VERSION')) {
-		
-		if (version_compare(BP_VERSION, '1.1') >= 0) {
-			$wangguard_add_mu_filter_actions = false;
-			$wangguard_bp_hook = "bp_after_account_details_fields";
-			// for buddypress 1.1 only
-			if ( get_site_option("wangguard-add-honeypot")=='1') {
-					add_action($wangguard_bp_hook,'wangguard_add_hfield_1' , rand(1,10));
-					add_action($wangguard_bp_hook,'wangguard_add_hfield_2' , rand(1,10));
-					add_action($wangguard_bp_hook,'wangguard_add_hfield_3' , rand(1,10));
-					add_action($wangguard_bp_hook,'wangguard_add_hfield_4' , rand(1,10));
-				}
-			add_action('bp_before_registration_submit_buttons', 'wangguard_register_add_question_bp11');
-			add_action('bp_signup_validate', 'wangguard_signup_validate_bp11' );
-		}
-
-	}
-
-	
+	}	
+	if(has_action('bp_include')) {
+	$wangguard_add_mu_filter_actions = false;
+	}else{$wangguard_add_mu_filter_actions = true;}
 	if ($wangguard_add_mu_filter_actions) {
 		// for wpmu and (buddypress versions before 1.1)
 		if ( get_site_option("wangguard-add-honeypot")=='1') {
@@ -122,6 +97,11 @@ License: GPL2
 		add_filter('wpmu_validate_user_signup', 'wangguard_wpmu_signup_validate_mu', 90);
 	}
 
+//Calling to functions for BuddyPress
+function wangguard_buddypress_init() {
+   require( dirname( __FILE__ ) . '/wangguard-buddypress.php' );
+}
+ add_action( 'bp_include', 'wangguard_buddypress_init' );
 	/**
  * Checks MX record for an email domain's
  * 
@@ -201,7 +181,6 @@ License: GPL2
 
 	return false;
 }
-
 $wangguard_NonceHName = 'wangguard-hidden-field-check';
 $wangguard_NonceFName = 'wangguard-hidden-display-check';
 $wangguard_NoncePName = 'wangguard-hidden-position-check';
@@ -224,7 +203,6 @@ function wangguard_randomstring($rndLen) {
 	return $str;
 }
 
-
 function wangguard_add_hfield_1() {
 	global $wangguard_NonceHName , $wangguard_HPrefix;
 	$nonceAct = $wangguard_NonceHName;
@@ -233,7 +211,6 @@ function wangguard_add_hfield_1() {
 	$nonce_field = '<![if !IE]><input autocomplete="off" type="hidden" id="' . $fieldID . '" name="' . $wangguard_HPrefix . $nonceValue . '" value="" /><![endif]>';
 	echo $nonce_field;
 }
-
 
 function wangguard_add_hfield_2() {
 	global $wangguard_NonceFName , $wangguard_FPrefix;
@@ -246,7 +223,6 @@ function wangguard_add_hfield_2() {
 	echo $nonce_field;
 }
 
-
 function wangguard_add_hfield_3() {
 	global $wangguard_NoncePName;
 	$style = wangguard_randomstring(mt_rand(6,10));
@@ -258,7 +234,6 @@ function wangguard_add_hfield_3() {
 	$nonce_field = '<![if !IE]><div style="' .$cssStyle.'"><label for="'.$nonceValue.'">'.$question.'</label><br/><input autocomplete="off" tabindex="'.mt_rand(9999,99999).'" type="text" id="' . $fieldID . '" name="' . $nonceValue . '" value="" /></div><![endif]>';
 	echo $nonce_field;
 }
-
 
 function wangguard_add_hfield_4() {
 	global $wangguard_NonceCName;
@@ -357,8 +332,9 @@ function wangguard_wpmu_signup_validate_mu($result) {
 	if ( strpos($_SERVER['PHP_SELF'], 'wp-admin') !== false ) {
 		return $result;
 	}
-		if(!$user_email){$user_email = $_POST['user_email'];}else{$user_email=$user_email;}
-		$user_email = $_POST['user_email'];
+	if ($_POST['signup_email']) return;
+	if(!$user_email){$user_email = $_POST['user_email'];}else{$user_email=$user_email;}
+		//$user_email = $_POST['user_email'];
 
 	//BP1.1+ calls the new BP filter first (wangguard_signup_validate_bp11) and then the legacy MU filters (this one), if the BP new 1.1+ filter has been already called, silently return
 	
@@ -436,46 +412,6 @@ function wangguard_fix_bp_slashes_maybe($str) {
 		return $str;
 	} else return $str;
 }
-
-/**
- * Validates security question
- * 
- * @global type $bp
- * @global boolean $wangguard_bp_validated
- */
-function wangguard_signup_validate_bp11() {
-	global $bp;
-	global $wangguard_bp_validated;
-	$wangguard_bp_validated = true;
-	
-	if (!wangguard_validate_hfields($_POST['signup_email'])) {
-		$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
-		return;
-	}
-
-	$answerOK = wangguard_question_repliedOK();
-	//If at least a question exists on the questions table, then check the provided answer
-	
-	if (!$answerOK)$bp->signup->errors['wangguardquestansw'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: The answer to the security question is invalid.', 'wangguard')); else {
-		//check domain against the list of selected blocked domains
-		$blocked = wangguard_is_domain_blocked($_REQUEST['signup_email']);
-		
-		if ($blocked) {
-			$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe( __("<strong>ERROR</strong>: Domain not allowed.", 'wangguard'));
-		} else {
-			$reported = wangguard_is_email_reported_as_sp($_REQUEST['signup_email'] , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP());
-			
-			if ($reported)$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard')); else
-			if (wangguard_email_aliases_exists($_REQUEST['signup_email']))$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard')); else
-			if (!wangguard_mx_record_is_ok($_REQUEST['signup_email']))$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe( __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
-		}
-
-	}
-
-	
-	if (isset ($bp->signup->errors['signup_email']))$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe($bp->signup->errors['signup_email']);
-}
-
 //*********** BP1.1+ ***********
 //*********** WP REGULAR ***********
 /**
@@ -547,7 +483,6 @@ function wangguard_register_add_question(){
 	}
 
 }
-
 /**
  * Validates security question
  * 
@@ -556,7 +491,7 @@ function wangguard_register_add_question(){
  * @param type $errors
  */
  
-if  ( ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) && (get_option('woocommerce_enable_myaccount_registration')=='yes') )  {
+if ( ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) && (get_option('woocommerce_enable_myaccount_registration')=='yes') )  {
 	function wangguard_signup_validate($user_name, $email, $errors){
 		
 		if (!wangguard_validate_hfields($_POST['email'])) {
@@ -587,6 +522,8 @@ if  ( ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins'
 
 } else {
 	function wangguard_signup_validate($user_name, $user_email, $errors){
+	
+		if ($_POST['user_email']){ $user_email = $_POST['user_email']; }else{ $user_email = $user_email; }
 		
 		if (!wangguard_validate_hfields($user_email)) {
 			$errors->add('user_login',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
@@ -779,7 +716,7 @@ function wangguard_plugin_bp_complete_signup() {
 /**
 WooCommerce
 */
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )  {
+if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 	function wangguard_plugin_woocommerce_checkout_signup() {
 		global $wpdb, $current_user;
 		global $wangguard_user_check_status;

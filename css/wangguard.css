@@ -30,6 +30,11 @@ a.wangguard-recheck {
 	color: #d54e21;
 }
 
+.wangguard-status-whitelisted {
+	color: #00a000;
+	font-weight: bold;
+	text-decoration:underline;
+}
 .wangguard-rollback {
 	color: #d54e21;
 }
