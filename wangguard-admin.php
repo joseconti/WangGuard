@@ -4,7 +4,7 @@
 Plugin Name: WangGuard
 Plugin URI: http://www.wangguard.com
 Description: <strong>Stop Sploggers</strong>. It is very important to use <a href="http://www.wangguard.com" target="_new">WangGuard</a> at least for a week, reporting your site's unwanted users as sploggers from the Users panel. WangGuard will learn at that time to protect your site from sploggers in a much more effective way. WangGuard protects each web site in a personalized way using information provided by Administrators who report sploggers world-wide, that's why it's very important that you report your sploggers to WangGuard. The longer you use WangGuard, the more effective it will become.
-Version: 1.6-RC2
+Version: 1.6-RC3
 Author: WangGuard
 Author URI: http://www.wangguard.com
 License: GPL2
@@ -23,7 +23,7 @@ License: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-	define('WANGGUARD_VERSION', '1.6-RC2');
+	define('WANGGUARD_VERSION', '1.6-RC3');
 	define('WANGGUARD_PLUGIN_FILE', 'wangguard/wangguard-admin.php');
 	define('WANGGUARD_README_URL', 'http://plugins.trac.wordpress.org/browser/wangguard/trunk/readme.txt?format=txt');
 	define('WANGGUARD_API_HOST', 'rest.wangguard.com');
@@ -491,39 +491,9 @@ function wangguard_register_add_question(){
  * @param type $errors
  */
  
-if ( ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) && (get_option('woocommerce_enable_myaccount_registration')=='yes') )  {
-	function wangguard_signup_validate($user_name, $email, $errors){
-		
-		if (!wangguard_validate_hfields($_POST['email'])) {
-			$errors->add('user_login',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
-			return;
-		}
-
-		$answerOK = wangguard_question_repliedOK();
-		//If at least a question exists on the questions table, then check the provided answer
-		
-		if (!$answerOK)$errors->add('wangguard_error',__('<strong>ERROR</strong>: The answer to the security question is invalid.', 'wangguard')); else {
-			//check domain against the list of selected blocked domains
-			$blocked = wangguard_is_domain_blocked($_REQUEST['email']);
-			
-			if ($blocked) {
-				$errors->add('wangguard_error',__('<strong>ERROR</strong>: Domain not allowed.', 'wangguard'));
-			} else {
-				$reported = wangguard_is_email_reported_as_sp($_REQUEST['email'] , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() , true);
-				
-				if ($reported)$errors->add('wangguard_error',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
-				elseif (wangguard_email_aliases_exists($_REQUEST['email']))$errors->add('wangguard_error',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard'));
-				elseif (!wangguard_mx_record_is_ok($_REQUEST['email']))$errors->add('wangguard_error',   __("<strong>ERROR</strong>: The server couldn't find an MX record associated with your email domain.", 'wangguard'));
-			}
-
-		}
-
-	}
-
-} else {
 	function wangguard_signup_validate($user_name, $user_email, $errors){
 	
-		if ($_POST['user_email']){ $user_email = $_POST['user_email']; }else{ $user_email = $user_email; }
+		//if ($_POST['user_email']){ $user_email = $_POST['user_email']; }else{ $user_email = $user_email; }
 		
 		if (!wangguard_validate_hfields($user_email)) {
 			$errors->add('user_login',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
@@ -548,8 +518,6 @@ if ( ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins',
 
 		}
 	}
-
-}
 
 //*********** WP REGULAR ***********
 /**
