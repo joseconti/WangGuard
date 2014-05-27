@@ -4,7 +4,7 @@
 Plugin Name: WangGuard
 Plugin URI: http://www.wangguard.com
 Description: <strong>Stop Sploggers</strong>. It is very important to use <a href="http://www.wangguard.com" target="_new">WangGuard</a> at least for a week, reporting your site's unwanted users as sploggers from the Users panel. WangGuard will learn at that time to protect your site from sploggers in a much more effective way. WangGuard protects each web site in a personalized way using information provided by Administrators who report sploggers world-wide, that's why it's very important that you report your sploggers to WangGuard. The longer you use WangGuard, the more effective it will become.
-Version: 1.6-RC3
+Version: 1.6-RC4
 Author: WangGuard
 Author URI: http://www.wangguard.com
 License: GPL2
@@ -23,15 +23,18 @@ License: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-	define('WANGGUARD_VERSION', '1.6-RC3');
+	define('WANGGUARD_VERSION', '1.6-RC4');
 	define('WANGGUARD_PLUGIN_FILE', 'wangguard/wangguard-admin.php');
 	define('WANGGUARD_README_URL', 'http://plugins.trac.wordpress.org/browser/wangguard/trunk/readme.txt?format=txt');
 	define('WANGGUARD_API_HOST', 'rest.wangguard.com');
 	define('WANGGUARD_REST_PATH', '/');
 	define('WANGGUARD_API_PORT', '80');
 	
+	
+	// Debug WangGuard
 	//error_reporting(E_ALL);
 	//ini_set("display_errors", 1);
+	
 	//Which file are we are getting called from?
 	$wuangguard_parent = basename($_SERVER['SCRIPT_NAME']);
 	$wangguard_is_network_admin = function_exists("is_multisite") && function_exists( 'is_network_admin' );
@@ -81,12 +84,18 @@ License: GPL2
 	
 	if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 		add_action('woocommerce_after_checkout_validation','wangguard_plugin_woocommerce_checkout_signup');
-	}	
-	if(has_action('bp_include')) {
-	$wangguard_add_mu_filter_actions = false;
-	}else{$wangguard_add_mu_filter_actions = true;}
-	if ($wangguard_add_mu_filter_actions) {
+	}
+	$wangguard_add_mu_filter_actions = true;
+	//Calling to functions for BuddyPress
+	
+	function wangguard_buddypress_init() {
+		require( dirname( __FILE__ ) . '/wangguard-buddypress.php' );
+		}
+	add_action( 'bp_include', 'wangguard_buddypress_init' );
+       // if (has_action( 'bp_include', 'wangguard_buddypress_init' ) ) $wangguard_add_mu_filter_actions = false;
 		// for wpmu and (buddypress versions before 1.1)
+		if ( defined( 'BP_VERSION' ) ) $wangguard_add_mu_filter_actions = false;
+		if($wangguard_add_mu_filter_actions){
 		if ( get_site_option("wangguard-add-honeypot")=='1') {
 				add_action('signup_extra_fields','wangguard_add_hfield_1' , rand(1,10));
 				add_action('signup_extra_fields','wangguard_add_hfield_2' , rand(1,10));
@@ -95,13 +104,7 @@ License: GPL2
 			}
 		add_action('signup_extra_fields', 'wangguard_register_add_question_mu' );
 		add_filter('wpmu_validate_user_signup', 'wangguard_wpmu_signup_validate_mu', 90);
-	}
-
-//Calling to functions for BuddyPress
-function wangguard_buddypress_init() {
-   require( dirname( __FILE__ ) . '/wangguard-buddypress.php' );
-}
- add_action( 'bp_include', 'wangguard_buddypress_init' );
+		}
 	/**
  * Checks MX record for an email domain's
  * 
@@ -333,7 +336,7 @@ function wangguard_wpmu_signup_validate_mu($result) {
 		return $result;
 	}
 	if ($_POST['signup_email']) return;
-	if(!$user_email){$user_email = $_POST['user_email'];}else{$user_email=$user_email;}
+	if( $_POST['user_email'] ){$user_email = $_POST['user_email'];}else{$user_email=$user_email;}
 		//$user_email = $_POST['user_email'];
 
 	//BP1.1+ calls the new BP filter first (wangguard_signup_validate_bp11) and then the legacy MU filters (this one), if the BP new 1.1+ filter has been already called, silently return
