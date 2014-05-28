@@ -303,7 +303,7 @@ function wangguard_wpmu_signup_validate_mu($result) {
 		return $result;
 	}
 	if( isset( $_POST['signup_email'] ) ) return;
-	if( ( isset( $_POST['user_email'] ) && !empty( $_POST['user_email'] ) ){$user_email = $_POST['user_email'];}else{$user_email=$user_email;}
+	if( isset( $_POST['user_email'] ) && !empty( $_POST['user_email'] ) ){$user_email = $_POST['user_email'];}else{$user_email=$user_email;}
 		//$user_email = $_POST['user_email'];
 	//BP1.1+ calls the new BP filter first (wangguard_signup_validate_bp11) and then the legacy MU filters (this one), if the BP new 1.1+ filter has been already called, silently return
 	if ($wangguard_bp_validated)return $result;
