@@ -927,27 +927,54 @@ function wangguard_ajax_front_callback() {
 	die();
 }
 
-function wangguard_email_admin_reported_user($userid){
+function wangguard_email_admin_reported_user( $userid ){
+	if(is_multisite()){
+		$wangguardadminmoderateurl = network_admin_url( 'admin.php?page=wangguard_queue&type=u' );
+	} else {
+		$wangguardadminmoderateurl = admin_url( 'admin.php?page=wangguard_queue&type=u' );
+	}
 	$admin_email = get_site_option( 'admin_email' );
-	$email_subject = "New reported user:" . get_bloginfo('name');
+	$user_link = bp_core_get_userlink( $userid );
+	$email_subject = "New reported user: " . get_bloginfo('name');
 	$headers  = "From: ".$admin_email." <".$admin_email.">\n";
-	$headers .= "Content-Type: text/plain; charset=UTF-8\n";
+	$headers .= "Content-Type: text/html; charset=UTF-8\n";
 	$headers .= "Content-Transfer-Encoding: 8bit\n";
-	$message .= "\n\n" . __("A user have been reported by a user ","wangguard");
-	$message .= "\n\n" . __("Click here to manage users: ","wangguard") . "\n" . $site_url;
-	$message .= "\n\nWangGuard - www.wangguard.com";
+	$message .= "<p>" . __("A user have been reported","wangguard") . "</p>";
+	$message .= "<p>" . __("The reported user is ","wangguard") . $user_link . "</p>";
+	$message .= "<p>" . __("Click here to manage users: ","wangguard") . "<a href='" . $wangguardadminmoderateurl . "' title='" . $wangguardadminmoderateurl . "'>" . $wangguardadminmoderateurl . "</a></p>";
+	$message .= "<p>WangGuard - www.wangguard.com</p>";
+	add_filter( 'wp_mail_content_type', 'wangguard_set_html_content_type' );
 	wp_mail($admin_email, $email_subject, $message, $headers);
+	remove_filter( 'wp_mail_content_type', 'wangguard_set_html_content_type' );
 }
-function wangguard_email_admin_reported_blog($userid){
+function wangguard_email_admin_reported_blog($blogid){
+	if(is_multisite()){
+		$wangguardadminmoderateurl = network_admin_url( 'admin.php?page=wangguard_queue&type=b' );
+	} else {
+		$wangguardadminmoderateurl = admin_url( 'admin.php?page=wangguard_queue&type=b' );
+	}
+	switch_to_blog( $blogid );
+	$subblog_title = get_bloginfo( 'name' );
+	$subblog_url = get_bloginfo( 'url' );
+	$subblog_description = get_bloginfo( 'description' );
+	restore_current_blog();
 	$admin_email = get_site_option( 'admin_email' );
-	$email_subject = "New reported blog:" . get_bloginfo('name');
+	$email_subject = "New reported blog: " . get_bloginfo('name');
 	$headers  = "From: ".$admin_email." <".$admin_email.">\n";
-	$headers .= "Content-Type: text/plain; charset=UTF-8\n";
+	$headers .= "Content-Type: text/html; charset=UTF-8\n";
 	$headers .= "Content-Transfer-Encoding: 8bit\n";
-	$message .= "\n\n" . __("A blog have been reported by a user ","wangguard");
-	$message .= "\n\n" . __("Click here to manage blogs: ","wangguard") . "\n" . $site_url;
-	$message .= "\n\nWangGuard - www.wangguard.com";
+	$message .= "<p>" . __("A blog have been reported","wangguard") . "</p>";
+	$message .= "<p>" . __("<b>The blog name is: </b>","wangguard") . $subblog_title . "</p>";
+	$message .= "<p>" . __("<b>The blog description is: </b>","wangguard") . $subblog_description . "</p>";
+	$message .= "<p>" . __("<b>The blog url is: </b>","wangguard") . "<a href='" . $subblog_url . "' title='" . $subblog_titler . "'>" . $subblog_url . "</a></p>";
+	$message .= "<p>" . __("<b>Click here to manage blogs: </b>","wangguard") . "<a href='" . $wangguardadminmoderateurl . "' title='" . $wangguardadminmoderateurl . "'>" . $wangguardadminmoderateurl . "</a></p>";
+	$message .= "<p><b>WangGuard</b> - www.wangguard.com</p>";
+	add_filter( 'wp_mail_content_type', 'wangguard_set_html_content_type' );
 	wp_mail($admin_email, $email_subject, $message, $headers);
+	remove_filter( 'wp_mail_content_type', 'wangguard_set_html_content_type' );
+}
+function wangguard_set_html_content_type() {
+return 'text/html';
 }
 /********************************************************************/
 /*** AJAX FRONT HANDLERS ENDS ***/
