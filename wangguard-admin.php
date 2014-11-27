@@ -902,6 +902,7 @@ function wangguard_ajax_front_callback() {
 		if ( wangguard_is_admin($user_object) ) die("0");
 		$table_name = $wpdb->base_prefix . "wangguardreportqueue";
 		$wpdb->query( $wpdb->prepare("insert into $table_name(ID , blog_id , reported_by_ID) values (%d , NULL , %d)" , $userid , $thisUserID ) );
+		wangguard_email_admin_reported_user($userid);
 		echo "0";
 	}
 	elseif ($object == "blog") {
@@ -920,9 +921,33 @@ function wangguard_ajax_front_callback() {
 		if ($isMainBlog) die("0");
 		$table_name = $wpdb->base_prefix . "wangguardreportqueue";
 		$wpdb->query( $wpdb->prepare("insert into $table_name(ID , blog_id , reported_by_ID) values (NULL , %d , %d)" , $blogid , $thisUserID ) );
+		wangguard_email_admin_reported_blog($userid);
 		echo "0";
 	}
 	die();
+}
+
+function wangguard_email_admin_reported_user($userid){
+	$admin_email = get_site_option( 'admin_email' );
+	$email_subject = "New reported user:" . get_bloginfo('name');
+	$headers  = "From: ".$admin_email." <".$admin_email.">\n";
+	$headers .= "Content-Type: text/plain; charset=UTF-8\n";
+	$headers .= "Content-Transfer-Encoding: 8bit\n";
+	$message .= "\n\n" . __("A user have been reported by a user ","wangguard");
+	$message .= "\n\n" . __("Click here to manage users: ","wangguard") . "\n" . $site_url;
+	$message .= "\n\nWangGuard - www.wangguard.com";
+	wp_mail($admin_email, $email_subject, $message, $headers);
+}
+function wangguard_email_admin_reported_blog($userid){
+	$admin_email = get_site_option( 'admin_email' );
+	$email_subject = "New reported blog:" . get_bloginfo('name');
+	$headers  = "From: ".$admin_email." <".$admin_email.">\n";
+	$headers .= "Content-Type: text/plain; charset=UTF-8\n";
+	$headers .= "Content-Transfer-Encoding: 8bit\n";
+	$message .= "\n\n" . __("A blog have been reported by a user ","wangguard");
+	$message .= "\n\n" . __("Click here to manage blogs: ","wangguard") . "\n" . $site_url;
+	$message .= "\n\nWangGuard - www.wangguard.com";
+	wp_mail($admin_email, $email_subject, $message, $headers);
 }
 /********************************************************************/
 /*** AJAX FRONT HANDLERS ENDS ***/
