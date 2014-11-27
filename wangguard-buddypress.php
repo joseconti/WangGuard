@@ -127,4 +127,10 @@ function wangguard_signup_validate_bp11() {
 }
 add_action( 'wangguard_bp_make_spam_user', 'wangguard_spam_all_data' );
 add_action('bp_signup_validate', 'wangguard_signup_validate_bp11' );
+
+function wangguard_add_style_sq(){
+	wp_enqueue_style( 'wangguard-bp', plugins_url( '/css/wangguard-bp.css', __FILE__ ), false, '1.6', 'all' );
+	}
+add_action('wp_head', 'wangguard_add_style_sq');
+
 ?>

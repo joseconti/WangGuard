@@ -338,7 +338,7 @@ function wangguard_register_add_question_bp11(){
 		$question = $qrs->Question;
 		$questionID = $qrs->id;
 		$html = '
-		<div class="register-section" style=" width: 200px; clear:left; margin-top:-10px;">
+		<div class="register-section wangguard">
 			<label for="wangguardquestansw">' . $question . '</label>';
 		echo $html;
 		do_action( 'bp_wangguardquestansw_errors' );
