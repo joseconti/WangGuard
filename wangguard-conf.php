@@ -39,6 +39,8 @@ function wangguard_conf() {
 		wangguard_get_server_connectivity(0);
 		$selectedTab = 4;
 	} elseif ( isset($_POST['optssave']) ) {
+			$wangguardnewallowemailsploggers = $_POST['wangguard_allow_emails_signup_list'];
+			$wangguardlisttoarrayallowemailsploggers = explode("\n", maybe_serialize(strtolower($wangguardnewallowemailsploggers)));
 			update_site_option('wangguard-expertmode', @$_POST['wangguardexpertmode']=='1' ? 1 : 0 );
 			update_site_option('wangguard-report-posts', @$_POST['wangguardreportposts']=='1' ? 1 : 0 );
 			update_site_option('wangguard-delete-users-on-report', @$_POST['wangguard-delete-users-on-report']=='1' ? 1 : -1 );
@@ -50,6 +52,7 @@ function wangguard_conf() {
 			update_site_option('wangguard-do-not-check-client-ip', @$_POST['wangguard-do-not-check-client-ip']=='1' ? 1 : 0 );
 			update_site_option('wangguard-do-not-show-adminbar', @$_POST['wangguard-do-not-show-adminbar']=='1' ? 1 : 0 );
 			update_site_option('wangguard-add-honeypot', @$_POST['wangguard-add-honeypot']=='1' ? 1 : 0 );
+			update_site_option('wangguard_allow_signup_emails_list', $wangguardlisttoarrayallowemailsploggers);
 			do_action('wangguard_save_setting_option');
 			$selectedTab = 2;
 			echo "<div id='wangguard-warning' class='updated fade'><p><strong>".__('WangGuard settings has been saved.', 'wangguard')."</strong></p></div>";
@@ -133,7 +136,7 @@ function wangguard_conf() {
 				$table_name = $wpdb->base_prefix . "wangguardquestions";
 				$wgquestRs = $wpdb->get_results("select * from $table_name order by id");
 				?>
-				<h4><?php _e('Existing security questions', 'wangguard')?></h4>				
+				<h4><?php _e('Existing security questions', 'wangguard')?></h4>
 				<?php
 				if (empty ($wgquestRs)) {
 					?><div id="wangguard-question-noquestion"><?php _e('No security questions created yet','wangguard')?></div><?php
@@ -160,9 +163,9 @@ function wangguard_conf() {
 			<!--WANGGUARD SETTINGS-->
 			<div id="wangguard-conf-settings" style="margin: auto;">
 				<div class="wangguard-confico"><img src="<?php echo WP_PLUGIN_URL ?>/wangguard/img/settings.png" alt="<?php echo htmlentities(__('WangGuard settings', 'wangguard')) ?>" /></div>
-				<?php 
+				<?php
 				$wangguard_edit_prefix = "";
-				if (function_exists( 'is_network_admin' )) 
+				if (function_exists( 'is_network_admin' ))
 					if (is_network_admin())
 						$wangguard_edit_prefix = "../";
 				?>
@@ -204,7 +207,7 @@ function wangguard_conf() {
 						<input type="checkbox" name="wangguard-add-honeypot" id="wangguard-add-honeypot" value="1" <?php echo get_site_option("wangguard-add-honeypot")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-add-honeypot"><?php _e("<strong>Enable</sytong> honeypot fields (signup trap fields). Some themes has problem with  honeypot fields. If you have some problems with those fields, disable this option", 'wangguard') ?></label>
 					</p>
-					<?php 
+					<?php
 					//verifies if the getmxrr() function is availabe
 					$wangguard_mx_ok = function_exists('getmxrr');?>
 					<p>
@@ -223,6 +226,14 @@ function wangguard_conf() {
 					<p>
 						<input type="checkbox" name="wangguardexpertmode" id="wangguardexpertmode" value="1" <?php echo get_site_option("wangguard-expertmode")=='1' ? 'checked' : ''?> />
 						<label for="wangguardexpertmode"><?php _e("<strong>Ninja mode.</strong><br/>By checking this option no confirmation message will be asked for report operations on the Users manager. Just remember that users gets deleted when reported and the option 'Delete users when reporting them to WangGuard' is selected.", 'wangguard') ?></label>
+					</p>
+					<h3>Allow emails to signup</h3>
+					<p>
+						<label for="wangguard_allow_emails_signup_list"><?php _e( 'Allowed emails. One per line', 'wangguard-allow-signup-splogger-detected' ) ?></label><br />
+
+						<?php $wangguard_allow_emails_signup_list_array = get_site_option( 'wangguard_allow_signup_emails_list' );
+						$wangguard_allow_emails_signup_list = str_replace( ' ', "\n", $wangguard_allow_emails_signup_list_array ); ?>
+						<textarea name="wangguard_allow_emails_signup_list" id="wangguard_allow_emails_signup_list" cols="45" rows="5"><?php echo esc_textarea( $wangguard_allow_emails_signup_list == '' ? '' : implode( "\n", (array) $wangguard_allow_emails_signup_list ) ); ?></textarea>
 					</p>
 					<p>&nbsp;</p>
 					<h3><?php _e("Add-ons Settings", 'wangguard') ?></h3>
@@ -380,7 +391,7 @@ function wangguard_conf() {
 					}
 					if ( !empty($servers) ) {
 					?>
-						<table style="width: 100%;"> 
+						<table style="width: 100%;">
 						<thead>
 							<th style="border-bottom: 1px solid #999; padding-bottom: 5px; margin-bottom: 5px;"><?php _e('WangGuard server', 'wangguard'); ?></th>
 							<th style="border-bottom: 1px solid #999; padding-bottom: 5px; margin-bottom: 5px;"><?php _e('Network Status', 'wangguard'); ?></th>

@@ -53,6 +53,7 @@ License: GPL2
 	include_once 'wangguard-about.php';
 	include_once 'wangguard-compatible-plugins.php';
 	include_once 'wangguard-addons.php';
+	include_once 'wangguard-allow-signup-splogger-detected.php';
 	/********************************************************************/
 	/*** CONFIG ENDS ***/
 	/********************************************************************/
@@ -284,33 +285,34 @@ function wangguard_register_add_question_mu($errors) {
  */
 function wangguard_wpmu_signup_validate_mu($result) {
 	global $wangguard_bp_validated;
-	if ( strpos($_SERVER['PHP_SELF'], 'wp-admin') !== false ) {
-		return $result;
-	}
-	if( isset( $_POST['signup_email'] ) ) return;
-	if( isset( $_POST['user_email'] ) && !empty( $_POST['user_email'] ) ){$user_email = $_POST['user_email'];}else{$user_email=$user_email;}
-		//$user_email = $_POST['user_email'];
-	//BP1.1+ calls the new BP filter first (wangguard_signup_validate_bp11) and then the legacy MU filters (this one), if the BP new 1.1+ filter has been already called, silently return
-	if ($wangguard_bp_validated)return $result;
-	if (!wangguard_validate_hfields($user_email)) {
-		$result['errors']->add('user_name',  __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
-		return $result;
-	}
-	$answerOK = wangguard_question_repliedOK();
-	//If at least a question exists on the questions table, then check the provided answer
-	if (!$answerOK)    $result['errors']->add('wangguardquestansw',  __('<strong>ERROR</strong>: The answer to the security question is invalid.', 'wangguard')); else {
-		//check domain against the list of selected blocked domains
-		$blocked = wangguard_is_domain_blocked($user_email);
-		if ($blocked) {
-			$result['errors']->add('user_email',   __('<strong>ERROR</strong>: Domain not allowed.', 'wangguard'));
-		} else {
-			$reported = wangguard_is_email_reported_as_sp($user_email , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP());
-			if ($reported) $result['errors']->add('user_email',   __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard')); else
-			if (wangguard_email_aliases_exists($user_email))$result['errors']->add('user_email',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard')); else
-			if (!wangguard_mx_record_is_ok($user_email))$result['errors']->add('user_email',   __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
-		}
-	}
-	return $result;
+			if ( strpos($_SERVER['PHP_SELF'], 'wp-admin') !== false ) {
+				return $result;
+			}
+			if( isset( $_POST['signup_email'] ) ) return;
+			if( isset( $_POST['user_email'] ) && !empty( $_POST['user_email'] ) ){$user_email = $_POST['user_email'];}else{$user_email=$user_email;}
+			//$user_email = $_POST['user_email'];
+			//BP1.1+ calls the new BP filter first (wangguard_signup_validate_bp11) and then the legacy MU filters (this one), if the BP new 1.1+ filter has been already called, silently return
+			if ( wangguard_look_for_allowed_email($user_email) ) return $result;
+			if ($wangguard_bp_validated)return $result;
+			if (!wangguard_validate_hfields($user_email)) {
+			$result['errors']->add('user_name',  __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
+				return $result;
+			}
+			$answerOK = wangguard_question_repliedOK();
+			//If at least a question exists on the questions table, then check the provided answer
+			if (!$answerOK)  {  $result['errors']->add('wangguardquestansw',  __('<strong>ERROR</strong>: The answer to the security question is invalid.', 'wangguard')); } else {
+				//check domain against the list of selected blocked domains
+				$blocked = wangguard_is_domain_blocked($user_email);
+				if ($blocked) {
+				$result['errors']->add('user_email',   __('<strong>ERROR</strong>: Domain not allowed.', 'wangguard'));
+					} else {
+						$reported = wangguard_is_email_reported_as_sp($user_email , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP());
+						if ($reported) $result['errors']->add('user_email',   __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard')); else
+						if (wangguard_email_aliases_exists($user_email))$result['errors']->add('user_email',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard')); else
+						if (!wangguard_mx_record_is_ok($user_email))$result['errors']->add('user_email',   __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
+					}
+				}
+			return $result;
 }
 //*********** WPMU ***********
 //*********** BP1.1+ ***********
@@ -645,24 +647,48 @@ function wangguard_wpmu_activate_user($userid, $password, $meta) {
  * @global type $wangguard_user_check_status
  * @param type $userid
  */
-function wangguard_plugin_user_register($userid) {
+	function wangguard_plugin_user_register($userid) {
 	global $wpdb;
 	global $wangguard_user_check_status;
-	if (empty ($wangguard_user_check_status)) {
-		$user = new WP_User($userid);
-		$table_name = $wpdb->base_prefix . "wangguardsignupsstatus";
-		//if there a status on the signups table?
-		$user_status = $wpdb->get_var( $wpdb->prepare("select user_status from $table_name where signup_username = '%s'" , $user->user_login));
-		//delete the signup status
-		$wpdb->query( $wpdb->prepare("delete from $table_name where signup_username = '%s'" , $user->user_login));
-		//If not empty, overrides the status with the signup status
-		if (!empty ($user_status))$wangguard_user_check_status = $user_status;
+	$user = new WP_User($userid);
+	$user_email = $user->user_email;
+
+	$wangguarstatus = wangguard_look_for_allowed_email($user_email);
+
+	if ( !$wangguarstatus ) {
+			if (empty ($wangguard_user_check_status)) {
+			$user = new WP_User($userid);
+			$table_name = $wpdb->base_prefix . "wangguardsignupsstatus";
+			//if there a status on the signups table?
+			$user_status = $wpdb->get_var( $wpdb->prepare("select user_status from $table_name where signup_username = '%s'" , $user->user_login));
+			//delete the signup status
+			$wpdb->query( $wpdb->prepare("delete from $table_name where signup_username = '%s'" , $user->user_login));
+			//If not empty, overrides the status with the signup status
+			if (!empty ($user_status))$wangguard_user_check_status = $user_status;
+		}
+		$table_name = $wpdb->base_prefix . "wangguarduserstatus";
+		$user_status = $wpdb->get_var( $wpdb->prepare("select ID from $table_name where ID = %d" , $userid));
+		if (is_null($user_status))//insert the new status
+		$wpdb->query( $wpdb->prepare("insert into $table_name(ID , user_status , user_ip , user_proxy_ip) values (%d , '%s' , '%s' , '%s')" , $userid , $wangguard_user_check_status , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() ) ); else //update the new status
+		$wpdb->query( $wpdb->prepare("update $table_name set user_status = '%s' where ID = %d" , $wangguard_user_check_status , $userid  ) );
+	} else {
+		$wangguard_user_check_status = 'whitelisted';
+		if (empty ($wangguard_user_check_status)) {
+			$user2 = new WP_User($userid);
+			$table_name = $wpdb->base_prefix . "wangguardsignupsstatus";
+			//if there a status on the signups table?
+			$user_status = $wpdb->get_var( $wpdb->prepare("select user_status from $table_name where signup_username = '%s'" , $user2->user_login));
+			//delete the signup status
+			$wpdb->query( $wpdb->prepare("delete from $table_name where signup_username = '%s'" , $user2->user_login));
+			//If not empty, overrides the status with the signup status
+			if (!empty ($user_status))$wangguard_user_check_status = 'whitelisted';
+			}
+		$table_name = $wpdb->base_prefix . "wangguarduserstatus";
+		$user_status = $wpdb->get_var( $wpdb->prepare("select ID from $table_name where ID = %d" , $userid));
+		if (is_null($user_status))//insert the new status
+		$wpdb->query( $wpdb->prepare("insert into $table_name(ID , user_status , user_ip , user_proxy_ip) values (%d , '%s' , '%s' , '%s')" , $userid , $wangguard_user_check_status , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() ) ); else //update the new status
+		$wpdb->query( $wpdb->prepare("update $table_name set user_status = '%s' where ID = %d" , $wangguard_user_check_status , $userid  ) );
 	}
-	$table_name = $wpdb->base_prefix . "wangguarduserstatus";
-	$user_status = $wpdb->get_var( $wpdb->prepare("select ID from $table_name where ID = %d" , $userid));
-	if (is_null($user_status))//insert the new status
-	$wpdb->query( $wpdb->prepare("insert into $table_name(ID , user_status , user_ip , user_proxy_ip) values (%d , '%s' , '%s' , '%s')" , $userid , $wangguard_user_check_status , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() ) ); else //update the new status
-	$wpdb->query( $wpdb->prepare("update $table_name set user_status = '%s' where ID = %d" , $wangguard_user_check_status , $userid  ) );
 }
 /**
  * Deletes the status of a user from the WangGuard status tracking table

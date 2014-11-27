@@ -100,6 +100,10 @@ function wangguard_signup_validate_bp11() {
 	global $wangguard_bp_validated;
 	$wangguard_bp_validated = true;
 	$signup_email = $_POST['signup_email'];
+	$wggstopcheck = false;
+	do_action('pre_wangguard_validate_signup_form_wordpress_no_multisite', $signup_email);
+	$wggstopcheck = apply_filters('pre_wangguard_validate_signup_form_wordpress_no_multisite', $wggstopcheck );
+		if ( !$wggstopcheck ){
 	if (!wangguard_validate_hfields($signup_email)) {
 		$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe (__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
 		return;
@@ -119,6 +123,7 @@ function wangguard_signup_validate_bp11() {
 		}
 	}
 	if (isset ($bp->signup->errors['signup_email']))$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe($bp->signup->errors['signup_email']);
+	}
 }
 add_action( 'wangguard_bp_make_spam_user', 'wangguard_spam_all_data' );
 add_action('bp_signup_validate', 'wangguard_signup_validate_bp11' );
