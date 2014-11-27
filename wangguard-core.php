@@ -115,10 +115,7 @@ function wangguard_install($current_version) {
 	global $wangguard_db_version;
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 	$charset_collate = '';
-	if ( ! empty($wpdb->charset) )
-		$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
-	if ( ! empty($wpdb->collate) )
-		$charset_collate .= " COLLATE $wpdb->collate";
+	$charset_collate = $wpdb->get_charset_collate();
 	$table_name = $wpdb->base_prefix . "wangguardquestions";
 	if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
 		$sql = "CREATE TABLE " . $table_name . " (

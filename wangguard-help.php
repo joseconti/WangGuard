@@ -10,7 +10,7 @@ function wangguard_help() {
 	if ( ! is_multisite() ) {
 									$wangguarsettingspage = '<a href="' .esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_conf' ), 'admin.php' ) ) ) . '">' . __( 'WangGuard Settings', 'wangguard' ) . '</a>';
 									$wangguaruserspage = '<a href="' .esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_users' ), 'admin.php' ) ) ) . '">' . __( 'WangGuard Users', 'wangguard' ) . '</a>';
-									} else { 
+									} else {
 									$wangguarsettingspage = '<a href="' .esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_conf' ), 'admin.php' ) ) ) . '">' . __( 'WangGuard Settings', 'wangguard' ) . '</a>';
 									$wangguaruserspage = '<a href="' .esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_users' ), 'admin.php' ) ) ) . '">' . __( 'WangGuard Users', 'wangguard' ) . '</a>';
 	}
@@ -133,7 +133,7 @@ function wangguard_help() {
 					<p>
 					<?php
 							$sitetableprefix= $wpdb->base_prefix;
-							$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+							$charset_collate = $wpdb->get_charset_collate();
 echo '<textarea class="code" readonly="readonly" cols="80" rows="16">
 CREATE TABLE '.$sitetableprefix.'wangguardquestions (
 	id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -180,7 +180,7 @@ CREATE TABLE '.$sitetableprefix.'wangguardcronjobs (
 				</div>
 			</div>
 			<div class="return-to-dashboard">
-				<a href="<?php 
+				<a href="<?php
 		if ( !is_multisite() ) {
 			echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_conf' ), 'admin.php' ) ) );
 		} else {
@@ -203,7 +203,7 @@ function wangguard_help_us() {
 	<?php $wangguardtranslatedlanguages = 'Spanish and Italian'; ?>
 	<?php if ( ! is_multisite() ) {
 									$wangguarcontributors = '<a href="' .esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_credits' ), 'admin.php' ) ) ) . '">' . __( 'Credits', 'wangguard' ) . '</a>';
-									} else { 
+									} else {
 									$wangguarcontributors = '<a href="' .esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_credits' ), 'admin.php' ) ) ) . '">' . __( 'Credits', 'wangguard' ) . '</a>';
 									} ?>
 		<div class="wrap about-wrap">
@@ -277,7 +277,7 @@ function wangguard_help_us() {
 				</div>
 			</div>
 			<div class="return-to-dashboard">
-				<a href="<?php 
+				<a href="<?php
 		if ( !is_multisite() ) {
 			echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_conf' ), 'admin.php' ) ) );
 		} else {
@@ -371,7 +371,7 @@ function wangguard_contact_form($atts) {
 		if ( function_exists( 'mysql_get_server_info' ) ) $wangguardmysqlversion =  mysql_get_server_info();
 		if ( defined('WP_DEBUG') && WP_DEBUG ) { $wangguardwpdebug = 'Yes'; } else { $wangguardwpdebug = 'No'; }
 		if ( function_exists( 'ini_get' ) ) $wangguarmaxexecutiontime = ini_get('max_execution_time');
-		if ( function_exists( 'wangguardgetactiveplugins' ) ) $wangguaractiveplugins = wangguardgetactiveplugins();		
+		if ( function_exists( 'wangguardgetactiveplugins' ) ) $wangguaractiveplugins = wangguardgetactiveplugins();
 		if ($error == false) {
 			$email_subject = "Contact from the Website [" . get_bloginfo('name') . "] " . $form_data['subject'];
 			$email_message = $message_copy . "\n\n" . $form_data['message'] . "\n\nUser IP: " . wangguard_get_the_ip() . "\n\nServer IP: " . $_SERVER['SERVER_ADDR'] . "\n\nHome URL: " . home_url() . "\n\nSite URL: " . site_url() . "\n\nWangGuard version: " . $wangguard_version . "\n\nWordPress version: " . $wangguardwordpressversion . get_bloginfo('version') . "\n\nWeb Server Info: " . $_SERVER['SERVER_SOFTWARE'] . "\n\nPHP Version: " . $wangguardphpversion . "\n\nMySQL Version: " .  $wangguardmysqlversion . "\n\nWordPress Debug: " .  $wangguardwpdebug . "\n\nMax Execution Time: " . $wangguarmaxexecutiontime . "\n\nActive Plugins: ".$wangguardserverinfo;
@@ -437,9 +437,9 @@ function wangguard_contact_form($atts) {
 				</a>
 			</h2>
 			<p class="about-description"><?php printf( __('Contact with us. With this contact form you will send your Name, email, Subject, Message, Web URL, Site URL, IP Server, PHP Version, MySQL version and active plugins. This will help us to help you. If you don\'t want to send us all that information, use our website contact form %s', 'wangguard' ), $wangguardcontactformurl); ?></p>
-			 <?php echo do_shortcode( '[wangguardcontact]' ) ?> 
+			 <?php echo do_shortcode( '[wangguardcontact]' ) ?>
 			<div class="return-to-dashboard">
-				<a href="<?php 
+				<a href="<?php
 		if ( !is_multisite() ) {
 			echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_conf' ), 'admin.php' ) ) );
 		} else {
