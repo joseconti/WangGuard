@@ -3,19 +3,13 @@
 function wangguard_conf() {
 	global $wpdb;
 	global $wangguard_nonce, $wangguard_api_key;
-
 	if ( !current_user_can('level_10') )
 		die(__('Cheatin&#8217; uh?', 'wangguard'));
-
 	$key_status = "";
-
-	
 	$selectedTab = 0;
-	
 	if ( isset($_POST['submit']) ) {
 		check_admin_referer( $wangguard_nonce );
 		$key = preg_replace( '/[^a-h0-9]/i', '', $_POST['key'] );
-
 		if ( empty($key) ) {
 			$key_status = 'empty';
 			$ms[] = 'new_key_empty';
@@ -23,7 +17,6 @@ function wangguard_conf() {
 		} else {
 			$key_status = wangguard_verify_key( $key );
 		}
-
 		if ( $key_status == 'valid' ) {
 			update_site_option('wangguard_api_key', $key);
 			$ms[] = 'new_key_valid';
@@ -32,60 +25,35 @@ function wangguard_conf() {
 		} else if ( $key_status == 'failed' ) {
 			$ms[] = 'new_key_failed';
 		}
-		
 	} elseif ( isset($_POST['saveblockeddomain']) ) {
 		echo "<div id='wangguard-warning' class='updated fade'><p><strong>".__('Blocked domains has been saved.', 'wangguard')."</strong></p></div>";
-
 		$selectedDomains = array();
 		if (is_array($_POST['domains'])) {
 			foreach ($_POST['domains'] as $domain) {
 				$selectedDomains[$domain] = true;
 			}
 		}
-		
 		update_site_option('blocked-list-domains' , $selectedDomains) ;
-
-		
 		$selectedTab = 3;
-
 	} elseif ( isset($_POST['check']) ) {
-
 		wangguard_get_server_connectivity(0);
 		$selectedTab = 4;
-
 	} elseif ( isset($_POST['optssave']) ) {
-
 			update_site_option('wangguard-expertmode', @$_POST['wangguardexpertmode']=='1' ? 1 : 0 );
-
 			update_site_option('wangguard-report-posts', @$_POST['wangguardreportposts']=='1' ? 1 : 0 );
-
 			update_site_option('wangguard-delete-users-on-report', @$_POST['wangguard-delete-users-on-report']=='1' ? 1 : -1 );
-			
 			update_site_option('wangguard-enable-bp-report-btn', @$_POST['wangguardenablebpreportbtn']=='1' ? 1 : -1 );
-			
 			update_site_option('wangguard-enable-bp-report-blog', @$_POST['wangguardenablebpreportblog']=='1' ? 1 : -1 );
-
 			update_site_option('wangguard-verify-gmail', @$_POST['wangguard-verify-gmail']=='1' ? 1 : 0 );
-			
 			update_site_option('wangguard_disable-meta-header', @$_POST['wangguard_disable-meta-header']=='1' ? 1 : 0 );
-			
 			update_site_option('wangguard-verify-dns-mx', @$_POST['wangguard-verify-dns-mx']=='1' ? 1 : 0 );
-
 			update_site_option('wangguard-do-not-check-client-ip', @$_POST['wangguard-do-not-check-client-ip']=='1' ? 1 : 0 );
-			
 			update_site_option('wangguard-do-not-show-adminbar', @$_POST['wangguard-do-not-show-adminbar']=='1' ? 1 : 0 );
-			
 			update_site_option('wangguard-add-honeypot', @$_POST['wangguard-add-honeypot']=='1' ? 1 : 0 );
-			
 			do_action('wangguard_save_setting_option');
-			
-
 			$selectedTab = 2;
-			
 			echo "<div id='wangguard-warning' class='updated fade'><p><strong>".__('WangGuard settings has been saved.', 'wangguard')."</strong></p></div>";
-
 	}
-
 	if ( $key_status != 'valid' ) {
 		$key = get_site_option('wangguard_api_key');
 		if ( empty( $key ) ) {
@@ -108,8 +76,6 @@ function wangguard_conf() {
 			$ms[] = 'key_failed';
 		}
 	}
-	
-
 	$messages = array(
 		'new_key_empty' => array('class' => 'wangguard-info', 'text' => __('Your key has been cleared.', 'wangguard')),
 		'new_key_valid' => array('class' => 'wangguard-info wangguard-success', 'text' => __('Your key has been verified!', 'wangguard')),
@@ -119,24 +85,16 @@ function wangguard_conf() {
 		'key_empty' => array('class' => 'wangguard-info', 'text' => sprintf(__('Please enter an API key. (<a href="%s" style="color:#fff">Get your key here.</a>)', 'wangguard'), 'http://wangguard.com/getapikey')),
 		'key_valid' => array('class' => 'wangguard-info wangguard-success', 'text' => __('This key is valid.', 'wangguard')),
 		'key_failed' => array('class' => 'wangguard-info wangguard-error', 'text' => __('The key below was previously validated but a connection to wangguard.com can not be established at this time. Please check your server configuration.', 'wangguard')));
-
-	
 	wp_enqueue_script("jquery-ui-tabs");
 	wp_print_scripts("jquery-ui-tabs");
 ?>
-
-
 <?php if ( !empty($_POST['submit'] ) ) : ?>
 <div id="message" class="updated fade"><p><strong><?php _e('Options saved.', 'wangguard') ?></strong></p></div>
 <?php endif; ?>
-
-
 <div class="wrap">
 	<div class="icon32" id="icon-wangguard"><br></div>
 	<h2><?php _e('WangGuard Configuration', 'wangguard'); ?></h2>
 	<div class="">
-
-
 		<div id="wangguard-conf-tabs">
 			<ul id="wangguard-tabs">
 				<li><a href="#wangguard-conf-apikeys"><?php _e('WangGuard API Key', 'wangguard'); ?></a></li>
@@ -146,39 +104,27 @@ function wangguard_conf() {
 				<li><a href="#wangguard-conf-conectivity"><?php _e('Server Connectivity', 'wangguard'); ?></a></li>
 			</ul>
 			<div id="wangguard-tabs-container">
-				
-
 			<!--WANGGUARD API KEY-->
 			<div id="wangguard-conf-apikeys">
 					<div class="wangguard-confico"><img src="<?php echo WP_PLUGIN_URL ?>/wangguard/img/apikey.png" alt="<?php echo htmlentities(__('WangGuard API Key', 'wangguard')) ?>" /></div>
 				<form action="" method="post" id="wangguard-conf" style="margin: auto;">
 					<p><?php printf(__('For many people, <a href="%1$s">WangGuard</a> will greatly reduce or even completely eliminate the Sploggers you get on your site. If one does happen to get through, simply mark it as Splogger on the Users screen. If you don\'t have an API key yet, <a href="%2$s" target="_new">get one here</a>.', 'wangguard'), 'http://wangguard.com/', 'http://wangguard.com/getapikey'); ?></p>
-
 					<h3><label for="key"><?php _e('WangGuard API Key', 'wangguard'); ?></label></h3>
 					<?php foreach ( $ms as $m ) : ?>
 						<p class="<?php echo $messages[$m]['class']; ?>"><?php echo $messages[$m]['text']; ?></p>
 					<?php endforeach; ?>
 					<p><input id="key" name="key" type="text" size="35" maxlength="32" value="<?php echo get_site_option('wangguard_api_key'); ?>" style="font-family: 'Courier New', Courier, mono; font-size: 1.5em;" /> (<?php _e('<a href="http://wangguard.com/faq" target="_new">What is this?</a>', 'wangguard'); ?>)</p>
-
 					<?php if ( $key_status == 'invalid' ) { ?>
 						<h3><?php _e('Why might my key be invalid?', 'wangguard'); ?></h3>
 						<p><?php _e('This can mean one of two things, either you copied the key wrong or that the plugin is unable to reach the WangGuard servers, which is most often caused by an issue with your web host around firewalls or similar.', 'wangguard'); ?></p>
 					<?php } ?>
-
-
 					<?php wangguard_nonce_field($wangguard_nonce) ?>
-
 					<p class="submit"><input type="submit" name="submit" class="button-primary" value="<?php _e('Update options &raquo;', 'wangguard'); ?>" /></p>
 				</form>
 			</div>
-
-
-
 			<!--WANGGUARD QUESTIONS-->
 			<div id="wangguard-conf-questions" style="margin: auto;">
-
 				<div class="wangguard-confico"><img src="<?php echo WP_PLUGIN_URL ?>/wangguard/img/security.png" alt="<?php echo htmlentities(__('Security questions', 'wangguard')) ?>" /></div>
-				
 				<h3><?php _e('Security questions', 'wangguard'); ?></h3>
 				<p><?php _e('Security questions are randomly asked on the registration form to prevent automated signups.', 'wangguard')?></p>
 				<p><?php _e('Security questions are optional, it\'s up to you whether to use them or not.', 'wangguard')?></p>
@@ -187,9 +133,7 @@ function wangguard_conf() {
 				$table_name = $wpdb->base_prefix . "wangguardquestions";
 				$wgquestRs = $wpdb->get_results("select * from $table_name order by id");
 				?>
-				
 				<h4><?php _e('Existing security questions', 'wangguard')?></h4>				
-				
 				<?php
 				if (empty ($wgquestRs)) {
 					?><div id="wangguard-question-noquestion"><?php _e('No security questions created yet','wangguard')?></div><?php
@@ -204,7 +148,6 @@ function wangguard_conf() {
 				<?php } ?>
 				<div id="wangguard-new-question-container">
 				</div>
-
 				<h4><?php _e('Add a new security question', 'wangguard')?></h4>
 				<?php _e("Question", 'wangguard')?><br/><input type="text" name="wangguardnewquestion" id="wangguardnewquestion" class="wangguard-input" maxlength="255" value="" />
 				<br/><br style="line-height: 5px"/>
@@ -214,17 +157,9 @@ function wangguard_conf() {
 				</div>
 				<p class="submit"><input type="button" id="wangguardnewquestionbutton" class="button-primary" name="submit" value="<?php _e('Create question &raquo;', 'wangguard'); ?>" /></p>
 			</div>
-
-
-			
-			
-
-
 			<!--WANGGUARD SETTINGS-->
 			<div id="wangguard-conf-settings" style="margin: auto;">
-				
 				<div class="wangguard-confico"><img src="<?php echo WP_PLUGIN_URL ?>/wangguard/img/settings.png" alt="<?php echo htmlentities(__('WangGuard settings', 'wangguard')) ?>" /></div>
-				
 				<?php 
 				$wangguard_edit_prefix = "";
 				if (function_exists( 'is_network_admin' )) 
@@ -241,7 +176,6 @@ function wangguard_conf() {
 						<input type="checkbox" name="wangguard-delete-users-on-report" id="wangguard-delete-users-on-report" value="1" <?php echo get_site_option("wangguard-delete-users-on-report")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-delete-users-on-report"><?php _e("<strong>Delete users when reporting them to WangGuard.</strong><br/>By checking this option, the users you report as Sploggers will be deleted from your site.", 'wangguard') ?></label>
 					</p>
-					
 					<?php if (defined('BP_VERSION')) { ?>
 					<p>
 						<input type="checkbox" name="wangguardenablebpreportbtn" id="wangguardenablebpreportbtn" value="1" <?php echo get_site_option("wangguard-enable-bp-report-btn")=='1' ? 'checked' : ''?> />
@@ -254,7 +188,6 @@ function wangguard_conf() {
 						<label for="wangguardenablebpreportblog"><?php _e("<strong>Show the 'Report blog and author' menu item in the Admin Bar.</strong><br/>By checking this option a new menu item on the Admin Bar called 'Report blog and author' will be shown on each blog.", 'wangguard') ?></label>
 					</p>
 					<?php } ?>
-
 					<p>
 						<input type="checkbox" name="wangguard-do-not-show-adminbar" id="wangguard-do-not-show-adminbar" value="1" <?php echo get_site_option("wangguard-do-not-show-adminbar")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-do-not-show-adminbar"><?php _e("<strong>Disable</strong> WangGuard menu from WordPress & BuddyPress AdminBar.", 'wangguard') ?></label>
@@ -263,12 +196,10 @@ function wangguard_conf() {
 						<input type="checkbox" name="wangguard-verify-gmail" id="wangguard-verify-gmail" value="1" <?php echo get_site_option("wangguard-verify-gmail")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-verify-gmail"><?php _e("<strong>Check for duplicated gmail.com and googlemail.com emails on sign up.</strong><br/>Checks that duplicated accounts @gmail.com and @googlemail.com accounts doesn't exists, also takes in count that gMail ignores the dots and what's after a + sign on the left side of the @.", 'wangguard') ?></label>
 					</p>
-
 					<p>
 						<input type="checkbox" name="wangguard_disable-meta-header" id="wangguard_disable-meta-header" value="1" <?php echo get_site_option("wangguard_disable-meta-header")=='1' ? 'checked' : ''?> />
 						<label for="wangguard_disable-meta-header"><?php _e("<strong>Remove the generator META tag.</strong><br/>By checking this option, WangGuard will remove the generator META tag from the generated pages of your site, this will prevent automated bots to easilly identify a WordPress site by looking at this META tag.", 'wangguard') ?></label>
 					</p>
-
 					<p>
 						<input type="checkbox" name="wangguard-add-honeypot" id="wangguard-add-honeypot" value="1" <?php echo get_site_option("wangguard-add-honeypot")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-add-honeypot"><?php _e("<strong>Enable</sytong> honeypot fields (signup trap fields). Some themes has problem with  honeypot fields. If you have some problems with those fields, disable this option", 'wangguard') ?></label>
@@ -285,47 +216,29 @@ function wangguard_conf() {
 							echo "</div>";
 						} ?>
 					</p>
-
 					<p>
 						<input type="checkbox" name="wangguard-do-not-check-client-ip" id="wangguard-do-not-check-client-ip" value="1" <?php echo get_site_option("wangguard-do-not-check-client-ip")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-do-not-check-client-ip"><?php _e("<strong>Do NOT verify client IP address.</strong><br/>By checking this option, when checking a user, the IP address of the user will not be sent along with the e-mail address to the WangGuard service. Selecting this option reduces WangGuard effectiveness, but if your new accounts come mostly from the same IP, in the case of colleges, universities or other large institutions, this would prevent WangGuard from flagging the IP address as suspicious.", 'wangguard') ?></label>
 					</p>
-
 					<p>
 						<input type="checkbox" name="wangguardexpertmode" id="wangguardexpertmode" value="1" <?php echo get_site_option("wangguard-expertmode")=='1' ? 'checked' : ''?> />
 						<label for="wangguardexpertmode"><?php _e("<strong>Ninja mode.</strong><br/>By checking this option no confirmation message will be asked for report operations on the Users manager. Just remember that users gets deleted when reported and the option 'Delete users when reporting them to WangGuard' is selected.", 'wangguard') ?></label>
 					</p>
 					<p>&nbsp;</p>
 					<h3><?php _e("Add-ons Settings", 'wangguard') ?></h3>
-					
 					<?php do_action('wangguard_setting'); ?>
-
 					<p class="submit"><input class="button-primary" type="submit" name="optssave" value="<?php _e('Save options &raquo;', 'wangguard'); ?>" />
-					
 					</p>
-					
-
 				</form>
 			</div>
-
-			
-
-
-			
-			
-			
-
 			<!--WANGGUARD BLOCKED DOMAINS-->
 			<div id="wangguard-conf-domains" style="margin: auto;">
-				
 				<div class="wangguard-confico"><img src="<?php echo WP_PLUGIN_URL ?>/wangguard/img/blocked.png" alt="<?php echo htmlentities(__('Blocked domains', 'wangguard')) ?>" /></div>
-				
 				<h3><?php _e('Blocked domains', 'wangguard'); ?></h3>
 				<p><?php _e('Here are different domain lists maintained by WangGuard.', 'wangguard'); ?></p>
 				<p><?php _e('You should never block all domains contained in these listings or no one can register on your site.', 'wangguard'); ?></p>
 				<p><?php _e('If a domain is in this list, it is because one or more of its users have used for undesirable activities, but that does not mean they are entirely sploggers.', 'wangguard'); ?></p>
 				<p><?php _e('These lists are updated automatically each time you enter this screen.', 'wangguard'); ?></p>
-				
 				<?php
 				$lang = substr(WPLANG, 0,2);
 				$response = wangguard_http_post("wg=<in><apikey>$wangguard_api_key</apikey><lang>$lang</lang></in>", 'get-domain-list.php');
@@ -334,7 +247,6 @@ function wangguard_conf() {
 					?><p><?php _e("There was an error while pulling the domains list from WangGuard, please try again later. If the problem persists please contact WangGuard to report it.", 'wangguard') ?></p><?php
 				}
 				else {
-					
 					$selectedDomains = maybe_unserialize( get_site_option('blocked-list-domains') );
 					if (!is_array($selectedDomains)) $selectedDomains = array();
 					?>
@@ -344,20 +256,16 @@ function wangguard_conf() {
 						$lists = $xml['out']['list'];
 						$domainix = 0;
 						foreach ($lists as $ix => $list) {
-							
 							$domainQ = 0;
 							if (@is_array($list['domains']['domain']))
 								$domainQ = count($list['domains']['domain']);
 							elseif (isset($list['domains']['domain']))
 								$domainQ = 1;
-							
 							echo "<div class='wangguard-blockeddomain-header' id='wangguard-blockeddomain-header-".$ix."'><a href='javascript:void(0)' rel='".$ix."'>".$list['name']."&nbsp;&nbsp;&nbsp;(<span id='wangguard-domain-count-".$ix."'>0</span> ".sprintf(__('out of %d domains selected', 'wangguard') , $domainQ).")</a></div>";
 							echo "<div class='wangguard-blockeddomain-domains' id='wangguard-blockeddomain-domains-".$ix."' wgix='".$ix."' ".("style='display:none'").">";
 							echo "<p>".$list['description']."</p>";
 							echo "<div class='wangguard-blockeddomain-list'>";
-
 							echo '<table class="wp-list-table widefat" cellspacing="0">';
-
 							echo '<thead>';
 							echo '<tr>';
 							echo '<td colspan="4" class="check-column" style="padding: 4px 7px 2px; font-style:italic; font-weight:bold">';
@@ -365,9 +273,7 @@ function wangguard_conf() {
 							echo "</td>";
 							echo "</tr>";
 							echo '</thead>';
-
 							echo '<tbody>';
-							
 							if (@is_array($list['domains']['domain'])) {
 								echo '<tr>';
 								$colIX = 1;
@@ -380,7 +286,6 @@ function wangguard_conf() {
 										echo '</tr><tr>';
 										$colIX = 1;
 									}
-									
 								}
 								echo "</tr>";
 							}
@@ -393,7 +298,6 @@ function wangguard_conf() {
 								echo "</td>";
 								echo "</tr>";
 							}
-							
 							echo "</tbody>";
 							echo "</table>";
 							echo "</div>";
@@ -404,22 +308,17 @@ function wangguard_conf() {
 						<p class="submit"><input class="button-primary" type="submit" name="saveblockeddomain" value="<?php _e('Save blocked domains &raquo;', 'wangguard'); ?>" /></p>
 					</form>
 					<script type="text/javascript">
-						
 						function wangguard_update_domain_count(ix) {
 							var q = jQuery("#wangguard-blockeddomain-domains-"+ix+" td.wangguard-domain input[type=checkbox]:checked").length;
 							jQuery('#wangguard-domain-count-' + ix).html(q);
 						}
-						
 						var wangguardDomainBlockIX = -1;
 						jQuery(document).ready(function() {
-							
 							jQuery(".wangguard-blockeddomain-domains input[type=checkbox]").change(function() {
 								wangguard_update_domain_count(jQuery(this).attr("wgix"));
 							});
-							
 							jQuery(".wangguard-blockeddomain-header a").click(function() {
 								var ix = jQuery(this).attr('rel');
-								
 								if (wangguardDomainBlockIX == ix) {
 									jQuery('#wangguard-blockeddomain-domains-'+wangguardDomainBlockIX).slideUp('fast');
 									wangguardDomainBlockIX = -1;
@@ -427,12 +326,10 @@ function wangguard_conf() {
 								else {
 									if (wangguardDomainBlockIX != -1)
 										jQuery('#wangguard-blockeddomain-domains-'+wangguardDomainBlockIX).slideUp('fast');
-									
 									jQuery('#wangguard-blockeddomain-domains-'+ix).slideDown('fast');
 									wangguardDomainBlockIX = ix;
 								}
 							});
-							
 							jQuery(".wangguard-blockeddomain-domains").each(function() {
 								wangguard_update_domain_count(jQuery(this).attr("wgix"));
 							});
@@ -441,19 +338,12 @@ function wangguard_conf() {
 					<?php
 				}
 				?>
-				
 			</div>
 			<!--WANGGUARD BLOCKED DOMAINS-->
-
-			
-
 			<!--WANGGUARD SERVERS-->
 			<div id="wangguard-conf-conectivity" style="margin: auto;">
-
 				<div class="wangguard-confico"><img src="<?php echo WP_PLUGIN_URL ?>/wangguard/img/connectivity.png" alt="<?php echo htmlentities(__('Server Connectivity', 'wangguard')) ?>" /></div>
-			
 				<form action="" method="post" id="wangguard-connectivity" style="margin:0px auto 0 auto;  ">
-
 					<h3 style="margin-bottom: 30px;"><?php _e('Server Connectivity', 'wangguard'); ?></h3>
 				<?php
 					if ( !function_exists('fsockopen') || !function_exists('gethostbynamel') ) {
@@ -464,7 +354,6 @@ function wangguard_conf() {
 					} else {
 						$servers = wangguard_get_server_connectivity();
 						$fail_count = count($servers) - count( array_filter($servers) );
-
 						if ( is_array($servers) && count($servers) > 0 ) {
 							// some connections work, some fail
 							if ( $fail_count > 0 && $fail_count < count($servers) ) { ?>
@@ -489,7 +378,6 @@ function wangguard_conf() {
 							<?php
 						}
 					}
-
 					if ( !empty($servers) ) {
 					?>
 						<table style="width: 100%;"> 
@@ -517,11 +405,8 @@ function wangguard_conf() {
 					<p class="submit"><input type="submit" name="check" class="button-primary" value="<?php _e('Check network status &raquo;', 'wangguard'); ?>" /></p>
 				</form>
 			</div>
-
 			</div>
-			
 		</div>
-
 <?php $wpversion = get_bloginfo('version');
 if ($wpversion >= '3.6') { ?>
 		<script type="text/javascript">
@@ -537,9 +422,7 @@ if ($wpversion >= '3.6') { ?>
 			  jQuery('#wangguard-conf-tabs').tabs("select" , <?php echo $selectedTab?>);
 		  });
 		</script>
-		
 		<?php } ?>
-
 	</div>
 </div>
 <?php

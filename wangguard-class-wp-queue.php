@@ -8,16 +8,12 @@
 			global $wp_version;
 			$cur_wp_version = preg_replace('/-.*$/', '', $wp_version);
 			$callConstructor = version_compare($cur_wp_version , '3.2.1' , ">=");
-			
 			if (!$callConstructor) {
 				parent::WP_List_Table( array('singular' => 'report','plural'   => 'reports') );
 			} else {
 				parent::__construct( array('singular' => 'report','plural'   => 'reports') );
 			}
-
 		}
-
-		
 		function prepare_items() {
 			global $usersearch;
 			$usersearch = isset( $_REQUEST['s'] ) ? $_REQUEST['s'] :
@@ -26,27 +22,20 @@
 			$paged = $this->get_pagenum();
 			$args = array('number' => $users_per_page,'offset' => ( $paged-1 ) * $users_per_page,'search' => $usersearch,'fields' => 'all_with_meta');
 			$args['search'] = '*' . $args['search'] . '*';
-			
 			if ( isset( $_REQUEST['orderby'] ) )$args['orderby'] = $_REQUEST['orderby'];
-			
 			if ( isset( $_REQUEST['order'] ) )$args['order'] = $_REQUEST['order'];
 			// Query the user IDs for this page
 			$wp_user_search = new WangGuard_Queue_Query( $args );
 			$this->items = $wp_user_search->get_results();
 			$this->set_pagination_args( array('total_items' => $wp_user_search->get_total(),'per_page' => $users_per_page,) );
 		}
-
-		
 		function no_items() {
 			_e( 'No reported users or blogs were found.' , 'wangguard' );
 		}
-
-		
 		function get_views() {
 			global $wpdb;
 			$url = 'admin.php?page=wangguard_queue';
 			$requestType = "";
-			
 			if (isset($_REQUEST['type']))$requestType = $_REQUEST['type'];
 			$table_name = $wpdb->base_prefix . "wangguardreportqueue";
 			$Count = $wpdb->get_col( "select count(*) as q from $table_name where ID IS NOT NULL");
@@ -65,40 +54,27 @@
 			$total['reportedbcount'] = "<a href='" . add_query_arg( 'type', "b", $url ) . "'$class>".sprintf( __( 'Reported blogs <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $total_blogs ) )."</a>";
 			return $total;
 		}
-
-		
 		function get_bulk_actions() {
 			$actions = array();
 			$actions['unreport'] = __( 'Remove from Queue', 'wangguard' );
 			$actions['reportassplog'] = __( 'Report as Splogger', 'wangguard' );
 			return $actions;
 		}
-
-		
 		function extra_tablenav( $which ) {
 			return;
 		}
-
-		
 		function current_action() {
-			
 			if ( isset($_REQUEST['changeit']) && !empty($_REQUEST['new_role']) )return 'promote';
 			return parent::current_action();
 		}
-
-		
 		function get_columns() {
 			$c = array('cb'       => '<input type="checkbox" />','username' => __( 'Username' ),'wgtype' => __( 'Type' , "wangguard" ),'email'    => __( 'E-mail' ),'wgreported_by'    => __( 'Reported by' , 'wangguard' ),'wgreported_on'    => __( 'Reported on' , 'wangguard' ));
 			return $c;
 		}
-
-		
 		function get_sortable_columns() {
 			$c = array('username' => 'login','wgtype' => 'wgtype','wgreported_by' => 'wgreported_by','wgreported_on' => 'wgreported_on');
 			return $c;
 		}
-
-		
 		function display_rows() {
 			// Query the post counts for this page
 			$style = '';
@@ -106,28 +82,21 @@
 				$style = ( ' class="alternate"' == $style ) ? '' : ' class="alternate"';
 				echo "\n\t", $this->single_row( $row_data, $style );
 			}
-
 		}
-
 		/**
 	 * Generate HTML for a single row on the users.php admin panel.
 	 */
 		function single_row( $row_data, $style = '') {
 			global $wpdb;
-			
 			if (!isset($_REQUEST['order'])) {
 				$_REQUEST['order'] = 'desc';
 			}
-
-			
 			if (!isset($_REQUEST['orderby'])) {
 				$_REQUEST['orderby'] = 'wgreported_on';
 			}
-
 			$url = admin_url('admin.php?page=wangguard_queue&order='.$_REQUEST['order'].'&orderby='.$_REQUEST['orderby']);
 			$row_data->reported_by->filter = 'display';
 			$authors_div = "";
-			
 			if ( is_a( $row_data, 'WP_User' ) ) {
 				//USER
 				$row_data->filter = 'display';
@@ -136,7 +105,6 @@
 				// Set up the hover actions for this user
 				$actions = array();
 				$actions['unreport'] = "<a href='javascript:void(0)' rel='".$row_data->ID."' class='wangguard-queue-remove-user'>" . __( 'Remove from Queue', 'wangguard' ) . "</a>";
-				
 				if (defined('BP_VERSION')) {
 					$user_editobj_link = esc_url( add_query_arg( 'wp_http_referer', urlencode( stripslashes( $_SERVER['REQUEST_URI'] ) ), "user-edit.php?user_id=" . $row_data->ID ) );
 					$editobj_link = esc_url(  bp_core_get_user_domain($row_data->ID));
@@ -149,7 +117,6 @@
 		$editobj_link = esc_url( add_query_arg( 'wp_http_referer', urlencode( stripslashes( $_SERVER['REQUEST_URI'] ) ), "user-edit.php?user_id=" . $row_data->ID ) );
 		$report = "<strong><a target=\"_blank\" href=\"$editobj_link\">{$row_data->user_login}</a></strong><br />";
 }
-
 $report .= $this->row_actions( $actions );
 // Set up the checkbox ( because the user is editable, otherwise its empty )
 $checkbox = "<input type='checkbox' name='users[]' id='user_{$row_data->ID}' value='{$row_data->ID}' />";
@@ -167,17 +134,13 @@ $rowID = "user-".$userid;
 	$authors     = $wpdb->get_results( "SELECT u.user_login, um.user_id, um.meta_value AS caps FROM $wpdb->users u, $wpdb->usermeta um WHERE u.ID = um.user_id AND meta_key = '{$blog_prefix}capabilities'" );
 foreach( (array)$authors as $author ) {
 	$caps = maybe_unserialize( $author->caps );
-	
 	if ( !isset( $caps['administrator'] ) ) continue;
 	$editauthor_link = esc_url( add_query_arg( 'wp_http_referer', urlencode( stripslashes( $_SERVER['REQUEST_URI'] ) ), "user-edit.php?user_id=" . $author->user_id ) );
 	$authors_links[] = "<a target=\"_blank\" href=\"$editauthor_link\">{$author->user_login}</a>";
 }
-
-
 if (count($authors_links)) {
 	$authors_div = "<div class=\"row-actions\">" . __("Authors: " , "wangguard") . implode(" | ", $authors_links) . "</div>";
 }
-
 $actions = array();
 $report = "<strong><a target=\"_blank\" href=\"$editobj_link\">$row_data->user_login</a></strong><br />";
 $actions['unreport'] = "<a href='javascript:void(0)' rel='".$row_data->ID."' class='wangguard-queue-remove-blog'>" . __( 'Remove from Queue', 'wangguard' ) . "</a>";
@@ -191,7 +154,6 @@ $statushtml .= '<br/><a href="'.$row_data->site_url.'" target="_blank">'.esc_htm
 $statushtml .= "</div>";
 $rowID = "blog-".$row_data->ID;
 }
-
 $r = "<tr id='$rowID'$style>";
 list( $columns, $hidden ) = $this->get_column_info();
 foreach ( $columns as $column_name => $column_display_name ) {
@@ -225,31 +187,21 @@ foreach ( $columns as $column_name => $column_display_name ) {
 		$r .= "<td $attributes>" . $statushtml . "</td>";
 		break;
 }
-
 }
-
 $r .= '</tr>';
 return $r;
 }
-
 }
-
-
 class WangGuard_Queue_Query {
 	/**
 	 * List of found user ids
 	 */
-	 
 	 var $results;
-	
 	/**
 	 * Total number of found users for the current query
 	 */
-	 
 	 var $total_users = 0;
-	
 	// SQL clauses
-	
 	var $query_fields_u;
 	var $query_from_u;
 	var $query_where_u;
@@ -264,38 +216,31 @@ class WangGuard_Queue_Query {
 	function WangGuard_Queue_Query( $query = null ) {
 		$this->__construct( $query );
 	}
-
 	/**
 	 * PHP5 constructor
 	 * @return WangGuard_Queue_Query
 	 */
 	function __construct( $query = null ) {
-		
 		if ( !empty( $query ) ) {
 			$this->query_vars = wp_parse_args( $query, array('orderby' => 'login','order' => 'ASC','offset' => '', 'number' => '','count_total' => true) );
 			$this->prepare_query();
 			$this->query();
 		}
-
 	}
-
 	/**
 	 * Prepare the query variables
 	 */
 	function prepare_query() {
 		global $wpdb;
 		$requestType = "";
-		
 		if (isset($_REQUEST['type']))$requestType = $_REQUEST['type'];
 		$qv = &$this->query_vars;
 		$tableQueue = $wpdb->base_prefix . "wangguardreportqueue";
 		$this->query_fields_u = "$wpdb->users.ID , $wpdb->users.user_login , 1 as wgtype , $tableQueue.reported_on as wgreported_on , $tableQueue.reported_by_ID as wgreported_by_ID";
 		$this->query_from_u = "FROM $wpdb->users JOIN $tableQueue ON $wpdb->users.ID = $tableQueue.ID";
-		
 		if ($requestType=="b")$this->query_where_u = "WHERE 1=2"; else $this->query_where_u = "WHERE 1=1";
 		$this->query_fields_b = "$wpdb->blogs.blog_id , CONCAT($wpdb->blogs.domain , $wpdb->blogs.path) as path , 0 as wgtype , $tableQueue.reported_on as wgreported_on , $tableQueue.reported_by_ID as wgreported_by_ID";
 		$this->query_from_b = "FROM $wpdb->blogs JOIN $tableQueue ON $wpdb->blogs.blog_id = $tableQueue.blog_id";
-		
 		if ($requestType=="u")$this->query_where_b = "WHERE 1=2"; else $this->query_where_b = "WHERE 1=1";
 		// sorting
 		switch ($qv['orderby']) {
@@ -312,22 +257,15 @@ class WangGuard_Queue_Query {
 				$orderby = '2';
 				break;
 	}
-
-
 	$qv['order'] = strtoupper( $qv['order'] );
-	
 	if ( 'ASC' == $qv['order'] )$order = 'ASC'; else $order = 'DESC';
 	$this->query_orderby = "ORDER BY $orderby $order";
 	// limit
-	
 	if ( $qv['number'] ) {
-		
 		if ( $qv['offset'] )$this->query_limit = $wpdb->prepare("LIMIT %d, %d", $qv['offset'], $qv['number']); else $this->query_limit = $wpdb->prepare("LIMIT %d", $qv['number']);
 	}
-
 	//_parse_meta_query( $qv );
 }
-
 /**
 	 * Execute the query, with the current variables
 	 */
@@ -335,20 +273,15 @@ function query() {
 	global $wpdb;
 	$this->results = $wpdb->get_results("
 				SELECT $this->query_fields_u $this->query_from_u $this->query_where_u " .(!empty ($wpdb->blogs) ?" UNION ALL SELECT $this->query_fields_b $this->query_from_b $this->query_where_b " : "") ." $this->query_orderby $this->query_limit");
-	
 	if ( $this->query_vars['count_total'] ) {
 		$this->total_users = $wpdb->get_var("SELECT COUNT(*) $this->query_from_u $this->query_where_u");
-		
 		if (!empty ($wpdb->blogs))$this->total_blogs = $wpdb->get_var("SELECT COUNT(*) $this->query_from_b $this->query_where_b"); else $this->total_blogs = 0;
 		$this->total_users += $this->total_blogs;
 	}
-
-	
 	if ( !$this->results )return;
 	$r = array();
 	foreach ( $this->results as $userrow ) {
 		$userid = $userrow->ID;
-		
 		if ($userrow->wgtype == 1) {
 			$r[ "u-".$userid ] = new WP_User( $userid );
 			$r[ "u-".$userid ]->wgtypeID = 1;
@@ -370,27 +303,17 @@ function query() {
 			$r[ "b-".$userid ]->reported_by = new WP_User( $userrow->wgreported_by_ID);
 			$r[ "b-".$userid ]->site_url = $url;
 		}
-
 	}
-
 	$this->results = $r;
 }
-
-
 function get_results() {
 	return $this->results;
 }
-
-
 function get_total() {
 	return $this->total_users;
 }
-
 }
-
-
 class _wangguard_dummy {
 	var $dummy = 1;
 }
-
 ?>

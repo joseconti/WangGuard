@@ -5,14 +5,12 @@
 	border: 1px solid #dfdfdf;
 	border-radius: 0 0 3px 3px;
 }
-
 #tabs {
 	position: relative;
 	}
 	p.nofields {
 		margin-top: 20px;
 	}
-
 	/* Field group tabs */
 	ul#field-group-tabs {
 		float: left;
@@ -58,7 +56,6 @@
 			text-decoration: none;
 			color: #aaa;
 		}
-
 		/* Selected tab */
 		ul#field-group-tabs li.ui-state-active a.ui-tab {
 			background-color: #f9f9f9;
@@ -68,7 +65,6 @@
 			border-bottom: 1px solid transparent;
 			color: #000;
 		}
-
 	/* Toolbar */
 	.tab-toolbar {
 		background: #f9f9f9;
@@ -79,7 +75,6 @@
 		padding: 10px;
 		border: 1px solid #dfdfdf;
 	}
-
 	.field-wrapper a.deletion,
 	.tab-toolbar a.deletion {
 		color: #f00;
@@ -89,11 +84,9 @@
 		padding: 0;
 		margin: -2px 0 0 5px;
 	}
-		
 	div.tab-toolbar a.button-primary {
 		color: #fff !important; /* Overriding a WP !important */
 	}
-
 	div.tab-wrapper {
 		background-color: #fff;
 		clear: left;
@@ -102,7 +95,6 @@
 		border-right: 1px solid #ccc;
 		border-radius: 3px 3px 0 0;
 	}
-
 	.tab-wrapper fieldset {
 		position: relative;
 		cursor: default !important;
@@ -148,7 +140,6 @@
 	fieldset.checkbox div label {
 		margin-right: 20px;
 	}
-
 	fieldset.clear-value {
 		margin-left: 10px;
 	}
@@ -171,7 +162,6 @@
 		background-color: #eee;
 		visibility: visible !important;
 	}
-
 	ul.forTab {
 		list-style: none;
 		padding: 0;
@@ -180,15 +170,12 @@
 		ul.forTab li {
 			margin: 0 0 1em 0;
 		}
-
 			ul.forTab li label {
 				display: block;
 			}
-
 			ul.forTab li input {
 				font-size: 1.4em;
 			}
-
 	p.success { background: green;}
 	p.err {
 		border-top: 2px solid red;
@@ -197,18 +184,15 @@
 		padding: 5px 0;
 		width: 40%;
 	}
-
 	span.desc, span.signup-description {
 		display: block;
 		font-size: 11px;
 		color: #555;
 	}
-
 	select.multi-select {
 		width:90%;
 		height:10em !important;
 	}
-
 ul.multi-checkbox {
 	margin: 0 5px 0 0;
 	padding: .5em .9em;
@@ -218,19 +202,16 @@ ul.multi-checkbox {
 	border: solid 1px #ccc;
 	width: 90%;
 }
-
 ul.multi-checkbox li {
 	padding: 0;
 	margin: 0;
 }
-
 div.options-box {
 	margin-left: 20px !important;
 	margin-right: 10px !important;
 	border-left: 4px solid #EAF3FA;
 	padding-left: 15px;
 }
-
 th a {
 	background: #fff;
 	padding: 2px 5px;
@@ -240,7 +221,6 @@ th a {
 	border-radius: 3px;
 	top: -2px;
 }
-
 textarea#description {
 	border: 1px solid #ddd;
 	width: 85%;

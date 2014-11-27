@@ -8,7 +8,6 @@
 # Read the license at http://keithdevens.com/software/license
 #
 ###################################################################################
-
 ###################################################################################
 # XML_unserialize: takes raw XML as a parameter (a string)
 # and returns an equivalent PHP data structure
@@ -29,7 +28,6 @@ function & XML_serialize(&$data, $level = 0, $prior_key = NULL){
 		if(!strpos($key, ' attr')) #if it's not an attribute
 			#we don't treat attributes by themselves, so for an empty element
 			# that has attributes you still need to set the element to NULL
-
 			if(is_array($value) and array_key_exists(0, $value)){
 				XML_serialize($value, $level, $key);
 			}else{
@@ -40,7 +38,6 @@ function & XML_serialize(&$data, $level = 0, $prior_key = NULL){
 						echo ' ',$attr_name,'="',htmlspecialchars($attr_value),'"';
 					reset($data["$key attr"]);
 				}
-
 				if(is_null($value)) echo " />\n";
 				elseif(!is_array($value)) echo '>',htmlspecialchars($value),"</$tag>\n";
 				else echo ">\n",XML_serialize($value, $level+1),str_repeat("\t", $level),"</$tag>\n";
@@ -57,7 +54,6 @@ class XML{
 	var $parent;   #a pointer to the current parent - the parent will be an array
 	var $stack;    #a stack of the most recent parent at each nesting level
 	var $last_opened_tag; #keeps track of the last tag opened.
-
 	function XML(){
  		$this->parser = &xml_parser_create();
 		xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, false);

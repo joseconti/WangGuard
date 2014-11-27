@@ -1,28 +1,20 @@
 <?php
-
 /*
 * WangGuard Users Info
 */
-
 if ( !defined( 'ABSPATH' ) ) exit;
-
 function wangguard_users_info() {
 	global $wpdb,$wangguard_nonce, $wangguard_api_key, $blog_id;
-	
-
 	if ( !current_user_can('level_10') )
 		die(__('Cheatin&#8217; uh?', 'wangguard'));
-
 		$userID = $_GET["userID"];
 		$userIP = $_GET["userIP"];
 		$user_info = get_userdata($userID);
-		
 	//$blogID = $user_info->primary_blog;
 	//if ( function_exists( is_multisite() ) ) {
 	//$blog_details = get_blog_details( array( 'blog_id' => $blogID ) );
 	//}
 ?>
-
 <div class="wrap about-wrap">
 			<h1><?php  printf( __( 'Info about %s' ), $user_info->user_login ); ?></h1>
 			<div class="about-text"><?php __( 'This is a Beta page. We are working hard.', 'wangguard'  ); ?></div>
@@ -39,7 +31,7 @@ function wangguard_users_info() {
 							printf( __('Username: %s<br />'), $user_info->user_login);
 							printf( __('User ID: %s <br />'), $user_info->ID);
 							printf( __('User IP: %s <br />'), $userIP);
-							printf( __('User nicename: %s <br />'), $user_info->user_nicename); 
+							printf( __('User nicename: %s <br />'), $user_info->user_nicename);
 					 ?></p>
 					</div>
 					<div class="last-feature"><p><?php
@@ -57,4 +49,4 @@ function wangguard_users_info() {
 		</div>
 		<?php
 	}
-	?>
+?>

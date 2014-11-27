@@ -1,16 +1,11 @@
 <?php //WangGuard Plugin, Help page
-
 function wangguard_help() {
 	global $wpdb,$wangguard_nonce, $wangguard_api_key;
-
 	if ( !current_user_can('level_10') )
 		die(__('Cheatin&#8217; uh?', 'wangguard'));
-
 	if ( defined('WANGGUARD_VERSION') )  { $wangguard_version = WANGGUARD_VERSION; }
 	if ( defined('WANGGUARD_REST_PATH') ) {$wangguard_rest_path = WANGGUARD_REST_PATH;}
-	
 	//Creating some links
-	
 	$wangguarwebipcheck = '<a href="http://www.whatismyip.com/">What Is My IP</a>';
 	if ( ! is_multisite() ) {
 									$wangguarsettingspage = '<a href="' .esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_conf' ), 'admin.php' ) ) ) . '">' . __( 'WangGuard Settings', 'wangguard' ) . '</a>';
@@ -24,25 +19,20 @@ function wangguard_help() {
 			<h1><?php printf( __( 'WangGuard Help', 'wangguard' ), $wangguard_version ); ?></h1>
 			<div class="about-text"><?php printf( __( 'Help about WangGuard %s. You can use the contact form if you don\'t find an answer to your question', 'wangguard'  ), $wangguard_version ); ?></div>
 			<div class="wangguard-badge"><?php printf( __( 'Version %s' ), $wangguard_version ); ?></div>
-
 			<h2 class="nav-tab-wrapper">
 				<a class="nav-tab nav-tab-active" href="<?php if ( !is_multisite() ) { echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_help' ), 'admin.php' ) ) ); }
 				else { echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_help' ), 'admin.php' ) ) );} ?>">
 					<?php _e( 'Help', 'wangguard' ); ?>
 				</a><a class="nav-tab" href="<?php if ( !is_multisite() ) { echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_help_us' ), 'admin.php' ) ) ); }
-
 				else { echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_help_us' ), 'admin.php' ) ) );} ?>">
 					<?php _e( 'Help Us', 'wangguard' ); ?>
 					<a class="nav-tab" href="<?php if ( !is_multisite() ) { echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_contact' ), 'admin.php' ) ) ); }
-
 				else { echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_contact' ), 'admin.php' ) ) );} ?>">
 					<?php _e( 'Contact', 'wangguard' ); ?>
 				</a>
 			</h2>
-
 		<!--	<div class="changelog">
 				<h3><?php _e( 'WangGuard Server IP Check', 'wangguard' ); ?></h3>
-
 				<div class="feature-section">
 					<h4><?php _e( 'This is a very important test, Server IP Check', 'wangguard' ); ?></h4>
 					<p>
@@ -53,15 +43,12 @@ function wangguard_help() {
 										printf( __( '<strong style="color:#FF0000;">WARNING:</strong> Your server is reporting it\'s own IP as user IP. Please go to %s and check <strong>\'Do NOT verify client IP address\'</strong>', 'wangguard' ), $wangguarsettingspage ); }
 										else {
 											_e('<strong style="color:#00CC00;">OK</strong> Looks like your server reports the correct User IP', 'wangguard' );}
-					
 						?>
 					</p>
 				</div>
 			</div> -->
-
 			<div class="changelog">
 				<h3><?php _e( 'First steps', 'wangguard' ); ?></h3>
-
 				<div class="feature-section">
 					<h4><?php _e( 'Activate WangGuard', 'wangguard' ); ?></h4>
 				  	<p><?php _e( 'Get an API Key for your website. You need to register once. With your account, you can get a new API key for every website you own. You only needs to login at WangGuard.com', 'wangguard' ); ?></p>
@@ -116,10 +103,8 @@ function wangguard_help() {
                    </ul>
 				</div>
 			</div>
-
 			<div class="changelog">
 				<h3><?php _e( 'FAQ', 'wangguard' ); ?></h3>
-
 				<div class="feature-section">
 					<h4><?php _e( 'I\'m blocked testing WangGuard Step #3', 'wangguard' ); ?></h4>
 					<p><?php _e( 'Basically, there are two options:', 'wangguard' ); ?></p>
@@ -128,7 +113,6 @@ function wangguard_help() {
 					<li><?php _e( 'You use another plugin for filter signups. Some plugins break WangGuard. There are some Capchas that break WangGuard. Try to deactivate that plugins', 'wangguard'); ?>
 					</li>
 					</ul>
-
 					<h4><?php _e( 'The IP are not the same step #8', 'wangguard' ); ?></h4>
 					<p><?php _e( 'You are using a reverse proxy or load balancer. You need to speak with your server admin and tell him that add X-Forwarded-For to the Header. It will fix this problem. If you has this problem, you don\'t want to check the users IP because all users will be blocked.', 'wangguard' ); ?></p>
 					<h4><?php _e( 'Some users are blocked by WangGuard', 'wangguard' ); ?></h4>
@@ -148,11 +132,8 @@ function wangguard_help() {
 					<p><?php _e( 'Please, copy the next code and use phpMyadmin or similar software for create WangGuard tables.', 'wangguard' ); ?></p>
 					<p>
 					<?php
-
 							$sitetableprefix= $wpdb->base_prefix;
 							$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
-
-
 echo '<textarea class="code" readonly="readonly" cols="80" rows="16">
 CREATE TABLE '.$sitetableprefix.'wangguardquestions (
 	id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -162,7 +143,6 @@ CREATE TABLE '.$sitetableprefix.'wangguardquestions (
 	RepliedWRONG INT(11) DEFAULT 0 NOT NULL,
 	UNIQUE KEY id (id)
 ) '.$charset_collate.';
-		
 CREATE TABLE '.$sitetableprefix.'wangguarduserstatus (
 	ID BIGINT(20) NOT NULL,
 	user_status VARCHAR(20) NOT NULL,
@@ -170,7 +150,6 @@ CREATE TABLE '.$sitetableprefix.'wangguarduserstatus (
 	user_proxy_ip VARCHAR(15) NOT NULL,
 	UNIQUE KEY ID (ID)
 ) '.$charset_collate.';
-
 CREATE TABLE '.$sitetableprefix.'wangguardreportqueue (
 	ID BIGINT(20) NULL,
 	blog_id BIGINT(20) NULL,
@@ -181,7 +160,6 @@ CREATE TABLE '.$sitetableprefix.'wangguardreportqueue (
 	KEY blog_id (blog_id),
 	UNIQUE KEY ID_blog (ID , blog_id)
 ) '.$charset_collate.';
-
 CREATE TABLE '.$sitetableprefix.'wangguardsignupsstatus (
 	signup_username VARCHAR(60) NOT NULL,
 	user_status VARCHAR(20) NOT NULL,
@@ -189,7 +167,6 @@ CREATE TABLE '.$sitetableprefix.'wangguardsignupsstatus (
 	user_proxy_ip VARCHAR(15) NOT NULL,
 	UNIQUE KEY signup_username (signup_username)
 ) '.$charset_collate.';
-
 CREATE TABLE '.$sitetableprefix.'wangguardcronjobs (
 	id mediumint(9) NOT NULL AUTO_INCREMENT,
 	RunOn VARCHAR(20) NOT NULL,
@@ -200,32 +177,24 @@ CREATE TABLE '.$sitetableprefix.'wangguardcronjobs (
 	UNIQUE KEY id (id)
 ) '.$charset_collate.';
 </textarea>' ?>
-
 				</div>
 			</div>
-
 			<div class="return-to-dashboard">
 				<a href="<?php 
-		
 		if ( !is_multisite() ) {
 			echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_conf' ), 'admin.php' ) ) );
 		} else {
 			echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_conf' ), 'admin.php' ) ) );
 		}
-
 		?>"><?php  _e( 'Go to WangGuard Settings', 'wangguard' ); ?></a>
 			</div>
-
 		</div>
-
 		<?php
 	}
 function wangguard_help_us() {
 	global $wpdb,$wangguard_nonce, $wangguard_api_key;
-
 	if ( !current_user_can('level_10') )
 		die(__('Cheatin&#8217; uh?', 'wangguard'));
-
 	if ( defined('WANGGUARD_VERSION') )  { $wangguard_version = WANGGUARD_VERSION; } ?>
 	<?php $wangguard_plugin_url = plugin_dir_url('wangguard-admin.php'); ?>
 	<?php $wangguardreviewexample = '<a href="http://www.shoutmeloud.com/wangguard-plugin-stop-wordpress-user-registration-spam.html">shoutmeloud</a>'; ?>
@@ -237,27 +206,22 @@ function wangguard_help_us() {
 									} else { 
 									$wangguarcontributors = '<a href="' .esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_credits' ), 'admin.php' ) ) ) . '">' . __( 'Credits', 'wangguard' ) . '</a>';
 									} ?>
-	
 		<div class="wrap about-wrap">
 			<h1><?php printf( __( 'Help Us', 'wangguard' ), $wangguard_version ); ?></h1>
 			<div class="about-text"><?php printf( __( 'Help us! WangGuard %s is ready but we want to release the next version!', 'wangguard'  ), $wangguard_version ); ?></div>
 			<div class="wangguard-badge"><?php printf( __( 'Version %s' ), $wangguard_version ); ?></div>
-
 			<h2 class="nav-tab-wrapper">
 				<a class="nav-tab" href="<?php if ( !is_multisite() ) { echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_help' ), 'admin.php' ) ) ); }
-
 				else { echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_help' ), 'admin.php' ) ) );} ?>">
 					<?php _e( 'Help', 'wangguard' ); ?>
 				<a class="nav-tab nav-tab-active" href="<?php if ( !is_multisite() ) { echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_help_us' ), 'admin.php' ) ) ); }
 				else { echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_help_us' ), 'admin.php' ) ) );} ?>">
 					<?php _e( 'Help Us', 'wangguard' ); ?>
 				</a><a class="nav-tab" href="<?php if ( !is_multisite() ) { echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_contact' ), 'admin.php' ) ) ); }
-
 				else { echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_contact' ), 'admin.php' ) ) );} ?>">
 					<?php _e( 'Contact', 'wangguard' ); ?>
 				</a>
 			</h2>
-
 			<div class="changelog">
 				<h3><?php _e( 'How to help Us?', 'wangguard' ); ?></h3>
 				<div class="feature-section col two-col">
@@ -312,31 +276,22 @@ function wangguard_help_us() {
 					</div>
 				</div>
 			</div>
-
 			<div class="return-to-dashboard">
 				<a href="<?php 
-		
 		if ( !is_multisite() ) {
 			echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_conf' ), 'admin.php' ) ) );
 		} else {
 			echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_conf' ), 'admin.php' ) ) );
 		}
-
 		?>"><?php  _e( 'Go to WangGuard Settings', 'wangguard' ); ?></a>
 			</div>
-
 		</div>
-
 		<?php
 	}
-
-
 // function to get the IP address of the user
 function wangguard_get_the_ip() {
 	if(isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
-
       return $_SERVER['HTTP_CF_CONNECTING_IP'];}
-
     elseif (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
 		return $_SERVER["HTTP_X_FORWARDED_FOR"];
 	}
@@ -347,37 +302,24 @@ function wangguard_get_the_ip() {
 		return $_SERVER["REMOTE_ADDR"];
 	}
 }
-
 // This is a modified fuction of WooCommerce for get active plugins.
-
 function wangguardgetactiveplugins () {
 	$active_plugins = (array) get_option( 'active_plugins', array() );
-
          			if ( is_multisite() )
 						$active_plugins = array_merge( $active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
-
 					$wangguard_plugins = array();
-
 					foreach ( $active_plugins as $plugin ) {
-
 						$plugin_data = @get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
-
 						if ( ! empty( $plugin_data['Name'] ) ) {
-
 							$wangguard_plugins[] = $plugin_data['Name'] . ' version ' . $plugin_data['Version'];
-
 						}
 					}
-
 					if ( sizeof( $wangguard_plugins ) == 0 )
 						$wangguardserverinfo = '-';
 					else
 						$wangguardserverinfo = implode( ', ', $wangguard_plugins );
-						
 						return $wangguardserverinfo;
 }
-
-
 function wangguard_contact_form($atts) {
 	$form_data['your_name'] = '';
 	$form_data['subject'] = '';
@@ -399,18 +341,15 @@ function wangguard_contact_form($atts) {
 		"error_noemail" => ''.__('Please enter a valid e-mail address.','wangguard').'',
 		"success" => ''.__('Thanks for your e-mail! We\'ll get back to you in the next 24h. If we don\'t contacted with you in the next 24h, maybe the email didn\'t arrive, please in that case use our website contact form.','wangguard').''
 	), $atts));
-
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$error = false;
 		$required_fields = array("your_name", "email", "message", "subject");
-
 		foreach ($_POST as $field => $value) {
 			if (get_magic_quotes_gpc()) {
 				$value = stripslashes($value);
 			}
 			$form_data[$field] = strip_tags($value);
 		}
-
 		foreach ($required_fields as $required_field) {
 			$value = trim($form_data[$required_field]);
 			if(empty($value)) {
@@ -418,12 +357,10 @@ function wangguard_contact_form($atts) {
 				$result = $error_empty;
 			}
 		}
-
 		if(!is_email($form_data['email'])) {
 			$error = true;
 			$result = $error_noemail;
 		}
-		
 		if ( is_multisite() ) {
 			$wangguardwordpressversion =  'WPMU ' ;
 			} else {
@@ -447,7 +384,6 @@ function wangguard_contact_form($atts) {
 			$sent = true;
 		}
 	}
-
 	if(! $result = '') {
 		$info = '<div class="info">'.$result.'</div>';
 	}
@@ -468,71 +404,50 @@ function wangguard_contact_form($atts) {
 			<label for="cf_message">'.$label_message.':</label>
 			<textarea name="message" id="cf_message" cols="50" rows="15">'.$form_data['message'].'</textarea>
 		</p>
-		
 		<p>
 			<input class="button action" type="submit" value="'.$label_submit.'" name="send" id="cf_send" />
 		</p>
 	</form>';
-	
 	if($sent == true) {
 		return $info.$success;
 	} else {
 		return $info.$email_form;
 	}
 } add_shortcode('wangguardcontact', 'wangguard_contact_form');
-
-
 	function wangguard_contact() {
-	
 	global $wpdb,$wangguard_nonce, $wangguard_api_key;
-
 	if ( !current_user_can('level_10') )
 		die(__('Cheatin&#8217; uh?', 'wangguard'));
-		
 		if ( defined('WANGGUARD_VERSION') )  { $wangguard_version = WANGGUARD_VERSION; } ?>
-        
        <?php $wangguardcontactformurl = '<a href="http://www.wangguard.com/contact">'. __('here', 'wangguard' ) . '</a>'; ?>
-       
-
 		<div class="wrap about-wrap">
 			<h1><?php printf( __( 'WangGuard Contact', 'wangguard' ), $wangguard_version ); ?></h1>
 			<div class="about-text"><?php printf( __( 'Questions or Support about WangGuard %s', 'wangguard' ), $wangguard_version ); ?></div>
 			<div class="wangguard-badge"><?php printf( __( 'Version %s' ), $wangguard_version ); ?></div>
-
 			<h2 class="nav-tab-wrapper">
 				<a href="<?php if ( !is_multisite() ) { echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_help' ), 'admin.php' ) ) ); }
-
 				else { echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_help' ), 'admin.php' ) ) );} ?>" class="nav-tab">
 					<?php _e( 'Help', 'wangguard' ); ?>
 				</a><a class="nav-tab" href="<?php if ( !is_multisite() ) { echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_help_us' ), 'admin.php' ) ) ); }
-
 				else { echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_help_us' ), 'admin.php' ) ) );} ?>">
 					<?php _e( 'Help Us', 'wangguard' ); ?>
 					<a href="<?php if ( !is_multisite() ) { echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_contact' ), 'admin.php' ) ) ); }
-
 				else { echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_contact' ), 'admin.php' ) ) );} ?>" class="nav-tab nav-tab-active">
 					<?php _e( 'Contact', 'wangguard' ); ?>
 				</a>
 			</h2>
-
 			<p class="about-description"><?php printf( __('Contact with us. With this contact form you will send your Name, email, Subject, Message, Web URL, Site URL, IP Server, PHP Version, MySQL version and active plugins. This will help us to help you. If you don\'t want to send us all that information, use our website contact form %s', 'wangguard' ), $wangguardcontactformurl); ?></p>
-
 			 <?php echo do_shortcode( '[wangguardcontact]' ) ?> 
-
 			<div class="return-to-dashboard">
 				<a href="<?php 
-		
 		if ( !is_multisite() ) {
 			echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_conf' ), 'admin.php' ) ) );
 		} else {
 			echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_conf' ), 'admin.php' ) ) );
 		}
-
 		?>"><?php  _e( 'Go to WangGuard Settings', 'wangguard' ); ?></a>
 			</div>
-
 		</div>
-
 		<?php
 	}
 ?>
