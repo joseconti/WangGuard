@@ -64,7 +64,7 @@ function wangguard_admin_init() {
 	global $wangguard_db_version , $wpdb;
 	$version = get_site_option("wangguard_db_version");
 	if (false === $version)
-		$version = get_site_option("wangguard_db_version");	
+		$version = get_site_option("wangguard_db_version");
 	if (false === $version)
 		$version = 0;
 	//Upgrade DB
@@ -82,7 +82,7 @@ function wangguard_styles_css($hook){
 			 return;} else {
 				wp_register_style( 'custom_wp_admin_css_for_wangguard_users_info', plugins_url('/css/wangguardcssforusersinfo.css', __FILE__),array(),'1.5.11'  );
 				wp_enqueue_style( 'custom_wp_admin_css_for_wangguard_users_info');
-			}			
+			}
 }
 add_action( 'admin_enqueue_scripts', 'wangguard_develpment_styles_css' );
 function wangguard_develpment_styles_css($hook){
@@ -344,8 +344,8 @@ function wangguard_stats_update($action) {
 /**
  * Reports a single email, the function doesn't look into the accounts, do not delete users nor blogs
  * Used in functions which detect (for sure) sploggers that are attempting to create an account
- * @param string $email 
- * @param string $clientIP 
+ * @param string $email
+ * @param string $clientIP
  * @param boolean $isSplogger - send true if the email is a confirmed splogger
  */
 function wangguard_report_email($email , $clientIP , $ProxyIP , $isSplogger = false) {
@@ -502,12 +502,12 @@ function wangguard_is_admin($user_object) {
 }
 /*
  * wangguard_verify_user: takes a WP_User object and checks its status against WangGuard service, possible responses are:
- * 
+ *
  * not-checked : user was not checked, admins aren't checked, also replied when a WangGuard server error occurs
  * reported : user is reported on WangGuard
  * checked : user isn't reported on WangGuard
  * error:XXX : WangGuard server replied with an error code (mostly protocol issues)
- * 
+ *
  */
 function wangguard_verify_user($user_object) {
 	global $wpdb;
@@ -553,7 +553,7 @@ function wangguard_verify_user($user_object) {
 }
 /**
  * wangguard_verify_email: takes a WP_User object and checks its status against WangGuard service, possible responses are:
- * 
+ *
  * @param string $email: e-mail address to check
  * @param string $clientIP: client IP
  * @param string $proxyIP: client proxy ip if available - use the wangguard_getRemoteProxyIP() function to get the client proxy ip
@@ -616,7 +616,7 @@ function wangguard_update_option($option , $newvalue) {
 	else {
 		$result = $wpdb->update( $table_name, array( 'option_value' => $newvalue ), array( 'option_name' => $option ) );
 	}
-	if ( $result ) 
+	if ( $result )
 		return true;
 	else
 		return false;
@@ -708,7 +708,7 @@ function wangguard_check_server_connectivity() {
 // Returns the same associative array as wangguard_check_server_connectivity()
 function wangguard_get_server_connectivity( $cache_timeout = 86400 ) {
 	$servers = get_site_option('wangguard_available_servers');
-	if (empty ($servers)) 
+	if (empty ($servers))
 		$servers = false;
 	if ( (time() - get_site_option('wangguard_connectivity_time') < $cache_timeout) && $servers !== false )
 		return $servers;
@@ -772,16 +772,26 @@ function wangguard_http_post($request, $op , $ip=null) {
 	//Init response buffer
 	$response = '';
 	/*fsock connection*/
-	if( false != ( $fs = @fsockopen($http_host, $wangguard_api_port, $errno, $errstr, 5) ) ) {
-		fwrite($fs, $http_request);
-		while ( !feof($fs) )
-			$response .= fgets($fs, 1100);
-		fclose($fs);
-	}
+
+	if ( ( get_site_option("wangguard-use-ssl") == 1 ) || ( !get_site_option("wangguard-use-ssl") ) ) {
+		if( false != ( $fs = @fsockopen('ssl://'. $http_host, $wangguard_api_port, $errno, $errstr, 5) ) ) {
+			fwrite($fs, $http_request);
+			while ( !feof($fs) )
+				$response .= fgets($fs, 1100);
+				fclose($fs);
+		} else {
+			if( false != ( $fs = @fsockopen($http_host, $wangguard_api_port, $errno, $errstr, 5) ) ) {
+				fwrite($fs, $http_request);
+				while ( !feof($fs) )
+				$response .= fgets($fs, 1100);
+				fclose($fs);
+			}
+		}
 	/*fsock connection*/
 	$response = str_replace("\r", "", $response);
 	$response = substr($response, strpos($response, "\n\n")+2);
 	return $response;
+	}
 }
 /********************************************************************/
 /*** NETWORKING FUNCTIONS END ***/
@@ -1039,13 +1049,13 @@ function func_wangguard_reg() {
 	wp_login_form();
 	$websiteURL = get_site_url();
 	echo "</div>";
-	echo "<div><form name='registerform' action='" . $websiteURL . "/wp-login.php?action=register' method='post'> 
+	echo "<div><form name='registerform' action='" . $websiteURL . "/wp-login.php?action=register' method='post'>
 	<fieldset>
 		<label>Username
-		<input type='text' name='user_login' value='' /></label> 
+		<input type='text' name='user_login' value='' /></label>
 		<label>E-mail
-		<input type='text' name='user_email' value='' /></label> 
-		<input type='hidden' name='redirect_to' value='' /> 
+		<input type='text' name='user_email' value='' /></label>
+		<input type='hidden' name='redirect_to' value='' />
 		<input type='submit' name='wp-submit' />
 	</fieldset>
 </form></div>";

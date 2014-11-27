@@ -25,7 +25,11 @@ License: GPL2
 	define('WANGGUARD_README_URL', 'http://plugins.trac.wordpress.org/browser/wangguard/trunk/readme.txt?format=txt');
 	define('WANGGUARD_API_HOST', 'rest.wangguard.com');
 	define('WANGGUARD_REST_PATH', '/');
-	define('WANGGUARD_API_PORT', '80');
+	if ( ( get_site_option("wangguard-use-ssl") == 1 ) || ( !get_site_option("wangguard-use-ssl") ) ) {
+		define('WANGGUARD_API_PORT', '443');
+	} else {
+		define('WANGGUARD_API_PORT', '80');
+		}
 	// Debug WangGuard
 	//error_reporting(E_ALL);
 	//ini_set("display_errors", 1);
