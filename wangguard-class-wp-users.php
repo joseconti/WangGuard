@@ -24,12 +24,14 @@ class WangGuard_Users_Table extends WP_List_Table {
 	}
 	function prepare_items() {
 		global $role, $usersearch;
-		//$usersearch = isset( $_REQUEST['s'] ) ? $_REQUEST['s'] : '';
 		$usersearch = isset( $_REQUEST['s'] ) ? wp_unslash( trim( $_REQUEST['s'] ) ) : '';
 		$usertype = isset( $_REQUEST['type'] ) ? $_REQUEST['type'] : '';
-		$per_page = ( $this->is_site_users ) ? 'wangguard_page_wangguard_users_network_per_page' : 'wangguard_page_wangguard_users_per_page';
+		$per_page = ( is_multisite() ) ? 'wangguard_page_wangguard_users_network_per_page' : 'wangguard_page_wangguard_users_per_page';
 		$users_per_page = $this->get_items_per_page( $per_page );
 		$paged = $this->get_pagenum();
+
+
+
 		$args = array(
 			'number' => $users_per_page,
 			'offset' => ( $paged-1 ) * $users_per_page,
