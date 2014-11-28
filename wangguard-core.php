@@ -37,7 +37,7 @@ function wangguard_welcome_splash(){
 		wp_redirect( $wangguardredirect ); exit;
 	}
 }
-add_action('init', 'wangguard_welcome_splash');
+if ( is_admin() ) add_action('init', 'wangguard_welcome_splash');
 function wangguard_activate() {
 	wangguard_admin_init();
 	add_site_option('wangguard_redirect_on_activation', 'true');
