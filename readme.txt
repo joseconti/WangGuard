@@ -328,6 +328,7 @@ It is free for personal use. If you earn more than $200/month with your site or 
 - Added new filters and actions.
 - Fixed CHARACTER SET and COLLATION in database table creation.
 - Removed hardcoded CSS in security questions. Now is loaded with a CSS file.
+- Fixed historical bug with users_per_page in WordPress simple.
 - Removed white spaces.
 
 = 1.6 RC4 - 26 May 2014 =
