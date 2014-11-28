@@ -20,7 +20,7 @@ License: GPL2
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-	define('WANGGUARD_VERSION', '1.6-RC4');
+	define('WANGGUARD_VERSION', '1.6-RC5');
 	define('WANGGUARD_PLUGIN_FILE', 'wangguard/wangguard-admin.php');
 	define('WANGGUARD_README_URL', 'http://plugins.trac.wordpress.org/browser/wangguard/trunk/readme.txt?format=txt');
 	define('WANGGUARD_API_HOST', 'rest.wangguard.com');
