@@ -2200,12 +2200,20 @@ function wangguard_users_screen_options() {
  * @return type
  */
 function wangguard_set_users_screen_option($status, $option, $value) {
-	if ( ($option == 'wangguard_page_wangguard_users_network_per_page') || ($option == 'wangguard_page_wangguard_queue_network_per_page') ) {
+	if (!$wangguard_is_network_admin){
+		if ( ($option == 'wangguard_page_wangguard_users_per_page') || ($option == 'wangguard_page_wangguard_users_per_page') ) {
 		return $value;
+	} else {
+		if ( ($option == 'wangguard_page_wangguard_users_network_per_page') || ($option == 'wangguard_page_wangguard_queue_network_per_page') ) {
+		return $value;
+	}
+		}
 	}
 }
 add_filter('set-screen-option', 'wangguard_set_users_screen_option', 10, 3);
 if (!$wangguard_is_network_admin)add_action( 'admin_menu', 'wangguard_add_admin_menu' ); else add_action( 'network_admin_menu', 'wangguard_add_admin_menu' );
+
+
 /********************************************************************/
 /*** ADMIN GROUP MENU ENDS ***/
 /********************************************************************//********************************************************************/

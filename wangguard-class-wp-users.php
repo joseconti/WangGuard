@@ -23,10 +23,12 @@ class WangGuard_Users_Table extends WP_List_Table {
 		}
 	}
 	function prepare_items() {
-		global $usersearch;
-		$usersearch = isset( $_REQUEST['s'] ) ? $_REQUEST['s'] : '';
+		global $role, $usersearch;
+		//$usersearch = isset( $_REQUEST['s'] ) ? $_REQUEST['s'] : '';
+		$usersearch = isset( $_REQUEST['s'] ) ? wp_unslash( trim( $_REQUEST['s'] ) ) : '';
 		$usertype = isset( $_REQUEST['type'] ) ? $_REQUEST['type'] : '';
-		$users_per_page = $this->get_items_per_page( "wangguard_page_wangguard_users_network_per_page" );
+		$per_page = ( $this->is_site_users ) ? 'wangguard_page_wangguard_users_network_per_page' : 'wangguard_page_wangguard_users_per_page';
+		$users_per_page = $this->get_items_per_page( $per_page );
 		$paged = $this->get_pagenum();
 		$args = array(
 			'number' => $users_per_page,
@@ -76,7 +78,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1 AND $wpdb->users.spam = 0" . $wgLegitimateSQL);
 		elseif (defined( 'BP_VERSION' ))
 			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1" . $wgLegitimateSQL);
-		else 
+		else
 			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1" . $wgLegitimateSQL);
 		$legitimate_users = $Count[0];
 		$class = ($requestType == "l") ? ' class="current"' : '';
@@ -244,7 +246,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 						$blogs = @get_blogs_of_user( $row_data->ID, true );
 						if (is_array($blogs))
 							foreach ( (array) $blogs as $key => $details ) {
-								$r .= '- <a href="'. $details->siteurl .'?TB_iframe=true&width=900&height=550" class="thickbox" title="'. htmlentities($details->siteurl, 0, 'UTF-8') .'">'.$details->blogname.'</a><br/>';							
+								$r .= '- <a href="'. $details->siteurl .'?TB_iframe=true&width=900&height=550" class="thickbox" title="'. htmlentities($details->siteurl, 0, 'UTF-8') .'">'.$details->blogname.'</a><br/>';
 						}
 					}
 					$r .= "</td>";
@@ -311,7 +313,7 @@ class WangGuard_Users_Query {
 				'orderby' => 'user_registered',
 				'order' => 'DESC',
 				'search' => '',
-				'offset' => '', 
+				'offset' => '',
 				'number' => '',
 				'type' => '',
 				'count_total' => true
@@ -351,7 +353,7 @@ class WangGuard_Users_Query {
 					$wgLegitimateSQL = " $wpdb->users.user_status <> 1 AND $wpdb->users.spam = 0 AND " . $wgLegitimateSQL;
 				elseif (defined( 'BP_VERSION' ))
 					$wgLegitimateSQL = " $wpdb->users.user_status <> 1 AND " . $wgLegitimateSQL;
-				else 
+				else
 					$wgLegitimateSQL = " $wpdb->users.user_status <> 1 AND " . $wgLegitimateSQL;
 				$this->query_where_u .= $wgLegitimateSQL;
 				break;
