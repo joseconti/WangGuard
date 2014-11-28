@@ -27,14 +27,17 @@ function wangguard_init() {
 		remove_action('admin_bar_menu', 'wangguard_add_wp_admin_bar_menus', 100 );
 		wangguard_admin_warnings();
 		}
-	if (get_site_option('wangguard_redirect_on_activation') == 'true') {
-        update_site_option('wangguard_redirect_on_activation', 'false');
+}
+add_action('init', 'wangguard_init');
+function wangguard_welcome_splash(){
+	if ( ( get_site_option( 'wangguard-option-version' ) != WANGGUARD_VERSION ) ) {
+		 update_site_option('wangguard-option-version', WANGGUARD_VERSION );
         if ( !is_multisite() ) { $wangguardredirect = esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_about' ), 'admin.php' ) ) ); }
 				else { $wangguardredirect =  esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_about' ), 'admin.php' ) ) );}
 		wp_redirect( $wangguardredirect ); exit;
-    }
+	}
 }
-add_action('init', 'wangguard_init');
+add_action('init', 'wangguard_welcome_splash');
 function wangguard_activate() {
 	wangguard_admin_init();
 	add_site_option('wangguard_redirect_on_activation', 'true');
@@ -55,7 +58,6 @@ function wangguard_activate() {
 		add_site_option('wangguard-add-honeypot', '');
 		add_site_option('blocked-list-domains', '');
 		add_site_option('wangguard_api_key', '');
-		add_site_option('wangguard-option-version', '');
 	}
 }
 register_activation_hook( 'wangguard/wangguard-admin.php', 'wangguard_activate' );
