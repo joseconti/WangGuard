@@ -25,7 +25,7 @@
 		?>
 		<div class="wrap about-wrap">
 			<h1><?php  printf( __( 'Welcome to WangGuard %s' ), $wangguard_version ); ?></h1>
-			<div class="about-text"><?php  printf( __( 'Thank you for updating to the latest version! WangGuard %s is ready to learn to use, communicate better with us, coloborate with us and more', 'wangguard'  ), $wangguard_version ); ?></div>
+			<div class="about-text"><?php  printf( __( 'Thank you for install WangGuard %s!', 'wangguard'  ), $wangguard_version ); ?></div>
 			<div class="wangguard-badge"><?php  printf( __( 'Version %s' ), $wangguard_version ); ?></div>
 			<h2 class="nav-tab-wrapper">
 				<a class="nav-tab nav-tab-active" href="<?php
@@ -35,7 +35,7 @@
 			echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_about' ), 'admin.php' ) ) );
 		}
 		?>">
-					<?php  _e( 'What&#8217;s New' ); ?>
+					<?php  _e( 'What&#8217;s New', 'wangguard' ); ?>
 				</a><a class="nav-tab" href="<?php
 		if ( !is_multisite() ) {
 			echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_credits' ), 'admin.php' ) ) );
@@ -43,7 +43,7 @@
 			echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_credits' ), 'admin.php' ) ) );
 		}
 		?>">
-					<?php  _e( 'Credits' ); ?>
+					<?php  _e( 'Credits', 'wangguard' ); ?>
 				</a><a href="<?php
 		if ( !is_multisite() ) {
 			echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_development' ), 'admin.php' ) ) );
@@ -51,7 +51,7 @@
 			echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_development' ), 'admin.php' ) ) );
 		}
 		?>" class="nav-tab">
-					<?php  _e( 'Development' ); ?>
+					<?php  _e( 'Development', 'wangguard' ); ?>
 				</a>
 			</h2>
 			<div class="changelog">
@@ -59,30 +59,21 @@
 				<div class="feature-section col two-col">
 					<img class="image-100" src="<?php  echo $wangguard_plugin_url . 'wangguard/img/wangguard-about.png'; ?>" width=100% />
 					<div>
-						<h4><?php  _e( 'Working Hard', 'wangguard' ); ?></h4>
-						<p><?php  _e( 'We\'re working hard to be the best anti-splog system in the world. With your help, we will be. ', 'wangguard' ); ?></p>
+						<h4><?php  _e( 'WangGuard 1.6 is here', 'wangguard' ); ?></h4>
+						<p><?php  _e( 'After many month, WanGuard 1.6 is here. It comes with many new features and many fixed bugs.', 'wangguard' ); ?></p>
 					</div>
 					<div class="last-feature">
-					<h4><?php  _e( 'WangGuard 1.6 RC1, Why?', 'wangguard' ); ?></h4>
-					<p><?php  _e( 'In recent months, we have been working very hard on this new version, but we have found that previous versions didn\'t work with WordPress 3.9 and BuddyPress 2.0, so we have to release this RC1 version. This version is working perfectly, although there is some unfinished pages.', 'wangguard' ); ?></p>
+					<h4><?php  _e( 'Now WangGuard API with secure connection', 'wangguard' ); ?></h4>
+					<p><?php  _e( 'Now WangGuard API works over SSL. In this way we give greater security and privacy to your site and your users..', 'wangguard' ); ?></p>
 					</div>
 				</div>
 			</div>
 			<div class="changelog">
-				<h3><?php  _e( 'New Help page', 'wangguard' ); ?></h3>
+				<h3><?php  _e( 'Survey', 'wangguard' ); ?></h3>
 				<div class="feature-section images-stagger-right">
-					<img class="image-66" src="<?php  echo $wangguard_plugin_url . 'wangguard/img/wangguard-help.png'; ?>" width=100% />
-					<h4><?php  _e( 'Introducing Help Section', 'wangguard' ); ?></h4>
-					<p><?php  _e( 'Now you can get help from WangGuard or Help to WangGuard. Just go to ', 'wangguad' ); ?><a href="<?php
-		if ( !is_multisite() ) {
-			echo esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_help' ), 'admin.php' ) ) );
-		} else {
-			echo esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_help' ), 'admin.php' ) ) );
-		}
-		?>"><?php  _e('Help', 'wangguard'); ?></a><?php  _e(' section and use the tab that best fits your needs.', 'wangguard' ); ?></p>
-					<p><?php  _e( 'In <strong>Help tab</strong>, you will find help about WangGuard, first steps, etc.', 'wangguard' ); ?></p>
-					<p><?php  _e( 'In <strong>Help Us tab</strong>, you will find how you can help WangGuard.', 'wangguard' ); ?></p>
-					<p><?php  _e( 'In <strong>Contact</strong> tab, you will find contact form, yes, from your own administration!.', 'wangguard' ); ?></p>
+					<iframe frameborder="0" width="70%" height="1500" scrolling="auto" style="float:right" allowtransparency="true" src="//darkeorc.polldaddy.com/s/wangguard-1-6?iframe=1"><a href="//darkeorc.polldaddy.com/s/wangguard-1-6">Ver Encuesta</a></iframe>
+					<h4><?php  _e( 'Please, help us with this survey', 'wangguard' ); ?></h4>
+					<p><?php  _e( 'With this survey you will help us to make some decisions. There are only 4 questions and you only need a minute for answer the questions. Thanks a lot for your help.', 'wangguard' ); ?></p>
 				</div>
 			</div>
 			<div class="return-to-dashboard">
