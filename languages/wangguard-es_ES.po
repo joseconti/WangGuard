@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WangGuard\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wangguard\n"
 "POT-Creation-Date: 2014-11-30 21:43+0100\n"
-"PO-Revision-Date: 2014-11-30 22:38+0100\n"
+"PO-Revision-Date: 2014-12-01 22:32+0100\n"
 "Last-Translator: José Conti <admin@wangguard.com>\n"
 "Language-Team: WangGuard <info@wangguard.com>\n"
 "Language: es_ES\n"
@@ -132,7 +132,7 @@ msgstr "Esta es la gente que actualmente hacen WangGuard posible."
 
 #: ../wangguard-about.php:231 ../wangguard-about.php:315
 msgid "WangGuard is created by a worldwide splog haters."
-msgstr "WangGuard es creado por odiados de sploggers de todo el mundo."
+msgstr "WangGuard es creado por odiadores de sploggers de todo el mundo."
 
 #: ../wangguard-about.php:241 ../wangguard-about.php:264
 #: ../wangguard-about.php:325 ../wangguard-about.php:338
@@ -1036,6 +1036,9 @@ msgid ""
 "has problem with  honeypot fields. If you have some problems with those "
 "fields, disable this option"
 msgstr ""
+"<strong>Activar</sytong> campos honeypot (campos trampa en el registro). "
+"Algunos themes tienen problemas con los campos honeypot. Si tienes problemas "
+"con ellos, desactiva esta opción."
 
 #: ../wangguard-conf.php:220
 msgid ""
@@ -1096,7 +1099,7 @@ msgstr ""
 
 #: ../wangguard-conf.php:237
 msgid "Allowed emails. One per line"
-msgstr ""
+msgstr "Correos electrónicos permitidos. Uno por linea"
 
 #: ../wangguard-conf.php:244
 msgid "Add-ons Settings"
@@ -1314,7 +1317,7 @@ msgstr "Comprador"
 
 #: ../wangguard-core.php:985
 msgid "Whitelisted"
-msgstr ""
+msgstr "En lista blanca"
 
 #: ../wangguard-core.php:1001
 msgid "Not a Splogger"
@@ -1395,6 +1398,8 @@ msgid ""
 "Help about WangGuard %s. You can use the contact form if you don't find an "
 "answer to your question"
 msgstr ""
+"Ayuda sobre WangGuard %s. Puedes usar este formulario de contacto si no "
+"encuentras respuestas a tu pregunta."
 
 #: ../wangguard-help.php:35
 msgid "WangGuard Server IP Check"
@@ -1402,7 +1407,7 @@ msgstr "Comprobación IP servidor de WangGuard"
 
 #: ../wangguard-help.php:37
 msgid "This is a very important test, Server IP Check"
-msgstr ""
+msgstr "Esta es una prueba importante. Comprobación IP del servidor."
 
 #: ../wangguard-help.php:43
 #, php-format
@@ -1411,16 +1416,21 @@ msgid ""
 "it's own IP as user IP. Please go to %s and check <strong>'Do NOT verify "
 "client IP address'</strong>"
 msgstr ""
+"<strong style=\"color:#FF0000;\">ATENCIÓN:</strong> Tu servidor está "
+"reportando su propia IP como la IP de los usuarios. Por favor ve a %s y "
+"marca <strong>'No verificar las IP de los clientes'</strong>"
 
 #: ../wangguard-help.php:45
 msgid ""
 "<strong style=\"color:#00CC00;\">OK</strong> Looks like your server reports "
 "the correct User IP"
 msgstr ""
+"<strong style=\"color:#00CC00;\">Perfecto</strong> Parece que el servidor "
+"reporta la IP de los usuarios"
 
 #: ../wangguard-help.php:51
 msgid "First steps"
-msgstr ""
+msgstr "Primeros pasos"
 
 #: ../wangguard-help.php:53
 msgid "Activate WangGuard"
@@ -1758,11 +1768,11 @@ msgstr ""
 
 #: ../wangguard-help.php:226
 msgid "How to help Us?"
-msgstr ""
+msgstr "¿Cómo ayudarnos?"
 
 #: ../wangguard-help.php:229
 msgid "Donate"
-msgstr ""
+msgstr "Dona"
 
 #: ../wangguard-help.php:230
 msgid ""
@@ -1777,11 +1787,11 @@ msgstr ""
 
 #: ../wangguard-help.php:233
 msgid "PayPal Donation"
-msgstr ""
+msgstr "Donación mediante Paypal"
 
 #: ../wangguard-help.php:247
 msgid "Write a review on WordPress.org"
-msgstr ""
+msgstr "Realiza una reseña en WordPress.org"
 
 #: ../wangguard-help.php:248
 #, php-format
@@ -1789,6 +1799,8 @@ msgid ""
 "You can write a review in %s. If you write a review, many people will know "
 "WangGuard functionality and they will use it."
 msgstr ""
+"Puedes realizar una reseña en %s. Si realizas una reseña, mucha gente "
+"conocerá como funciona WangGuard y lo usarán."
 
 #: ../wangguard-help.php:249
 msgid ""
@@ -1798,7 +1810,7 @@ msgstr ""
 
 #: ../wangguard-help.php:255
 msgid "Write a review on your website"
-msgstr ""
+msgstr "Escribe una reseña en tu web."
 
 #: ../wangguard-help.php:256
 msgid ""
@@ -1864,27 +1876,27 @@ msgstr ""
 
 #: ../wangguard-help.php:329
 msgid "This is a copy for you: "
-msgstr ""
+msgstr "Esta es una copia para ti:"
 
 #: ../wangguard-help.php:337
 msgid "Subject"
-msgstr ""
+msgstr "Asunto"
 
 #: ../wangguard-help.php:338
 msgid "Message"
-msgstr ""
+msgstr "Mensaje"
 
 #: ../wangguard-help.php:339
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 #: ../wangguard-help.php:340
 msgid "Please fill in all the required fields."
-msgstr ""
+msgstr "Por favor, rellena todos los campos requeridos"
 
 #: ../wangguard-help.php:341
 msgid "Please enter a valid e-mail address."
-msgstr ""
+msgstr "Por favor, introduce un correo electrónico correcto."
 
 #: ../wangguard-help.php:342
 msgid ""
