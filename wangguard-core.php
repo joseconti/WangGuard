@@ -30,14 +30,28 @@ function wangguard_init() {
 }
 add_action('init', 'wangguard_init');
 function wangguard_welcome_splash(){
-	if ( ( get_site_option( 'wangguard-option-version' ) != WANGGUARD_VERSION ) ) {
+	global $wuangguard_parent;
+	if ( get_site_option( 'wangguard-option-version' ) == WANGGUARD_VERSION ) {
+		return;
+		}
+	elseif ( $wuangguard_parent == 'update.php' ) {
+			return;
+			}
+	elseif ( $wuangguard_parent == 'update-core.php' ) {
+		return;
+		}
+	else {
 		 update_site_option('wangguard-option-version', WANGGUARD_VERSION );
         if ( !is_multisite() ) { $wangguardredirect = esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_about' ), 'admin.php' ) ) ); }
 				else { $wangguardredirect =  esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_about' ), 'admin.php' ) ) );}
 		wp_redirect( $wangguardredirect ); exit;
 	}
 }
-if ( is_admin() ) add_action('init', 'wangguard_welcome_splash');
+if ( is_multisite() ){
+	if ( is_network_admin() ) add_action('init', 'wangguard_welcome_splash');
+	} else {
+		if ( is_admin() ) add_action('init', 'wangguard_welcome_splash');
+	}
 function wangguard_activate() {
 	wangguard_admin_init();
 	add_site_option('wangguard_redirect_on_activation', 'true');

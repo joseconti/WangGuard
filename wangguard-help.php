@@ -200,7 +200,7 @@ function wangguard_help_us() {
 	<?php $wangguardreviewexample = '<a href="http://www.shoutmeloud.com/wangguard-plugin-stop-wordpress-user-registration-spam.html">shoutmeloud</a>'; ?>
 	<?php $wangguarddevelopmentgithub = '<a href="https://github.com/joseconti/WangGuard">Github</a>'; ?>
 	<?php $wangguardwordpressreview = '<a href="http://wordpress.org/support/view/plugin-reviews/wangguard">WordPress.org</a>'; ?>
-	<?php $wangguardtranslatedlanguages = 'Spanish and Italian'; ?>
+	<?php $wangguardtranslatedlanguages = 'Spanish, Italian, German, Russian, Serbian and Dutch'; ?>
 	<?php if ( ! is_multisite() ) {
 									$wangguarcontributors = '<a href="' .esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_credits' ), 'admin.php' ) ) ) . '">' . __( 'Credits', 'wangguard' ) . '</a>';
 									} else {
