@@ -786,16 +786,17 @@ function wangguard_http_post($request, $op , $ip=null) {
 	$response = '';
 	/*fsock connection*/
 
-	if ( ( get_site_option("wangguard-use-ssl") == 1 ) || ( !get_site_option("wangguard-use-ssl") ) ) {
-		if( false != ( $fs = @fsockopen('ssl://'. $http_host, $wangguard_api_port, $errno, $errstr, 5) ) ) {
-			fwrite($fs, $http_request);
-			while ( !feof($fs) )
-				$response .= fgets($fs, 1100);
-				fclose($fs);
-		} else {
-			if( false != ( $fs = @fsockopen($http_host, $wangguard_api_port, $errno, $errstr, 5) ) ) {
+	if ( get_site_option("wangguard-no-use-ssl") == 1 ) {
+		if( false != ( $fs = @fsockopen($http_host, $wangguard_api_port, $errno, $errstr, 5) ) ) {
 				fwrite($fs, $http_request);
 				while ( !feof($fs) )
+				$response .= fgets($fs, 1100);
+				fclose($fs);
+			}
+		} else {
+			if( false != ( $fs = @fsockopen('ssl://'. $http_host, $wangguard_api_port, $errno, $errstr, 5) ) ) {
+			fwrite($fs, $http_request);
+			while ( !feof($fs) )
 				$response .= fgets($fs, 1100);
 				fclose($fs);
 			}
@@ -804,7 +805,6 @@ function wangguard_http_post($request, $op , $ip=null) {
 	$response = str_replace("\r", "", $response);
 	$response = substr($response, strpos($response, "\n\n")+2);
 	return $response;
-	}
 }
 /********************************************************************/
 /*** NETWORKING FUNCTIONS END ***/

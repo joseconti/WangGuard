@@ -41,7 +41,7 @@ function wangguard_conf() {
 	} elseif ( isset($_POST['optssave']) ) {
 			$wangguardnewallowemailsploggers = $_POST['wangguard_allow_emails_signup_list'];
 			$wangguardlisttoarrayallowemailsploggers = explode("\n", maybe_serialize(strtolower($wangguardnewallowemailsploggers)));
-			update_site_option('wangguard-use-ssl', @$_POST['wangguardusessl']=='1' ? 1 : 0 );
+			update_site_option('wangguard-no-use-ssl', @$_POST['wangguardnousessl']=='1' ? 1 : 0 );
 			update_site_option('wangguard-expertmode', @$_POST['wangguardexpertmode']=='1' ? 1 : 0 );
 			update_site_option('wangguard-report-posts', @$_POST['wangguardreportposts']=='1' ? 1 : 0 );
 			update_site_option('wangguard-delete-users-on-report', @$_POST['wangguard-delete-users-on-report']=='1' ? 1 : -1 );
@@ -173,8 +173,8 @@ function wangguard_conf() {
 				<form action="" method="post" id="wangguard-settings" style="margin:0px auto 0 auto; ">
 					<h3><?php _e("WangGuard settings", 'wangguard') ?></h3>
 					<p>
-						<input type="checkbox" name="wangguardusessl" id="wangguardusessl" value="1" <?php echo get_site_option("wangguard-use-ssl")=='1' ? 'checked' : ''?> />
-						<label for="wangguardusessl"><?php _e( sprintf("<strong>Connect to WangGuard API using SSL / TLS.</strong><br/>By default since version 1.6 WangGuard use SSL/TLS. If you live in Canada or Europe, you need it. If your server don't allow secure connection, you will need to deactivate it.  </a>." , $wangguard_edit_prefix . "edit.php"), 'wangguard') ?></label>
+						<input type="checkbox" name="wangguardnousessl" id="wangguardnousessl" value="1" <?php echo get_site_option("wangguard-no-use-ssl")=='1' ? 'checked' : ''?> />
+						<label for="wangguarnodusessl"><?php _e( sprintf("<strong>Disable secure connection to WangGuard server using SSL / TLS.</strong><br/>By default since version 1.6 WangGuard use SSL/TLS. If you live in Canada or Europe, you need it. If your server don't allow secure connection, you will need to deactivate it.  </a>." , $wangguard_edit_prefix . "edit.php"), 'wangguard') ?></label>
 					</p>
 					<p>
 						<input type="checkbox" name="wangguardreportposts" id="wangguardreportposts" value="1" <?php echo get_site_option("wangguard-report-posts")=='1' ? 'checked' : ''?> />
