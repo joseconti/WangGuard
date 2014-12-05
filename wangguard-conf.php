@@ -379,7 +379,7 @@ function wangguard_conf() {
 							// all connections fail
 							} elseif ( $fail_count > 0 ) { ?>
 								<p class="wangguard-info wangguard-error"><?php _e('Unable to reach any WangGuard servers.', 'wangguard'); ?></p>
-								<p><?php echo sprintf( __('A network problem or firewall is blocking all connections from your web server to WangGuard.com.  <strong>WangGuard cannot work correctly until this is fixed.</strong>', 'wangguard')); ?></p>
+								<p><?php echo sprintf( __('A network problem or firewall is blocking all connections from your web server to WangGuard.com.  <strong>WangGuard cannot work correctly until this is fixed.</strong> Try to deactivate secure connection to WangGuard API. Go to WangGuard Settings and Disable secure connection to WangGuard server using SSL / TLS. After that Save Options, and save the API Key again.', 'wangguard')); ?></p>
 							<?php
 							// all connections work
 							} else { ?>
