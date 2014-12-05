@@ -4,7 +4,7 @@ Author URI: http://wangguard.com
 Tags: wangguard, wgg, sploggers, splog, anti-splog, user spam, anti spam users, anti-spam, spam blog, spam blogs, wordpress, buddypress, wpmu, wordpress mu, wordpress multisite, standard WordPress, registration, security, security questions, plugin, sign up, signup, spam, wp-login.php, wp-signup.php, wp-register.php, register, registration, protect, protect registration, block agents, block ip, blog secure, bots, secure blog, secure wordpress, secure wp, website security, wp secure, wp security, block users, block user, block, block emails, block e-mails, block domains, block bots, block bot, bp, captcha, no captcha, recaptcha, unwanted users, block unwanted users, block splog, black hat, blackhat, bbpress, clean, clean database, clean splog, clean users, untrusted, untrusted users, ip, ip information, user admin, user management, advanced user management, ip info, appthemes, user registration spam, users registration spam, user registration spam prevention, users registration spam prevention, woocommerce
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 1.6
+Stable tag: 1.6.1.1
 License: GPLv2
 
 The most advanced protection against sploggers and spam users registration, is fully WordPress,WordPress MU ,BuddyPress and bbPress 2.0 compatible
@@ -320,7 +320,15 @@ It is free for personal use. If you earn more than $200/month with your site or 
 
 == Changelog ==
 
-= 1.6 - ? 2014 =
+= 1.6.1.1 - 5 Dic 2014 =
+
+- Extending message about obstructed connection. This is only a maintenance release, so if you want, you don't need to update. We are extending The connection problem message because there are many people that their sever has problem with SSL / TLS connections.
+
+= 1.6.1 - 2 Dic 2014 =
+
+- Fixed a bug with SSL deactivation.
+
+= 1.6 - 2 Dic 2014 =
 
 - Added secure connection to WangGuard API. Now all connections to WangGuard server are SSL/TLS by default, you can disable it from WangGuard Configuration.
 - Added email notification when a user or blog are reported.
