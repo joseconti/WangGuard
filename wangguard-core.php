@@ -30,8 +30,10 @@ function wangguard_init() {
 }
 add_action('init', 'wangguard_init');
 function wangguard_welcome_splash(){
-	global $wuangguard_parent;
-	if ( get_site_option( 'wangguard-option-version' ) == WANGGUARD_VERSION ) {
+	global $wuangguard_parent, $wangguard_version;
+	if ( ! defined('WANGGUARD_VERSION') ) define('WANGGUARD_VERSION', $wangguard_version );
+	if ( defined('WANGGUARD_VERSION') ) $wangguard_act_version = WANGGUARD_VERSION;
+	if ( get_site_option( 'wangguard-option-version' ) == $wangguard_act_version ) {
 		return;
 		}
 	elseif ( $wuangguard_parent == 'update.php' ) {
@@ -41,7 +43,7 @@ function wangguard_welcome_splash(){
 		return;
 		}
 	else {
-		 update_site_option('wangguard-option-version', WANGGUARD_VERSION );
+		 update_site_option('wangguard-option-version', $wangguard_act_version );
         if ( !is_multisite() ) { $wangguardredirect = esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_about' ), 'admin.php' ) ) ); }
 				else { $wangguardredirect =  esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_about' ), 'admin.php' ) ) );}
 		wp_redirect( $wangguardredirect ); exit;
