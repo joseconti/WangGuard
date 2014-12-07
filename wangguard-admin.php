@@ -35,7 +35,7 @@ License: GPL2
 	//ini_set("display_errors", 1);
 	//Which file are we are getting called from?
 	$wuangguard_parent = basename($_SERVER['SCRIPT_NAME']);
-	if( defined('WANGUARD_VERSION' ) { $wangguard_version = WANGGUARD_VERSION; }
+	if( defined('WANGUARD_VERSION' ) ) { $wangguard_version = WANGGUARD_VERSION; }
 	$wangguard_is_network_admin = function_exists("is_multisite") && function_exists( 'is_network_admin' );
 	if ($wangguard_is_network_admin)$wangguard_is_network_admin = is_multisite();
 	include_once 'wangguard-xml.php';
