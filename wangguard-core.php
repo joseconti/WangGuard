@@ -49,11 +49,8 @@ function wangguard_welcome_splash(){
 		wp_redirect( $wangguardredirect ); exit;
 	}
 }
-if ( is_multisite() ){
-	if ( is_network_admin() ) add_action('init', 'wangguard_welcome_splash');
-	} else {
-		if ( is_admin() ) add_action('init', 'wangguard_welcome_splash');
-	}
+add_action( 'admin_init', 'wangguard_welcome_splash', 1 );
+
 function wangguard_activate() {
 	wangguard_admin_init();
 	add_site_option('wangguard_redirect_on_activation', 'true');
