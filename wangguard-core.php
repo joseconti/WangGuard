@@ -53,8 +53,6 @@ add_action( 'admin_init', 'wangguard_welcome_splash', 1 );
 
 function wangguard_activate() {
 	wangguard_admin_init();
-	add_site_option('wangguard_redirect_on_activation', 'true');
-	update_site_option('wangguard_redirect_on_activation', 'true');
 	if (!get_site_option('wangguard-option-version') ) {
 		add_site_option('wangguard_db_version', '');
 		add_site_option('wangguard_stats');
