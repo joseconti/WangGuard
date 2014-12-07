@@ -88,7 +88,7 @@ function wangguard_conf() {
 		'no_connection' => array('class' => 'wangguard-info wangguard-error', 'text' => __('There was a problem connecting to the WangGuard server. Please check your server configuration.', 'wangguard')),
 		'key_empty' => array('class' => 'wangguard-info', 'text' => sprintf(__('Please enter an API key. (<a href="%s" style="color:#fff">Get your key here.</a>)', 'wangguard'), 'http://wangguard.com/getapikey')),
 		'key_valid' => array('class' => 'wangguard-info wangguard-success', 'text' => __('This key is valid.', 'wangguard')),
-		'key_failed' => array('class' => 'wangguard-info wangguard-error', 'text' => __('The key below was previously validated but a connection to wangguard.com can not be established at this time. Please check your server configuration.', 'wangguard')));
+		'key_failed' => array('class' => 'wangguard-info wangguard-error', 'text' => __('The key below was previously validated but a connection to wangguard.com can not be established at this time. Please check your server configuration. Try to deactivate secure connection to WangGuard API. Go to WangGuard Settings and Disable secure connection to WangGuard server using SSL / TLS. After that Save Options, and save the API Key again.', 'wangguard')));
 	wp_enqueue_script("jquery-ui-tabs");
 	wp_print_scripts("jquery-ui-tabs");
 ?>
