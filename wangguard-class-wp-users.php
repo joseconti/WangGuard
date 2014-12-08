@@ -85,6 +85,19 @@ class WangGuard_Users_Table extends WP_List_Table {
 		$legitimate_users = $Count[0];
 		$class = ($requestType == "l") ? ' class="current"' : '';
 		$total['legitimate'] = "<a href='" . add_query_arg( 'type', "l", $url ) . "'$class>".sprintf( __( 'Verified Members <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $legitimate_users ) )."</a>";
+		//Whitelisted users
+		$table_name = $wpdb->base_prefix . "wangguarduserstatus";
+
+		$wgLegitimateSQL = " AND EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID and $table_name.user_status IN ( 'whitelisted' ))";
+		if (wangguard_is_multisite())
+			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1 AND $wpdb->users.spam = 0" . $wgLegitimateSQL);
+		elseif (defined( 'BP_VERSION' ))
+			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1" . $wgLegitimateSQL);
+		else
+			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1" . $wgLegitimateSQL);
+		$legitimate_users = $Count[0];
+		$class = ($requestType == "whitelisted") ? ' class="current"' : '';
+		$total['whitelisted'] = "<a href='" . add_query_arg( 'type', "whitelisted", $url ) . "'$class>".sprintf( __( 'Whitelisted Users <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $legitimate_users ) )."</a>";
 		//Spam users, only BP or MS
 		if (wangguard_is_multisite() || defined( 'BP_VERSION' )) {
 			if (wangguard_is_multisite())
@@ -389,6 +402,15 @@ class WangGuard_Users_Query {
 				else
 					$this->query_where_u .= " AND ";
 				$wgLegitimateSQL = "(not EXISTS (select user_status from $tableUserStatus where $tableUserStatus.ID = {$wpdb->users}.ID) OR EXISTS (select user_status from $tableUserStatus where $tableUserStatus.ID = {$wpdb->users}.ID and $tableUserStatus.user_status IN ( '', 'not-checked' )))";
+				$this->query_where_u .= $wgLegitimateSQL;
+				break;
+			case 'whitelisted':
+				//Spoggers users filter
+				if (empty($this->query_where_u))
+					$this->query_where_u = " WHERE ";
+				else
+					$this->query_where_u .= " AND ";
+				$wgLegitimateSQL = " $tableUserStatus.user_status IN ( 'whitelisted' )";
 				$this->query_where_u .= $wgLegitimateSQL;
 				break;
 		}
