@@ -196,7 +196,7 @@ function wangguard_help_us() {
 	if ( !current_user_can('level_10') )
 		die(__('Cheatin&#8217; uh?', 'wangguard'));
 	if ( defined('WANGGUARD_VERSION') )  { $wangguard_version = WANGGUARD_VERSION; } ?>
-	<?php $wangguard_plugin_url = plugin_dir_url('wangguard-admin.php'); ?>
+	<?php $wangguard_plugin_url = plugins_url() . '/'; ?>
 	<?php $wangguardreviewexample = '<a href="http://www.shoutmeloud.com/wangguard-plugin-stop-wordpress-user-registration-spam.html">shoutmeloud</a>'; ?>
 	<?php $wangguarddevelopmentgithub = '<a href="https://github.com/joseconti/WangGuard">Github</a>'; ?>
 	<?php $wangguardwordpressreview = '<a href="http://wordpress.org/support/view/plugin-reviews/wangguard">WordPress.org</a>'; ?>

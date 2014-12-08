@@ -89,11 +89,11 @@ add_action('admin_init', 'wangguard_admin_init');
 add_action( 'admin_enqueue_scripts', 'wangguard_styles_css' );
 function wangguard_styles_css($hook){
 		global $users_Info, $WGDevelopmentPage;
-		wp_register_style(  'wangguardCSS', plugins_url('css/wangguard.css', __FILE__),array(),'1.5.11'  );
+		wp_register_style(  'wangguardCSS', plugins_url('css/wangguard.css', __FILE__),array(), WANGGUARD_VERSION );
 		wp_enqueue_style( 'wangguardCSS' );
 		if( $users_Info != $hook ) {
 			 return;} else {
-				wp_register_style( 'custom_wp_admin_css_for_wangguard_users_info', plugins_url('/css/wangguardcssforusersinfo.css', __FILE__),array(),'1.5.11'  );
+				wp_register_style( 'custom_wp_admin_css_for_wangguard_users_info', plugins_url('css/wangguardcssforusersinfo.css', __FILE__),array(), WANGGUARD_VERSION );
 				wp_enqueue_style( 'custom_wp_admin_css_for_wangguard_users_info');
 			}
 }
@@ -102,7 +102,7 @@ function wangguard_develpment_styles_css($hook){
 		global $WGDevelopmentPage;
 		if( $WGDevelopmentPage != $hook ) {
 			 return;} else {
-				wp_register_style( 'custom_wp_admin_css_for_wangguard_development', plugins_url('/css/wangguardcssfordevelopment.css', __FILE__),array(),'1.5.11'  );
+				wp_register_style( 'custom_wp_admin_css_for_wangguard_development', plugins_url('css/wangguardcssfordevelopment.css', __FILE__),array(), WANGGUARD_VERSION );
 				wp_enqueue_style( 'custom_wp_admin_css_for_wangguard_development');
 			}
 }
@@ -111,7 +111,7 @@ function wangguard_contact_styles_css($hook){
 		global $WGContactPage;
 		if( $WGContactPage != $hook ) {
 			 return;} else {
-				wp_register_style( 'custom_wp_admin_css_for_wangguard_contact', plugins_url('/css/wangguardcssforcontact.css', __FILE__),array(),'1.5.11'  );
+				wp_register_style( 'custom_wp_admin_css_for_wangguard_contact', plugins_url('css/wangguardcssforcontact.css', __FILE__),array(), WANGGUARD_VERSION );
 				wp_enqueue_style( 'custom_wp_admin_css_for_wangguard_contact');
 			}
 }
@@ -119,7 +119,7 @@ add_action( 'admin_enqueue_scripts', 'wangguard_about_styles_css' );
 function wangguard_about_styles_css($hook){
 		global $WGAboutPage, $WGPluginPage, $WGHelpPage, $WGHelpUsPage, $WGCreditsPage, $users_Info, $WGAddonPage;
 		if( ( $WGAboutPage == $hook ) || ( $WGPluginPage == $hook ) || ( $WGHelpPage == $hook ) || ( $WGHelpUsPage == $hook ) || ( $WGCreditsPage == $hook ) || (  $users_Info == $hook ) || ( $WGAddonPage == $hook ) ) {
-			 wp_register_style( 'custom_wp_admin_css_for_about_screen', plugins_url('/css/wangguardabout.css', __FILE__),array(),'1.5.6'  );
+			 wp_register_style( 'custom_wp_admin_css_for_about_screen', plugins_url('css/wangguardabout.css', __FILE__),array(),WANGGUARD_VERSION  );
 				wp_enqueue_style( 'custom_wp_admin_css_for_about_screen');
 } else { return; }
 }

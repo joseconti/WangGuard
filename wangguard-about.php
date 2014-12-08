@@ -15,7 +15,7 @@
 */
 	function wangguard_about() {
 		global $wpdb,$wangguard_nonce, $wangguard_api_key;
-		$wangguard_plugin_url = plugin_dir_url('wangguard-admin.php');
+		$wangguard_plugin_url = plugins_url() . '/';
 		if ( defined('WANGGUARD_API_HOST') ) {$wangguard_api_host = WANGGUARD_API_HOST;}
 		if ( defined('WANGGUARD_REST_PATH') ) {$wangguard_rest_path = WANGGUARD_REST_PATH;}
 		if ( !current_user_can('level_10') )die(__('Cheatin&#8217; uh?', 'wangguard'));
