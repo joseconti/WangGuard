@@ -321,7 +321,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 				$r .= '<td  width="25">' . $cell_contents . '</td>';
 			} else {
 				// Prepare cell classes
-				$classes = array( $column_name, 'column-' . $column_name, $style );
+				$classes = array( $column_name, 'column-' . $column_name );
 				if ( $column_name == 'posts' ) {
 					$classes[] = 'num';
 				}
