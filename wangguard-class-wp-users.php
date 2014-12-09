@@ -30,8 +30,6 @@ class WangGuard_Users_Table extends WP_List_Table {
 		$users_per_page = $this->get_items_per_page( $per_page );
 		$paged = $this->get_pagenum();
 
-
-
 		$args = array(
 			'number' => $users_per_page,
 			'offset' => ( $paged-1 ) * $users_per_page,
@@ -171,126 +169,174 @@ class WangGuard_Users_Table extends WP_List_Table {
 		//USER
 		$row_data->filter = 'display';
 		$email = $row_data->user_email;
+		$user_id = $row_data->ID;
+
 		$checkbox = '';
 		$actions = false;
 		if (defined('BP_VERSION')) {
 			add_thickbox();
-			$user_editobj_link = esc_url( add_query_arg( 'wp_http_referer', urlencode( stripslashes( $_SERVER['REQUEST_URI'] ) ), "user-edit.php?user_id=" . $row_data->ID ) );
-			$editobj_link = esc_url(  bp_core_get_user_domain($row_data->ID));
+			$user_editobj_link = esc_url( add_query_arg( 'wp_http_referer', urlencode( stripslashes( $_SERVER['REQUEST_URI'] ) ), "user-edit.php?user_id=" . $user_id) );
+			$editobj_link = esc_url(  bp_core_get_user_domain($user_id));
 			// Set up the hover actions for this user
 			$actions['edituser'] = "<a href='{$user_editobj_link}' target='_blank'>" . __( 'Edit user', 'wangguard' ) . "</a>";
 			$actions['bpprofile'] = "<a href='{$editobj_link}?TB_iframe=true&width=900&height=550' class='thickbox'>" . __( 'BP Profile', 'wangguard' ) . "</a>";
 			$report = "<strong><a target=\"_blank\" href=\"$editobj_link\">{$row_data->user_login}</a></strong><br />";
-		}
-		else {
-			$editobj_link = esc_url( add_query_arg( 'wp_http_referer', urlencode( stripslashes( $_SERVER['REQUEST_URI'] ) ), "user-edit.php?user_id=" . $row_data->ID ) );
+		} else {
+			$editobj_link = esc_url( add_query_arg( 'wp_http_referer', urlencode( stripslashes( $_SERVER['REQUEST_URI'] ) ), "user-edit.php?user_id=" . $user_id ) );
 			$report = "<strong><a target=\"_blank\" href=\"$editobj_link\">{$row_data->user_login}</a></strong><br />";
 		}
+		// @TODO: some sort of check whether the user is editable or not?
 		// Set up the checkbox ( because the user is editable, otherwise its empty )
-		$checkbox = "<input type='checkbox' name='users[]' id='user_{$row_data->ID}' value='{$row_data->ID}' />";
-		$avatar = get_avatar( $row_data->ID, 32 );
+		$checkbox = "<input type='checkbox' name='users[]' id='user_{$user_id}' value='{$user_id}' />";
 		$role = reset( $row_data->roles );
 		if (!empty($role))
 			$role = $wp_roles->role_names[$role];
-		$userid = $row_data->ID;
-		$statushtml = wangguard_user_custom_columns("" , "wangguardstatus" , $userid);
-		$rowID = "user-".$userid;
-		$trstyle = "class='$style ".(@$row_data->spam || @$row_data->user_status ? "site-spammed" : '')."'";
-		$r = "<tr id='$rowID'$trstyle>";
+
+		// Prepare row classes
+		$row_classes = array( $style );
+		if ( @$row_data->spam || @$row_data->user_status ) {
+			$row_classes[] = 'site-spammed';
+		}
+		/**
+		 * Fires before generating HTML class statement for each row.
+		 *
+		 * @since WangGuard (1.6.3)
+		 *
+		 * @param array     $row_classes 	Classes to be applied to the row.
+		 * @param object    $row_data 		WP_User object.
+		 */
+		$row_classes = apply_filters( 'wg_users_table_row_classes', $row_classes, $row_data );
+		$row_classes_html = 'class="' . implode( ' ', $row_classes ) . '"';
+
+		// Begin row output
+		$r = '<tr id="user-' . $user_id . '" ' . $row_classes_html . '>';
+
 		list( $columns, $hidden ) = $this->get_column_info();
+
 		foreach ( $columns as $column_name => $column_display_name ) {
-			$class = "class=\"$column_name column-{$column_name}\" $style";
-			$attributes = $class;
 			switch ( $column_name ) {
 				case 'cb':
-					$r .= "<th scope='row' class='check-column'>$checkbox</th>";
+					$cell_contents = $checkbox;
 					break;
 				case 'info':
-				add_thickbox();
-					 if ( !is_multisite() ) { $url = esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_users_info' ), 'admin.php' ) ) ); }
-				else { $url = esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_users_info' ), 'admin.php' ) ) );}
-				$arrayUrl = array ('userID' => $row_data->ID, 'userIP' => $row_data->user_ip, '?TB_iframe' => 'true', 'width' => '900', 'height' => '550' );
-				$final_user_info_url = esc_url( add_query_arg(  $arrayUrl , $url ));
-					$r .= "<td  width='25'><a class='thickbox' title='" . __( 'Info about','wangguard') . "  $row_data->first_name $row_data->last_name' href='" . $final_user_info_url . "'><img class='alignnone size-full wp-image-2055' alt='Info about $row_data->first_name $row_data->last_name' src='" . plugins_url( 'img/info-wgg.png' , __FILE__ ) . "' width='15' height='15' /> " . __('User Info', 'wangguard' ) . "</a>";
+					add_thickbox();
+					if ( !is_multisite() ) {
+						$url = esc_url( admin_url( add_query_arg( array( 'page' => 'wangguard_users_info' ), 'admin.php' ) ) );
+					} else {
+						$url = esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_users_info' ), 'admin.php' ) ) );
+					}
+					$arrayUrl = array ('userID' => $user_id, 'userIP' => $row_data->user_ip, '?TB_iframe' => 'true', 'width' => '900', 'height' => '550' );
+					$final_user_info_url = esc_url( add_query_arg(  $arrayUrl , $url ));
+					$cell_contents = "<a class='thickbox' title='" . __( 'Info about','wangguard') . " {$row_data->first_name} {$row_data->last_name}' href='" . $final_user_info_url . "'><img class='alignnone size-full wp-image-2055' alt='Info about {$row_data->first_name} {$row_data->last_name}' src='" . plugins_url( 'img/info-wgg.png' , __FILE__ ) . "' width='15' height='15' /> " . __('User Info', 'wangguard' ) . "</a>";
 					break;
 				case 'username':
-					$r .= "<td $attributes>$avatar $report <span style='font-size:11px'>{$role}" . ($actions ? $this->row_actions( $actions ) : "") . "</span></td>";
+					$avatar = get_avatar( $user_id, 32 );
+					$cell_contents = "$avatar $report <span style='font-size:11px'>{$role}" . ($actions ? $this->row_actions( $actions ) : "") . "</span>";
 					break;
 				case 'name':
-					$r .= "<td $attributes>$row_data->first_name $row_data->last_name</td>";
+					$cell_contents = "{$row_data->first_name} {$row_data->last_name}";
 					break;
 				case 'email':
-					$r .= "<td $attributes><a href='mailto:$email' title='" . esc_attr( sprintf( __( 'E-mail: %s' ), $email ) ) . "'>$email</a></td>";
+					$cell_contents = "<a href='mailto:{$email}' title='" . esc_attr( sprintf( __( 'E-mail: %s' ), $email ) ) . "'>{$email}</a>";
 					break;
 				case 'user_registered':
-					$r .= "<td $attributes><span style='font-size:11px'>".date(get_option('date_format'), strtotime($row_data->user_registered)) . " " . date(get_option('time_format'), strtotime($row_data->user_registered))."</span></td>";
+					$cell_contents = "<span style='font-size:11px'>".date(get_option('date_format'), strtotime($row_data->user_registered)) . " " . date(get_option('time_format'), strtotime($row_data->user_registered))."</span>";
 					break;
 				case 'from_ip':
-					$r .= "<td $attributes>";
-					$r .= "<div class='wangguard-user-ip' data='{$row_data->user_ip}'><span class='wangguard-user-ip-bb'>";
-					$r .= $row_data->user_ip;
-					$r .= '</span>';
-					if ($row_data->user_ip_is_proxy)
-						$r .= " <span class='wangguard_proxy'>" . __( 'proxy' , 'wangguard') .  "</span>";
-					$r .= "</div>";
-					if (!empty($row_data->user_reported_proxy_ip)) {
-						$r .= "<div class='wangguard-user-ip' data='{$row_data->user_reported_proxy_ip}'><span class='wangguard-user-ip-bb'>";
-						$r .= $row_data->user_reported_proxy_ip;
-						$r .= '</span>';
-						$r .= " <span class='wangguard_proxy'>" . __( 'reported proxy' , 'wangguard') .  "</span>";
-						$r .= "</div>";
+					$cell_contents = "<div class='wangguard-user-ip' data='{$row_data->user_ip}'><span class='wangguard-user-ip-bb'>";
+					$cell_contents .= $row_data->user_ip;
+					$cell_contents .= '</span>';
+					if ($row_data->user_ip_is_proxy) {
+						$cell_contents .= " <span class='wangguard_proxy'>" . __( 'proxy' , 'wangguard') .  "</span>";
 					}
-					$r .= "</td>";
+					$cell_contents .= "</div>";
+					if (!empty($row_data->user_reported_proxy_ip)) {
+						$cell_contents .= "<div class='wangguard-user-ip' data='{$row_data->user_reported_proxy_ip}'><span class='wangguard-user-ip-bb'>";
+						$cell_contents .= $row_data->user_reported_proxy_ip;
+						$cell_contents .= '</span>';
+						$cell_contents .= " <span class='wangguard_proxy'>" . __( 'reported proxy' , 'wangguard') .  "</span>";
+						$cell_contents .= "</div>";
+					}
 					break;
 				case 'posts':
-					$attributes = 'class="posts column-posts num"' . $style;
-					$r .= "<td $attributes>";
 					if ( $numposts > 0 ) {
-						$r .= "<a target='_blank' href='edit.php?author=$row_data->ID' title='" . esc_attr__( 'View posts by this author' ) . "' class='edit'>";
-						$r .= $numposts;
-						$r .= '</a>';
+						$cell_contents = "<a target='_blank' href='edit.php?author={$user_id}' title='" . esc_attr__( 'View posts by this author' ) . "' class='edit'>";
+						$cell_contents .= $numposts;
+						$cell_contents .= '</a>';
 					} else {
-						$r .= 0;
+						$cell_contents = 0;
 					}
-					$r .= "</td>";
 					break;
 				case 'blogs':
-				add_thickbox();
-					$r .= "<td $attributes>";
+					add_thickbox();
+					$cell_contents = '';
 					if (function_exists("get_blogs_of_user")) {
-						$blogs = @get_blogs_of_user( $row_data->ID, true );
-						if (is_array($blogs))
+						$blogs = @get_blogs_of_user( $user_id, true );
+						if (is_array($blogs)) {
 							foreach ( (array) $blogs as $key => $details ) {
-								$r .= '- <a href="'. $details->siteurl .'?TB_iframe=true&width=900&height=550" class="thickbox" title="'. htmlentities($details->siteurl, 0, 'UTF-8') .'">'.$details->blogname.'</a><br/>';
+								$cell_contents .= '- <a href="'. $details->siteurl .'?TB_iframe=true&width=900&height=550" class="thickbox" title="'. htmlentities($details->siteurl, 0, 'UTF-8') .'">'.$details->blogname.'</a><br/>';
+							}
 						}
 					}
-					$r .= "</td>";
 					break;
 				case 'groups':
-				add_thickbox();
-					$r .= "<td $attributes>";
-					if ( ( defined( 'BP_VERSION' ) ) && ( class_exists('BP_Groups_member') ) ) {
-					global $bp;
-					$bpgrpupsslug = $bp->groups->root_slug;
-						$groups = BP_Groups_Member::get_is_admin_of( $row_data->ID );
-							foreach ( $groups as $group) {
-								if (is_array($group)){
-									foreach ($group as $detail) {
-										$groupdomain = $bp->root_domain;
-										$bpgroupsslug = $bp->groups->root_slug;
-										$groupslug = $detail->slug;
-										$groupname = $detail->name;
-										$r .= '- <a href="'. $groupdomain . '/' . $bpgroupsslug . '/' . $groupslug . '/?TB_iframe=true&width=900&height=550" class="thickbox" title="'. htmlentities($groupdomain . '/' . $bpgrpupsslug . '/' . $groupslug, 0, 'UTF-8') .'">'.$groupname.'</a><br/>';										}
-									} else {
-										continue;
-										}
-								}
+					add_thickbox();
+					$cell_contents = '';
+					if ( ( defined( 'BP_VERSION' ) ) && ( class_exists('BP_Groups_Member') ) ) {
+						$groups = BP_Groups_Member::get_is_admin_of( $user_id );
+						if ( ! empty( $groups['groups'] ) ) {
+							foreach ( $groups['groups'] as $group ) {
+								$group_permalink = bp_get_group_permalink( $group );
+								$cell_contents .= '- <a href="' . $group_permalink . '?TB_iframe=true&width=900&height=550" class="thickbox" title="'. htmlentities( $group_permalink, 0, 'UTF-8') .'">'. bp_get_group_name( $group ) .'</a><br/>';
+							}
+						}
 					}
-					$r .= "</td>";
 					break;
 				case 'wgstatus':
-					$r .= "<td $attributes>" . $statushtml . "</td>";
+					$cell_contents = wangguard_user_custom_columns( "" , "wangguardstatus" , $user_id );
 					break;
+			}
+			/**
+			 * Fires before outputting the generated HTML for each cell.
+			 *
+			 * This is a variable hook, depending on which cell is being generated.
+			 * The potential hooks are:
+			 * wg_users_table_cb_cell, wg_users_table_info_cell, wg_users_table_username_cell
+			 * wg_users_table_name_cell, wg_users_table_email_cell
+			 * wg_users_table_user_registered_cell, wg_users_table_from_ip_cell,
+			 * wg_users_table_posts_cell, wg_users_table_blogs_cell,
+			 * wg_users_table_groups_cell, wg_users_table_wgstatus_cell
+			 *
+			 * @since WangGuard (1.6.3)
+			 *
+			 * @param string    $cell_contents 	Generated HTML for the cell.
+			 * @param object    $row_data 		WP_User object.
+  			 * @param string    $column_name 	Name of column being generated.
+			 */
+			$cell_contents = apply_filters( 'wg_users_table_' . $column_name . '_cell', $cell_contents, $row_data, $column_name );
+
+			if ( $column_name == 'cb' ) {
+				$r .= '<th scope="row" class="check-column">' . $cell_contents . '</th>';
+			} else if ( $column_name == 'info' ) {
+				$r .= '<td  width="25">' . $cell_contents . '</td>';
+			} else {
+				// Prepare cell classes
+				$classes = array( $column_name, 'column-' . $column_name, $style );
+				if ( $column_name == 'posts' ) {
+					$classes[] = 'num';
+				}
+				/**
+				 * Fires before generating HTML class statement for each cell.
+				 *
+				 * @since WangGuard (1.6.3)
+				 *
+				 * @param array     $classes 				Classes to be applied to the cell.
+				 * @param string    $column_name 			Name of column being generated.
+				 * @param object    $row_data 				WP_User object.
+				 */
+				$classes = apply_filters( 'wg_users_table_cell_classes', $classes, $column_name, $row_data );
+				$classes_html = 'class="' . implode( ' ', $classes ) . '"';
+				$r .= "<td {$classes_html}>" . $cell_contents . '</td>';
 			}
 		}
 		$r .= '</tr>';
