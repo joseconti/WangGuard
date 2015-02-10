@@ -3,13 +3,27 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
 *Looking for banner
 */
-function wangguard_look_for_plugin_banner($bannerurl)
-{
-   $handle = @fopen($bannerurl, "r");
-   if ($handle == false)
-             return false;
-   fclose($handle);
-      return true;
+function wangguard_look_for_plugin_banner($bannerurl){
+	if(function_exists('curl_init')){
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL,$bannerurl);
+		// don't download content
+		curl_setopt($ch, CURLOPT_NOBODY, 1);
+		curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		if(curl_exec($ch)!==FALSE)
+			{
+			return true;
+		}
+		else
+			{
+			return false;
+    	}
+    }
+    else
+    	{
+	    	return false;
+    	}
 }
 /**
 * Getting WangGuard compatible plugins from WordPress.org
@@ -67,12 +81,12 @@ if ( !is_wp_error($response) ) {
 		//print_r($returned_object->plugins);
 			foreach ( $plugins as $plugin ) {
 			 if ( ( $plugin->name == 'CM Invitation Codes' ) || ( $plugin->name == 'WangGuard' ) || ( $plugin->author_profile == '//profiles.wordpress.org/jconti' ) ) {
-			 // I'm sorry CM Invitation Codes Developer, but you are making Spam tags. 
+			 // I'm sorry CM Invitation Codes Developer, but you are making Spam tags.
 			 continue; } else {
 			echo '<div class="changelog">';
 			//echo '<h3>'.esc_html($plugin->name). '</h4>';
 					echo '<div class="feature-section images-stagger-right">';
-					$bannerurl = "http://s-plugins.wordpress.org/" . esc_html($plugin->slug) . "/assets/banner-772x250.png"; 
+					$bannerurl = "http://s-plugins.wordpress.org/" . esc_html($plugin->slug) . "/assets/banner-772x250.png";
 						if ( wangguard_look_for_plugin_banner ( $bannerurl ) ) {
 						echo '<img class="image-66" src="http://s-plugins.wordpress.org/' . esc_html($plugin->slug) . '/assets/banner-772x250.png" alt="">';
 						}

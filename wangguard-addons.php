@@ -3,13 +3,27 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
 *Looking for banner
 */
-function wangguard_look_for_plugin_banner_addon($bannerurl)
-{
-   $handle = @fopen($bannerurl, "r");
-   if ($handle == false)
-          return false;
-   fclose($handle);
-      return true;
+function wangguard_look_for_plugin_banner($bannerurl){
+	if(function_exists('curl_init')){
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL,$bannerurl);
+		// don't download content
+		curl_setopt($ch, CURLOPT_NOBODY, 1);
+		curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		if(curl_exec($ch)!==FALSE)
+			{
+			return true;
+		}
+		else
+			{
+			return false;
+    	}
+    }
+    else
+    	{
+	    	return false;
+    	}
 }
 /**
 * Getting WangGuard compatible plugins from WordPress.org
