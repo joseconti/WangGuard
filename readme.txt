@@ -323,6 +323,7 @@ It is free for personal use. If you earn more than $200/month with your site or 
 = 1.6.3 - ? ? 2015 =
 
 - Now WangGuard don’t use fopen for check for plugins image, now use CURL. Some servers don’t allow fopen.
+- Now WangGuard cron only sent an email if there are new users.
 
 = 1.6.2 - 9 Dic 2014 =
 
