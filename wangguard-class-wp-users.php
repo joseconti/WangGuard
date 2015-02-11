@@ -284,12 +284,19 @@ class WangGuard_Users_Table extends WP_List_Table {
 					//add_thickbox();
 					$args = array(
 						'user_id' => $user_id, // use user_id
+						'count' => true //return only the count
+						);
+					$comments = get_comments($args);
+					$cell_contents = '<p>' . $comments . '</p>';
+
+					/*$args = array(
+						'user_id' => $user_id, // use user_id
 						);
 					$cell_contents = '';
 					$comments = get_comments($args);
 					foreach($comments as $comment) :
 					$cell_contents .= '<p>- ' . $comment->comment_content . '</p>';
-					endforeach;
+					endforeach;*/
 					break;
 				case 'groups':
 					add_thickbox();
@@ -334,7 +341,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 			} else {
 				// Prepare cell classes
 				$classes = array( $column_name, 'column-' . $column_name );
-				if ( ( $column_name == 'posts' ) || ( $column_name == 'comments' ) ) {
+				if ( ( $column_name == 'posts' ) || ( $column_name == 'wggcomments' ) ) {
 					$classes[] = 'num';
 				}
 				/**
