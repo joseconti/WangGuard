@@ -1626,8 +1626,10 @@ function wangguard_cronjob_runner($cronid) {
 		}
 		if (count($cleanUsers))$message .= __("--- Verified Users ---",'wangguard') . "\n" . implode("\n", $cleanUsers) . "\n\n";
 		if (count($sploggersUsers))$message .= __("--- Detected Sploggers ---",'wangguard') . "\n" . implode("\n", $sploggersUsers) . "\n\n";
+		$therearentnewusers = true;
 	} else {
 		$message .= __("No new users to verify since ",'wangguard') . date(get_option('date_format') , $timeFrom);
+		$therearentnewusers = false;
 	}
 }
 //bottom link
@@ -1652,8 +1654,7 @@ if ( empty( $current_site->site_name ) ) {
 	$current_site->site_name = 'WordPress';
 }
 $subject = sprintf('WangGuard Cron Job # '.$cronid . ' - '.__('Verified: %d - Sploggers: %d'), $checkedUsers, $detectedSploggers);
-@wp_mail($admin_email, $subject, $message, $message_headers);
-}
+if ( $therearentnewusers == true ) @wp_mail($admin_email, $subject, $message, $message_headers);
 add_action('wangguard_cronjob_runner', 'wangguard_cronjob_runner');
 function wangguard_delete_user_and_blogs($userid) {
 	global $wpdb;
