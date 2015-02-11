@@ -130,15 +130,16 @@ class WangGuard_Users_Table extends WP_List_Table {
 	}
 	function get_columns() {
 		$c = array(
-			'cb'		=> '<input type="checkbox" />',
-			'info'		=> __( 'Info' ),
-			'username'	=> __( 'Username' ),
-			'email'		=> __( 'E-mail' ),
-			'user_registered'=> __( 'Signed up on' , 'wangguard' ),
-			'from_ip'=>		__( 'User IP' , 'wangguard' ),
-			'posts'		=> __( 'Posts' ),
-			'blogs'		=> __( 'Blogs' ),
-			'groups'    => __( 'Admin Group' ),
+			'cb'				=> '<input type="checkbox" />',
+			'info'				=> __( 'Info' , 'wangguard' ),
+			'username'			=> __( 'Username' , 'wangguard' ),
+			'email'				=> __( 'E-mail' , 'wangguard' ),
+			'user_registered'	=> __( 'Signed up on' , 'wangguard' ),
+			'from_ip'			=> __( 'User IP' , 'wangguard' ),
+			'posts'				=> __( 'Posts' , 'wangguard' ),
+			'wggcomments'			=> __( 'Comments' , 'wangguard' ),
+			'blogs'				=> __( 'Blogs' , 'wangguard' ),
+			'groups'			=> __( 'Admin Group' , 'wangguard' ),
 		);
 		return $c;
 	}
@@ -279,6 +280,17 @@ class WangGuard_Users_Table extends WP_List_Table {
 						}
 					}
 					break;
+				case 'wggcomments':
+					//add_thickbox();
+					$args = array(
+						'user_id' => $user_id, // use user_id
+						);
+					$cell_contents = '';
+					$comments = get_comments($args);
+					foreach($comments as $comment) :
+					$cell_contents .= '<p>- ' . $comment->comment_content . '</p>';
+					endforeach;
+					break;
 				case 'groups':
 					add_thickbox();
 					$cell_contents = '';
@@ -322,7 +334,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 			} else {
 				// Prepare cell classes
 				$classes = array( $column_name, 'column-' . $column_name );
-				if ( $column_name == 'posts' ) {
+				if ( ( $column_name == 'posts' ) || ( $column_name == 'comments' ) ) {
 					$classes[] = 'num';
 				}
 				/**

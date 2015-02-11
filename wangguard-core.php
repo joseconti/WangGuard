@@ -929,17 +929,18 @@ add_filter("manage_wangguard_page_wangguard_queue-network_columns", "wangguard_p
 /********************************************************************/
 function wangguard_page_wangguard_users_headers($v) {
 	$cols = array(
-			'cb'			=> '<input type="checkbox" />',
-			'info'			=> __( 'Info' , 'wangguard' ),
-			'username'		=> __( 'Username' , 'wangguard' ),
-			'name'			=> __( 'Name' , 'wangguard' ),
-			'email'			=> __( 'E-mail' , 'wangguard' ),
-			'user_registered'=> __( 'Signed up on' , 'wangguard' ),
-			'from_ip'=>		__( 'User IP' , 'wangguard' ),
-			'posts'			=> __( 'Posts' , 'wangguard' ),
-			'blogs'			=> __( 'Sites' , 'wangguard' ),
-			'groups'        => __( 'Admin Group' , 'wangguard' ),
-			'wgstatus'		=> __( 'WangGuard Status' , 'wangguard' )
+			'cb'				=> '<input type="checkbox" />',
+			'info'				=> __( 'Info' , 'wangguard' ),
+			'username'			=> __( 'Username' , 'wangguard' ),
+			'name'				=> __( 'Name' , 'wangguard' ),
+			'email'				=> __( 'E-mail' , 'wangguard' ),
+			'user_registered'	=> __( 'Signed up on' , 'wangguard' ),
+			'from_ip'			=> __( 'User IP' , 'wangguard' ),
+			'posts'				=> __( 'Posts' , 'wangguard' ),
+			'wggcomments'		=> __( 'Comments' , 'wangguard' ),
+			'blogs'				=> __( 'Sites' , 'wangguard' ),
+			//'groups'			=> __( 'Admin Group' , 'wangguard' ),
+			'wgstatus'			=> __( 'WangGuard Status' , 'wangguard' )
 		);
 	if ( ! wangguard_is_multisite() ) {
 		unset($cols['blogs']);
