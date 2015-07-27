@@ -287,6 +287,11 @@ function wangguard_wizard() {
 						<p class="wangguard-info wangguard-error" style="margin-right: 20px;"><?php echo __('Your WangGuard API KEY is invalid.', 'wangguard'); ?></p>
 						<?php
 					}
+					elseif (($valid == 'noplan')) {
+						?>
+						<p class="wangguard-info wangguard-error" style="margin-right: 20px;"><?php echo __('Your account needs a valid plan to work, check WangGuard Configuration &gt; My account.', 'wangguard'); ?></p>
+						<?php
+					}
 					else {
 						?>
 						<p><?php echo __( "Click the button below when you're ready to clean your site!." , "wangguard") ?></p>

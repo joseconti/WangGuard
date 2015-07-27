@@ -73,6 +73,8 @@ function wangguard_conf() {
 		}
 		if ( $key_status == 'valid' ) {
 			$ms[] = 'key_valid';
+		} else if ( $key_status == 'noplan' ) {
+			$ms[] = 'noplan';
 		} else if ( $key_status == 'invalid' ) {
 			delete_option('wangguard_api_key');
 			$ms[] = 'key_empty';
@@ -83,6 +85,7 @@ function wangguard_conf() {
 	$messages = array(
 		'new_key_empty' => array('class' => 'wangguard-info', 'text' => __('Your key has been cleared.', 'wangguard')),
 		'new_key_valid' => array('class' => 'wangguard-info wangguard-success', 'text' => __('Your key has been verified!', 'wangguard')),
+		'noplan' => array('class' => 'wangguard-info', 'text' => __('Your key has been verified, but your account needs a valid plan to work, check WangGuard Configuration &gt; My account.', 'wangguard')),
 		'new_key_invalid' => array('class' => 'wangguard-info wangguard-error', 'text' => __('The key you entered is invalid. Please double-check it.', 'wangguard')),
 		'new_key_failed' => array('class' => 'wangguard-info wangguard-error', 'text' => __('The key you entered could not be verified because a connection to wangguard.com could not be established. Please check your server configuration.', 'wangguard')),
 		'no_connection' => array('class' => 'wangguard-info wangguard-error', 'text' => __('There was a problem connecting to the WangGuard server. Please check your server configuration.', 'wangguard')),
@@ -104,6 +107,7 @@ function wangguard_conf() {
 				<li><a href="#wangguard-conf-apikeys"><?php _e('WangGuard API Key', 'wangguard'); ?></a></li>
 				<li><a href="#wangguard-conf-questions"><?php _e('Security questions', 'wangguard'); ?></a></li>
 				<li><a href="#wangguard-conf-settings"><?php _e('WangGuard settings', 'wangguard'); ?></a></li>
+				<li><a href="#wangguard-conf-account"><?php _e('My account', 'wangguard'); ?></a></li>
 				<li><a href="#wangguard-conf-domains"><?php _e('Blocked domains', 'wangguard'); ?></a></li>
 				<li><a href="#wangguard-conf-conectivity"><?php _e('Server Connectivity', 'wangguard'); ?></a></li>
 			</ul>
@@ -174,7 +178,7 @@ function wangguard_conf() {
 					<h3><?php _e("WangGuard settings", 'wangguard') ?></h3>
 					<p>
 						<input type="checkbox" name="wangguardnousessl" id="wangguardnousessl" value="1" <?php echo get_site_option("wangguard-no-use-ssl")=='1' ? 'checked' : ''?> />
-						<label for="wangguarnodusessl"><?php _e( sprintf("<strong>Disable secure connection to WangGuard server using SSL / TLS.</strong><br/>By default since version 1.6 WangGuard use SSL/TLS. If you live in Canada or Europe, you need it. If your server don't allow secure connection, you will need to deactivate it.  </a>." , $wangguard_edit_prefix . "edit.php"), 'wangguard') ?></label>
+						<label for="wangguardnousessl"><?php _e( sprintf("<strong>Disable secure connection to WangGuard server using SSL / TLS.</strong><br/>By default since version 1.6 WangGuard use SSL/TLS. If you live in Canada or Europe, you need it. If your server don't allow secure connection, you will need to deactivate it.  </a>." , $wangguard_edit_prefix . "edit.php"), 'wangguard') ?></label>
 					</p>
 					<p>
 						<input type="checkbox" name="wangguardreportposts" id="wangguardreportposts" value="1" <?php echo get_site_option("wangguard-report-posts")=='1' ? 'checked' : ''?> />
@@ -210,7 +214,7 @@ function wangguard_conf() {
 					</p>
 					<p>
 						<input type="checkbox" name="wangguard-add-honeypot" id="wangguard-add-honeypot" value="1" <?php echo get_site_option("wangguard-add-honeypot")=='1' ? 'checked' : ''?> />
-						<label for="wangguard-add-honeypot"><?php _e("<strong>Enable</sytong> honeypot fields (signup trap fields). Some themes has problem with  honeypot fields. If you have some problems with those fields, disable this option", 'wangguard') ?></label>
+						<label for="wangguard-add-honeypot"><?php _e("<strong>Enable</strong> honeypot fields (signup trap fields). Some themes has problem with  honeypot fields. If you have some problems with those fields, disable this option", 'wangguard') ?></label>
 					</p>
 					<?php
 					//verifies if the getmxrr() function is availabe
@@ -247,6 +251,206 @@ function wangguard_conf() {
 					</p>
 				</form>
 			</div>
+			
+			<!--WANGGUARD ACCOUNT-->
+			<div id="wangguard-conf-account" style="margin: auto;">
+				<div class="wangguard-confico"><img src="<?php echo WP_PLUGIN_URL ?>/wangguard/img/account.png" alt="<?php echo htmlentities(__('My account', 'wangguard')) ?>" /></div>
+				<h3><?php _e("My account", 'wangguard') ?></h3>
+				
+				<?php
+				$lang = substr(WPLANG, 0,2);
+				$response_hired = wangguard_http_post("wg=<in><apikey>$wangguard_api_key</apikey><lang>$lang</lang></in>", 'get-plans-hired.php');
+				$xml_hired = XML_unserialize($response_hired);
+				
+				$display_available_plans = true;
+				$datef = get_option('date_format');
+
+				if (!is_array($xml_hired) || !isset($xml_hired['out'])) {
+					?><p><?php _e("There was an error while pulling contracted plans information from the server.", 'wangguard') ?></p><?php
+				}
+				else {
+					if (!is_array($xml_hired['out'])) $xml_hired['out'] = array('list'=>array());
+			
+
+					if (isset($xml_hired['out']['autodate'])) {?>
+						<div class="error"><p style="font-weight:bold;"><span class="dashicons dashicons-info" style="color: #dd3d36"></span> <?php echo sprintf(__("Your trial plan expires on %s", 'wangguard'), date($datef , strtotime($xml_hired['out']['autodate']))) ?></p></div>
+					<?php }
+					
+					
+					if (count($xml_hired['out']['list'])) {
+						if (!isset($xml_hired['out']['list'][0])) {
+							$tmp = $xml_hired['out']['list'];
+							$xml_hired['out']['list'] = array($tmp);
+						}
+						
+						$display_available_plans = false;
+						?>
+						<h3><?php _e("Your contracted plan", 'wangguard') ?></h3>
+						<table style="width: 100%;" class="wp-list-table widefat striped">
+						<thead>
+							<th><?php _e('Plan', 'wangguard'); ?></th>
+							<th><?php _e('From', 'wangguard'); ?></th>
+							<th><?php _e('To', 'wangguard'); ?></th>
+							<th><?php _e('Queries available resets on', 'wangguard'); ?></th>
+							<th style="text-align: right;"><?php _e('Queries available', 'wangguard'); ?></th>
+							<th><?php _e('Usage', 'wangguard'); ?></th>
+						</thead>
+						<tbody>
+							<?php 
+							foreach ($xml_hired['out']['list'] as $plan) {
+								$used = ($plan['monthlyq'] - $plan['availq']) * 100 / $plan['monthlyq'];
+								?>
+								<tr>
+									<td style="white-space: nowrap; font-weight:bold;"><?php echo $plan['name']  ?></td>
+									<td style="white-space: nowrap;"><?php echo date($datef , strtotime($plan['datefrom'])) ?></td>
+									<td style="white-space: nowrap;"><?php echo date($datef , strtotime($plan['dateto'])) ?></td>
+									<td style="white-space: nowrap;"><?php echo date($datef , strtotime($plan['datereset'])) ?></td>
+									<td style="white-space: nowrap; text-align: right;"><?php echo number_format($plan['availq'], 0, '' , '.')  ?> out of <?php echo number_format($plan['monthlyq'], 0, '' , '.')  ?></td>
+									<td style="white-space: nowrap; min-width: 15%">
+										<div class="wangguard-minihbar"><div style="width: <?= $used ?>%;"></div></div>
+										<div style="font-size: 10px; text-align: center;"><?= (int)$used ?>% <?php _e('consumed', 'wangguard'); ?></div>
+									</td>
+								</tr>
+								<?php if (isset($plan['upgrade']) || ($plan['renew'] == 1)) {?>  
+									<tr>
+										
+										<?php if (isset($plan['upgrade'])) {?>  
+											<td colspan="<?php echo (isset($plan['upgrade']) && ($plan['renew'] == 1)) ? 3 : 6?>" style="text-align: center;">
+												<h4><?php _e('Need to upgrade?', 'wangguard'); ?></h4>
+												<?php _e('Click below to upgrade to', 'wangguard'); ?> <strong><?php echo $plan['upgrade']['name']  ?></strong> <?php _e('for', 'wangguard'); ?> <strong><?php echo number_format($plan['upgrade']['cost'], 2, ',' , '.')  ?> &euro;</strong>
+												<?php if ($plan['upgrade']['tax']) {?>+ <?php echo number_format($plan['upgrade']['tax'],2, ',' , '.') ?> &euro; <?php _e('tax', 'wangguard'); ?><?php }?><br/> 
+												<?php echo number_format($plan['upgrade']['monthlyq'], 0, '' , '.')  ?> <?php _e('Queries per month', 'wangguard'); ?>
+
+												<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+													<input type="hidden" name="cmd" value="_xclick">
+													<input type="hidden" name="currency_code" value="EUR">
+													<input type="hidden" name="business" value="<?php echo $xml_hired['out']['seller']  ?>">
+													<input type="hidden" name="amount" value="<?php echo number_format($plan['upgrade']['cost'], 2, '.' , '')  ?>">
+													<input type="hidden" name="tax" value="<?php echo number_format($plan['upgrade']['tax'], 2, '.' , '')  ?>">
+													<input type="hidden" name="quantity" value="1">
+													<input type="hidden" name="custom" value="<?php echo $plan['upgrade']['id'] ?>">
+													<input type="hidden" name="no_note" value="1">
+													<input type="hidden" name="item_name" value="<?php esc_attr_e($plan['upgrade']['name']) ?>">
+
+													<input title="<?php _e('Upgrade to', 'wangguard'); ?> <?php echo esc_html($plan['upgrade']['name']) ?>" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+													<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+												</form>
+											</td>
+										<?php } ?>
+										
+										<?php if ($plan['renew'] == 1) { ?>  
+											<td colspan="<?php echo (isset($plan['upgrade']) && ($plan['renew'] == 1)) ? 3 : 6?>" style="text-align: center;">
+												<h4><?php _e('Renew your plan', 'wangguard'); ?></h4>
+												<?php _e('Click below to renew your current plan', 'wangguard'); ?> <?php _e('for', 'wangguard'); ?> <strong><?php echo number_format($plan['renewcost'], 2, ',' , '.')  ?> &euro;</strong>
+												<?php if ($plan['renewtax']) {?>+ <?php echo number_format($plan['renewtax'],2, ',' , '.') ?> &euro; <?php _e('tax', 'wangguard'); ?><?php }?>
+												<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+													<input type="hidden" name="cmd" value="_xclick">
+													<input type="hidden" name="currency_code" value="EUR">
+													<input type="hidden" name="business" value="<?php echo $xml_hired['out']['seller']  ?>">
+													<input type="hidden" name="amount" value="<?php echo number_format($plan['renewcost'], 2, '.' , '')  ?>">
+													<input type="hidden" name="tax" value="<?php echo number_format($plan['renewtax'], 2, '.' , '')  ?>">
+													<input type="hidden" name="quantity" value="1">
+													<input type="hidden" name="custom" value="<?php echo $plan['renewid'] ?>">
+													<input type="hidden" name="no_note" value="1">
+													<input type="hidden" name="item_name" value="<?php esc_attr_e($plan['name']) ?>">
+
+													<input title="<?php _e('Renew', 'wangguard'); ?> <?php echo esc_html($plan['name']) ?>" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+													<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+												</form>
+											</td>
+										<?php } ?>
+										
+									</tr>
+									<?php
+								}
+								
+							}  ?>
+						</tbody>
+						</table>
+						<p class="description"><?php _e('dates are expressed in UTC timezone', 'wangguard'); ?></p>
+						<?php
+					}
+				}
+
+				if ($display_available_plans) {?>
+
+
+					<h3 style="margin-top: 30px;"><?php _e("Available plans to buy", 'wangguard') ?></h3>
+					<?php
+					$response_avail = wangguard_http_post("wg=<in><apikey>$wangguard_api_key</apikey><lang>$lang</lang></in>", 'get-plans-avail.php');
+					$xml_avail = XML_unserialize($response_avail);
+					if (!is_array($xml_avail) || !isset($xml_avail['out'])) {
+						?><p><?php _e("There was an error while pulling available plans information from the server.", 'wangguard') ?></p><?php
+					}
+					else {
+
+						if (!is_array($xml_avail['out'])) $xml_avail['out'] = array('list'=>array());
+
+						if (count($xml_avail['out']['list'])) {
+							if (!isset($xml_avail['out']['list'][0])) {
+								$tmp = $xml_avail['out']['list'];
+								$xml_avail['out']['list'] = array($tmp);
+							}
+							?>
+							<p><?php _e('The following are the plans you may contract.', 'wangguard'); ?></p>
+							<table style="width: 100%;" class="wp-list-table widefat striped">
+							<thead>
+								<th><?php _e('Plan', 'wangguard'); ?></th>
+								<th style="text-align: right;"><?php _e('Cost', 'wangguard'); ?></th>
+								<th><?php _e('Duration', 'wangguard'); ?></th>
+								<th style="white-space: nowrap; text-align: right;"><?php _e('Queries per month', 'wangguard'); ?></th>
+								<th></th>
+							</thead>
+							<tbody>
+								<?php 
+								foreach ($xml_avail['out']['list'] as $plan) {?>
+									<tr>
+										<td style="white-space: nowrap; font-weight:bold; color: #23282d ">
+											<?php echo $plan['name']  ?>
+										</td>
+										<td style="white-space: nowrap; text-align: right; font-weight:bold; color: #23282d;">
+											<?php echo number_format($plan['cost'], 2, ',' , '.')  ?> &euro;
+											<?php if ($plan['tax']) {?>
+												<span style="font-size: 0.9em; color: #888;"><br/>+ <?php echo number_format($plan['tax'],2, ',' , '.') ?> &euro; <?php _e('tax', 'wangguard'); ?></span>
+											<?php }?>
+
+										</td>
+										<td style="white-space: nowrap;"><?php echo $plan['months']  ?> <?php _e('mo.', 'wangguard'); ?></td>
+										<td style="white-space: nowrap; text-align: right;"><?php echo number_format($plan['monthlyq'], 0, '' , '.')  ?>/<?php _e('mo.', 'wangguard'); ?></td>
+										<td style="text-align: center;">
+											<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+												<input type="hidden" name="cmd" value="_xclick">
+												<input type="hidden" name="currency_code" value="EUR">
+												<input type="hidden" name="business" value="<?php echo $xml_avail['out']['seller']  ?>">
+												<input type="hidden" name="amount" value="<?php echo number_format($plan['cost'], 2, '.' , '')  ?>">
+												<input type="hidden" name="tax" value="<?php echo number_format($plan['tax'], 2, '.' , '')  ?>">
+												<input type="hidden" name="quantity" value="1">
+												<input type="hidden" name="custom" value="<?php echo $plan['id'] ?>">
+												<input type="hidden" name="no_note" value="1">
+												<input type="hidden" name="item_name" value="<?php esc_attr_e($plan['name']) ?>">
+												
+												<input title="<?php _e('Buy', 'wangguard'); ?> <?php echo esc_html($plan['name']) ?>" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+												<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+											</form>
+										</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid #e1e1e1 !important;"></td>
+										<td style="padding-bottom: 40px; border-bottom: 1px solid #e1e1e1 !important;" colspan="4"><?php echo $plan['desc']  ?></td>
+									</tr>
+								<?php }  ?>
+							</tbody>
+							</table>
+							<?php
+						}
+						else {
+							?><p style="font-style: italic"><?php _e('There are not available plans to contract.', 'wangguard'); ?></p>
+						<?php }
+					}
+				}
+				?>
+			</div>
+			
 			<!--WANGGUARD BLOCKED DOMAINS-->
 			<div id="wangguard-conf-domains" style="margin: auto;">
 				<div class="wangguard-confico"><img src="<?php echo WP_PLUGIN_URL ?>/wangguard/img/blocked.png" alt="<?php echo htmlentities(__('Blocked domains', 'wangguard')) ?>" /></div>

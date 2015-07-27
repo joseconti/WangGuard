@@ -23,8 +23,10 @@ License: GPL2
 	define('WANGGUARD_VERSION', '1.6.2');
 	define('WANGGUARD_PLUGIN_FILE', 'wangguard/wangguard-admin.php');
 	define('WANGGUARD_README_URL', 'http://plugins.trac.wordpress.org/browser/wangguard/trunk/readme.txt?format=txt');
+	
 	define('WANGGUARD_API_HOST', 'rest.wangguard.com');
 	define('WANGGUARD_REST_PATH', '/');
+	
 	if ( ( get_site_option("wangguard-no-use-ssl") == 1 ) ) {
 		define('WANGGUARD_API_PORT', '80');
 		} else {
@@ -1052,6 +1054,10 @@ jQuery(document).ready(function($) {
 					wangguardBulkOpError = true;
 					alert('<?php  echo addslashes(__('There was a problem connecting to the WangGuard server. Please check your server configuration.', 'wangguard')) ?>');
 				}
+				else if (response=='-3') {
+					wangguardBulkOpError = true;
+					alert('<?php  echo addslashes(__('Your account needs a valid plan to work, check WangGuard Configuration > My account.', 'wangguard')) ?>');
+				}
 				else {
 					<?php  if ($wuangguard_parent == 'edit.php') { ?>
 					document.location = document.location;
@@ -1093,6 +1099,10 @@ jQuery(document).ready(function($) {
 					wangguardBulkOpError = true;
 					alert('<?php  echo addslashes(__('There was a problem connecting to the WangGuard server. Please check your server configuration.', 'wangguard')) ?>');
 				}
+				else if (response=='-3') {
+					wangguardBulkOpError = true;
+					alert('<?php  echo addslashes(__('Your account needs a valid plan to work, check WangGuard Configuration > My account.', 'wangguard')) ?>');
+				}
 				else {
 					<?php  if ($wuangguard_parent == 'edit.php') { ?>
 					document.location = document.location;
@@ -1133,6 +1143,10 @@ jQuery(document).ready(function($) {
 				else if (response=='-2') {
 					wangguardBulkOpError = true;
 					alert('<?php  echo addslashes(__('There was a problem connecting to the WangGuard server. Please check your server configuration.', 'wangguard')) ?>');
+				}
+				else if (response=='-3') {
+					wangguardBulkOpError = true;
+					alert('<?php  echo addslashes(__('Your account needs a valid plan to work, check WangGuard Configuration > My account.', 'wangguard')) ?>');
 				}
 				else {
 					jQuery('tr#blog-'+blogid).fadeOut();
@@ -1200,6 +1214,9 @@ jQuery(document).ready(function($) {
 				else if (response=='-2') {
 					alert('<?php  echo addslashes(__('There was a problem connecting to the WangGuard server. Please check your server configuration.', 'wangguard')) ?>');
 				}
+				else if (response=='-3') {
+					alert('<?php  echo addslashes(__('Your account needs a valid plan to work, check WangGuard Configuration > My account.', 'wangguard')) ?>');
+				}
 				else {
 					var users = response.split(",");
 					for (i=0;i<=users.length;i++)
@@ -1236,6 +1253,10 @@ jQuery(document).ready(function($) {
 			else if (response=='-2') {
 				wangguardBulkOpError = true;
 				alert('<?php  echo addslashes(__('There was a problem connecting to the WangGuard server. Please check your server configuration.', 'wangguard')) ?>');
+			}
+			else if (response=='-3') {
+				wangguardBulkOpError = true;
+				alert('<?php  echo addslashes(__('Your account needs a valid plan to work, check WangGuard Configuration > My account.', 'wangguard')) ?>');
 			}
 			else {
 				jQuery('td span.wangguardstatus-'+userid).fadeOut(500, function() {
@@ -1472,14 +1493,14 @@ function wangguard_ajax_callback() {
 			$blogid = intval($_POST['blogid']);
 			$blog_prefix = $wpdb->get_blog_prefix( $blogid );
 			$authors = $wpdb->get_results( "SELECT user_id, meta_value as caps FROM $wpdb->users u, $wpdb->usermeta um WHERE u.ID = um.user_id AND meta_key = '{$blog_prefix}capabilities'" );
-	$authorsArray = array();
-	foreach( (array)$authors as $author ) {
-		$caps = maybe_unserialize( $author->caps );
-		if ( !isset( $caps['administrator'] ) ) continue;
-		$authorsArray[] = $author->user_id;
-	}
-	echo wangguard_report_users($authorsArray , "email");
-	break;
+			$authorsArray = array();
+			foreach( (array)$authors as $author ) {
+				$caps = maybe_unserialize( $author->caps );
+				if ( !isset( $caps['administrator'] ) ) continue;
+				$authorsArray[] = $author->user_id;
+			}
+			echo wangguard_report_users($authorsArray , "email");
+			break;
 	case "rollback-email":
 		$wpusersRs = $wpdb->get_col( $wpdb->prepare("select ID from $wpdb->users where ID = %d" , $userid ) );
 		echo wangguard_rollback_report($wpusersRs);
@@ -1498,12 +1519,15 @@ function wangguard_ajax_callback() {
 		} else {
 			$wpdb->query( $wpdb->prepare("update $wpdb->users set $spamFieldName = 1 where ID = %d" , $userid ) );
 		}
+		
 		$wpusersRs = $wpdb->get_col( $wpdb->prepare("select ID from $wpdb->users where ID = %d" , $userid ) );
 		wangguard_make_spam_user($userid);
+		
 		echo wangguard_report_users($wpusersRs , $scope);
 		break;
-}
-die();
+	}
+	
+	die();
 }
 /**
  * Add question handler
@@ -1579,6 +1603,9 @@ function wangguard_cronjob_runner($cronid) {
 	$valid = wangguard_verify_key($wangguard_api_key);
 	if (($valid == 'failed') || ($valid == 'invalid')) {
 		$message .= __('Your WangGuard API KEY is invalid.', 'wangguard');
+	}
+	elseif ($valid == 'noplan') {
+		$message .= __('Your account needs a valid plan to work, check WangGuard Configuration &gt; My account.', 'wangguard');
 	} else {
 		$userStatusTable = $wpdb->base_prefix . "wangguarduserstatus";
 		$message .= __("Action", 'wangguard') . ": " . $wangguard_cronjob_actions_options[$cronjob->Action] . "\n\n";
@@ -1626,10 +1653,8 @@ function wangguard_cronjob_runner($cronid) {
 		}
 		if (count($cleanUsers))$message .= __("--- Verified Users ---",'wangguard') . "\n" . implode("\n", $cleanUsers) . "\n\n";
 		if (count($sploggersUsers))$message .= __("--- Detected Sploggers ---",'wangguard') . "\n" . implode("\n", $sploggersUsers) . "\n\n";
-		$therearentnewusers = true;
 	} else {
 		$message .= __("No new users to verify since ",'wangguard') . date(get_option('date_format') , $timeFrom);
-		$therearentnewusers = false;
 	}
 }
 //bottom link
@@ -1654,7 +1679,8 @@ if ( empty( $current_site->site_name ) ) {
 	$current_site->site_name = 'WordPress';
 }
 $subject = sprintf('WangGuard Cron Job # '.$cronid . ' - '.__('Verified: %d - Sploggers: %d'), $checkedUsers, $detectedSploggers);
-if ( $therearentnewusers == true ) @wp_mail($admin_email, $subject, $message, $message_headers);
+@wp_mail($admin_email, $subject, $message, $message_headers);
+}
 add_action('wangguard_cronjob_runner', 'wangguard_cronjob_runner');
 function wangguard_delete_user_and_blogs($userid) {
 	global $wpdb;
@@ -1823,11 +1849,14 @@ function wangguard_ajax_recheck_callback() {
 	if ($valid == 'failed') {
 		echo "-2";
 		die();
-	} else
-	if ($valid == 'invalid') {
+	} elseif ($valid == 'invalid') {
 		echo "-1";
 		die();
+	} elseif ($valid == 'noplan') {
+		echo "-3";
+		die();
 	}
+	
 	$user_object = new WP_User($userid);
 	if (empty ($user_object->user_email)) {
 		echo "0";

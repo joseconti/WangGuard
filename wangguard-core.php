@@ -371,6 +371,11 @@ function wangguard_report_email($email , $clientIP , $ProxyIP , $isSplogger = fa
 		echo "-1";
 		return;
 	}
+	else if ($valid == 'noplan') {
+		echo "-3";
+		return;
+	}
+	
 	$isSploggerParam = $isSplogger ? "1" : "0";
 	wangguard_http_post("wg=<in><apikey>$wangguard_api_key</apikey><email>".$email."</email><ip>".$clientIP."</ip><proxyip>".$ProxyIP."</proxyip><issplogger>".$isSploggerParam."</issplogger></in>", 'add-email.php');
 }
@@ -386,6 +391,11 @@ function wangguard_report_users($wpusersRs , $scope="email" , $deleteUser = true
 		echo "-1";
 		die();
 	}
+	else if ($valid == 'noplan') {
+		echo "-3";
+		die();
+	}
+	
 	if (!$wpusersRs) {
 		return "0";
 	}
@@ -453,6 +463,11 @@ function wangguard_whitelist_report($wpusersRs) {
 		echo "-1";
 		die();
 	}
+	else if ($valid == 'noplan') {
+		echo "-3";
+		die();
+	}
+	
 	if (!$wpusersRs) {
 		return "0";
 	}
@@ -484,6 +499,11 @@ function wangguard_rollback_report($wpusersRs) {
 		echo "-1";
 		die();
 	}
+	else if ($valid == 'noplan') {
+		echo "-3";
+		die();
+	}
+	
 	if (!$wpusersRs) {
 		return "0";
 	}
@@ -683,6 +703,8 @@ function wangguard_verify_key( $key, $ip = null ) {
 		return 'failed';
 	elseif (@$responseArr['out']['cod'] != '0')
 		return 'invalid';
+	elseif (isset($responseArr['out']['scod']) && ($responseArr['out']['scod'] == '30'))
+		return "noplan";
 	else
 		return "valid";
 }
@@ -706,7 +728,7 @@ function wangguard_check_server_connectivity() {
 	foreach ( $ips as $ip ) {
 		$response = wangguard_verify_key( wangguard_get_key(), $ip );
 		// even if the key is invalid, at least we know we have connectivity
-		if ( $response == 'valid' || $response == 'invalid' )
+		if ( $response == 'valid' || $response == 'invalid' || $response == 'noplan' )
 			$servers[$ip] = true;
 		else
 			$servers[$ip] = false;
@@ -929,18 +951,17 @@ add_filter("manage_wangguard_page_wangguard_queue-network_columns", "wangguard_p
 /********************************************************************/
 function wangguard_page_wangguard_users_headers($v) {
 	$cols = array(
-			'cb'				=> '<input type="checkbox" />',
-			'info'				=> __( 'Info' , 'wangguard' ),
-			'username'			=> __( 'Username' , 'wangguard' ),
-			'name'				=> __( 'Name' , 'wangguard' ),
-			'email'				=> __( 'E-mail' , 'wangguard' ),
-			'user_registered'	=> __( 'Signed up on' , 'wangguard' ),
-			'from_ip'			=> __( 'User IP' , 'wangguard' ),
-			'posts'				=> __( 'Posts' , 'wangguard' ),
-			'wggcomments'		=> __( 'Comments' , 'wangguard' ),
-			'blogs'				=> __( 'Sites' , 'wangguard' ),
-			//'groups'			=> __( 'Admin Group' , 'wangguard' ),
-			'wgstatus'			=> __( 'WangGuard Status' , 'wangguard' )
+			'cb'			=> '<input type="checkbox" />',
+			'info'			=> __( 'Info' , 'wangguard' ),
+			'username'		=> __( 'Username' , 'wangguard' ),
+			'name'			=> __( 'Name' , 'wangguard' ),
+			'email'			=> __( 'E-mail' , 'wangguard' ),
+			'user_registered'=> __( 'Signed up on' , 'wangguard' ),
+			'from_ip'=>		__( 'User IP' , 'wangguard' ),
+			'posts'			=> __( 'Posts' , 'wangguard' ),
+			'blogs'			=> __( 'Sites' , 'wangguard' ),
+			'groups'        => __( 'Admin Group' , 'wangguard' ),
+			'wgstatus'		=> __( 'WangGuard Status' , 'wangguard' )
 		);
 	if ( ! wangguard_is_multisite() ) {
 		unset($cols['blogs']);
