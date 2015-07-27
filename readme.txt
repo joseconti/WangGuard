@@ -1,9 +1,9 @@
-=== WangGuard ===
+﻿=== WangGuard ===
 Contributors: j.conti,maxidirienzo,InTouchSystem
 Author URI: http://wangguard.com
 Tags: wangguard, wgg, sploggers, splog, anti-splog, user spam, anti spam users, anti-spam, spam blog, spam blogs, wordpress, buddypress, wpmu, wordpress mu, wordpress multisite, standard WordPress, registration, security, security questions, plugin, sign up, signup, spam, wp-login.php, wp-signup.php, wp-register.php, register, registration, protect, protect registration, block agents, block ip, blog secure, bots, secure blog, secure wordpress, secure wp, website security, wp secure, wp security, block users, block user, block, block emails, block e-mails, block domains, block bots, block bot, bp, captcha, no captcha, recaptcha, unwanted users, block unwanted users, block splog, black hat, blackhat, bbpress, clean, clean database, clean splog, clean users, untrusted, untrusted users, ip, ip information, user admin, user management, advanced user management, ip info, appthemes, user registration spam, users registration spam, user registration spam prevention, users registration spam prevention, woocommerce
 Requires at least: 3.0
-Tested up to: 4.1
+Tested up to: 4.2
 Stable tag: 1.6.2
 License: GPLv2
 
@@ -11,7 +11,7 @@ The most advanced protection against sploggers and spam users registration, is f
 
 == Description ==
 
-Our API works over SSL, so all connections are secure connections. This is mandatory for all European websites because you are sending information. We are Europeans, so we respect the law, even the most demanding of all Europe, the law of Spain. Use a service that does not comply with all European laws or send information without encryption, it can mean heavy fines. If you don't want to use secure connection, you can disable it from WangGuard configuration page.
+Our API works over SSL, so all connections are secure connections. This is mandatory for all European websites because you are sending information. We are Europeans, so we respect the law, even the most demanding of all Europe, the Spanish law. Use a service that does not comply with all European laws or send information without encryption, it can mean heavy fines. If you don't want to use secure connection, you can disable it from WangGuard configuration page.
 
 = Welcome to WangGuard, Welcome to the revolution =
 
@@ -30,27 +30,23 @@ WangGuard works by incorporating an antivirus philosophy.
 
 [Follow us on Twitter](http://twitter.com/wangguard)
 
-WangGuard Always will be free for personal use, this means that whenever you have less than 500 daily registrations or you make less than $200/month, you never have to pay anything for WangGuard.
+WangGuard Always will be free for personal use, this means that whenever you have less than 5,000 daily registrations or you make less than $200/month, you never have to pay anything for WangGuard.
 
-Over 105.000.000+ Splogger/unwanted users blocked
+Over 133,000,000+ Splogger/unwanted users blocked
 
 But now, WangGuard is free for every one for limited time.
 
-One time we believe that we've added all the necessary tools, we will begin to charge for WangGuard to users that have more than 500 queries a day, making more than $200/month or are companies.
+One time we believe that we've added all the necessary tools, we will begin to charge for WangGuard to users that have more than 5,000 queries a day, making more than $200/month or are companies.
 
-= These are preliminary prices =
+= Prices =
 
-* From 0 to 500 queries day FREE (only personal use. Companies and webmasters making more than $200/month, see next level).
+* From 0 to 5,000 queries day FREE (only personal use. Companies and webmasters making more than $200/month, look next level).
 
-* From 501 to 5.000 queries day, 4€/month. (this will be the basic level for Companies and webmasters making more than $200/month).
+* From 5,001 to 50,000 queries day, 1€/month. (this will be the basic level for Companies and webmasters making more than $200/month).
 
-* From 5.001 to 15.000 queries day, 8€/month.
+* From 50,001 to 150,000 queries day, 3€/month.
 
-* From 15.001 to 30.000 queries day, 15€/month.
-
-* From 30.001 to 60.000 queries day, 50€/month
-
-* +60.000 queries day, contact with us.
+* +150.000 queries day, contact with us.
 
 WangGuard already is blocking 99.90% of sploggers and unwanted users.
 
@@ -80,7 +76,7 @@ If you have signup enabled on your Standard WordPress, WordPress MU, WordPress M
 WangGuard not only protect your site from sploggers, spam users or unwanted users, WangGuard cleans your database from them. No plugin or service does this, only with WangGuard you will get this feature.
 
 
-Now Free to everyone for a limited time!. Who make more than $200/month, need more than 500 API Queries/month or a company they not have to pay anything until at least January 2013. We will not charge anything until we develop everything that we want to develop and be the best service by far.
+Now Free to everyone for a limited time!. Who make more than $200/month, need more than 5,000 API Queries/month or a company they not have to pay anything until at least January 2015. We will not charge anything until we develop everything that we want to develop and be the best service by far.
 
 
 = Introduction to WangGuard: =
@@ -175,7 +171,7 @@ No need to put any kind of filter in the user registration page (eg captcha). Th
  * Moderation Queue for repored users and blogs
  * Protect all registration pages from All blogs (Activated for Network)
 
-= BuddyPress 1.2.x and 1.5 (WordPress Simple and WordPress Multisite 3.x) Features =
+= BuddyPress 1.2.x, 1.5, 2.x (WordPress Simple and WordPress Multisite 3.x and 4.x) Features =
 
  * gmail.com and googlemail.com duplicated account verifications (activate on WangGuard Configuration)
  * Optional DNS verification of the email domain (right side of the @ in an email address) (activate on WangGuard Configuration)
@@ -189,7 +185,7 @@ No need to put any kind of filter in the user registration page (eg captcha). Th
  * Wizard for detect and eliminate Sploggers
  * Groups in WangGuard Users Screen
 
- = bbPress 2.0 Plugin =
+ = bbPress 2.x Plugin =
 
  * gmail.com and googlemail.com duplicated account verifications (activate on WangGuard Configuration)
  * Optional DNS verification of the email domain (right side of the @ in an email address) (activate on WangGuard Configuration)
@@ -201,7 +197,7 @@ No need to put any kind of filter in the user registration page (eg captcha). Th
 = Requirements/Restrictions =
 
 
- * Works with Wordpress 3.8+, WPMU 3.8+, BuddyPress 1.0.3+, bbPress 2.0+ (Wordpress 3.9+ is highly recommended)
+ * Works with Wordpress 3.8+, WPMU 3.8+, BuddyPress 1.0.3+, BddyPress 1.5.x, BuddyPress 2.x, bbPress 2.0+ (Wordpress 4.1+ is highly recommended)
  * PHP 4.3 or above. (PHP 5+ is highly recommended)
 
 
@@ -275,7 +271,7 @@ This means that whenever you have less than 500 daily registrations, you make le
 
 = What do you mean with Limited Time? =
 
-Who make more than $200/month, need more than 500 API Queries/month or is a company they not have to pay anything until at least June 2012, being able to extend until 2013. We will not charge anything until we develop everything that we want to develop and be the best service by far.
+Who make more than $200/month, need more than 5,000 API Queries/month or is a company they not have to pay anything until at least June 2015, being able to extend until 2016. We will not charge anything until we develop everything that we want to develop and be the best service by far.
 
 
 = If I am a personal user, Why I need an API Key? =
@@ -286,7 +282,7 @@ The API is that your site can talk to our server. If you have connected your sit
 
 = Can I use WangGuard on non-multisites WordPress Installs (Standard WordPress)? =
 
-Yes, absolutely. Only the WangGuard plugin and its associated web service will help to protect the registration page of your WordPress Standard, WordPress Multisite, or BuddyPress from sploggers and unwanted users.
+Yes, absolutely. Only the WangGuard plugin and its associated web service will help to protect the registration page of your Standard WordPress, WordPress Multisite, or BuddyPress from sploggers and unwanted users.
 
 
 = Is this plugin available in other languages? =
@@ -315,15 +311,10 @@ Please read [Translating WordPress](http://codex.wordpress.org/Translating_WordP
 
 = Is WangGuard a free service? =
 
-It is free for personal use. If you earn more than $200/month with your site or you are a company, you must pay a very small fee. Now WangGuard are Free to everyone for a limited time!. Use this time to perform all the tests you want and determine the effectiveness of WangGuard.
+It is free for personal use. If you make more than $200/month with your site or you are a company, you must pay a very small fee ($1/month). Now WangGuard are Free to everyone for a limited time!. Use this time to perform all the tests you want and determine the effectiveness of WangGuard.
 
 
 == Changelog ==
-
-= 1.6.3 - ? ? 2015 =
-
-- Now WangGuard don’t use fopen for check for plugins image, now use CURL. Some servers don’t allow fopen.
-- Now WangGuard cron only sent an email if there are new users.
 
 = 1.6.2 - 9 Dic 2014 =
 
