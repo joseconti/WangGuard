@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
 *Looking for banner
 */
-function wangguard_look_for_plugin_banner($bannerurl){
+function wangguard_look_for_plugin_banner_addon($bannerurl){
 	if(function_exists('curl_init')){
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL,$bannerurl);
