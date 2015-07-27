@@ -79,13 +79,13 @@ a.wangguard-recheck {
 #toplevel_page_wangguard-key-config div.wp-menu-image ,
 #toplevel_page_wangguard_conf.wp-menu-open div.wp-menu-image ,
 #toplevel_page_wangguard_conf div.wp-menu-image {
-	background: url('../img/wangguardadmin.png') no-repeat scroll 6px -28px transparent;
+	background: url('../img/wangguardadmin.png') no-repeat scroll 10px -26px transparent;
 }
 li#toplevel_page_wangguard-key-config.wp-has-current-submenu div.wp-menu-image,
 #toplevel_page_wangguard-key-config:hover div.wp-menu-image ,
 li#toplevel_page_wangguard_conf.wp-has-current-submenu div.wp-menu-image,
 #toplevel_page_wangguard_conf:hover div.wp-menu-image{
-	background: url('../img/wangguardadmin.png') no-repeat scroll 6px 0px transparent;
+	background: url('../img/wangguardadmin.png') no-repeat scroll 10px 2px transparent;
 }
 #wangguard-progressbar {
 	width: 500px;
@@ -271,6 +271,10 @@ wangguard-confico img {
 	background: url('../img/settings-bg.png') bottom right no-repeat;
 	padding: 10px 20px 70px;
 }
+#wangguard-conf-account {
+	background: url('../img/account-bg.png') bottom right no-repeat;
+	padding: 10px 20px 70px;
+}
 #wangguard-conf-questions h4 , #wangguard-conf-cron h4 {
 	padding-bottom: 3px;
 	border-bottom: 1px solid #c0c0c0;
@@ -416,4 +420,14 @@ div.wangguard-user-ip span.wangguard-user-ip-bb {
 body.rtl .about-wrap .wangguard-badge {
 	right: auto;
 	left: 0;
+}
+
+.wangguard-minihbar {
+	border: 1px solid #999;
+	height: 8px;
+}
+.wangguard-minihbar div {
+	float: left; 
+	height: 8px;
+	background-color: #0073aa;
 }
