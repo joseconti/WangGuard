@@ -375,7 +375,7 @@ function wangguard_report_email($email , $clientIP , $ProxyIP , $isSplogger = fa
 		echo "-3";
 		return;
 	}
-	
+
 	$isSploggerParam = $isSplogger ? "1" : "0";
 	wangguard_http_post("wg=<in><apikey>$wangguard_api_key</apikey><email>".$email."</email><ip>".$clientIP."</ip><proxyip>".$ProxyIP."</proxyip><issplogger>".$isSploggerParam."</issplogger></in>", 'add-email.php');
 }
@@ -395,7 +395,7 @@ function wangguard_report_users($wpusersRs , $scope="email" , $deleteUser = true
 		echo "-3";
 		die();
 	}
-	
+
 	if (!$wpusersRs) {
 		return "0";
 	}
@@ -467,7 +467,7 @@ function wangguard_whitelist_report($wpusersRs) {
 		echo "-3";
 		die();
 	}
-	
+
 	if (!$wpusersRs) {
 		return "0";
 	}
@@ -503,7 +503,7 @@ function wangguard_rollback_report($wpusersRs) {
 		echo "-3";
 		die();
 	}
-	
+
 	if (!$wpusersRs) {
 		return "0";
 	}
@@ -558,7 +558,7 @@ function wangguard_verify_user($user_object) {
 	}
 	//Rechecks the user agains WangGuard service
 	$response = wangguard_http_post("wg=<in><apikey>$wangguard_api_key</apikey><email>".$user_object->user_email."</email><ip>".$clientIP."</ip><proxyip>".$ProxyIP."</proxyip></in>", 'query-email.php');
-	$responseArr = XML_unserialize($response);
+	$responseArr = WGG_XML_unserialize($response);
 	if ( is_array($responseArr)) {
 		if (($responseArr['out']['cod'] == '10') || ($responseArr['out']['cod'] == '11')) {
 			$user_check_status = 'reported';
@@ -606,7 +606,7 @@ function wangguard_verify_email($email , $clientIP , $proxyIP = '') {
 	}
 	//Rechecks the user agains WangGuard service
 	$response = wangguard_http_post("wg=<in><apikey>$wangguard_api_key</apikey><email>".$email."</email><ip>".$clientIP."</ip><proxyip>".$proxyIP."</proxyip></in>", 'query-email.php');
-	$responseArr = XML_unserialize($response);
+	$responseArr = WGG_XML_unserialize($response);
 	if ( is_array($responseArr)) {
 		if (($responseArr['out']['cod'] == '10') || ($responseArr['out']['cod'] == '11')) {
 			$user_check_status = 'reported';
@@ -704,7 +704,7 @@ function wangguard_verify_key( $key, $ip = null ) {
 	if ( empty($key) && $wangguard_api_key )
 		$key = $wangguard_api_key;
 		$response = wangguard_http_post("wg=<in><apikey>$key</apikey></in>", 'verify-key.php' , $ip);
-		$responseArr = XML_unserialize($response);
+		$responseArr = WGG_XML_unserialize($response);
 	if ( !is_array($responseArr))
 		return 'failed';
 	elseif (@$responseArr['out']['cod'] != '0')

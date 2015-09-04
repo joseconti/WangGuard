@@ -251,17 +251,17 @@ function wangguard_conf() {
 					</p>
 				</form>
 			</div>
-			
+
 			<!--WANGGUARD ACCOUNT-->
 			<div id="wangguard-conf-account" style="margin: auto;">
 				<div class="wangguard-confico"><img src="<?php echo WP_PLUGIN_URL ?>/wangguard/img/account.png" alt="<?php echo htmlentities(__('My account', 'wangguard')) ?>" /></div>
 				<h3><?php _e("My account", 'wangguard') ?></h3>
-				
+
 				<?php
 				$lang = substr(WPLANG, 0,2);
 				$response_hired = wangguard_http_post("wg=<in><apikey>$wangguard_api_key</apikey><lang>$lang</lang></in>", 'get-plans-hired.php');
-				$xml_hired = XML_unserialize($response_hired);
-				
+				$xml_hired = WGG_XML_unserialize($response_hired);
+
 				$display_available_plans = true;
 				$datef = get_option('date_format');
 
@@ -270,19 +270,19 @@ function wangguard_conf() {
 				}
 				else {
 					if (!is_array($xml_hired['out'])) $xml_hired['out'] = array('list'=>array());
-			
+
 
 					if (isset($xml_hired['out']['autodate'])) {?>
 						<div class="error"><p style="font-weight:bold;"><span class="dashicons dashicons-info" style="color: #dd3d36"></span> <?php echo sprintf(__("Your trial plan expires on %s", 'wangguard'), date($datef , strtotime($xml_hired['out']['autodate']))) ?></p></div>
 					<?php }
-					
-					
+
+
 					if (count($xml_hired['out']['list'])) {
 						if (!isset($xml_hired['out']['list'][0])) {
 							$tmp = $xml_hired['out']['list'];
 							$xml_hired['out']['list'] = array($tmp);
 						}
-						
+
 						$display_available_plans = false;
 						?>
 						<h3><?php _e("Your contracted plan", 'wangguard') ?></h3>
@@ -296,7 +296,7 @@ function wangguard_conf() {
 							<th><?php _e('Usage', 'wangguard'); ?></th>
 						</thead>
 						<tbody>
-							<?php 
+							<?php
 							foreach ($xml_hired['out']['list'] as $plan) {
 								$used = ($plan['monthlyq'] - $plan['availq']) * 100 / $plan['monthlyq'];
 								?>
@@ -311,14 +311,14 @@ function wangguard_conf() {
 										<div style="font-size: 10px; text-align: center;"><?= (int)$used ?>% <?php _e('consumed', 'wangguard'); ?></div>
 									</td>
 								</tr>
-								<?php if (isset($plan['upgrade']) || ($plan['renew'] == 1)) {?>  
+								<?php if (isset($plan['upgrade']) || ($plan['renew'] == 1)) {?>
 									<tr>
-										
-										<?php if (isset($plan['upgrade'])) {?>  
+
+										<?php if (isset($plan['upgrade'])) {?>
 											<td colspan="<?php echo (isset($plan['upgrade']) && ($plan['renew'] == 1)) ? 3 : 6?>" style="text-align: center;">
 												<h4><?php _e('Need to upgrade?', 'wangguard'); ?></h4>
 												<?php _e('Click below to upgrade to', 'wangguard'); ?> <strong><?php echo $plan['upgrade']['name']  ?></strong> <?php _e('for', 'wangguard'); ?> <strong><?php echo number_format($plan['upgrade']['cost'], 2, ',' , '.')  ?> &euro;</strong>
-												<?php if ($plan['upgrade']['tax']) {?>+ <?php echo number_format($plan['upgrade']['tax'],2, ',' , '.') ?> &euro; <?php _e('tax', 'wangguard'); ?><?php }?><br/> 
+												<?php if ($plan['upgrade']['tax']) {?>+ <?php echo number_format($plan['upgrade']['tax'],2, ',' , '.') ?> &euro; <?php _e('tax', 'wangguard'); ?><?php }?><br/>
 												<?php echo number_format($plan['upgrade']['monthlyq'], 0, '' , '.')  ?> <?php _e('Queries per month', 'wangguard'); ?>
 
 												<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -337,8 +337,8 @@ function wangguard_conf() {
 												</form>
 											</td>
 										<?php } ?>
-										
-										<?php if ($plan['renew'] == 1) { ?>  
+
+										<?php if ($plan['renew'] == 1) { ?>
 											<td colspan="<?php echo (isset($plan['upgrade']) && ($plan['renew'] == 1)) ? 3 : 6?>" style="text-align: center;">
 												<h4><?php _e('Renew your plan', 'wangguard'); ?></h4>
 												<?php _e('Click below to renew your current plan', 'wangguard'); ?> <?php _e('for', 'wangguard'); ?> <strong><?php echo number_format($plan['renewcost'], 2, ',' , '.')  ?> &euro;</strong>
@@ -359,11 +359,11 @@ function wangguard_conf() {
 												</form>
 											</td>
 										<?php } ?>
-										
+
 									</tr>
 									<?php
 								}
-								
+
 							}  ?>
 						</tbody>
 						</table>
@@ -378,7 +378,7 @@ function wangguard_conf() {
 					<h3 style="margin-top: 30px;"><?php _e("Available plans to buy", 'wangguard') ?></h3>
 					<?php
 					$response_avail = wangguard_http_post("wg=<in><apikey>$wangguard_api_key</apikey><lang>$lang</lang></in>", 'get-plans-avail.php');
-					$xml_avail = XML_unserialize($response_avail);
+					$xml_avail = WGG_XML_unserialize($response_avail);
 					if (!is_array($xml_avail) || !isset($xml_avail['out'])) {
 						?><p><?php _e("There was an error while pulling available plans information from the server.", 'wangguard') ?></p><?php
 					}
@@ -402,7 +402,7 @@ function wangguard_conf() {
 								<th></th>
 							</thead>
 							<tbody>
-								<?php 
+								<?php
 								foreach ($xml_avail['out']['list'] as $plan) {?>
 									<tr>
 										<td style="white-space: nowrap; font-weight:bold; color: #23282d ">
@@ -428,7 +428,7 @@ function wangguard_conf() {
 												<input type="hidden" name="custom" value="<?php echo $plan['id'] ?>">
 												<input type="hidden" name="no_note" value="1">
 												<input type="hidden" name="item_name" value="<?php esc_attr_e($plan['name']) ?>">
-												
+
 												<input title="<?php _e('Buy', 'wangguard'); ?> <?php echo esc_html($plan['name']) ?>" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 												<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 											</form>
@@ -450,7 +450,7 @@ function wangguard_conf() {
 				}
 				?>
 			</div>
-			
+
 			<!--WANGGUARD BLOCKED DOMAINS-->
 			<div id="wangguard-conf-domains" style="margin: auto;">
 				<div class="wangguard-confico"><img src="<?php echo WP_PLUGIN_URL ?>/wangguard/img/blocked.png" alt="<?php echo htmlentities(__('Blocked domains', 'wangguard')) ?>" /></div>
@@ -462,7 +462,7 @@ function wangguard_conf() {
 				<?php
 				$lang = substr(WPLANG, 0,2);
 				$response = wangguard_http_post("wg=<in><apikey>$wangguard_api_key</apikey><lang>$lang</lang></in>", 'get-domain-list.php');
-				$xml = XML_unserialize($response);
+				$xml = WGG_XML_unserialize($response);
 				if (!is_array($xml)) {
 					?><p><?php _e("There was an error while pulling the domains list from WangGuard, please try again later. If the problem persists please contact WangGuard to report it.", 'wangguard') ?></p><?php
 				}
