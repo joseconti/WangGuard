@@ -506,7 +506,7 @@ function wangguard_is_email_reported_as_sp($email , $clientIP , $ProxyIP , $call
 		$ProxyIP = '';
 	}
 	$response = wangguard_http_post("wg=<in><apikey>$wangguard_api_key</apikey><email>".$email."</email><ip>".$clientIP."</ip><proxyip>".$ProxyIP."</proxyip></in>", 'query-email.php');
-	$responseArr = XML_unserialize($response);
+	$responseArr = WGG_XML_unserialize($response);
 	wangguard_stats_update("check");
 	if ( is_array($responseArr)) {
 		if (($responseArr['out']['cod'] == '10') || ($responseArr['out']['cod'] == '11')) {
@@ -647,6 +647,26 @@ function wangguard_wpmu_activate_user($userid, $password, $meta) {
 	global $wangguard_user_check_status;
 	wangguard_plugin_user_register($userid);
 }
+/**
+ * Check if moderation is active and which one is active
+ */
+function wangguard_check_moderation_active(){
+	$wggmoderationisactive	= get_site_option('wangguard_moderation_is_active');
+	$wggmoderationtype		= get_site_option('wangguard_moderation_type');
+
+	if( $wggmoderationisactive == 1 && $wggmoderationtype == 'splog' ){
+		$wggmoderationactivetype = 'splog';
+	}
+	elseif( $wggmoderationisactive == 1 && $wggmoderationtype == 'all' ){
+		$wggmoderationactivetype = 'all';
+	}
+	else{
+		$wggmoderationactivetype = false;
+	}
+
+	return $wggmoderationactivetype;
+}
+
 /**
  * Saves the status of the verification against WangGuard service upon user registration
  *
