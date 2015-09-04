@@ -568,6 +568,9 @@ function wangguard_verify_user($user_object) {
 			if ($responseArr['out']['cod'] == '20') {
 				$user_check_status = 'checked';
 			}
+			elseif ($responseArr['out']['cod'] == '30') {
+				$user_check_status = 'not-checked';
+			}
 			else {
 				$user_check_status = 'error:'.$responseArr['out']['cod'];
 			}
@@ -612,6 +615,9 @@ function wangguard_verify_email($email , $clientIP , $proxyIP = '') {
 		else {
 			if ($responseArr['out']['cod'] == '20') {
 				$user_check_status = 'checked';
+			}
+			elseif ($responseArr['out']['cod'] == '30') {
+				$user_check_status = 'not-checked';
 			}
 			else {
 				$user_check_status = 'error:'.$responseArr['out']['cod'];
