@@ -432,6 +432,8 @@ function wangguard_signup_validate($user_name, $user_email, $errors){
 	$wggstopcheck = false;
 	do_action('pre_wangguard_validate_signup_form_wordpress_no_multisite', $user_email);
 	$wggstopcheck = apply_filters('pre_wangguard_validate_signup_form_wordpress_no_multisite', $wggstopcheck );
+	$wggmoderationisactive	= get_site_option('wangguard_moderation_is_active');
+	if( $wggmoderationisactive == 1 ) $wggstopcheck = true;
 	if ( !$wggstopcheck ){
 		if (!wangguard_validate_hfields($user_email)) {
 			$errors->add('user_login',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
