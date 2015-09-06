@@ -53,6 +53,8 @@ function wangguard_conf() {
 			update_site_option('wangguard-do-not-check-client-ip', @$_POST['wangguard-do-not-check-client-ip']=='1' ? 1 : 0 );
 			update_site_option('wangguard-do-not-show-adminbar', @$_POST['wangguard-do-not-show-adminbar']=='1' ? 1 : 0 );
 			update_site_option('wangguard-add-honeypot', @$_POST['wangguard-add-honeypot']=='1' ? 1 : 0 );
+			update_site_option('wangguard-moderation-is-active', @$_POST['wangguard-moderation-is-active']=='0' ? 0 : 1 );
+			update_site_option('wangguard-sent-email-check', @$_POST['wangguard-sent-email-check']=='1' ? 1 : 0 );
 			update_site_option('wangguard_allow_signup_emails_list', $wangguardlisttoarrayallowemailsploggers);
 			do_action('wangguard_save_setting_option');
 			$selectedTab = 2;
@@ -188,6 +190,29 @@ function wangguard_conf() {
 						<input type="checkbox" name="wangguard-delete-users-on-report" id="wangguard-delete-users-on-report" value="1" <?php echo get_site_option("wangguard-delete-users-on-report")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-delete-users-on-report"><?php _e("<strong>Delete users when reporting them to WangGuard.</strong><br/>By checking this option, the users you report as Sploggers will be deleted from your site.", 'wangguard') ?></label>
 					</p>
+					<p>
+						<input type="checkbox" name="wangguard-moderation-is-active" id="wangguard-moderation-is-active" value="1" <?php echo get_site_option("wangguard_moderation_is_active")=='1' ? 'checked' : ''?> />
+						<label for="wangguard-moderation-is-active"><?php _e("<strong>Activate Signup Moderation</strong><br/>By checking this option, Signup Moderation will be active. Select if you want to moderate all signup or only Sploggers detected", 'wangguard') ?></label>
+					</p>
+
+
+
+
+
+
+
+
+					<p>
+						<input type="checkbox" name="wangguard-sent-email-check" id="wangguard-sent-email-check" value="1" <?php echo get_site_option("wangguard_sent_email_check")=='1' ? 'checked' : ''?> />
+						<label for="wangguard-sent-email-check"><?php _e("<strong>Sent WangGuard cronjob report</strong><br/>By checking this option, you will receive a report of WangGuard cronjobs", 'wangguard') ?></label>
+					</p>
+
+
+
+
+
+
+
 					<?php if (defined('BP_VERSION')) { ?>
 					<p>
 						<input type="checkbox" name="wangguardenablebpreportbtn" id="wangguardenablebpreportbtn" value="1" <?php echo get_site_option("wangguard-enable-bp-report-btn")=='1' ? 'checked' : ''?> />
@@ -221,7 +246,7 @@ function wangguard_conf() {
 					$wangguard_mx_ok = function_exists('getmxrr');?>
 					<p>
 						<input <?php echo (!$wangguard_mx_ok ? "disabled = 'disabled'" : "") ?> type="checkbox" name="wangguard-verify-dns-mx" id="wangguard-verify-dns-mx" value="1" <?php echo $wangguard_mx_ok && get_site_option("wangguard-verify-dns-mx")=='1' ? 'checked' : ''?> />
-						<label for="wangguard-verify-dns-mx"><?php _e("<strong>Check email domains agains the DNS server.</strong><br/>Verifies that an associated Mail eXchange (MX) record exists for the email domain, if the verification fails, the sign up process is stopped. Recommeded for non multi user or BuddyPress WordPress installations. Users may notice a small delay of around 1 or 2 seconds on the sign up process due to the DNS verification.", 'wangguard') ?></label>
+						<label for="wangguard-verify-dns-mx"><?php _e("<strong>Check email domains agains the DNS server.</strong><br/>Verifies that an associated Mail eXchange (MX) record exists for the email domain, if the verification fails, the sign up process is stopped. Recommeded for WordPress non multisite or BuddyPress installations. Users may notice a small delay of around 1 or 2 seconds on the sign up process due to the DNS verification.", 'wangguard') ?></label>
 						<?php if (!$wangguard_mx_ok) {
 							echo "<div>";
 							_e("<strong>Warning:</strong> PHP function <strong>getmxrr()</strong> is not available on your server. Contact your server admin to enable it in order to activate this feature." , "wangguard");
