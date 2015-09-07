@@ -369,7 +369,7 @@ It is free for personal use. If you make more than $200/month with your site or 
 - Added Contact page with us from WordPress admin.
 - Added Add-ons page.
 - Added Third party plugins page.
-- Added ability of deactivate HoneyPot fieds.
+- Added ability of deactivate HoneyPot fields.
 - Added about WangGuard
 - Added Credits page
 - Added Development page (you can now follow WangGuard development)
