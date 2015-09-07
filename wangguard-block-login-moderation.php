@@ -29,4 +29,36 @@ function wangguard_block_login_moderation_check_user_login( $user, $username, $p
 }
 add_filter( 'authenticate', 'wangguard_block_login_moderation_check_user_login', 30, 3 );
 
+function wangguard_site_check() {
+	global $blog_id;
+	$blog = get_current_blog_id();
+	$admin_email = get_blog_option($blog, 'admin_email');
+
+	$user = get_user_by( 'email', $admin_email );
+	$user_id = $user->ID;
+	if ( $user_id ) $status = wangguard_block_login_moderation_user_status($user_id);
+	if ( $status != 'moderation-allowed' && $status != 'moderation-splogger' )
+		return true;
+	// Allow super admins to see blocked sites
+	if ( is_super_admin() )
+		return true;
+	if ( $status == 'moderation-allowed' || $status == 'moderation-splogger' ) {
+		if ( file_exists( plugin_dir_path( __FILE__ ) . '/blog-moderated.php' ) )
+			return plugin_dir_path( __FILE__ ) . '/blog-moderated.php';
+		else
+			wp_die( __( 'This site is under moderation.' ), '', array( 'response' => 410 ) );
+	}
+	return true;
+}
+function wangguard_check_website(){
+	if ( is_multisite() ) {
+		if ( true !== ( $file = wangguard_site_check() ) ) {
+			require( $file );
+			die();
+		}
+		unset($file);
+	}
+}
+add_action('init', 'wangguard_check_website')
+
 ?>
