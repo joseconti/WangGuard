@@ -723,8 +723,27 @@ function wangguard_plugin_user_register($userid) {
 				$wpdb->query( $wpdb->prepare("insert into $table_name(ID , user_status , user_ip , user_proxy_ip) values (%d , '%s' , '%s' , '%s')" , $userid , $wangguard_user_check_status , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() ) ); else //update the new status
 				$wpdb->query( $wpdb->prepare("update $table_name set user_status = '%s' where ID = %d" , $wangguard_user_check_status , $userid  ) );
 		}
-		if ( $wggmoderationisactive == 'all' && !$reported ){
+		elseif ( $wggmoderationisactive == 'all' && !$reported ){
 			$wangguard_user_check_status = 'moderation-allowed';
+			if (empty ($wangguard_user_check_status)) {
+				$user2 = new WP_User($userid);
+				$table_name = $wpdb->base_prefix . "wangguardsignupsstatus";
+				//if there a status on the signups table?
+				$user_status = $wpdb->get_var( $wpdb->prepare("select user_status from $table_name where signup_username = '%s'" , $user2->user_login));
+				//delete the signup status
+				$wpdb->query( $wpdb->prepare("delete from $table_name where signup_username = '%s'" , $user2->user_login));
+				//If not empty, overrides the status with the signup status
+				if (!empty ($user_status))$wangguard_user_check_status = 'moderation-allowed';
+			}
+			$table_name = $wpdb->base_prefix . "wangguarduserstatus";
+			$user_status = $wpdb->get_var( $wpdb->prepare("select ID from $table_name where ID = %d" , $userid));
+			if (is_null($user_status))//insert the new status
+				$wpdb->query( $wpdb->prepare("insert into $table_name(ID , user_status , user_ip , user_proxy_ip) values (%d , '%s' , '%s' , '%s')" , $userid , $wangguard_user_check_status , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() ) ); else //update the new status
+				$wpdb->query( $wpdb->prepare("update $table_name set user_status = '%s' where ID = %d" , $wangguard_user_check_status , $userid  ) );
+
+		}
+		else {
+			$wangguard_user_check_status = 'checked';
 			if (empty ($wangguard_user_check_status)) {
 				$user2 = new WP_User($userid);
 				$table_name = $wpdb->base_prefix . "wangguardsignupsstatus";
