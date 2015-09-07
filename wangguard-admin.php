@@ -27,7 +27,7 @@ define('WANGGUARD_README_URL', 'http://plugins.trac.wordpress.org/browser/wanggu
 define('WANGGUARD_API_HOST', 'rest.wangguard.com');
 define('WANGGUARD_REST_PATH', '/');
 
-if ( ( get_site_option("wangguard-no-use-ssl") == 1 ) ) {
+if ( ( get_site_option("wangguard-no-use-ssl") == '1' ) ) {
 	define('WANGGUARD_API_PORT', '80');
 } else {
 	define('WANGGUARD_API_PORT', '443');
@@ -61,6 +61,8 @@ include_once 'wangguard-about.php';
 include_once 'wangguard-compatible-plugins.php';
 include_once 'wangguard-addons.php';
 include_once 'wangguard-allow-signup-splogger-detected.php';
+$wggmoderationisactive = get_site_option('wangguard-moderation-is-active');
+if( $wggmoderationisactive == '1' ) include_once 'wangguard-block-login-moderation.php';
 /********************************************************************/
 /*** CONFIG ENDS ***/
 /********************************************************************/
@@ -68,7 +70,7 @@ include_once 'wangguard-allow-signup-splogger-detected.php';
 /*** ADD & VALIDATE SECURITY QUESTIONS ON REGISTER BEGINS ***/
 /********************************************************************/
 // for wp regular
-if ( get_site_option("wangguard-add-honeypot")=='1') {
+if ( get_site_option("wangguard-add-honeypot")== '1' ) {
 	add_action('register_form','wangguard_add_hfield_1' , rand(1,10));
 	add_action('register_form','wangguard_add_hfield_2' , rand(1,10));
 	add_action('register_form','wangguard_add_hfield_3' , rand(1,10));
@@ -432,8 +434,7 @@ function wangguard_signup_validate($user_name, $user_email, $errors){
 	$wggstopcheck = false;
 	do_action('pre_wangguard_validate_signup_form_wordpress_no_multisite', $user_email);
 	$wggstopcheck = apply_filters('pre_wangguard_validate_signup_form_wordpress_no_multisite', $wggstopcheck );
-	$wggmoderationisactive	= get_site_option('wangguard_moderation_is_active');
-	if( $wggmoderationisactive == 1 ) $wggstopcheck = true;
+	$wggmoderationisactive = get_site_option('wangguard-moderation-is-active');
 	if ( !$wggstopcheck ){
 		if (!wangguard_validate_hfields($user_email)) {
 			$errors->add('user_login',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
@@ -447,10 +448,12 @@ function wangguard_signup_validate($user_name, $user_email, $errors){
 			if ($blocked) {
 				$errors->add('wangguard_error',__('<strong>ERROR</strong>: Domain not allowed.', 'wangguard'));
 			} else {
-				$reported = wangguard_is_email_reported_as_sp($user_email, wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() , true);
-				if ($reported)$errors->add('wangguard_error',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard')); else
-					if (wangguard_email_aliases_exists($user_email))$errors->add('wangguard_error',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard')); else
-						if (!wangguard_mx_record_is_ok($user_email))$errors->add('wangguard_error',   __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
+				if( $wggmoderationisactive == '0' ){
+					$reported = wangguard_is_email_reported_as_sp($user_email, wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() , true);
+					if ($reported)$errors->add('wangguard_error',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard')); else
+						if (wangguard_email_aliases_exists($user_email))$errors->add('wangguard_error',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard')); else
+							if (!wangguard_mx_record_is_ok($user_email))$errors->add('wangguard_error',   __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
+				}
 			}
 		}
 	}
@@ -653,8 +656,8 @@ function wangguard_wpmu_activate_user($userid, $password, $meta) {
  * Check if moderation is active and which one is active
  */
 function wangguard_check_moderation_active(){
-	$wggmoderationisactive	= get_site_option('wangguard_moderation_is_active');
-	$wggmoderationtype		= get_site_option('wangguard_moderation_type');
+	$wggmoderationisactive = get_site_option('wangguard-moderation-is-active');
+	$wggmoderationtype  = get_site_option('wangguard-moderation-type');
 
 	if( $wggmoderationisactive == 1 && $wggmoderationtype == 'splog' ){
 		$wggmoderationactivetype = 'splog';
@@ -668,7 +671,6 @@ function wangguard_check_moderation_active(){
 
 	return $wggmoderationactivetype;
 }
-
 /**
  * Saves the status of the verification against WangGuard service upon user registration
  *
@@ -682,10 +684,10 @@ function wangguard_plugin_user_register($userid) {
 	$user = new WP_User($userid);
 	$user_email = $user->user_email;
 
+	$wggmoderationisactive = wangguard_check_moderation_active();
+	$wangguarstatus   = wangguard_look_for_allowed_email($user_email);
 
-	$wangguarstatus = wangguard_look_for_allowed_email($user_email);
-
-	if ( !$wangguarstatus ) {
+	if ( !$wangguarstatus && !$wggmoderationisactive ) {
 		if (empty ($wangguard_user_check_status)) {
 			$user = new WP_User($userid);
 			$table_name = $wpdb->base_prefix . "wangguardsignupsstatus";
@@ -701,6 +703,45 @@ function wangguard_plugin_user_register($userid) {
 		if (is_null($user_status))//insert the new status
 			$wpdb->query( $wpdb->prepare("insert into $table_name(ID , user_status , user_ip , user_proxy_ip) values (%d , '%s' , '%s' , '%s')" , $userid , $wangguard_user_check_status , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() ) ); else //update the new status
 			$wpdb->query( $wpdb->prepare("update $table_name set user_status = '%s' where ID = %d" , $wangguard_user_check_status , $userid  ) );
+	} elseif ( $wggmoderationisactive == 'all' || $wggmoderationisactive == 'splog' ) {
+		$reported   = wangguard_is_email_reported_as_sp($user_email, wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() , true);
+		if ( $reported ){
+			$wangguard_user_check_status = 'moderation-splogger';
+			if (empty ($wangguard_user_check_status)) {
+				$user2 = new WP_User($userid);
+				$table_name = $wpdb->base_prefix . "wangguardsignupsstatus";
+				//if there a status on the signups table?
+				$user_status = $wpdb->get_var( $wpdb->prepare("select user_status from $table_name where signup_username = '%s'" , $user2->user_login));
+				//delete the signup status
+				$wpdb->query( $wpdb->prepare("delete from $table_name where signup_username = '%s'" , $user2->user_login));
+				//If not empty, overrides the status with the signup status
+				if (!empty ($user_status))$wangguard_user_check_status = 'moderation-splogger';
+			}
+			$table_name = $wpdb->base_prefix . "wangguarduserstatus";
+			$user_status = $wpdb->get_var( $wpdb->prepare("select ID from $table_name where ID = %d" , $userid));
+			if (is_null($user_status))//insert the new status
+				$wpdb->query( $wpdb->prepare("insert into $table_name(ID , user_status , user_ip , user_proxy_ip) values (%d , '%s' , '%s' , '%s')" , $userid , $wangguard_user_check_status , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() ) ); else //update the new status
+				$wpdb->query( $wpdb->prepare("update $table_name set user_status = '%s' where ID = %d" , $wangguard_user_check_status , $userid  ) );
+		}
+		if ( $wggmoderationisactive == 'all' && !$reported ){
+			$wangguard_user_check_status = 'moderation-allowed';
+			if (empty ($wangguard_user_check_status)) {
+				$user2 = new WP_User($userid);
+				$table_name = $wpdb->base_prefix . "wangguardsignupsstatus";
+				//if there a status on the signups table?
+				$user_status = $wpdb->get_var( $wpdb->prepare("select user_status from $table_name where signup_username = '%s'" , $user2->user_login));
+				//delete the signup status
+				$wpdb->query( $wpdb->prepare("delete from $table_name where signup_username = '%s'" , $user2->user_login));
+				//If not empty, overrides the status with the signup status
+				if (!empty ($user_status))$wangguard_user_check_status = 'moderation-allowed';
+			}
+			$table_name = $wpdb->base_prefix . "wangguarduserstatus";
+			$user_status = $wpdb->get_var( $wpdb->prepare("select ID from $table_name where ID = %d" , $userid));
+			if (is_null($user_status))//insert the new status
+				$wpdb->query( $wpdb->prepare("insert into $table_name(ID , user_status , user_ip , user_proxy_ip) values (%d , '%s' , '%s' , '%s')" , $userid , $wangguard_user_check_status , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP() ) ); else //update the new status
+				$wpdb->query( $wpdb->prepare("update $table_name set user_status = '%s' where ID = %d" , $wangguard_user_check_status , $userid  ) );
+
+		}
 	} else {
 		$wangguard_user_check_status = 'whitelisted';
 		if (empty ($wangguard_user_check_status)) {
