@@ -53,7 +53,7 @@ function wangguard_conf() {
 			update_site_option('wangguard-do-not-check-client-ip', @$_POST['wangguard-do-not-check-client-ip']=='1' ? 1 : 0 );
 			update_site_option('wangguard-do-not-show-adminbar', @$_POST['wangguard-do-not-show-adminbar']=='1' ? 1 : 0 );
 			update_site_option('wangguard-add-honeypot', @$_POST['wangguard-add-honeypot']=='1' ? 1 : 0 );
-			update_site_option('wangguard-moderation-is-active', @$_POST['wangguard-moderation-is-active']=='0' ? 0 : 1 );
+			update_site_option('wangguard-moderation-is-active', @$_POST['wangguard-moderation-is-active']=='1' ? 1 : 0 );
 			update_site_option('wangguard-moderation-type', @$_POST['wangguard-moderation-type']=='all' ? 'all' : 'splogger' );
 			update_site_option('wangguard-sent-email-check', @$_POST['wangguard-sent-email-check']=='1' ? 1 : 0 );
 			update_site_option('wangguard_allow_signup_emails_list', $wangguardlisttoarrayallowemailsploggers);
