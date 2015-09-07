@@ -198,7 +198,7 @@ function wangguard_conf() {
 						<input type="radio" name="wangguard-moderation-type" value="all" <?php echo get_site_option("wangguard-moderation-type")=='all' ? 'checked' : ''?>/> Moderate All Signups<br />
 					</p>
 					<p>
-						<input type="checkbox" name="wangguard-sent-email-check" id="wangguard-sent-email-check" value="1" <?php echo get_site_option("wangguard_sent_email_check")=='1' ? 'checked' : ''?> />
+						<input type="checkbox" name="wangguard-sent-email-check" id="wangguard-sent-email-check" value="1" <?php echo get_site_option("wangguard-sent-email-check")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-sent-email-check"><?php _e("<strong>Sent WangGuard cronjob report</strong><br/>By checking this option, you will receive a report of WangGuard cronjobs", 'wangguard') ?></label>
 					</p>
 					<?php if (defined('BP_VERSION')) { ?>
