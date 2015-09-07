@@ -54,6 +54,7 @@ function wangguard_conf() {
 			update_site_option('wangguard-do-not-show-adminbar', @$_POST['wangguard-do-not-show-adminbar']=='1' ? 1 : 0 );
 			update_site_option('wangguard-add-honeypot', @$_POST['wangguard-add-honeypot']=='1' ? 1 : 0 );
 			update_site_option('wangguard-moderation-is-active', @$_POST['wangguard-moderation-is-active']=='0' ? 0 : 1 );
+			update_site_option('wangguard-moderation-type', @$_POST['wangguard-moderation-type']=='all' ? 'all' : 'splogger' );
 			update_site_option('wangguard-sent-email-check', @$_POST['wangguard-sent-email-check']=='1' ? 1 : 0 );
 			update_site_option('wangguard_allow_signup_emails_list', $wangguardlisttoarrayallowemailsploggers);
 			do_action('wangguard_save_setting_option');
@@ -191,9 +192,12 @@ function wangguard_conf() {
 						<label for="wangguard-delete-users-on-report"><?php _e("<strong>Delete users when reporting them to WangGuard.</strong><br/>By checking this option, the users you report as Sploggers will be deleted from your site.", 'wangguard') ?></label>
 					</p>
 					<p>
-						<input type="checkbox" name="wangguard-moderation-is-active" id="wangguard-moderation-is-active" value="1" <?php echo get_site_option("wangguard_moderation_is_active")=='1' ? 'checked' : ''?> />
+						<input type="checkbox" name="wangguard-moderation-is-active" id="wangguard-moderation-is-active" value="1" <?php echo get_site_option("wangguard-moderation-is-active")=='1' ? 'checked' : ''?> />
 						<label for="wangguard-moderation-is-active"><?php _e("<strong>Activate Signup Moderation</strong><br/>By checking this option, Signup Moderation will be active. Select if you want to moderate all signup or only Sploggers detected", 'wangguard') ?></label>
+						<input type="radio" name="wangguard-moderation-type" value="sploggers" /> Moderate Detected Sploggers<br />
+						<input type="radio" name="wangguard-moderation-type" value="all" /> Moderate All Signups<br />
 					</p>
+
 
 
 
