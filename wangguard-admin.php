@@ -62,6 +62,7 @@ include_once 'wangguard-compatible-plugins.php';
 include_once 'wangguard-addons.php';
 include_once 'wangguard-allow-signup-splogger-detected.php';
 $wggmoderationisactive = get_site_option('wangguard-moderation-is-active');
+if( empty( $wggmoderationisactive ) ) $wggmoderationisactive = '0';
 if( $wggmoderationisactive == '1' ) include_once 'wangguard-block-login-moderation.php';
 /********************************************************************/
 /*** CONFIG ENDS ***/
@@ -662,6 +663,7 @@ function wangguard_wpmu_activate_user($userid, $password, $meta) {
  */
 function wangguard_check_moderation_active(){
 	$wggmoderationisactive = get_site_option('wangguard-moderation-is-active');
+	if( empty( $wggmoderationisactive ) ) $wggmoderationisactive = '0';
 	$wggmoderationtype  = get_site_option('wangguard-moderation-type');
 
 	if( $wggmoderationisactive == 1 && $wggmoderationtype == 'splog' ){
