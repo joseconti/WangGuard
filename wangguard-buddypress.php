@@ -102,6 +102,7 @@ function wangguard_signup_validate_bp11() {
 	$signup_email = $_POST['signup_email'];
 	$wggstopcheck = false;
 	$wggmoderationisactive = get_site_option('wangguard-moderation-is-active');
+	if( empty( $wggmoderationisactive ) ) $wggmoderationisactive = '0';
 	do_action('pre_wangguard_validate_signup_form_wordpress_no_multisite', $signup_email);
 	$wggstopcheck = apply_filters('pre_wangguard_validate_signup_form_wordpress_no_multisite', $wggstopcheck );
 	if ( !$wggstopcheck ){

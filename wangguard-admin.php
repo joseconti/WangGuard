@@ -71,6 +71,7 @@ include_once 'wangguard-compatible-plugins.php';
 include_once 'wangguard-addons.php';
 include_once 'wangguard-allow-signup-splogger-detected.php';
 $wggmoderationisactive = get_site_option('wangguard-moderation-is-active');
+if( empty( $wggmoderationisactive ) ) $wggmoderationisactive = '0';
 if( $wggmoderationisactive == '1' ) include_once 'wangguard-block-login-moderation.php';
 /********************************************************************/
 /*** CONFIG ENDS ***/
@@ -306,6 +307,8 @@ function wangguard_wpmu_signup_validate_mu($result) {
 	if ( strpos($_SERVER['PHP_SELF'], 'wp-admin') !== false ) {
 		return $result;
 	}
+	$wggmoderationisactive = get_site_option('wangguard-moderation-is-active');
+	if( empty( $wggmoderationisactive ) ) $wggmoderationisactive = '0';
 	if( isset( $_POST['signup_email'] ) ) return;
 	if( isset( $_POST['user_email'] ) && !empty( $_POST['user_email'] ) ){$user_email = $_POST['user_email'];}else{$user_email=$user_email;}
 	//$user_email = $_POST['user_email'];
@@ -324,10 +327,12 @@ function wangguard_wpmu_signup_validate_mu($result) {
 		if ($blocked) {
 			$result['errors']->add('user_email',   __('<strong>ERROR</strong>: Domain not allowed.', 'wangguard'));
 		} else {
-			$reported = wangguard_is_email_reported_as_sp($user_email , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP());
-			if ($reported) $result['errors']->add('user_email',   __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard')); else
-				if (wangguard_email_aliases_exists($user_email))$result['errors']->add('user_email',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard')); else
-					if (!wangguard_mx_record_is_ok($user_email))$result['errors']->add('user_email',   __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
+			if( $wggmoderationisactive == '0' ){
+				$reported = wangguard_is_email_reported_as_sp($user_email , wangguard_getRemoteIP() , wangguard_getRemoteProxyIP());
+				if ($reported) $result['errors']->add('user_email',   __('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard')); else
+					if (wangguard_email_aliases_exists($user_email))$result['errors']->add('user_email',   __('<strong>ERROR</strong>: Duplicate alias email found by WangGuard.', 'wangguard')); else
+						if (!wangguard_mx_record_is_ok($user_email))$result['errors']->add('user_email',   __("<strong>ERROR</strong>: WangGuard couldn't find an MX record associated with your email domain.", 'wangguard'));
+			}
 		}
 	}
 	return $result;
@@ -444,6 +449,7 @@ function wangguard_signup_validate($user_name, $user_email, $errors){
 	do_action('pre_wangguard_validate_signup_form_wordpress_no_multisite', $user_email);
 	$wggstopcheck = apply_filters('pre_wangguard_validate_signup_form_wordpress_no_multisite', $wggstopcheck );
 	$wggmoderationisactive = get_site_option('wangguard-moderation-is-active');
+	if( empty( $wggmoderationisactive ) ) $wggmoderationisactive = '0';
 	if ( !$wggstopcheck ){
 		if (!wangguard_validate_hfields($user_email)) {
 			$errors->add('user_login',__('<strong>ERROR</strong>: Banned by WangGuard <a href="http://www.wangguard.com/faq" target="_new">Is it an error?</a> Perhaps you tried to register many times.', 'wangguard'));
@@ -666,6 +672,7 @@ function wangguard_wpmu_activate_user($userid, $password, $meta) {
  */
 function wangguard_check_moderation_active(){
 	$wggmoderationisactive = get_site_option('wangguard-moderation-is-active');
+	if( empty( $wggmoderationisactive ) ) $wggmoderationisactive = '0';
 	$wggmoderationtype  = get_site_option('wangguard-moderation-type');
 
 	if( $wggmoderationisactive == 1 && $wggmoderationtype == 'splog' ){
