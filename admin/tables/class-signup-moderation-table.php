@@ -91,8 +91,8 @@ class WangGuard_Signup_Moderation_Table extends WP_List_Table {
 			<div class="alignleft actions">
 				<select class="" name="user-status" id="user-status">
 					<option value="" <?php selected( $selected, '' ); ?>>All Statuses</option>
-					<option value="moderation-sploggers" <?php selected( $selected, 'moderation-sploggers' ); ?>>moderation-sploggers</option>
-					<option value="moderation-allowed" <?php selected( $selected, 'moderation-allowed' ); ?>>moderation-allowed</option>
+					<option value="moderation-splogger" <?php selected( $selected, 'moderation-splogger' ); ?>><?php echo wangguard_translate_user_status( 'moderation-splogger' ); ?></option>
+					<option value="moderation-allowed" <?php selected( $selected, 'moderation-allowed' ); ?>><?php echo wangguard_translate_user_status( 'moderation-allowed' ); ?></option>
 				</select>
 				<input type="submit" name="filter_action" class="button" value="<?php echo esc_attr( 'Filter', 'wangguard' ); ?>">
 			</div>
@@ -138,7 +138,7 @@ class WangGuard_Signup_Moderation_Table extends WP_List_Table {
 	function get_bulk_actions() {
 		$actions = array(
 			'splog'    => __( 'Mark as Splogger', 'wangguard' ),
-			'unsplog'    => __( 'Approve User', 'wangguard' )
+			'unsplog'    => __( 'App    rove User', 'wangguard' )
 		);
 		return $actions;
 	}
@@ -165,7 +165,7 @@ class WangGuard_Signup_Moderation_Table extends WP_List_Table {
 			'per_page' => $per_page,
 			'orderby' => isset( $_GET['orderby'] ) ? $_GET['orderby'] : 'ID',
 			'order' => isset( $_GET['order'] ) ? $_GET['order'] : 'ASC',
-			'user_status' => isset( $_GET['user_status'] ) ? $_GET['user_status'] : array( 'moderation-sploggers', 'moderation-allowed' ),
+			'user_status' => isset( $_GET['user_status'] ) ? $_GET['user_status'] : array( 'moderation-splogger', 'moderation-allowed' ),
 			's' => isset( $_GET['s'] ) ? $_GET['s'] : false
 		);
 		$this->items = wangguard_get_users_status_list( $args );

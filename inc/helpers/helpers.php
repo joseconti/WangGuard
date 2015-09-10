@@ -168,8 +168,8 @@ function wangguard_get_all_user_statuses() {
 		'force-checked' => __( 'Checked (forced)', 'wangguard' ),
 		'checked' => __( 'Checked', 'wangguard' ),
 		'whitelisted' => __( 'Whitelisted', 'wangguard' ),
-		'moderation-sploggers' => __( '', 'wangguard' ),
-		'moderation-allowed' => __( '', 'wangguard' )
+		'moderation-splogger' => __( 'moderation-splogger', 'wangguard' ),
+		'moderation-allowed' => __( 'moderation-allowed', 'wangguard' )
 	);
 }
 
@@ -220,3 +220,100 @@ function wangguard_user_status_dropdown( $args ) {
 	if ( ! $echo )
 		return ob_get_clean();
 }
+
+
+function wangguard_get_api_key() {
+	global $wangguard_api_key;
+	return $wangguard_api_key;
+}
+
+/**
+function wangguard_set_user_status( $users, $status, $scope = 'email' ) {
+	global $wpdb;
+
+	if ( ! is_array( $users ) ) {
+		$users = array( $users );
+	}
+
+	$users = array_map( 'absint', $users );
+
+	if ( empty( $users ) ) {
+		return new WP_Error( 'empty-users', __( 'Users list empty', 'wangguard' ) );
+	}
+
+	$api_key = wangguard_get_api_key();
+	$valid = wangguard_verify_key($api_key);
+
+	if ( $valid == 'failed' || $valid == 'invalid' || $valid == 'noplan' ) {
+		return new WP_Error( 'api-key-' . $valid, __( 'Invalid API Key', 'wangguard' ) );
+	}
+
+	$delete_user = get_site_option ( "wangguard-delete-users-on-report" ) == '1';
+	$users_flagged = array();
+
+	foreach ( $users as $user_id ) {
+		$user = get_userdata( $user_id );
+		if ( ! user_can( $user_id, 'administrator' ) ) {
+
+			if ( ! empty( $user->user_email ) ) {
+				$user_status_data = wangguard_get_user_status_data( $user_id );
+
+				//Get the user's client IP from which he signed up
+				$user_ip = isset( $user_status_data->user_ip ) ? $user_status_data->user_ip : '';
+				$proxy_ip = isset( $user_status_data->proxy_ip ) ? $user_status_data->proxy_ip : '';
+
+				if ( $scope == 'domain' ) {
+					$http_string = "wg=<in><apikey>$api_key</apikey><domain>"
+					               . wangguard_extract_domain( $user->user_email )
+					               . "</domain><ip>" . $user_ip . "</ip><proxyip>" . $proxy_ip . "</proxyip></in>";
+
+					$op = 'add-domain.php';
+				}
+				elseif ( $scope == 'email' ) {
+					$http_string = "wg=<in><apikey>$api_key</apikey><email>"
+					               . $user->user_email
+					               . "</email><ip>" . $user_ip . "</ip><proxyip>" . $proxy_ip . "</proxyip></in>";
+
+					$op = 'add-email.php';
+				}
+				else {
+					return new WP_Error( 'invalid-scope', __( 'Invalid Scope', 'wangguard' ) );
+				}
+
+				 wangguard_http_post( $http_string, $op );
+			}
+
+			if ( $delete_user && current_user_can( 'delete_users' ) ) {
+				wangguard_delete_user_and_blogs( $user_id );
+			}
+			else {
+				global $wpdb;
+
+				$user_status_data = wangguard_get_user_status_data( $user_id );
+				if ( $user_status_data ) {
+					//Update the new status
+					$table_name = wangguard_get_table( "userstatus" );
+					$wpdb->query( $wpdb->prepare( "UPDATE $table_name set user_status = 'reported' where ID = '%d'", $user_id ) );
+				} else {
+					//if for some reason user status record doesn't exists, create it
+					//Try to get the user's client IP from which he signed up
+					$table_name = wangguard_get_table( "signupsstatus" );
+					$user_ip    = $wpdb->get_var( $wpdb->prepare( "select user_ip from $table_name where signup_username = %s", $user->user_login ) );
+					$user_ip   = ( is_null( $user_ip ) ? '' : $user_ip );
+					$proxy_ip    = $wpdb->get_var( $wpdb->prepare( "select user_proxy_ip from $table_name where signup_username = %s", $user->user_login ) );
+					$proxy_ip    = ( is_null( $proxy_ip ) ? '' : $proxy_ip );
+
+					//create the record
+					$table_name = wangguard_get_table( "userstatus" );
+					$wpdb->query( $wpdb->prepare( "insert into $table_name values ( %d , 'reported' , '%s' , '%s')", $user_id, $user_ip, $proxy_ip ) );
+				}
+			}
+
+			$users_flagged[] = $user_id;
+
+		}
+	}
+
+	return $users_flagged;
+
+}**/
