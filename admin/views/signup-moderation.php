@@ -9,3 +9,20 @@
 		<?php $table->display(); ?>
 	</form>
 </div>
+
+<style>
+	span.splog a {
+		color:#a00;
+	}
+</style>
+<script>
+	jQuery(document).ready( function( $ ) {
+		$( 'span.splog a' ).on( 'click', function( e ) {
+			return confirm( '<?php _e( "Mark user as splogger. Are you sure?", "wangguard" ); ?>' );
+		});
+
+		$( 'span.unsplog a' ).on( 'click', function( e ) {
+			return confirm( '<?php _e( "Approve user. Are you sure?", "wangguard" ); ?>' );
+		});
+	});
+</script>

@@ -26,7 +26,7 @@ function wangguard_get_users_status_list( $args = array(), $count = false ) {
 	global $wpdb;
 
 	$defaults = array(
-		'user_status' => false, // Search by User Status
+		'user_status' => array(), // Search by User Status
 		'user_ip' => false, // Search by User IP
 		'per_page' => 10,
 		'page' => 1,
@@ -42,8 +42,18 @@ function wangguard_get_users_status_list( $args = array(), $count = false ) {
 	// WHERE CLAUSE
 	$where = array();
 
-	if ( $args['user_status'] )
-		$where[] = $wpdb->prepare( "wus.user_status = %s", $args['user_status'] );
+	if ( ! empty( $args['user_status'] ) ) {
+		if ( is_string( $args['user_status'] ) )
+			$args['user_status'] = array( $args['user_status'] );
+
+
+		$user_status_where = array();
+		foreach ( $args['user_status'] as $user_status ) {
+			$user_status_where[] = $wpdb->prepare( "wus.user_status = %s", $user_status );
+		}
+		$user_status_where = implode( ' OR ', $user_status_where );
+		$where[] = "( $user_status_where )";
+	}
 
 	if ( $args['user_ip'] )
 		$where[] = $wpdb->prepare( "user_ip = %s", $args['user_ip'] );
@@ -137,55 +147,16 @@ function wangguard_get_user_status_data( $user_id ) {
  *
  * @return bool
  */
-function wangguard_is_splogger( $user_id ) {
-	$user = wangguard_get_user_status_data( $user_id );
+function wangguard_is_splogger( $user ) {
+	if ( is_integer( $user ) || empty( $user->use_status ) )
+		$user = wangguard_get_user_status_data( $user );
+
 	if ( ! $user )
 		return false;
 
 	return $user->user_status === 'reported';
 }
 
-function wangguard_splog_user( $user_id ) {
-	global $wpdb;
-
-	if ( wangguard_is_splogger( $user_id ) )
-		return;
-
-	$table = wangguard_get_table( 'userstatus' );
-
-	update_user_status( $user_id, 'spam', 1 );
-
-	$wpdb->update(
-		$table,
-		array( 'user_status' => 'reported' ),
-		array( 'ID' => $user_id ),
-		array( '%s' ),
-		array( '%d' )
-	);
-
-
-}
-
-function wangguard_unsplog_user( $user_id ) {
-	global $wpdb;
-
-	if ( ! wangguard_is_splogger( $user_id ) )
-		return;
-
-	$table = wangguard_get_table( 'userstatus' );
-
-	update_user_status( $user_id, 'spam', 0 );
-
-	$wpdb->update(
-		$table,
-		array( 'user_status' => '' ),
-		array( 'ID' => $user_id ),
-		array( '%s' ),
-		array( '%d' )
-	);
-
-
-}
 
 function wangguard_get_user_status( $user_id ) {
 
@@ -195,7 +166,10 @@ function wangguard_get_all_user_statuses() {
 	return array(
 		'reported' => __( 'Reported as Splogger', 'wangguard' ),
 		'force-checked' => __( 'Checked (forced)', 'wangguard' ),
-		'checked' => __( 'Checked', 'wangguard' )
+		'checked' => __( 'Checked', 'wangguard' ),
+		'whitelisted' => __( 'Whitelisted', 'wangguard' ),
+		'moderation-sploggers' => __( '', 'wangguard' ),
+		'moderation-allowed' => __( '', 'wangguard' )
 	);
 }
 

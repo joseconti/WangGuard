@@ -25,6 +25,25 @@ class WangGuard_Signup_Moderation_Table extends WP_List_Table {
 		);
 	}
 
+	function column_user_login( $item ) {
+		$row_actions = array();
+
+		$splog_url = add_query_arg( array(
+			'user' => $item->ID,
+			'action' => 'splog'
+		) );
+
+		$unsplog_url = add_query_arg( array(
+			'user' => $item->ID,
+			'action' => 'unsplog'
+		) );
+
+		$row_actions['splog'] =  sprintf( '<a href="%s">%s</a>', esc_url( $splog_url ), __( 'Mark as Splogger', 'wangguard' ) );
+		$row_actions['unsplog'] =  sprintf( '<a href="%s">%s</a>', esc_url( $unsplog_url ), __( 'Approve User', 'wangguard' ) );
+
+		return $item->user_login . $this->row_actions( $row_actions );
+	}
+
 
 	function column_signup( $item ) {
 		return date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $item->user_registered ) );
@@ -45,7 +64,6 @@ class WangGuard_Signup_Moderation_Table extends WP_List_Table {
 			'user_registered'   => __( 'Sign Up On', 'wangguard' ),
 			'user_ip'           => __( 'User IP', 'wangguard' ),
 			'user_proxy_ip'     => __( 'User Proxy IP', 'wangguard' ),
-			'user_status'       => __( 'Splogger?', 'wangguard' ),
 		);
 
 
@@ -67,14 +85,15 @@ class WangGuard_Signup_Moderation_Table extends WP_List_Table {
 
 	function extra_tablenav( $which ) {
 		if ( 'top' == $which) {
-			$args = array(
-				'echo' => false,
-				'selected' => isset( $_GET['user_status'] ) ? $_GET['user_status'] : ''
-			);
-			$status_dropdown = wangguard_user_status_dropdown( $args );
+
+			$selected = isset( $_GET['user_status'] ) ? $_GET['user_status'] : ''
 			?>
 			<div class="alignleft actions">
-				<?php echo $status_dropdown; ?>
+				<select class="" name="user-status" id="user-status">
+					<option value="" <?php selected( $selected, '' ); ?>>All Statuses</option>
+					<option value="moderation-sploggers" <?php selected( $selected, 'moderation-sploggers' ); ?>>moderation-sploggers</option>
+					<option value="moderation-allowed" <?php selected( $selected, 'moderation-allowed' ); ?>>moderation-allowed</option>
+				</select>
 				<input type="submit" name="filter_action" class="button" value="<?php echo esc_attr( 'Filter', 'wangguard' ); ?>">
 			</div>
 			<?php
@@ -88,53 +107,30 @@ class WangGuard_Signup_Moderation_Table extends WP_List_Table {
 			return;
 
 		if ( 'splog' === $this->current_action() ) {
-			if ( ! empty( $_POST['user'] ) && is_array( $_POST['user'] ) ) {
+			if ( ! empty( $_REQUEST['user'] ) ) {
+				$users = $_REQUEST['user'];
+				if ( ! is_array( $users ) )
+					$users = array( $users );
+
 				// Splog users
-				foreach ( $_POST['user'] as $user_id ) {
-					wangguard_splog_user( absint( $user_id ) );
-				}
+				$users_ids = array_map( 'absint', $users );
+				wangguard_report_users( $users_ids, 'email', false );
 			}
 
 		}
 
 		if ( 'unsplog' === $this->current_action() ) {
 
-			if ( ! empty( $_POST['user'] ) && is_array( $_POST['user'] ) ) {
+			if ( ! empty( $_REQUEST['user'] ) ) {
+				$users = $_REQUEST['user'];
+				if ( ! is_array( $users ) )
+					$users = array( $users );
+
 				// Unsplog users
-				foreach ( $_POST['user'] as $user_id ) {
-					wangguard_unsplog_user( absint( $user_id ) );
-				}
+				$users_ids = array_map( 'absint', $users );
+				wangguard_whitelist_report( $users_ids );
 			}
 
-		}
-
-		if( 'open' === $this->current_action() ) {
-			$ids = array();
-
-			if ( isset( $_POST['ticket'] ) && is_array( $_POST['ticket'] ) )
-				$ids = $_POST['ticket'];
-			elseif ( isset( $_GET['tid'] ) && is_numeric( $_GET['tid'] ) )
-				$ids = array( $_GET['tid'] );
-
-			$ids = array_map( 'absint', $ids );
-			foreach ( $ids as $id ) {
-				if ( incsub_support_current_user_can( 'open_ticket', $id ) )
-					incsub_support_restore_ticket_previous_status( $id );
-			}
-		}
-
-		if( 'close' === $this->current_action() ) {
-			$ids = array();
-			if ( isset( $_POST['ticket'] ) && is_array( $_POST['ticket'] ) )
-				$ids = $_POST['ticket'];
-			elseif ( isset( $_GET['tid'] ) && is_numeric( $_GET['tid'] ) )
-				$ids = array( $_GET['tid'] );
-
-			$ids = array_map( 'absint', $ids );
-			foreach ( $ids as $id ) {
-				if ( incsub_support_current_user_can( 'close_ticket', $id ) )
-					incsub_support_close_ticket( $id );
-			}
 		}
 
 	}
@@ -142,7 +138,7 @@ class WangGuard_Signup_Moderation_Table extends WP_List_Table {
 	function get_bulk_actions() {
 		$actions = array(
 			'splog'    => __( 'Mark as Splogger', 'wangguard' ),
-			'unsplog'    => __( 'Unmark as Splogger', 'wangguard' )
+			'unsplog'    => __( 'Approve User', 'wangguard' )
 		);
 		return $actions;
 	}
@@ -169,7 +165,7 @@ class WangGuard_Signup_Moderation_Table extends WP_List_Table {
 			'per_page' => $per_page,
 			'orderby' => isset( $_GET['orderby'] ) ? $_GET['orderby'] : 'ID',
 			'order' => isset( $_GET['order'] ) ? $_GET['order'] : 'ASC',
-			'user_status' => isset( $_GET['user_status'] ) ? $_GET['user_status'] : false,
+			'user_status' => isset( $_GET['user_status'] ) ? $_GET['user_status'] : array( 'moderation-sploggers', 'moderation-allowed' ),
 			's' => isset( $_GET['s'] ) ? $_GET['s'] : false
 		);
 		$this->items = wangguard_get_users_status_list( $args );
