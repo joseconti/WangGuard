@@ -44,6 +44,9 @@ class WangGuard_Signup_Moderation_Admin_Menu {
 			die();
 		}
 
+		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+		add_action( 'network_admin_notices', array( $this, 'admin_notices' ) );
+
 	}
 
 	public function render() {
@@ -52,6 +55,20 @@ class WangGuard_Signup_Moderation_Admin_Menu {
 		$table->prepare_items();
 
 		include( 'views/signup-moderation.php' );
+	}
+
+	public function admin_notices() {
+		if ( ! get_site_option( 'wangguard-moderation-is-active' ) ) {
+			if ( is_multisite() ) {
+				$url = add_query_arg( 'page', 'wangguard_conf', network_admin_url() );
+			}
+			else {
+				$url = menu_page_url( 'wangguard_conf', false );
+			}
+			?>
+				<div class="error"><p><?php printf( __( 'Moderation Disabled. You need to go to <a href="%s"> WangGuard settings</a> to activate it', 'wangguard' ), esc_url( $url ) ); ?></p></div>
+			<?php
+		}
 	}
 
 }

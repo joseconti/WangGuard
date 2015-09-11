@@ -129,6 +129,8 @@ class WangGuard_Signup_Moderation_Table extends WP_List_Table {
 				// Unsplog users
 				$users_ids = array_map( 'absint', $users );
 				wangguard_whitelist_report( $users_ids );
+				foreach ( $users_ids as $user_id )
+					wangguard_send_user_signup_approved( $user_id );
 			}
 
 		}
