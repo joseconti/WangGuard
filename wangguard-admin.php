@@ -32,6 +32,15 @@ if ( ( get_site_option("wangguard-no-use-ssl") == '1' ) ) {
 } else {
 	define('WANGGUARD_API_PORT', '443');
 }
+
+
+/**
+ * Include some helpers
+ */
+include_once( 'inc/helpers/helpers.php' );
+
+
+
 // Debug WangGuard
 //error_reporting(E_ALL);
 //ini_set("display_errors", 1);
@@ -2281,6 +2290,10 @@ function wangguard_add_admin_menu() {
 	$WGContactPage = add_submenu_page( '', __( 'Contact', 'wangguard'), __( 'Contact', 'wangguard' ), 'manage_options', 'wangguard_contact', 'wangguard_contact' );
 	$WGHelpUsPage = add_submenu_page( '', __( 'Help Us', 'wangguard'), __( 'Help Us', 'wangguard' ), 'manage_options', 'wangguard_help_us', 'wangguard_help_us' );
 	$WGCreditsPage = add_submenu_page( '', __( 'Credits', 'wangguard'), __( 'Credits', 'wangguard' ), 'manage_options', 'wangguard_credits', 'wangguard_credits' );
+
+	// Add the Signup Moderation screen
+	include_once( 'admin/class-admin-signup-moderation.php' );
+	new WangGuard_Signup_Moderation_Admin_Menu();
 }
 function wangguard_add_StatsJS() {
 	wangguard_add_jQueryJS();
@@ -2421,4 +2434,3 @@ do_action( 'wangguard_include');
 /********************************************************************/
 /****** ALLOW PLUGINS-ADD-ONS TO DO THINGS ENDS**********************/
 /********************************************************************/
-?>
