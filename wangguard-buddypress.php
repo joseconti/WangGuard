@@ -74,7 +74,7 @@ function wangguard_bp_activity_spam_all_user_data( $user_id = 0 ) {
 	// Call an action for plugins to use
 	do_action( 'bp_activity_spam_all_user_data', $user_id, $activities['activities'] );
 }
-add_action( 'wangguard_bp_make_spam_user', 'wangguard_bp_activity_spam_all_user_data' );
+//add_action( 'wangguard_bp_make_spam_user', 'wangguard_bp_activity_spam_all_user_data' );
 function wangguard_spam_all_data( $user_id ) {
 	global $wpdb, $bp;
 	$wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->blogs->table_name} WHERE user_id = %d", $user_id ) );
@@ -129,11 +129,11 @@ function wangguard_signup_validate_bp11() {
 		if (isset ($bp->signup->errors['signup_email']))$bp->signup->errors['signup_email'] = wangguard_fix_bp_slashes_maybe($bp->signup->errors['signup_email']);
 	}
 }
-add_action( 'wangguard_bp_make_spam_user', 'wangguard_spam_all_data' );
+//add_action( 'wangguard_bp_make_spam_user', 'wangguard_spam_all_data' );
 add_action('bp_signup_validate', 'wangguard_signup_validate_bp11' );
 
 function wangguard_add_style_sq(){
-	wp_enqueue_style( 'wangguard-bp', plugins_url( '/css/wangguard-bp.css', __FILE__ ), false, '1.6', 'all' );
+	wp_enqueue_style( 'wangguard-bp', plugins_url( '/css/wangguard-bp.css', __FILE__ ), false, '1.7', 'all' );
 }
 add_action('wp_head', 'wangguard_add_style_sq');
 
