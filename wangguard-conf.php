@@ -334,7 +334,7 @@ function wangguard_conf() {
 												<?php if ($plan['upgrade']['tax']) {?>+ <?php echo number_format($plan['upgrade']['tax'],2, ',' , '.') ?> &euro; <?php _e('tax', 'wangguard'); ?><?php }?><br/>
 												<?php echo number_format($plan['upgrade']['monthlyq'], 0, '' , '.')  ?> <?php _e('Queries per month', 'wangguard'); ?>
 
-												<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+												<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 													<input type="hidden" name="cmd" value="_xclick">
 													<input type="hidden" name="currency_code" value="EUR">
 													<input type="hidden" name="business" value="<?php echo $xml_hired['out']['seller']  ?>">
@@ -356,7 +356,7 @@ function wangguard_conf() {
 												<h4><?php _e('Renew your plan', 'wangguard'); ?></h4>
 												<?php _e('Click below to renew your current plan', 'wangguard'); ?> <?php _e('for', 'wangguard'); ?> <strong><?php echo number_format($plan['renewcost'], 2, ',' , '.')  ?> &euro;</strong>
 												<?php if ($plan['renewtax']) {?>+ <?php echo number_format($plan['renewtax'],2, ',' , '.') ?> &euro; <?php _e('tax', 'wangguard'); ?><?php }?>
-												<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+												<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 													<input type="hidden" name="cmd" value="_xclick">
 													<input type="hidden" name="currency_code" value="EUR">
 													<input type="hidden" name="business" value="<?php echo $xml_hired['out']['seller']  ?>">
@@ -431,7 +431,7 @@ function wangguard_conf() {
 										<td style="white-space: nowrap;"><?php echo $plan['months']  ?> <?php _e('mo.', 'wangguard'); ?></td>
 										<td style="white-space: nowrap; text-align: right;"><?php echo number_format($plan['monthlyq'], 0, '' , '.')  ?>/<?php _e('mo.', 'wangguard'); ?></td>
 										<td style="text-align: center;">
-											<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+											<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 												<input type="hidden" name="cmd" value="_xclick">
 												<input type="hidden" name="currency_code" value="EUR">
 												<input type="hidden" name="business" value="<?php echo $xml_avail['out']['seller']  ?>">
