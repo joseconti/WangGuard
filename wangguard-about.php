@@ -59,12 +59,15 @@
 				<div class="feature-section col two-col">
 					<img class="image-100" src="<?php  echo $wangguard_plugin_url . 'wangguard/img/wangguard-about.png'; ?>" width=100% />
 					<div>
-						<h4><?php  _e( 'WangGuard 1.6 is here', 'wangguard' ); ?></h4>
-						<p><?php  _e( 'After many month, WanGuard 1.6 is here. It comes with many new features and many fixed bugs.', 'wangguard' ); ?></p>
+						<h4><?php  _e( 'WangGuard 1.7 is here', 'wangguard' ); ?></h4>
+						<p><?php  _e( 'After many month, WanGuard 1.7 is here. It comes with new features and many fixed bugs.', 'wangguard' ); ?></p>
 					</div>
 					<div class="last-feature">
-					<h4><?php  _e( 'New in 1.6.2', 'wangguard' ); ?></h4>
-					<p><?php  _e( 'Added Whitelisted users list in WangGuard Users Screen, and some Tweaks to code', 'wangguard' ); ?></p>
+						<h4><?php  _e( '30 Days Trial', 'wangguard' ); ?></h4>
+						<p><?php  _e( 'After 5 years, we are ready for start with the Premium accounts, so every one has 30 Days trial from this release.', 'wangguard' ); ?></p>
+						<p><?php  _e( 'After the 30 Days Trial, people who has to pay for WangGuard, will pay only 12€/year for 1,500,000 queries month and unlimited site.', 'wangguard' ); ?></p>
+						<p><?php  _e( 'The best service, with the best price and the best features.', 'wangguard' ); ?></p>
+						<p><?php  _e( 'And the best one, you can pay from your WordPress admin. Go to WangGurd > Settings > My Account.', 'wangguard' ); ?></p>
 					</div>
 				</div>
 			</div>
@@ -72,8 +75,8 @@
 				<h3><?php  _e( 'Survey', 'wangguard' ); ?></h3>
 				<div class="feature-section images-stagger-right">
 					<iframe frameborder="0" width="70%" height="1500" scrolling="auto" style="float:right" allowtransparency="true" src="//darkeorc.polldaddy.com/s/wangguard-1-6?iframe=1"><a href="//darkeorc.polldaddy.com/s/wangguard-1-6">Ver Encuesta</a></iframe>
-					<h4><?php  _e( 'Please, help us with this survey', 'wangguard' ); ?></h4>
-					<p><?php  _e( 'With this survey you will help us to make some decisions. There are only 4 questions and you only need a minute for answer the questions. Thanks a lot for your help.', 'wangguard' ); ?></p>
+					<h4><?php  _e( 'Signup Moderation', 'wangguard' ); ?></h4>
+					<p><?php  _e( 'We know that this was your dream, now you can moderate signups with this new feature. Moderate all users or only Detected Sploggers. By default, this feature is disabled.', 'wangguard' ); ?></p>
 				</div>
 			</div>
 			<div class="return-to-dashboard">
