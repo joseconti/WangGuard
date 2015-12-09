@@ -3,8 +3,8 @@ Contributors: j.conti,maxidirienzo,InTouchSystem
 Author URI: http://wangguard.com
 Tags: wangguard, wgg, sploggers, splog, anti-splog, user spam, anti spam users, anti-spam, spam blog, spam blogs, wordpress, buddypress, wpmu, wordpress mu, wordpress multisite, standard WordPress, registration, security, security questions, plugin, sign up, signup, spam, wp-login.php, wp-signup.php, wp-register.php, register, registration, protect, protect registration, block agents, block ip, blog secure, bots, secure blog, secure wordpress, secure wp, website security, wp secure, wp security, block users, block user, block, block emails, block e-mails, block domains, block bots, block bot, bp, captcha, no captcha, recaptcha, unwanted users, block unwanted users, block splog, black hat, blackhat, bbpress, clean, clean database, clean splog, clean users, untrusted, untrusted users, ip, ip information, user admin, user management, advanced user management, ip info, appthemes, user registration spam, users registration spam, user registration spam prevention, users registration spam prevention, woocommerce
 Requires at least: 3.0
-Tested up to: 4.3
-Stable tag: 1.6.2
+Tested up to: 4.4
+Stable tag: 1.7 RC1
 License: GPLv2
 
 The most advanced protection against sploggers and spam users registration, is fully WordPress,WordPress MU ,BuddyPress and bbPress 2.0 compatible
@@ -40,11 +40,11 @@ One time we believe that we've added all the necessary tools, we will begin to c
 
 = Prices =
 
-* From 0 to 5,000 queries day FREE (only personal use. Companies and webmasters making more than $200/month, look next level).
+* From 0 to 5,000 queries day FREE (only personal use. Companies or webmasters making more than $200/month, look next level).
 
-* From 5,001 to 50,000 queries day, 1€/month. (this will be the basic level for Companies and webmasters making more than $200/month).
+* From 5,001 to 50,000 queries day, 1€/month. (this will be the basic level for Companies or webmasters making more than $200/month).
 
-* From 50,001 to 150,000 queries day, 3€/month.
+* From 50,001 to 150,000 queries day, 10€/month.
 
 * +150.000 queries day, contact with us.
 
@@ -116,12 +116,13 @@ No need to put any kind of filter in the user registration page (eg captcha). Th
 
 
  * Free API key for personal use
- * Free to everyone for a limited time!
+ * 30 days Trial
  * API works over SSL
  * Clean your installation of unwanted users and sploggers.
  * Centralized database of sploggers.
+ * NEW Signup moderation
  * Block users emails by domains.
- * NEW Advanced User Management.
+ * Advanced User Management.
  * Configure from Admin panel
  * Valid HTML
  * I18n language translation support
@@ -311,10 +312,17 @@ Please read [Translating WordPress](http://codex.wordpress.org/Translating_WordP
 
 = Is WangGuard a free service? =
 
-It is free for personal use. If you make more than $200/month with your site or you are a company, you must pay a very small fee ($1/month). Now WangGuard are Free to everyone for a limited time!. Use this time to perform all the tests you want and determine the effectiveness of WangGuard.
+It is free for personal use. If you make more than $200/month with your site or you are a company, you must pay a very small fee ($1/month). You have 30 days trial. Use this time to perform all the tests you want and determine the effectiveness of WangGuard.
 
 
 == Changelog ==
+
+= 1.7 - 6 Nov 2015 =
+
+- NEW Added Signup moderation
+- NEW Disable WangGuard cron emails
+- Fixed: Problem with BuddyPress and remove users when are reported to WangGuard
+- Fixed minor issues.
 
 = 1.6.2 - 9 Dic 2014 =
 
@@ -323,7 +331,7 @@ It is free for personal use. If you make more than $200/month with your site or 
 
 = 1.6.1.2 - 7 Dic 2014 =
 
-- This version is trying to fix a problem that have 1% of users. The users are always redirected to WangGuard splash screen form a random admin page. This problem was fixing itself within a few hours. This is a path based in a theory, so maybe don't work.
+- This version is trying to fix a problem that have 1% of users. The users are always redirected to WangGuard splash screen form a random admin page. This problem was fixing itself within a few hours. This is a path based in a theory, so maybe it dosen't work.
 
 = 1.6.1.1 - 5 Dic 2014 =
 
