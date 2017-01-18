@@ -39,7 +39,7 @@ if ( ( get_site_option("wangguard-no-use-ssl") == '1' ) ) {
  */
 include_once( 'inc/helpers/helpers.php' );
 
-
+register_activation_hook(__FILE__,'wangguard_install');
 
 // Debug WangGuard
 //error_reporting(E_ALL);
@@ -2424,6 +2424,7 @@ if ($wpversion >= '3.6') {
 } else {
 	if ( $wangguard_is_network_admin )add_action( 'wp_network_dashboard_setup', 'wangguard_dashboard_stats' ); else add_action( 'wp_dashboard_setup', 'wangguard_dashboard_stats' );
 }
+
 /********************************************************************/
 /*** DASHBOARD ENDS ***/
 /********************************************************************/

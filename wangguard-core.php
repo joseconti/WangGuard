@@ -265,7 +265,7 @@ function wangguard_install($current_version) {
 	if ($tmp === false)
 		update_site_option ("wangguard-add-honeypot", 1);
 }
-register_activation_hook(__FILE__,'wangguard_install');
+
 //Add the Settings link on the plugins page
 function wangguard_action_links( $links, $file ) {
 	global $wangguard_is_network_admin;
