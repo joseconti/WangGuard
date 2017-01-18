@@ -196,7 +196,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 			$role = $wp_roles->role_names[$role];
 
 		// Prepare row classes
-		$row_classes = array( $style );
+		$row_classes = array( '' );
 		if ( @$row_data->spam || @$row_data->user_status ) {
 			$row_classes[] = 'site-spammed';
 		}
