@@ -71,7 +71,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 		//Unchecked users
 		$table_name = $wpdb->base_prefix . "wangguarduserstatus";
 		$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where  (not EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID) OR EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID and $table_name.user_status IN ( '', 'not-checked' )))");
-		$uncheked_users = $wangguard_g_unchecked_users_count = $Count[0];
+		$uncheked_users = $wangguard_g_unchecked_users_count = isset( $Count[0] ) ? $Count[0] : 0;
 		$class = ($requestType == "uncheked") ? ' class="current"' : '';
 		$total['uncheked'] = "<a href='" . add_query_arg( 'type', "uncheked", $url ) . "'$class>".sprintf( __( 'Unchecked Users <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $uncheked_users ) )."</a>";
 		//Legitimate users
@@ -83,7 +83,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1" . $wgLegitimateSQL);
 		else
 			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1" . $wgLegitimateSQL);
-		$legitimate_users = $Count[0];
+		$legitimate_users = isset( $Count[0] ) ? $Count[0] : 0;;
 		$class = ($requestType == "l") ? ' class="current"' : '';
 		$total['legitimate'] = "<a href='" . add_query_arg( 'type', "l", $url ) . "'$class>".sprintf( __( 'Verified Members <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $legitimate_users ) )."</a>";
 		//Whitelisted users
@@ -96,7 +96,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1" . $wgLegitimateSQL);
 		else
 			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1" . $wgLegitimateSQL);
-		$legitimate_users = $Count[0];
+		$legitimate_users = isset( $Count[0] ) ? $Count[0] : 0;;
 		$class = ($requestType == "whitelisted") ? ' class="current"' : '';
 		$total['whitelisted'] = "<a href='" . add_query_arg( 'type', "whitelisted", $url ) . "'$class>".sprintf( __( 'Whitelisted Users <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $legitimate_users ) )."</a>";
 		//Spam users, only BP or MS
@@ -112,7 +112,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 		//Sploggers users
 		$table_name = $wpdb->base_prefix . "wangguarduserstatus";
 		$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID and $table_name.user_status IN ( 'reported', 'autorep' ))");
-		$splog_users = $wangguard_g_splog_users_count = $Count[0];
+		$splog_users = $wangguard_g_splog_users_count = isset( $Count[0] ) ? $Count[0] : 0;;
 		$class = ($requestType == "spl") ? ' class="current"' : '';
 		$total['sploggers'] = "<a href='" . add_query_arg( 'type', "spl", $url ) . "'$class>".sprintf( __( 'Sploggers <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $splog_users ) )."</a>";
 		return $total;
