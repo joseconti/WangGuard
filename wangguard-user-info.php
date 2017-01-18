@@ -7,9 +7,12 @@ function wangguard_users_info() {
 	global $wpdb,$wangguard_nonce, $wangguard_api_key, $blog_id;
 	if ( !current_user_can('level_10') )
 		die(__('Cheatin&#8217; uh?', 'wangguard'));
-		$userID = $_GET["userID"];
-		$userIP = $_GET["userIP"];
+		$userID = absint( $_GET["userID"] );
 		$user_info = get_userdata($userID);
+
+		$table = $wpdb->base_prefix . 'wangguarduserstatus';
+		$userIP = $wpdb->get_var( $wpdb->prepare( "SELECT user_ip FROM $table WHERE ID = %d", $userID ) );
+		$userIP = $userIP ? $userIP : '';
 	//$blogID = $user_info->primary_blog;
 	//if ( function_exists( is_multisite() ) ) {
 	//$blog_details = get_blog_details( array( 'blog_id' => $blogID ) );
