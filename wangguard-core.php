@@ -265,7 +265,7 @@ function wangguard_install($current_version) {
 	if ($tmp === false)
 		update_site_option ("wangguard-add-honeypot", 1);
 }
-register_activation_hook(__FILE__,'wangguard_install');
+
 //Add the Settings link on the plugins page
 function wangguard_action_links( $links, $file ) {
 	global $wangguard_is_network_admin;
@@ -1031,7 +1031,7 @@ function wangguard_user_custom_columns($dummy , $column_name , $userid , $echo =
 		}
 		$user_object = new WP_User($userid);
 		$Domain = explode("@",$user_object->user_email);
-		$Domain = $Domain[1];
+		$Domain = isset( $Domain[1] ) ? $Domain[1] : '';
 		$deleteUser = get_site_option ("wangguard-delete-users-on-report")=='1';
 		$html .= "<br/><div class=\"row-actions\">";
 		if ( !wangguard_is_admin($user_object) ) {

@@ -5,6 +5,8 @@
  */
 require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 class WangGuard_Users_Table extends WP_List_Table {
+	public $post_counts = 0;
+
 	function WangGuard_Users_Table() {
 		global $wp_version;
 		$cur_wp_version = preg_replace('/-.*$/', '', $wp_version);
@@ -45,6 +47,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 		// Query the user IDs for this page
 		$wp_user_search = new WangGuard_Users_Query( $args );
 		$this->items = $wp_user_search->get_results();
+		$this->post_counts = count_many_users_posts( array_keys( $this->items ) );
 		$this->set_pagination_args( array(
 			'total_items' => $wp_user_search->get_total(),
 			'per_page' => $users_per_page,
@@ -68,7 +71,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 		//Unchecked users
 		$table_name = $wpdb->base_prefix . "wangguarduserstatus";
 		$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where  (not EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID) OR EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID and $table_name.user_status IN ( '', 'not-checked' )))");
-		$uncheked_users = $wangguard_g_unchecked_users_count = $Count[0];
+		$uncheked_users = $wangguard_g_unchecked_users_count = isset( $Count[0] ) ? $Count[0] : 0;
 		$class = ($requestType == "uncheked") ? ' class="current"' : '';
 		$total['uncheked'] = "<a href='" . add_query_arg( 'type', "uncheked", $url ) . "'$class>".sprintf( __( 'Unchecked Users <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $uncheked_users ) )."</a>";
 		//Legitimate users
@@ -80,7 +83,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1" . $wgLegitimateSQL);
 		else
 			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1" . $wgLegitimateSQL);
-		$legitimate_users = $Count[0];
+		$legitimate_users = isset( $Count[0] ) ? $Count[0] : 0;;
 		$class = ($requestType == "l") ? ' class="current"' : '';
 		$total['legitimate'] = "<a href='" . add_query_arg( 'type', "l", $url ) . "'$class>".sprintf( __( 'Verified Members <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $legitimate_users ) )."</a>";
 		//Whitelisted users
@@ -93,7 +96,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1" . $wgLegitimateSQL);
 		else
 			$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where $wpdb->users.user_status <> 1" . $wgLegitimateSQL);
-		$legitimate_users = $Count[0];
+		$legitimate_users = isset( $Count[0] ) ? $Count[0] : 0;;
 		$class = ($requestType == "whitelisted") ? ' class="current"' : '';
 		$total['whitelisted'] = "<a href='" . add_query_arg( 'type', "whitelisted", $url ) . "'$class>".sprintf( __( 'Whitelisted Users <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $legitimate_users ) )."</a>";
 		//Spam users, only BP or MS
@@ -109,7 +112,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 		//Sploggers users
 		$table_name = $wpdb->base_prefix . "wangguarduserstatus";
 		$Count = $wpdb->get_col( "select count(*) as q from $wpdb->users where EXISTS (select user_status from $table_name where $table_name.ID = {$wpdb->users}.ID and $table_name.user_status IN ( 'reported', 'autorep' ))");
-		$splog_users = $wangguard_g_splog_users_count = $Count[0];
+		$splog_users = $wangguard_g_splog_users_count = isset( $Count[0] ) ? $Count[0] : 0;;
 		$class = ($requestType == "spl") ? ' class="current"' : '';
 		$total['sploggers'] = "<a href='" . add_query_arg( 'type', "spl", $url ) . "'$class>".sprintf( __( 'Sploggers <span class="count">(%s)</span>' , 'wangguard'), number_format_i18n( $splog_users ) )."</a>";
 		return $total;
@@ -154,23 +157,22 @@ class WangGuard_Users_Table extends WP_List_Table {
 	}
 	function display_rows() {
 		// Query the post counts for this page
-		$style = '';
-		$post_counts = count_many_users_posts( array_keys( $this->items ) );
 		foreach ( $this->items as $userid => $row_data ) {
-			$style = ( 'alternate' == $style ) ? '' : 'alternate';
-			echo "\n\t", $this->single_row( $row_data, $style , $post_counts[$userid] );
+			echo "\n\t", $this->single_row( $row_data );
 		}
 	}
 	/**
 	 * Generate HTML for a single row on the users.php admin panel.
 	 */
-	function single_row( $row_data, $style = '' , $numposts) {
+	function single_row( $row_data ) {
 		global $wpdb , $wp_roles;
+
 		$url = admin_url('admin.php?page=wangguard_users&order='.(isset($_REQUEST['order']) ? $_REQUEST['order'] : '').'&orderby='.(isset($_REQUEST['orderby']) ? $_REQUEST['orderby'] : ''));
 		//USER
 		$row_data->filter = 'display';
 		$email = $row_data->user_email;
 		$user_id = $row_data->ID;
+		$numposts = $this->post_counts[$user_id];
 
 		$checkbox = '';
 		$actions = false;
@@ -194,7 +196,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 			$role = $wp_roles->role_names[$role];
 
 		// Prepare row classes
-		$row_classes = array( $style );
+		$row_classes = array( '' );
 		if ( @$row_data->spam || @$row_data->user_status ) {
 			$row_classes[] = 'site-spammed';
 		}
@@ -377,12 +379,7 @@ class WangGuard_Users_Query {
 	var $query_where_u;
 	var $query_orderby;
 	var $query_limit;
-	/**
-	 * PHP4 constructor
-	 */
-	function WangGuard_Users_Query( $query = null ) {
-		$this->__construct( $query );
-	}
+
 	/**
 	 * PHP5 constructor
 	 * @return WangGuard_Users_Query

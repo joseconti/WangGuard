@@ -39,7 +39,7 @@ if ( ( get_site_option("wangguard-no-use-ssl") == '1' ) ) {
  */
 include_once( 'inc/helpers/helpers.php' );
 
-
+register_activation_hook(__FILE__,'wangguard_install');
 
 // Debug WangGuard
 //error_reporting(E_ALL);
@@ -2260,7 +2260,7 @@ function wangguard_add_admin_menu() {
 	if (empty($wangguard_api_key))$doCount = $wpdb->get_var("show tables like '$table_name'") == $table_name;
 	if ($doCount) {
 		$Count = $wpdb->get_col( "select count(*) as q from $table_name" );
-		if ($Count[0] > 0)$countSpan = '<span class="update-plugins" ><span class="pending-count">'.$Count[0].'</span></span>';
+		if (isset( $Count[0] ) && $Count[0] > 0)$countSpan = '<span class="update-plugins" ><span class="pending-count">'.$Count[0].'</span></span>';
 	}
 	@include_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 	$queueEnabled = ((get_site_option("wangguard-enable-bp-report-blog") == 1) || (get_site_option ("wangguard-enable-bp-report-btn")==1))  &&   class_exists('WP_List_Table');
@@ -2424,6 +2424,7 @@ if ($wpversion >= '3.6') {
 } else {
 	if ( $wangguard_is_network_admin )add_action( 'wp_network_dashboard_setup', 'wangguard_dashboard_stats' ); else add_action( 'wp_dashboard_setup', 'wangguard_dashboard_stats' );
 }
+
 /********************************************************************/
 /*** DASHBOARD ENDS ***/
 /********************************************************************/
