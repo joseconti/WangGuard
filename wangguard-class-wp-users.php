@@ -5,6 +5,8 @@
  */
 require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 class WangGuard_Users_Table extends WP_List_Table {
+	public $post_counts = 0;
+
 	function WangGuard_Users_Table() {
 		global $wp_version;
 		$cur_wp_version = preg_replace('/-.*$/', '', $wp_version);
@@ -45,6 +47,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 		// Query the user IDs for this page
 		$wp_user_search = new WangGuard_Users_Query( $args );
 		$this->items = $wp_user_search->get_results();
+		$this->post_counts = count_many_users_posts( array_keys( $this->items ) );
 		$this->set_pagination_args( array(
 			'total_items' => $wp_user_search->get_total(),
 			'per_page' => $users_per_page,
@@ -154,23 +157,22 @@ class WangGuard_Users_Table extends WP_List_Table {
 	}
 	function display_rows() {
 		// Query the post counts for this page
-		$style = '';
-		$post_counts = count_many_users_posts( array_keys( $this->items ) );
 		foreach ( $this->items as $userid => $row_data ) {
-			$style = ( 'alternate' == $style ) ? '' : 'alternate';
-			echo "\n\t", $this->single_row( $row_data, $style , $post_counts[$userid] );
+			echo "\n\t", $this->single_row( $row_data );
 		}
 	}
 	/**
 	 * Generate HTML for a single row on the users.php admin panel.
 	 */
-	function single_row( $row_data, $style = '' , $numposts) {
+	function single_row( $row_data ) {
 		global $wpdb , $wp_roles;
+
 		$url = admin_url('admin.php?page=wangguard_users&order='.(isset($_REQUEST['order']) ? $_REQUEST['order'] : '').'&orderby='.(isset($_REQUEST['orderby']) ? $_REQUEST['orderby'] : ''));
 		//USER
 		$row_data->filter = 'display';
 		$email = $row_data->user_email;
 		$user_id = $row_data->ID;
+		$numposts = $this->post_counts[$user_id];
 
 		$checkbox = '';
 		$actions = false;
