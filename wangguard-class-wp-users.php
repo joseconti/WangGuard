@@ -377,12 +377,7 @@ class WangGuard_Users_Query {
 	var $query_where_u;
 	var $query_orderby;
 	var $query_limit;
-	/**
-	 * PHP4 constructor
-	 */
-	function WangGuard_Users_Query( $query = null ) {
-		$this->__construct( $query );
-	}
+
 	/**
 	 * PHP5 constructor
 	 * @return WangGuard_Users_Query
