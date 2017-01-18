@@ -226,7 +226,7 @@ class WangGuard_Users_Table extends WP_List_Table {
 					} else {
 						$url = esc_url( network_admin_url( add_query_arg( array( 'page' => 'wangguard_users_info' ), 'admin.php' ) ) );
 					}
-					$arrayUrl = array ('userID' => $user_id, 'userIP' => $row_data->user_ip, '?TB_iframe' => 'true', 'width' => '900', 'height' => '550' );
+					$arrayUrl = array ('userID' => $user_id, '?TB_iframe' => 'true', 'width' => '900', 'height' => '550' );
 					$final_user_info_url = esc_url( add_query_arg(  $arrayUrl , $url ));
 					$cell_contents = "<a class='thickbox' title='" . __( 'Info about','wangguard') . " {$row_data->first_name} {$row_data->last_name}' href='" . $final_user_info_url . "'><img class='alignnone size-full wp-image-2055' alt='Info about {$row_data->first_name} {$row_data->last_name}' src='" . plugins_url( 'img/info-wgg.png' , __FILE__ ) . "' width='15' height='15' /> " . __('User Info', 'wangguard' ) . "</a>";
 					break;
