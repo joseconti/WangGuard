@@ -1031,7 +1031,7 @@ function wangguard_user_custom_columns($dummy , $column_name , $userid , $echo =
 		}
 		$user_object = new WP_User($userid);
 		$Domain = explode("@",$user_object->user_email);
-		$Domain = $Domain[1];
+		$Domain = isset( $Domain[1] ) ? $Domain[1] : '';
 		$deleteUser = get_site_option ("wangguard-delete-users-on-report")=='1';
 		$html .= "<br/><div class=\"row-actions\">";
 		if ( !wangguard_is_admin($user_object) ) {
